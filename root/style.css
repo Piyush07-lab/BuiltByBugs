@@ -6,6 +6,19 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* ========= Fonts ========= */
+
+@font-face {
+    font-family: 'AcademiaSSK';
+    src: url('assets/fonts/academiassk_bold-webfont.woff') format('woff');
+    src: url('assets/fonts/academiassk_bold-webfont.woff2') format('woff2');
+    src: url('assets/fonts/academiassk_regular-webfont.woff') format('woff');
+    src: url('assets/fonts/academiassk_regular-webfont.woff2')format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+
+
 body {
     background-color: #0f0f0f;
     color: #ffffff;
@@ -19,7 +32,7 @@ body {
     align-items: center;
     padding: 20px 50px;
     background-color: #1a1a1a;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .logo h1 {
@@ -112,8 +125,15 @@ body {
 
 /* === Fade-in Animation === */
 @keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.9); }
-    to   { opacity: 1; transform: scale(1); }
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 /* === Quick Links (mainTwo) === */
@@ -196,39 +216,60 @@ body {
 /* === Logo === */
 
 .logo-container {
+    width: 10em;
+    height: 10em;
+    position: relative;
+    margin: 0;
+    border-radius: 50%;
+    background-color: #0f0f0f;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    margin-right: 20px;
 }
 
 .logo-circle {
-    width: 80px;
-    height: 80px;
-    border: 3px solid #00ff99;
+    position: relative;
+    width: 50%;
+    height: 50%;
+    border: 0em;
     border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 2px;
     background-color: #0f0f0f;
-    box-shadow: 0 0 8px #00ff9966;
+    overflow: hidden;
 }
 
 .logo-letter {
-    margin-left: -2px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'AcademiaSSK', serif;
     color: #00ff99;
-    font-weight: bold;
-    font-size: 1.2rem;
-    font-family: monospace;
-    animation: fadeIn 1.5s ease;
+    left: 22%;
+    font-size: 4.4em;
+}
+
+#logo-c {
+    left: 27%;
+    font-size: 3.4em;
+}
+
+#logo-d {
+    left: 34%;
+    font-size: 2.3em;
 }
 
 .logo-text {
+    position: relative;
     font-size: 0.9rem;
+    left: 17%;
     color: #00ff99;
-    margin-top: 5px;
-    font-weight: 500;
-    letter-spacing: 1px;
+    font-family: 'AcademiaSSK', serif;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+}
+
+#bug-b {
+    font-family: 'AcademiaSSK';
     text-transform: uppercase;
+    font-weight: bolder;
+    color: #2a2a2a;
 }
