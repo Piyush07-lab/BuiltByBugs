@@ -10,13 +10,14 @@
 
 @font-face {
     font-family: 'AcademiaSSK';
-    src: url('assets/fonts/academiassk_bold-webfont.woff') format('woff');
-    src: url('assets/fonts/academiassk_bold-webfont.woff2') format('woff2');
-    src: url('assets/fonts/academiassk_regular-webfont.woff') format('woff');
-    src: url('assets/fonts/academiassk_regular-webfont.woff2')format('woff2');
-    font-weight: 400;
+    src: url('assets/fonts/academiassk_bold-webfont.woff2') format('woff2'),
+        url('assets/fonts/academiassk_bold-webfont.woff') format('woff');
+    src: url('assets/fonts/academiassk_regular-webfont.woff2') format('woff2'),
+        url('assets/fonts/academiassk_regular-webfont.woff') format('woff');
+    font-weight: normal;
     font-style: normal;
 }
+
 
 
 body {
@@ -72,15 +73,40 @@ body {
     background-color: #00cc7a;
 }
 
+/* ==== Main Section ==== */
+#mainSection {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 2%;
+    padding: 2em;
+    height: 100vh;
+    box-sizing: border-box;
+}
+
 /* === Hero Section (mainOne) === */
 .mainOne {
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-wrap: wrap;
     padding: 60px 20px;
     min-height: 100vh;
     background: linear-gradient(145deg, #121212, #1f1f1f);
+}
+
+.mainOne,
+.mainThree {
+    flex: 0 0 35%;
+}
+
+.mainTwo {
+    flex: 0 0 10%;
+    transition: flex 0.4s ease, backfround-color 04s ease;
+}
+
+.mainTwo.expanded {
+    flex: 0 0 34%;
+    z-index: 10;
 }
 
 .mainOneImage img {
@@ -207,10 +233,17 @@ body {
         text-align: center;
     }
 
+    .mainOne,
+    .mainTwo,
+    .mainThree {
+        width: 100%;
+    }
+
     .middleSection ul {
         flex-direction: column;
         gap: 10px;
     }
+
 }
 
 /* === Logo === */
@@ -227,16 +260,6 @@ body {
     align-items: center;
 }
 
-.logo-circle {
-    position: relative;
-    width: 50%;
-    height: 50%;
-    border: 0em;
-    border-radius: 50%;
-    background-color: #0f0f0f;
-    overflow: hidden;
-}
-
 .logo-letter {
     position: absolute;
     top: 50%;
@@ -245,6 +268,10 @@ body {
     color: #00ff99;
     left: 22%;
     font-size: 4.4em;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 #logo-c {
