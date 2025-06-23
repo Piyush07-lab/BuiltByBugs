@@ -9,19 +9,21 @@
 </head>
 
 <body>
-    <div class="header">
-        <div class="logo-container">
+    <header class="header" role="banner" aria-label="Site header">
 
-            <span id="logo-o" class="logo-letter">O</span>
-            <span id="logo-c" class="logo-letter">C</span>
-            <span id="logo-d" class="logo-letter">D</span>
-
-            <div class="logo-text">bug</div>
+        <div class="logo-container" role="banner" aria-label="OCDbug logo">
+            <div class="logo-core">
+                <span id="logo-o" class="logo-letter">O</span>
+                <span id="logo-c" class="logo-letter">C</span>
+                <span id="logo-d" class="logo-letter">D</span>
+            </div>
+            <div class="logo-text"><span id="bug-b">b</span>ug</div>
         </div>
 
-        <div class="middleSection">
-            <nav>
-                <ul>
+
+        <div class="nav-container">
+            <nav class="nav" aria-label="Primary naigation">
+                <ul class="nav-links">
                     <li><a href="#">Home</a></li>
                     <li><a href="#">About</a></li>
                     <li><a href="#">Project</a></li>
@@ -30,17 +32,19 @@
             </nav>
 
         </div>
-        <div class="rightSection">
-            <button>Hire Me!</button>
+    
+        <div class="cta-container"> 
+            <button class="cta-button">Hire Me!</button>
         </div>
-    </div>
+
+    </header>
 
     <section id="mainSection">
 
         <div class="mainOne">
 
             <div class="mainOneImage">
-                <img src="assets/OCDbugLogo.jpg" alt="OCDbud Logo" class="heroLogo">
+                <img src="assets/OCDbugLogo.jpg" alt="OCDbug Logo" class="heroLogo">
             </div>
 
             <div class="mainOneText">
@@ -51,15 +55,15 @@
 
         </div>
 
-        <div class="mainTwo">
+        <div class="mainTwo" role="button" aria-label="Expand status panel">
             <div class="quickLinks">
                 <h2>Quick Links</h2>
                 <ul>
-                    <li><a href="#">one</a></li>
-                    <li><a href="#">two</a></li>
-                    <li><a href="#">three</a></li>
-                    <li><a href="#">four</a></li>
-                    <li><a href="#">five</a></li>
+                    <li><a href="#">QL</a></li>
+                    <li><a href="#">QL</a></li>
+                    <li><a href="#">QL</a></li>
+                    <li><a href="#">QL</a></li>
+                    <li><a href="#">QL</a></li>
                 </ul>
             </div>
         </div>
@@ -79,7 +83,7 @@
 
     </section>
 
-<script src="script.js"></script>    
+    <script src="script.js"></script>
 
 </body>
 

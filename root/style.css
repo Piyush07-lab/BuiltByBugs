@@ -26,50 +26,127 @@ body {
     line-height: 1.6;
 }
 
-/* === Header Navigation === */
-.header {
+/* === Header === */
+.site-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 50px;
-    background-color: #1a1a1a;
+    padding: 0.5em 2em;
+    background-color: #1a1a0a;
+    height: 3em;
+    box-sizing: border-box;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    gap: 1em;
 }
 
-.logo h1 {
-    font-size: 2rem;
-    color: #00ff99;
-}
+/* === Logo === */
 
-.middleSection ul {
-    list-style: none;
+.logo-container {
     display: flex;
-    gap: 30px;
+    gap: 0.5em;
+    align-items: center;
+    width: fit-content; 
+    animation: fadeIn 2s ease;
+    user-select: none;
+    isolation: isolate;
 }
 
-.middleSection a {
+.logo-core {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    isolation: isolate;
+}
+
+.logo-letter {
+    font-family: 'AcademiaSSK', serif;
+    font-size: 2em;
+    color: #00ff99;
+    margin-right: -0.3em;
+    user-select: none;    
+}
+
+.logo-letter:last-child {
+    margin-right: 0;
+}
+
+#logo-o {
+    font-size: 3.4em;
+}
+
+#logo-c {
+    margin-left: -0.5em;
+    font-size: 2.7em;
+}
+
+#logo-d {
+    margin-left: -0.11em;
+    font-size: 1.9em;
+}
+
+.logo-text {
+    font-size: 0.75em;
+    color: #00ff99;
+    font-family: 'AcademiaSSK', sans-serif;
+    letter-spacing: 0.1em;
+}
+
+
+#bug-b {
+    font-family: 'AcademiaSSK', sans-serif;
+    font-weight: bold;
+    color: #510303;
+}
+
+/* ==== Navigation ==== */
+
+.nav-container {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 2em;
+    align-items: center;
+}
+
+.nav-links a {
     text-decoration: none;
     color: #ffffff;
-    font-weight: 500;
+    font-weight: 1em;
     transition: color 0.3s ease;
 }
 
-.middleSection a:hover {
+.nav-links a:hover {
     color: #00ff99;
 }
 
-.rightSection button {
+/*==== CTA-button ====*/
+
+.cta-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.cta-button {
     background-color: #00ff99;
     color: #0f0f0f;
     border: none;
-    padding: 10px 20px;
+    padding: 0.5em 1.2em;
     font-weight: bold;
-    border-radius: 6px;
+    border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
-.rightSection button:hover {
+.cta-button:hover {
     background-color: #00cc7a;
 }
 
@@ -228,6 +305,23 @@ body {
 
 /* === Responsive === */
 @media (max-width: 768px) {
+    .site-header{
+        flex-direction: column;
+        height: auto;
+        padding: 1em;
+        gap: 1em;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        align-items: center;
+        gap: 1em;
+    }
+
+    .cta-button {
+        width: 100%;
+    }
+
     .mainOne {
         flex-direction: column;
         text-align: center;
@@ -246,57 +340,3 @@ body {
 
 }
 
-/* === Logo === */
-
-.logo-container {
-    width: 10em;
-    height: 10em;
-    position: relative;
-    margin: 0;
-    border-radius: 50%;
-    background-color: #0f0f0f;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.logo-letter {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    font-family: 'AcademiaSSK', serif;
-    color: #00ff99;
-    left: 22%;
-    font-size: 4.4em;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-
-#logo-c {
-    left: 27%;
-    font-size: 3.4em;
-}
-
-#logo-d {
-    left: 34%;
-    font-size: 2.3em;
-}
-
-.logo-text {
-    position: relative;
-    font-size: 0.9rem;
-    left: 17%;
-    color: #00ff99;
-    font-family: 'AcademiaSSK', serif;
-    font-weight: 700;
-    letter-spacing: 0.2em;
-}
-
-#bug-b {
-    font-family: 'AcademiaSSK';
-    text-transform: uppercase;
-    font-weight: bolder;
-    color: #2a2a2a;
-}
