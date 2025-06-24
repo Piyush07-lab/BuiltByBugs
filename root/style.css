@@ -27,13 +27,14 @@ body {
 }
 
 /* === Header === */
-.site-header {
-    display: flex;
+.header {
+    display: inline-flex;
     justify-content: space-between;
     align-items: center;
     padding: 0.5em 2em;
     background-color: #1a1a0a;
     height: 3em;
+    width: 100%;
     box-sizing: border-box;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     gap: 1em;
@@ -96,7 +97,16 @@ body {
 #bug-b {
     font-family: 'AcademiaSSK', sans-serif;
     font-weight: bold;
-    color: #510303;
+    color: #3e3939;
+}
+
+.logo-link {
+    display: inline-block;
+    text-decoration: none;
+}
+
+.logo-link:hover {
+    cursor: pointer;
 }
 
 /* ==== Navigation ==== */
@@ -132,7 +142,6 @@ body {
 .cta-container {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
 }
 
 .cta-button {
