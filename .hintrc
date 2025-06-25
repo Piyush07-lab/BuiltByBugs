@@ -1,0 +1,26 @@
+{
+  "connector": {
+    "name": "jsdom"
+  },
+  "extends": [
+    "web-recommended"
+  ],
+  "hints": {
+    "accessibility/alt-attribute": "warning",
+    "image-optimization-cloudinary": "off",
+    "meta-viewport": "error",
+    "content-type": "error",
+    "manifest-file-extension": "off",
+    "highest-available-document-mode": "off",
+    "html-lang-require": "warning",
+    "meta-description": "warning",
+    "manifest-exists": "off",
+    "apple-touch-icons": "off",
+    "no-inline-styles": "warning",
+    "http-compression": "warning",
+    "no-disallowed-headers": "error",
+    "meta-charset-utf-8": "error",
+    "doctype-first": "error",
+    "css-prefix-order": "off"
+  }
+}
