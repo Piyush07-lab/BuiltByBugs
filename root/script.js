@@ -33,4 +33,26 @@ fetch(`https://api.github.com/users/${githubUsername}/repos?sort=updated`)
     repoList.innerHTML = "<li>Unable to load repos at the moment.</li>";
 })
 
+function updateClaock(){
+    const now = new Date();
+    const timeStr = now.toLocaleDateString('en-IN', {
+        hour: '2-digit',
+        minute: '2-digit',
+    })
+    document.getElementById('clockBox').textContent = timeStr;
+}
+setInterval(updateClaock, 1000);
+updateClaock();
+
+const clockBox = document.getElementById("clockBox");
+const threshold = 40;
+
+window.addEventListener("scroll", () => {
+    if(window.scrollY > threshold){
+        clockBox.classlist.add("floating");
+    } else {
+        clockBox.classList.remove("floating");
+    }
+});
+
 // console.log(`Script is runnung!`);
