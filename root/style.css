@@ -443,6 +443,43 @@ body {
     color: #fff;
 }
 
+/* =====GitHub Section===== */
+
+#githubProjects {
+    margin-top: 2rem;
+}
+
+#repoList li {
+    margin: 0.5rem 0;
+    list-style: none;
+}
+
+#repoList a {
+    color: #0af;
+    text-decoration: none;
+}
+
+.github-status-box {
+    background-color: #0d1117;
+    color: #c9d1d9;
+    padding 1rem;
+    border-radius: 0.5em;
+    margin-top: 1rem;
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+.github-status-box p {
+    margin: 0.3rem 0;
+}
+
+.repo-meta {
+    font-size: 0.85rem;
+    color: #999;
+    display: block;
+    margin-top: 0.2rem;
+}
+
 /* === Responsive === */
 @media(max-width: 786px) {
     #mainSection {
