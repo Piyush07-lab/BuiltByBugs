@@ -46,7 +46,7 @@ body {
     display: flex;
     gap: 0.5em;
     align-items: center;
-    width: fit-content; 
+    width: fit-content;
     animation: fadeIn 2s ease;
     user-select: none;
     isolation: isolate;
@@ -65,7 +65,7 @@ body {
     font-size: 2em;
     color: #00ff99;
     margin-right: -0.3em;
-    user-select: none;    
+    user-select: none;
 }
 
 .logo-letter:last-child {
@@ -111,43 +111,43 @@ body {
 
 /* ==== Hero section Logo ==== */
 .mainOne .logo-container {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  width: 100%;
-  max-width: 100%;
-  margin-bottom: 1.5em;
-  user-select: none;
-  animation: fadeIn 1s ease;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 1.5em;
+    user-select: none;
+    animation: fadeIn 1s ease;
 }
 
 .mainOne .logo-core {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0;
-  font-size: 3vw; 
-  line-height: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+    font-size: 3vw;
+    line-height: 1;
 }
 
 .mainOne .logo-letter {
-  color: #00ff99;
-  font-family: 'AcademiaSSK', serif;
-  font-weight: 550;
-  margin-right: -0.3em;
-  user-select: none;
+    color: #00ff99;
+    font-family: 'AcademiaSSK', serif;
+    font-weight: 550;
+    margin-right: -0.3em;
+    user-select: none;
 }
 
 .mainOne .logo-letter:last-child {
-  margin-right: 0;
+    margin-right: 0;
 }
 
 .mainOne .logo-text {
-  font-size: 1.2vw; 
-  margin-left: 0.6em;
-  color: #00ff99;
-  font-family: 'AcademiaSSK', sans-serif;
-  letter-spacing: 0.1em;
+    font-size: 1.2vw;
+    margin-left: 0.6em;
+    color: #00ff99;
+    font-family: 'AcademiaSSK', sans-serif;
+    letter-spacing: 0.1em;
 }
 
 
@@ -254,7 +254,7 @@ body {
     align-items: center;
     justify-content: center;
     overflow: visible;
-    transition: background-color 0.3s ease, opacity 1s ease;
+    transition: background-color 0.3s ease;
 }
 
 .toggle-bar:hover {
@@ -262,7 +262,6 @@ body {
 }
 
 .mainTwo.expanded .toggle-bar {
-    display: none;
     opacity: 0;
     pointer-events: none;
 }
@@ -346,16 +345,6 @@ body {
     }
 }
 
-/* ==== pulseArrow ==== */
-@keyframes pulseArrow {
-    0%, 100% {
-        transform: translateX(0);
-    }
-    50% {
-        transform: translateX(0.1em);
-    }
-}
-
 /* === Projects Section (mainThree) === */
 .mainThree {
     flex: 1 1 34%;
@@ -376,19 +365,6 @@ body {
 }
 
 .clock-box {
-    background-color: #1a1a1a;
-    color: #00ff99;
-    padding: 1rem;
-    margin-top: 1rem;
-    border-radius: 0.8em;
-    font-size: 0.9rem;
-    text-align: left;
-    box-shadow: 0 0 10px rgba(0, 255, 153, 0.1);
-    max-width: 220px;
-    line-height: 1.5;
-}
-
-#clockBox {
     position: relative;
     font-family: monospace;
     font-weight: bold;
@@ -398,8 +374,10 @@ body {
     backdrop-filter: blur(4px);
     padding: 0.3em 0.6em;
     border-radius: 0.5em;
-    box-shadow: 0 0 5px rgba(0, 255, 153,0.3);
-    transition: all 0.4s ease;
+    box-shadow: 0 0 5px rgba(0, 255, 153, 0.3);
+    top: 0;
+    right: 0;
+    transition: top 0.4s ease, right 0.4s ease, transform 0.4s ease, opacity 0.4s ease;
     z-index: 1000;
     user-select: none;
 }
@@ -410,11 +388,13 @@ body {
     width: 100%
 }
 
-#clockBox.floating {
+.clock-box.floating {
     position: fixed;
     top: 0.8rem;
     right: 1rem;
-    transform: scale(0.95);
+    transform: scale(0.95) translateY(-0.5rem);
+    opacity: 0.95;
+    z-index: 1000;
     background-color: #111;
 }
 
@@ -471,14 +451,18 @@ body {
         padding: 2em 5vw;
     }
 
-    .mainOne, .mainTwo, .mainThree {
+    .mainOne,
+    .mainTwo,
+    .mainThree {
         flex: 1 1 auto;
         width: 100%;
         justify-content: center;
         align-items: center;
     }
 
-    .mainOneText, .statsBox, .quick-links {
+    .mainOneText,
+    .statsBox,
+    .quick-links {
         text-align: center;
     }
 
@@ -495,7 +479,10 @@ body {
     #mainSection {
         gap: 1.5em
     }
-    .mainOne, .mainTwo, .mainThree {
+
+    .mainOne,
+    .mainTwo,
+    .mainThree {
         flex-basis: 100%;
     }
 }
