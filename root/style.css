@@ -365,7 +365,8 @@ body {
 }
 
 .clock-box {
-    position: relative;
+    position: calc(50);
+    width: 10rem;
     font-family: monospace;
     font-weight: bold;
     font-size: 0.85rem;
@@ -393,7 +394,7 @@ body {
     top: 0.8rem;
     right: 1rem;
     transform: scale(0.95) translateY(-0.5rem);
-    opacity: 0.95;
+    opacity: 0.9;
     z-index: 1000;
     background-color: #111;
 }
@@ -462,7 +463,7 @@ body {
 .github-status-box {
     background-color: #0d1117;
     color: #c9d1d9;
-    padding 1rem;
+    padding: 1rem;
     border-radius: 0.5em;
     margin-top: 1rem;
     font-size: 0.95rem;
