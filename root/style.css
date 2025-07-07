@@ -23,7 +23,6 @@
 body {
     background-color: #0f0f0f;
     color: #ffffff;
-    line-height: 1.6;
 }
 
 /* === Header === */
@@ -187,14 +186,19 @@ body {
 }
 
 .cta-button {
-    background-color: #00ff99;
-    color: #0f0f0f;
-    border: none;
-    padding: 0.5em 1.2em;
+    position: relative;
+    padding: 0.6em 1.2em;
+    font-size: 1rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-weight: bold;
     border-radius: 0.5em;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    background: hsl(110, 87%, 24%);
+    color: white;
+    transition: all 0.3s ease-in-out;
+    z-index: 10;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .cta-button:hover {
@@ -364,39 +368,34 @@ body {
     margin-bottom: 30px;
 }
 
-.clock-box {
-    position: calc(50);
-    width: 10rem;
+#clockBox {
+    position: relative;
+    width: 100%;
+    padding: 0.6em 1.2em;
+    text-align: right;
+    font-size: 1rem;
+    background-color: hsla(99, 52%, 6%, 0.7);
+    border-bottom: 0.0625em solid hsla(133, 14%, 25%, 0.7);
     font-family: monospace;
     font-weight: bold;
-    font-size: 0.85rem;
+    font-size: 1rem;
     color: #00ff99;
-    background-color: rgba(17, 17, 17, 0.7);
-    backdrop-filter: blur(4px);
-    padding: 0.3em 0.6em;
     border-radius: 0.5em;
-    box-shadow: 0 0 5px rgba(0, 255, 153, 0.3);
-    top: 0;
-    right: 0;
-    transition: top 0.4s ease, right 0.4s ease, transform 0.4s ease, opacity 0.4s ease;
-    z-index: 1000;
+    transition: all 0.3s ease-in-out;
+    z-index: 50;
     user-select: none;
 }
 
-.extra {
-    display: flex;
-    flex-direction: column;
-    width: 100%
-}
-
-.clock-box.floating {
+#clockBox.floating {
     position: fixed;
-    top: 0.8rem;
-    right: 1rem;
+    top: auto;
+    right: 1.2em;
     transform: scale(0.95) translateY(-0.5rem);
     opacity: 0.9;
-    z-index: 1000;
-    background-color: #111;
+    z-index: 999;
+    background-color: hsla(99, 52%, 6%, 0.7);
+    backdrop-filter: blur(0.3em);
+    border-bottom: 0.06em solid hsl(220, 14%, 20%);
 }
 
 .statsBox {
@@ -482,7 +481,7 @@ body {
 }
 
 /* === Responsive === */
-@media(max-width: 786px) {
+@media(max-width: 58em) {
     #mainSection {
         flex-direction: column;
         gap: 1em;
@@ -509,6 +508,30 @@ body {
         flex-wrap: wrap;
         justify-content: center;
         gap: 0.8em;
+    }
+
+    .cta-button.floating {
+        position: fixed;
+        bottom: 5%;
+        right: 5%;
+        width: 3.5em;
+        height: 3.5em;
+        font-size: 1.4rem;
+        border-radius: 50%;
+        padding: 0;
+        background: hsl(110, 87%, 24%);
+        box-shadow: 0 0.2em 0.8em rgba(0, 0, 0, 0.25);
+        z-index: 999;
+    }
+
+    .cta-button.floating span {
+        display: none;
+    }
+
+    .cta-button.floating::bfore {
+        content: "🤝";
+        font-size: 1.3em;
+        line-height: 1;
     }
 
 }

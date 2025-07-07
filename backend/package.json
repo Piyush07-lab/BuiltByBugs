@@ -9,5 +9,8 @@
   },
   "keywords": [],
   "author": "Piyush Mishra",
-  "license": "UNLICENSED"
+  "license": "UNLICENSED",
+  "dependencies": {
+    "dotenv": "^17.0.1"
+  }
 }
