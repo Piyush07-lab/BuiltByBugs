@@ -4,7 +4,7 @@ require('dotenv').config();
 
 
 const headers = {
-    'user-Agent': 'Manual-Node-Client',
+    'User-Agent': 'Manual-Node-Client',
     'Accept': 'application/vnd.github.v3+json'
 };
 
@@ -28,10 +28,17 @@ const fetchGitHub = (options) => {
     });
 };
 
-const getUserAndRepos = async (username) => {
+const getUserAndRepos = async () => {
     const userOptions = {
         hostname: 'api.github.com',
-        path: `/user/${username}/repos?sort=updated`,
+        path: `/users/Piyush07-lab`,
+        method: 'GET',
+        headers: headers,
+    };
+
+    const repoOptions = {
+        hostname: 'api.github.com',
+        path: `/users/Piyush07-lab/repos?sort=updated`,
         method: 'GET',
         headers: headers,
     };

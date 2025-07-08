@@ -1,7 +1,7 @@
-require('dotenv').config();
 const http = require('http');
-const url= require('url');
+const url = require('url');
 const { getUserAndRepos } = require('./utils/github.js');
+require('dotenv').config();
 
 const PORT = 5000;
 const CACHE_TTL = 5 * 60 * 1000;
@@ -19,13 +19,13 @@ const server = http.createServer((req, res) => {
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
     if (req.method === 'OPTIONS') {
-        res.writeHeade(200, { 'Content-Type': 'text/plain' });
+        res.writeHead(200, { 'Content-Type': 'text/plain' });
         return res.end('Hello frpom backend');
     }
 
-    if (parsedUrl.pathname === '/' ) {
+    if (parsedUrl.pathname === '/') {
         res.writeHead(200, { 'Content-Type': 'text/plain' });
-        return res.end('Hello from backend');    
+        return res.end('Hello from backend');
     }
 
     if (parsedUrl.pathname === '/favicon.ico') {
@@ -34,19 +34,23 @@ const server = http.createServer((req, res) => {
     }
 
     if (
-        req.method === 'GET' && 
-        (parsedUrl.pathname === '/api/github/summary' || parsedUrl.pathname === '/api/github/summary/')   
+        req.method === 'GET' &&
+        (parsedUrl.pathname === '/api/github/summary' || parsedUrl.pathname === '/api/github/summary/')
     ) {
         const now = Date.now();
         if (githubCache.data && (now - githubCache.timestamp) < CACHE_TTL) {
             console.log("Serving Github Summary from cache ");
             res.writeHead(200, { 'Content-Type': 'application/json' });
             return res.end(JSON.stringify(githubCache.data));
-            
+
         }
 
-        getUserAndRepos("Piyush07-lab")
-            .then(({user, repos}) => {
+        getUserAndRepos()
+            .then(({ user, repos }) => {
+
+                console.log("Debug: Repo response type:", typeof repos);
+                console.log("Debug: Repos raw content:", repos);
+
                 if (!Array.isArray(repos)) throw new Error("Github repo response is not an array");
 
                 const summary = {
@@ -60,7 +64,7 @@ const server = http.createServer((req, res) => {
                     },
                     repos: repos.slice(0, 5).map(repo => ({
                         name: repo.name,
-                        url: repo.url,
+                        url: repo.html_url,
                         stars: repo.stargazers_count,
                         forks: repo.forks_count,
                         language: repo.language || "N/A"
@@ -70,21 +74,21 @@ const server = http.createServer((req, res) => {
                 githubCache.data = summary;
                 githubCache.timestamp = Date.now();
 
-                res.writeHeade(200, { 'Content-Type': 'application/json' });
+                res.writeHead(200, { 'Content-Type': 'application/json' });
                 res.end(JSON.stringify(summary));
             })
             .catch(err => {
                 console.error("GitHub summary fetch failed", err);
                 res.writeHead(500, { 'Content-Type': 'application/json' });
-                res.end(JSON.stringify({error: "Github summary fetch failed!", details: err.message}));
+                res.end(JSON.stringify({ error: "Github summary fetch failed!", details: err.message }));
             });
 
-            return;
+        return;
 
     }
 
     res.writeHead(404, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({ message: "Not found"}));
+    res.end(JSON.stringify({ message: "Not found" }));
 });
 
 server.listen(PORT, () => {

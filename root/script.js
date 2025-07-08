@@ -8,33 +8,32 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.quick-links a').forEach(link => {
         link.addEventListener('click', e => e.stopPropagation());
     });
-});
 
-
-function updateClock() {
-    const now = new Date();
-    const timeStr = now.toLocaleDateString('en-IN', {
-        hour: '2-digit',
-        minute: '2-digit',
-    })
-    document.getElementById('clockBox').textContent = timeStr;
-}
-setInterval(updateClock, 1000);
-updateClock();
-
-const clockBox = document.getElementById("clockBox");
-const threshold = 150;
-
-window.addEventListener("scroll", () => {
-    if (window.scrollY >= threshold) {
-        clockBox.classList.add("floating");
-    } else {
-        clockBox.classList.remove("floating");
+    function updateClock() {
+        const now = new Date();
+        const timeStr = now.toLocaleDateString('en-IN', {
+            hour: '2-digit',
+            minute: '2-digit',
+        })
+        document.getElementById('clockBox').textContent = timeStr;
     }
-});
+    setInterval(updateClock, 1000);
+    updateClock();
 
-// GitHub Api fetch
-document.addEventListener('DOMContentLoaded', () => {
+    const clockBox = document.getElementById("clockBox");
+    const threshold = 150;
+
+    window.addEventListener("scroll", () => {
+        if (window.scrollY >= threshold) {
+            clockBox.classList.add("floating");
+        } else {
+            clockBox.classList.remove("floating");
+        }
+    });
+
+
+// GitHub Api fetch ==============================//
+
     fetch('http://localhost:5000/api/github/summary')
         .then(res => res.json())
         .then(data => {
@@ -78,4 +77,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 statsBox.innerHTML = "<p>Unable to load GitHub stats.</p>";
             }
         });
+
+
 });
+
+
+
+
+
+
