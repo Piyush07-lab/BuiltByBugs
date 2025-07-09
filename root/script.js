@@ -9,28 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
         link.addEventListener('click', e => e.stopPropagation());
     });
 
-    function updateClock() {
-        const now = new Date();
-        const timeStr = now.toLocaleDateString('en-IN', {
-            hour: '2-digit',
-            minute: '2-digit',
-        })
-        document.getElementById('clockBox').textContent = timeStr;
-    }
-    setInterval(updateClock, 1000);
-    updateClock();
-
-    const clockBox = document.getElementById("clockBox");
-    const threshold = 150;
-
-    window.addEventListener("scroll", () => {
-        if (window.scrollY >= threshold) {
-            clockBox.classList.add("floating");
-        } else {
-            clockBox.classList.remove("floating");
-        }
-    });
-
 
 // GitHub Api fetch ==============================//
 
