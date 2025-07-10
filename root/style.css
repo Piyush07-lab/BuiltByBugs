@@ -228,78 +228,6 @@ body {
     background: linear-gradient(145deg, #121212, #1f1f1f);
 }
 
-.mainTwo {
-    flex: 0 0 5%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    transition: flex 0.4s ease, background-color 0.4s ease;
-    z-index: 0;
-    overflow: hidden;
-}
-
-.mainTwo.expanded {
-    flex: 0 0 34%;
-    z-index: 10;
-    background-color: #141414;
-}
-
-.toggle-bar {
-    width: 0.4vw;
-    height: 60%;
-    background-color: #707170;
-    border-radius: 0.25em;
-    opacity: 1;
-    box-shadow: 0 0.35em 0.35em 0.3em rgba(78, 76, 76, 0.35);
-    cursor: pointer;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: visible;
-    transition: background-color 0.3s ease;
-}
-
-.toggle-bar:hover {
-    background-color: #00cc7a;
-}
-
-.mainTwo.expanded .toggle-bar {
-    opacity: 0;
-    pointer-events: none;
-}
-
-/* === Quick Links (mainTwo) === */
-
-.quick-links {
-    list-style: none;
-    display: none;
-    flex-direction: column;
-    transition: opacity 0.5s ease;
-    gap: 1em;
-    padding: 0;
-    margin: 0;
-}
-
-.mainTwo.expanded .quick-links {
-    display: flex;
-    opacity: 1;
-    pointer-events: auto;
-}
-
-.quick-links a {
-    color: #00ff99;
-    text-decoration: none;
-    font-size: 1rem;
-    transition: color 0.3s ease;
-}
-
-.quick-links a:hover {
-    color: #fff;
-    cursor: pointer;
-}
-
 .mainOneText {
     display: flex;
     flex-direction: column;
@@ -349,23 +277,35 @@ body {
     }
 }
 
-/* === Projects Section (mainThree) === */
+/* === (mainThree) === */
+
 .mainThree {
-    flex: 1 1 34%;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    align-items: stretch;
-    border-radius: 0.5em;
-    justify-content: flex-start;
-    padding: 60px 30px;
-    background-color: #181818;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+    gap: 1.5rem;
+    padding: 2rem;
 }
 
-.mainThree h2 {
-    text-align: center;
-    color: #00ff99;
-    margin-bottom: 30px;
+.github-chart, 
+.leetcode-chart,
+.coding-activity,
+.dev-logs {
+    background-color: #1e1e1e;
+    color: #f1f1f1;
+    border: 0.1rem solid #333;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 0.3rem 0.8rem rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease-in-out;
+    min-height: 20vh;
+    width: 100%;
+} 
+
+.github-chart:hover,
+.leetcode-chart:hover,
+.coding-activity:hover,
+.dev-logs:hover {
+    transform: scale(1.02);
 }
 
 /* =====GitHub Section===== */
