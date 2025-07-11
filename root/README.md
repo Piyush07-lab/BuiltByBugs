@@ -50,7 +50,7 @@ This is not just a personal portfolio. This is a fully integrated, self-develope
 
 * Clear onboarding steps with chatbot
 * Transparent communication flow
-* Pricing discussions based on task complexity, not fixed packages
+* Pricing discussions based on task complexity, not fixed packages.
 * Encouraged comparison to build confidence
 
 ---
