@@ -1,6 +1,7 @@
 
-const https = require('https');
 require('dotenv').config();
+const https = require('https');
+const cheerio = require("cheerio");
 
 
 const headers = {
@@ -52,6 +53,35 @@ const getUserAndRepos = async () => {
 
 };
 
+const getContributionHeatmap = () => {
+    const url = 'https:github.com/Piyush07-lab';
+
+    return new Promise((resolve, reject) => {
+        https.get(url, (res) => {
+            let html = "";
+
+            res.on("data", (chunk) => (html += chunk));
+            res.on("end", () => {
+                try {
+                    const $ = cheerio.load(html);
+                    const contributions = [];
+
+                    $('svg.js-calander-graph-svg rect').each((_, rect) => {
+                        const date = $(rect).attr("data-date");
+                        const count = parseInt($(rect).attr("data-count") ||"0");
+                        if (date) contributions.push({ date, count });
+                    });
+
+                    resolve(contributions);
+                } catch (err) {
+                    reject(err);
+                }
+            });
+        }).on("error", reject);                          
+    });
+};
+
 module.exports = {
-    getUserAndRepos
+    getUserAndRepos,
+    getContributionHeatmap
 };

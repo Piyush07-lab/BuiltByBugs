@@ -64,8 +64,6 @@ function getLeetCodeStats(username, callback) {
                         req.end();
                     }
                     
-                    console.log("[leetcode.js] Session:", process.env.LEETCODE_SESSION);
-                    
                     module.exports = getLeetCodeStats;
                     
                     

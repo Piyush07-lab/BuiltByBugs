@@ -1,8 +1,9 @@
 require('dotenv').config();
 const http = require('http');
 const url = require('url');
-const { getUserAndRepos } = require('./utils/github.js');
+const { getUserAndRepos, getContributionHeatmap } = require('./utils/github');
 const getLeetCodeStats = require("./api/leetcode");
+const { getCodingActivity, postCodingActivity } = require("./api/coding");
 
 const PORT = 5000;
 const CACHE_TTL = 5 * 60 * 1000;
@@ -11,6 +12,10 @@ let githubCache = {
     timestamp: null,
     data: null
 };
+
+let cachedContributions = null;
+let lastFetchedContributions = 0;
+const CONTRIBUTION_CACHE_DURATION = 1000 * 60 * 60 * 12;
 
 const server = http.createServer((req, res) => {
     const parsedUrl = url.parse(req.url, true);
@@ -34,6 +39,8 @@ const server = http.createServer((req, res) => {
         return res.end();
     }
 
+/* ================= LeetCode Api ====================== */
+
     if (url === "/api/leetcode" && method === "GET") {
         const username = "PiyushMishra07";
 
@@ -47,6 +54,43 @@ const server = http.createServer((req, res) => {
             }
         });
     }
+
+/* ============== Coding Activity Api ================ */
+
+    if (url === "/api/coding-activity" && method === "GET") {
+        getCodingActivity(req, res);
+    }
+
+    if (url === "/api/coding-activity" && method === "POST") {
+        postCodingActivity(req, res);
+    }
+
+/* ================= GitHub Api ====================== */
+
+    if (url === "/api/github-contributions" && method === "GET") {
+        const now = Date.now();
+
+        if (
+            cachedContributions && now - lastFetchedContributions < CONTRIBUTION_CACHE_DURATION
+        ) {
+            res.writeHead(200, { "Content-Type": "application/json" });
+            return res.end(JSON.stringify(cachedContributions));
+        }
+
+        getContributionHeatmap()
+        .then((data) => {
+            cachedContributions = data;
+            lastFetchedContributions = now;
+
+            res.writeHead(200, { "content-type": "application/json" });
+            res.end(JSON.stringify(data));
+        })
+        .catch((err) => {
+            res.writeHead(200, { "content-type": "application/json" });
+            res.end(JSON.stringify({ error: "Failed to fetch contribution data." }));
+        });
+    }
+    
 
     if (
         req.method === 'GET' &&
@@ -105,8 +149,6 @@ const server = http.createServer((req, res) => {
     res.writeHead(404, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({ message: "Not found" }));
 });
-
-console.log("ENV Loaded:", process.env.LEETCODE_SESSION);
 
 server.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
