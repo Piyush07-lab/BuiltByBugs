@@ -1,7 +1,8 @@
+require('dotenv').config();
 const http = require('http');
 const url = require('url');
 const { getUserAndRepos } = require('./utils/github.js');
-require('dotenv').config();
+const getLeetCodeStats = require("./api/leetcode");
 
 const PORT = 5000;
 const CACHE_TTL = 5 * 60 * 1000;
@@ -31,6 +32,20 @@ const server = http.createServer((req, res) => {
     if (parsedUrl.pathname === '/favicon.ico') {
         res.writeHead(204);
         return res.end();
+    }
+
+    if (url === "/api/leetcode" && method === "GET") {
+        const username = "PiyushMishra07";
+
+        getLeetCodeStats(username, (err, result) => {
+            if (err) {
+                res.writeHead(500);
+                res.end(JSON.stringify({ erron: "Failed to fetch LeetCode stats." }));
+            } else {
+                res.writeHead(200, { "Content-Type": "application/json" });
+                req.end(JSON.stringify(result));
+            }
+        });
     }
 
     if (
@@ -90,6 +105,8 @@ const server = http.createServer((req, res) => {
     res.writeHead(404, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({ message: "Not found" }));
 });
+
+console.log("ENV Loaded:", process.env.LEETCODE_SESSION);
 
 server.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
