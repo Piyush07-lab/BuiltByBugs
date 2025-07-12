@@ -1,16 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const mainTwo = document.querySelector('.mainTwo');
-
-    mainTwo.addEventListener('click', () => {
-        mainTwo.classList.toggle('expanded');
-    });
-
-    document.querySelectorAll('.quick-links a').forEach(link => {
-        link.addEventListener('click', e => e.stopPropagation());
-    });
 
 
-// GitHub Api fetch ==============================//
+
+ // ======== GitHub Api fetch =======//
 
     fetch('http://localhost:5000/api/github/summary')
         .then(res => res.json())

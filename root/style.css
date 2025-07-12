@@ -219,13 +219,10 @@ body {
 /* === Hero Section (mainOne) === */
 .mainOne {
     display: flex;
-    flex: 1 1 35%;
-    border-radius: 0.5em;
     align-items: center;
     justify-content: center;
-    padding: 60px 20px;
+    padding: 2rem;
     min-height: 100vh;
-    background: linear-gradient(145deg, #121212, #1f1f1f);
 }
 
 .mainOneText {
@@ -277,13 +274,21 @@ body {
     }
 }
 
-/* === (mainThree) === */
+/* === (mainTwo) === */
 
-.mainThree {
+.mainTwo {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
     gap: 1.5rem;
     padding: 2rem;
+}
+
+.mainTwo h3 {
+    font-size: 1.25rem;
+    color: #00ff99;
+    margin-bottom: 0.8rem;
+    border-bottom: 0.1rem solid #333;
+    padding-bottom: 0.3rem;
 }
 
 .github-chart, 
@@ -355,7 +360,7 @@ body {
 
     .mainOne,
     .mainTwo,
-    .mainThree {
+    .mainTwo {
         flex: 1 1 auto;
         width: 100%;
         justify-content: center;
@@ -408,7 +413,7 @@ body {
 
     .mainOne,
     .mainTwo,
-    .mainThree {
+    .mainTwo {
         flex-basis: 100%;
     }
 }

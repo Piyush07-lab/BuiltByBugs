@@ -62,7 +62,7 @@ This is not just a personal portfolio. This is a fully integrated, self-develope
 * Professional summary
 * Social links, LinkedIn, Resume Download & Preview
 
-### 2. **Activity Dashboard (`.mainThree`)**
+### 2. **Activity Dashboard (`.mainTwo`)**
 
 * GitHub Contribution Chart
 * LeetCode Activity + Sidebar
