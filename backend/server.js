@@ -39,62 +39,34 @@ const server = http.createServer((req, res) => {
         return res.end();
     }
 
-/* ================= LeetCode Api ====================== */
 
-    if (url === "/api/leetcode" && method === "GET") {
-        const username = "PiyushMishra07";
 
-        getLeetCodeStats(username, (err, result) => {
-            if (err) {
-                res.writeHead(500);
-                res.end(JSON.stringify({ erron: "Failed to fetch LeetCode stats." }));
-            } else {
-                res.writeHead(200, { "Content-Type": "application/json" });
-                req.end(JSON.stringify(result));
-            }
-        });
-    }
-
-/* ============== Coding Activity Api ================ */
-
-    if (url === "/api/coding-activity" && method === "GET") {
-        getCodingActivity(req, res);
-    }
-
-    if (url === "/api/coding-activity" && method === "POST") {
-        postCodingActivity(req, res);
-    }
-
-    if (url === "/api/coding-activity/summary" && method === "GET") {
-        getCodingSummary(req, res);
-    }
-
-/* ================= GitHub Api ====================== */
+    /* ================= GitHub Api ====================== */
 
     if (url === "/api/github-contributions" && method === "GET") {
         const now = Date.now();
 
         if (
-            cachedContributions && now - lastFetchedContributions < CONTRIBUTION_CACHE_DURATION
+            !cachedContributions || now - lastFetchedContributions > CONTRIBUTION_CACHE_DURATION
         ) {
+            getContributionHeatmap()
+            .then((data) => {
+                cachedContributions = data;
+                lastFetchedContributions = now;
+                res.writeHead(200, { "Content-Type": "application/json" });
+                res.end(JSON.stringify(data));
+            })
+            .catch((err) => {
+                res.writeHead(500, { "Content-type": "application/json" });
+                res.end(JSON.stringify({ error: "Failed to fetch GitHub contributoions" }));
+            });
+        } else {
             res.writeHead(200, { "Content-Type": "application/json" });
-            return res.end(JSON.stringify(cachedContributions));
+            res.end(JSON.stringify(cachedContributions));
         }
 
-        getContributionHeatmap()
-        .then((data) => {
-            cachedContributions = data;
-            lastFetchedContributions = now;
-
-            res.writeHead(200, { "content-type": "application/json" });
-            res.end(JSON.stringify(data));
-        })
-        .catch((err) => {
-            res.writeHead(200, { "content-type": "application/json" });
-            res.end(JSON.stringify({ error: "Failed to fetch contribution data." }));
-        });
     }
-    
+
 
     if (
         req.method === 'GET' &&
@@ -149,6 +121,40 @@ const server = http.createServer((req, res) => {
         return;
 
     }
+
+    /* ============== Coding Activity Api ================ */
+
+    if (url === "/api/coding-activity" && method === "GET") {
+        getCodingActivity(req, res);
+    }
+
+    if (url === "/api/coding-activity" && method === "POST") {
+        postCodingActivity(req, res);
+    }
+
+    if (url === "/api/coding-activity/summary" && method === "GET") {
+        getCodingSummary(req, res);
+    }
+
+
+    /* ============= LeetCode Api ============ */
+
+    if (url === "/api/leetcode" && method === "GET") {
+        const username = "PiyushMishra07";
+
+        getLeetCodeStats(username, (err, result) => {
+            if (err) {
+                res.writeHead(500);
+                res.end(JSON.stringify({ erron: "Failed to fetch LeetCode stats." }));
+            } else {
+                res.writeHead(200, { "Content-Type": "application/json" });
+                res.end(JSON.stringify(result));
+            }
+        });
+    }
+
+
+
 
     res.writeHead(404, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({ message: "Not found" }));

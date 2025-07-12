@@ -1,8 +1,37 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+ //======== LeetCode Api fetch ========//
 
+    // fetch("/api/leetcode")
+    //  .then((res) => {
+    //     if (!res.ok) throw new Error("Failed to fetch");
+    //     return res.json();
+    //  })
+    //  .then((data) => {
+    //     console.log("LeetCode API response:", data);
+    //     document.getElementById("leetcodeChartContainer").textContent = JSON.stringify(data, null, 2);
+    //  })
+    //  .catch ((err) => {
+    //     document.getElementById("leetcodeChartContainer").textContent = "Error fetching data";
+    //     console.error("LeetCode Fetch Error:", err);
+    //  });
 
  // ======== GitHub Api fetch =======//
+
+    fetch("/api/github-contributions")
+       .then((res) => {
+        if (!res.ok) throw new Error("GitHub Fetch failed.");
+        return res.json();
+       })
+       .then((data) => {
+        console.log("GitHub heatmap data:", data);
+        const target = document.getElementById("githubHeatmap");
+        target.textContent = JSON.stringify(data, null, 2);
+       })
+       .catch((err) => {
+        document.getElementById("githubHeatmap").textContent = "Error loading heatmap.";
+        console.error("GitHub contribution fetch failed:", err);
+       });
 
     fetch('http://localhost:5000/api/github/summary')
         .then(res => res.json())
