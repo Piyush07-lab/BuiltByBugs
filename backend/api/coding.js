@@ -39,4 +39,59 @@ function postCodingActivity(req, res) {
     });
 }
 
-module.exports = { getCodingActivity, postCodingActivity };
+function getCodingSummary(req, res) {
+    const raw = fs.readFileSync(logFilePath, "utf-8");
+    const logs = JSON.parse(raw);
+
+
+    logs.sort((a, b) => new Date(a.Date) - new Date(b.date));
+
+    let totalMinutes = 0;
+    let uniqueDates = new Set();
+    let langMap = {};
+
+    let currentStreak = 0;
+    let longestStreak = 0;
+    let prevDate = null;
+
+    for (const log of logs) {
+        const { date, minutes, languages } = logs;
+        totalMinutes += minutes;
+        uniqueDates.add(date);
+
+
+        for (const lang of languages) {
+            langMap[lang] = (langMap[lang] || 0) + 1;
+        }
+
+        const curr = new Date(date);
+        if (prevDate) {
+            const diff = (curr - prevDate) / (1000 * 60 * 60 * 24);
+            if (diff === 1) {
+                currentStreak++
+            } else if (diff > 1) {
+                currentStreak = 1;
+            } else {
+                currentStreak = 1;
+            }
+
+            longestStreak = Math.max(longestStreak, currentStreak);
+            prevDate = new Date(date);
+        }
+    }
+    const summary = {
+        totalDays: uniqueDates.size,
+        totalMinutes,
+        currentStreak,
+        longestStreak,
+        languageBreakdown: langMap
+    };
+    req.writeHead(200, { "Contwnt-Type": "application/json" });
+    res.end(JSON.stringify(summary));
+}
+
+module.exports = {
+    getCodingActivity, 
+    postCodingActivity,
+    getCodingSummary
+};

@@ -3,7 +3,7 @@ const http = require('http');
 const url = require('url');
 const { getUserAndRepos, getContributionHeatmap } = require('./utils/github');
 const getLeetCodeStats = require("./api/leetcode");
-const { getCodingActivity, postCodingActivity } = require("./api/coding");
+const { getCodingActivity, postCodingActivity, getCodingSummary } = require("./api/coding");
 
 const PORT = 5000;
 const CACHE_TTL = 5 * 60 * 1000;
@@ -63,6 +63,10 @@ const server = http.createServer((req, res) => {
 
     if (url === "/api/coding-activity" && method === "POST") {
         postCodingActivity(req, res);
+    }
+
+    if (url === "/api/coding-activity/summary" && method === "GET") {
+        getCodingSummary(req, res);
     }
 
 /* ================= GitHub Api ====================== */
