@@ -1,8 +1,9 @@
 require('dotenv').config();
 const http = require('http');
 const url = require('url');
-const { getUserAndRepos, getContributionHeatmap } = require('./utils/github');
-const getLeetCodeStats = require("./api/leetcode");
+const { getUserAndRepos } = require('./utils/github');
+const { getGitHubContributions } = require("./api/github-contributions");
+// const getLeetCodeStats = require("./api/leetcode");
 const { getCodingActivity, postCodingActivity, getCodingSummary } = require("./api/coding");
 
 const PORT = 5000;
@@ -13,9 +14,6 @@ let githubCache = {
     data: null
 };
 
-let cachedContributions = null;
-let lastFetchedContributions = 0;
-const CONTRIBUTION_CACHE_DURATION = 1000 * 60 * 60 * 12;
 
 const server = http.createServer((req, res) => {
     const parsedUrl = url.parse(req.url, true);
@@ -43,28 +41,10 @@ const server = http.createServer((req, res) => {
 
     /* ================= GitHub Api ====================== */
 
-    if (url === "/api/github-contributions" && method === "GET") {
-        const now = Date.now();
-
-        if (
-            !cachedContributions || now - lastFetchedContributions > CONTRIBUTION_CACHE_DURATION
-        ) {
-            getContributionHeatmap()
-            .then((data) => {
-                cachedContributions = data;
-                lastFetchedContributions = now;
-                res.writeHead(200, { "Content-Type": "application/json" });
-                res.end(JSON.stringify(data));
-            })
-            .catch((err) => {
-                res.writeHead(500, { "Content-type": "application/json" });
-                res.end(JSON.stringify({ error: "Failed to fetch GitHub contributoions" }));
-            });
-        } else {
-            res.writeHead(200, { "Content-Type": "application/json" });
-            res.end(JSON.stringify(cachedContributions));
-        }
-
+    if (parsedUrl.pathname === "/api/github-contributions" && req.method === "GET") {
+        console.log("REQUEST:", req.method, parsedUrl.pathname);
+        getGitHubContributions(req, res);
+        return;
     }
 
 
@@ -82,9 +62,6 @@ const server = http.createServer((req, res) => {
 
         getUserAndRepos()
             .then(({ user, repos }) => {
-
-                console.log("Debug: Repo response type:", typeof repos);
-                console.log("Debug: Repos raw content:", repos);
 
                 if (!Array.isArray(repos)) throw new Error("Github repo response is not an array");
 
@@ -139,19 +116,19 @@ const server = http.createServer((req, res) => {
 
     /* ============= LeetCode Api ============ */
 
-    if (url === "/api/leetcode" && method === "GET") {
-        const username = "PiyushMishra07";
+    // if (url === "/api/leetcode" && method === "GET") {
+    //     const username = "PiyushMishra07";
 
-        getLeetCodeStats(username, (err, result) => {
-            if (err) {
-                res.writeHead(500);
-                res.end(JSON.stringify({ erron: "Failed to fetch LeetCode stats." }));
-            } else {
-                res.writeHead(200, { "Content-Type": "application/json" });
-                res.end(JSON.stringify(result));
-            }
-        });
-    }
+    //     getLeetCodeStats(username, (err, result) => {
+    //         if (err) {
+    //             res.writeHead(500);
+    //             res.end(JSON.stringify({ erron: "Failed to fetch LeetCode stats." }));
+    //         } else {
+    //             res.writeHead(200, { "Content-Type": "application/json" });
+    //             res.end(JSON.stringify(result));
+    //         }
+    //     });
+    // }
 
 
 

@@ -18,20 +18,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
  // ======== GitHub Api fetch =======//
 
-    fetch("/api/github-contributions")
-       .then((res) => {
-        if (!res.ok) throw new Error("GitHub Fetch failed.");
-        return res.json();
-       })
-       .then((data) => {
-        console.log("GitHub heatmap data:", data);
-        const target = document.getElementById("githubHeatmap");
-        target.textContent = JSON.stringify(data, null, 2);
-       })
-       .catch((err) => {
-        document.getElementById("githubHeatmap").textContent = "Error loading heatmap.";
-        console.error("GitHub contribution fetch failed:", err);
-       });
+    fetch("http://localhost:5000/api/github-contributions")
+        .then((res) => {
+            if (!res.ok) throw new Error("GitHub API failed");
+            return res.json();
+        })
+        .then((data) => {
+            console.log("GitHub contribution data:", data);
+
+            const container = document.getElementById('githubHeatmap');
+            const pre = document.createElement('pre');
+            pre.textContent = JSON.stringify(data, null, 2);
+            container.appendChild(pre);
+        })
+        .catch((err) => {
+            console.error("GitHub chart fetch error:", err);
+            const container = document.getElementById('githubHeatmap');
+            container.textContent = "Failed to load GitHub contributions.";
+        });
 
     fetch('http://localhost:5000/api/github/summary')
         .then(res => res.json())
