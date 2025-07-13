@@ -1,9 +1,7 @@
 
 require('dotenv').config();
 const https = require('https');
-const puppeteer = require('puppeteer');
-const fs = require('fs');
-const path = require('path');
+
 
 
 const headers = {
@@ -55,45 +53,9 @@ const getUserAndRepos = async () => {
 
 };
 
-async function getContributionHeatmap() {
-    const username = 'Piyush07-lab';
-    const url = `https://github.com/${username}`;
-    const filePath = path.join(__dirname, '..', 'data', 'activity-log.json');
 
-    const browser = await puppeteer.launch({
-        headless: 'new',
-        args: ['--no-sandbox']
-    });
-
-    const page = await browser.newPage();
-
-    try {
-        await page.goto(url, { waitUntil: 'networkidle2' });
-        await page.waitForSelector('svg.js-calendar-graph-svg');
-
-        const contributions = await page.$$eval('svg.js-calendar-graph-svg rect[data-date]', rects =>
-            rects.map(rect => ({
-                date: rect.getAttribute('data-date'),
-                count: parseInt(rect.getAttribute('data-count')),
-                level: rect.getAttribute('data-level')
-            }))
-        );
-
-        await browser.close();
-
-        const payload = { github: contributions };
-        fs.writeFileSync(filePath, JSON.stringify(payload, null, 2));
-
-        return payload;
-    } catch (err) {
-        await browser.close();
-        console.error('Puppeteer Scraping Error:', err);
-        throw err;
-    }
-}
 
 
 module.exports = {
-    getUserAndRepos,
-    getContributionHeatmap
+    getUserAndRepos
 };
