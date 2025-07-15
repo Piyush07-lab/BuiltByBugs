@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+
 
  //======== LeetCode Api fetch ========//
 
@@ -27,14 +27,19 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log("GitHub contribution data:", data);
 
             const container = document.getElementById('githubHeatmap');
+
+            container.innerHTML = "";
+
             const pre = document.createElement('pre');
             pre.textContent = JSON.stringify(data, null, 2);
             container.appendChild(pre);
         })
         .catch((err) => {
+
             console.error("GitHub chart fetch error:", err);
             const container = document.getElementById('githubHeatmap');
             container.textContent = "Failed to load GitHub contributions.";
+
         });
 
     fetch('http://localhost:5000/api/github/summary')
@@ -82,7 +87,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
 
-});
+
+
 
 
 
