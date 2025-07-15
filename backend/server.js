@@ -1,11 +1,13 @@
 require('dotenv').config();
 const http = require('http');
 const url = require('url');
+const { getGitHubContributions } = require("./api/github-contributions");
 const { getUserAndRepos } = require('./utils/github');
 // const getLeetCodeStats = require("./api/leetcode");
 const { getCodingActivity, postCodingActivity, getCodingSummary } = require("./api/coding");
 
 const PORT = 5000;
+
 const CACHE_TTL = 5 * 60 * 1000;
 
 let githubCache = {
@@ -39,6 +41,11 @@ const server = http.createServer((req, res) => {
 
 
     /* ================= GitHub Api ====================== */
+
+    if (req.url === "/api/github-contributions" && req.method === "GET") {
+        console.log("REQUEST:", req.method, req.url);
+        return getGitHubContributions(req, res);
+    }
 
     if (
         req.method === 'GET' &&
