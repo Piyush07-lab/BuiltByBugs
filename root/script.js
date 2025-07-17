@@ -2,7 +2,7 @@
 
  //======== LeetCode Api fetch ========//
 
-    // fetch("/api/leetcode")
+    // fetch("http://localhost:5000/api/leetcode")
     //  .then((res) => {
     //     if (!res.ok) throw new Error("Failed to fetch");
     //     return res.json();
@@ -24,15 +24,27 @@
             return res.json();
         })
         .then((data) => {
-            console.log("GitHub contribution data:", data);
-
+            const recentData = data.slice(-35);
             const container = document.getElementById('githubHeatmap');
+            const statsBar = document.getElementById('githubStats');
 
             container.innerHTML = "";
 
-            const pre = document.createElement('pre');
-            pre.textContent = JSON.stringify(data, null, 2);
-            container.appendChild(pre);
+            let total = 0;
+            let maxDay = { date: null, count: 0 };
+
+            recentData.forEach(day => {
+                const cell = document.createElement('div');
+                cell.className = "heatmap-cell";
+                cell.style.backgroundColor = day.color || "#ebedf0";
+                cell.title = `${day.count} contributions on ${day.date}`;
+                container.appendChild(cell);
+            })
+
+            statsBar.innerHTML = `
+            <strong>Total Contributions:</strong> ${total}<br>
+            <strong>Most active day:</strong> ${maxDay.date} (${maxDay.count} commits)
+            `;
         })
         .catch((err) => {
 
@@ -58,19 +70,6 @@
                    `;
                     repoList.appendChild(li);
                 });
-            }
-
-            const statsBox = document.getElementById('githubStats');
-            if (statsBox && profile) {
-                statsBox.innerHTML = `
-                    <h3>GitHub Stats</h3>
-                    <p><strong>Name:</strong> ${profile.name}</p>
-                    <p><strong>Public Repos:</strong> ${profile.public_repos}</p>
-                    <p><strong>Followers:</strong> ${profile.followers}</p>
-                    <p><strong>Following:</strong> ${profile.following}</p>
-                    <p><strong>Location:</strong> ${profile.location || "N/A"}</p>
-                    <p><strong>Bio:</strong> ${profile.bio || "No bio available."}</p>
-                `;
             }
 
         })

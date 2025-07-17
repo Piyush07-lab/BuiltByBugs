@@ -1,4 +1,5 @@
-require('dotenv').config();
+require("dotenv").config({ path: __dirname + "/.env" });
+
 const https = require('https');
 
 const GITHUB_API_URL = "https://api.github.com/graphql";
@@ -8,10 +9,6 @@ let lastFetched = 0;
 const CACHE_DTL = 1000 * 60 * 60 * 6;    // 6 hours
 
 async function getContributionHeatmap() {
-
-    console.log("🔥 GraphQL GitHub Token:", process.env.GITHUB_TOKEN?.slice(0, 4));
-
-
 
     const now = Date.now();
     if (cachedHeatmap && now - lastFetched < CACHE_DTL) {
@@ -56,9 +53,11 @@ async function getContributionHeatmap() {
             res.on("end", () => {
                 try {
                     const parsed = JSON.parse(data);
-                    console.log("Raw github graphql response:", JSON.stringify(parsed, null, 2));
+                    
                     const days = parsed?.data?.user.contributionsCollection?.contributionCalendar?.weeks
+
                         .flatMap(week => week.contributionDays)
+                        
                         .map(day => ({
                             date: day.date,
                             count: day.cotributionCount,
@@ -101,8 +100,7 @@ if (process.env.GITHUB_TOKEN) {
 }
 
 const fetchGitHub = (options) => {
-    console.log("📦 REST GitHub Token:", process.env.GITHUB_TOKEN?.slice(0, 4));
-
+   
     return new Promise((resolve, reject) => {
         https.get(options, (res) => {
             let data = '';

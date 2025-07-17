@@ -1,4 +1,5 @@
-require('dotenv').config();
+require("dotenv").config({ path: __dirname + "/.env" });
+
 const http = require('http');
 const url = require('url');
 const { getGitHubContributions } = require("./api/github-contributions");
@@ -48,8 +49,7 @@ const server = http.createServer((req, res) => {
     }
 
     if (
-        req.method === 'GET' &&
-        (parsedUrl.pathname === '/api/github/summary' || parsedUrl.pathname === '/api/github/summary/')
+        req.method === 'GET' && (parsedUrl.pathname === '/api/github/summary' || parsedUrl.pathname === '/api/github/summary/')
     ) {
         const now = Date.now();
         if (githubCache.data && (now - githubCache.timestamp) < CACHE_TTL) {

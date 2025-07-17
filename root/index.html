@@ -66,29 +66,32 @@
 
         </div>
 
-        <div class="mainTwo">
+        <section class="mainTwo">
 
-            <div class="leetcode-chart">
+            <div class="leetcode-chart grid">
                 <h3>LeetCode Activity</h3>
                 <div id="leetcodeChartContainer">Loading Chart...</div>
             </div>
 
-            <div class="github-chart">
+            <div class="github-chart grid">
                 <h3>GitHub Contribution</h3>
-                <div id="githubHeatmap">Loading Charts...</div>
+                <div class="heatmap-container">
+                    <div id="githubHeatmap" class="heatmap-grid">Loading Charts...</div>
+                </div>
+                <div id="githubStats" class="stats"></div>
+            </div>
+
+            <div class="dev-logs grid">
+                <h3>Daily Dev Logs</h3>
+                <div id="devLogsContainer">Log data incoming...</div>
             </div>
             
-            <div class="coding-activity">
+            <div class="coding-activity grid">
                 <h3>Cooding Tracker</h3>
                 <div id="codingTrackerContainer">Loading Activity...</div>
             </div>
 
-            <div class="dev-logs">
-                <h3>Daily Dev Logs</h3>
-                <div id="devLogsContainer">Log data incoming...</div>
-            </div>
-
-        </div>
+        </section>
 
     </section>
 

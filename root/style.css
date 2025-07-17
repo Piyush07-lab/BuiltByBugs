@@ -275,42 +275,119 @@ body {
 }
 
 /* === (mainTwo) === */
+:root {
+    --cell-size: 0.8rem;
+    --cell-gap: 0.2rem;
+    --max-width: 50rem;
+}
+
+.leetcode-chart { grid-area: leetcode; }
+.github-chart { grid-area: github; }
+.dev-logs { grid-area: devlogs; }
+.coding-activity { grid-area: activity; }
 
 .mainTwo {
+    grid-template-areas: 
+        "leetcode github"
+        "devlogs activity";
+    background: #262626a5;
+    border: 0.1rem solid #ddd;
+    border-radius: 0.8rem;
+    box-shadow: 0 4px 12px rgba(46, 46, 46, 0.08);
+    margin: 1.5rem 0.8rem;
+    width: 45vw;
+    aspect-ratio: 1 / 1;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+    grid-template-columns: 1 fr 1 fr;
+    grid-template-rows: 1fr 1fr;
+    border: #24292f;
     gap: 1.5rem;
-    padding: 2rem;
+    padding: 1.5rem;
 }
 
 .mainTwo h3 {
-    font-size: 1.25rem;
+    font-size: 1rem;
     color: #00ff99;
-    margin-bottom: 0.8rem;
-    border-bottom: 0.1rem solid #333;
-    padding-bottom: 0.3rem;
 }
 
-.github-chart, 
-.leetcode-chart,
-.coding-activity,
-.dev-logs {
-    background-color: #1e1e1e;
-    color: #f1f1f1;
-    border: 0.1rem solid #333;
-    padding: 1.5rem;
-    border-radius: 1rem;
-    box-shadow: 0 0.3rem 0.8rem rgba(0, 0, 0, 0.3);
-    transition: transform 0.2s ease-in-out;
-    min-height: 20vh;
-    width: 100%;
-} 
+.github-chart {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 0.08rem solid #ccc;
+    border-radius: 0.4rem;
+    box-shadow: 0 0.3rem 0.8rem rgba(0, 0, 0, 0.06);
+    padding: 0.8rem;
+    overflow: hidden;
+    background: #1a1a1a;
+}
 
-.github-chart:hover,
-.leetcode-chart:hover,
-.coding-activity:hover,
-.dev-logs:hover {
-    transform: scale(1.02);
+.github-chart h3 {
+    margin-bottom: 0.5rem;
+}
+
+.heatmap-container {
+    flex: 1;
+    overflow-x: auto;
+    scrollbar-width: none;
+    position: relative;
+}
+
+.heatmap-container::-webkit-scrollbar {
+    display: none;
+}
+
+.heatmap-container::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 1.5rem;
+    height: 100%;
+    pointer-events: none;
+}
+
+.grid {
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.heatmap-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    gap: 0.2rem;
+
+}
+
+.heatmap-cell {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 0.2rem;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.heatmap-cell:hover {
+    transform: scale(1.1);
+    outline: 0.05rem solid #333;
+}
+
+.activity-wrapper {
+    max-width: var(--max-width);
+    margin: 2rem auto;
+    font-family: Arial, sans-serif;
+    color: #24292f;
+    padding: 1rem;
+}
+
+.stats {
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+    border-top: 0.05rem solid #eee;
+    padding-top: 0.4rem;
+    display: flex;
+    justify-content: space-between;
 }
 
 /* =====GitHub Section===== */
