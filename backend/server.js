@@ -2,6 +2,7 @@ require("dotenv").config({ path: __dirname + "/.env" });
 
 const http = require('http');
 const url = require('url');
+const handleHireRequest = require('./api/hireRequest');
 const { getGitHubContributions } = require("./api/github-contributions");
 const { getUserAndRepos } = require('./utils/github');
 // const getLeetCodeStats = require("./api/leetcode");
@@ -39,6 +40,9 @@ const server = http.createServer((req, res) => {
         return res.end();
     }
 
+    if (parsed.pathame === '/api/hireRequest') {
+        return handleHireRequest(req.res);
+    }
 
 
     /* ================= GitHub Api ====================== */

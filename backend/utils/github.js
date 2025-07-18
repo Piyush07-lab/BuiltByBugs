@@ -60,13 +60,11 @@ async function getContributionHeatmap() {
                         
                         .map(day => ({
                             date: day.date,
-                            count: day.cotributionCount,
+                            count: day.contributionCount,
                             color: day.color
                         }));
 
-                    if (!process.env.GITHUB_TOKEN) {
-                        console.warn("⚠️ Token is undefined");
-                    }
+                    
 
 
                     if (!days) throw new Error("Invalid GitHub GraphQL response");
