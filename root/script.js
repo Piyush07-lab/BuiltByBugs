@@ -1,3 +1,61 @@
+const modal = document.getElementById('hireModal');
+const openBtn = document.getElementById('hireMeBtn');
+const closeBtn = document.querySelector('.close');
+
+const hireForm = document.getElementById('hireForm');
+
+openBtn.addEventListener('click', () => {
+    modal.classList.remove('hidden');
+});
+
+closeBtn.addEventListener('click', () => {
+    modal.classList.add('hidden');
+});
+
+modal.addEventListener('click', (e) => {
+    if (e.target === modal) modal.classList.add('hidden');
+});
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') modal.classList.add('hidden');
+});
+
+hireForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const message = document.getElementById('message').value.trim();
+
+    const submitBtn = hireForm.querySelector('button');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending...';
+
+    try {
+        const response = await fetch('http://localhost:5000/api/hireRequest', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, email, message })
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+            alert('Your request has been sent successfully!');
+            hireForm.reset();
+            document.getElementById('hireModal').classList.add('hidden');
+        } else {
+            alert(`Failed: ${result.error || 'Unknown Error'}`);
+        }
+
+    } catch (err) {
+        console.error('Request failed:', err);
+        alert('Something went wrong. Please try again later.');
+    }
+
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Send Request';
+});
 
 
  //======== LeetCode Api fetch ========//
@@ -18,12 +76,20 @@
 
  // ======== GitHub Api fetch =======//
 
+ const gridModal = document.getElementById('heatmapModal');
+ const modalGrid = document.querySelector('.full-heatmap-grid');
+
+ let fullData = [];
+
     fetch("http://localhost:5000/api/github-contributions")
         .then((res) => {
             if (!res.ok) throw new Error("GitHub API failed");
             return res.json();
         })
         .then((data) => {
+
+            fullData = data;
+
             const recentData = data.slice(-35);
             const container = document.getElementById('githubHeatmap');
             const statsBar = document.getElementById('githubStats');
@@ -45,6 +111,8 @@
             <strong>Total Contributions:</strong> ${total}<br>
             <strong>Most active day:</strong> ${maxDay.date} (${maxDay.count} commits)
             `;
+
+
         })
         .catch((err) => {
 
@@ -52,6 +120,23 @@
             const container = document.getElementById('githubHeatmap');
             container.textContent = "Failed to load GitHub contributions.";
 
+        });
+
+        document.querySelector('.heatmap-grid').addEventListener('click', () => {
+            gridModal.classList.add('show');
+            modalGrid.innerHTML = "";
+
+            fullData.forEach(day => {
+                const cell = document.createElement('div');
+                cell.className = "heatmap-cell";
+                cell.style.backgroundColor = day.color || "#ebedf0";
+                cell.title = `${day.count} contributions on ${day.date}`;
+                modalGrid.appendChild(cell);
+            });
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === "Escape") gridModal.classList.remove('show');
         });
 
     fetch('http://localhost:5000/api/github/summary')

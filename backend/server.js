@@ -40,8 +40,8 @@ const server = http.createServer((req, res) => {
         return res.end();
     }
 
-    if (parsed.pathame === '/api/hireRequest') {
-        return handleHireRequest(req.res);
+    if (parsedUrl.pathname === '/api/hireRequest') {
+        return handleHireRequest(req, res);
     }
 
 
