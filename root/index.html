@@ -33,11 +33,30 @@
             </nav>
 
         </div>
-
+        
         <div class="cta-container">
             <button class="cta-button" id="hireMeBtn">
                 <span>Hire Me!</span>
             </button>
+        </div>
+
+        <div id="hireModal" class="modal hidden">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Hire Me</h2>
+                <form id="hireForm">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+
+                    <label for="email">Email:</label>
+                    <input type="email" name="email" id="email" required>
+
+                    <label for="message">Message:</label>
+                    <textarea name="message" id="message" required></textarea>
+
+                    <button type="submit">Send Request</button>
+                </form>
+            </div>
         </div>
 
     </header>
@@ -60,7 +79,9 @@
 
                 <h1>Hi, I'm <span class="name">Piyush</span></h1>
                 <p>I create, design and program stuffs.</p>
-                <button class="cta-button">See My Work</button>
+                <a target="_blank" href="project.html">
+                    <button class="cta-button">See My Work</button>
+                </a>
 
             </div>
 
@@ -76,9 +97,12 @@
             <div class="github-chart grid">
                 <h3>GitHub Contribution</h3>
                 <div class="heatmap-container">
+                    <div class="heatmap-lables">
+                        <span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span>
+                    </div>
                     <div id="githubHeatmap" class="heatmap-grid">Loading Charts...</div>
                 </div>
-                <div id="githubStats" class="stats"></div>
+                <div id="githubStats" class="stats">Just a moment...</div>
             </div>
 
             <div class="dev-logs grid">
@@ -95,10 +119,17 @@
 
     </section>
 
-    <section id="githubProjects">
-        <h2>Latest GitHub Repos</h2>
-        <ul id="repoList"></ul>
-    </section>
+    <div class="chat-box"></div>
+    
+    
+
+    <div class="heatmap-modal hidden" id="heatmapmodal">
+        <div class="heatmap-modal-content">
+            <button class="close-modal">&times;</button>
+            <h3>Full Contrribution Heatmap</h3>
+            <div class="full-heatmap-grid"></div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 
