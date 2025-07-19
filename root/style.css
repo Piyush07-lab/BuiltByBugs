@@ -613,3 +613,55 @@ body {
 
 /* ----- Project Page ----- */
 
+.project-section {
+    display: flex;
+    padding: 0.5rem;
+    margin: 2rem 0.8rem;
+    box-shadow: 0 0.4rem 0.6rem rgba(36, 35, 35, 0.25);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 0.09rem solid #24292f;
+    border-radius: 0.4rem;
+    width: 100%;
+}
+
+.title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.6rem;
+    font-weight: 700;
+    border-bottom: 0.03rem solid #24292f;
+    width: 100%;
+    font-family: 'Arial Narrow', Arial, sans-serif;
+    font-size: 1.5rem;
+}
+
+.summary-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 0.25rem ;
+    padding: 0.4rem;
+    border: 0.04rem solid #333;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.2rem 0.2rem rgba(33, 32, 32, 0.25);
+}
+
+.project-container {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    border: 0.04rem solid #0f0f0f;
+    border-radius: 0.4rem;
+    margin: 0.3rem;
+    padding: 0.4rem;
+    background: #1a1a1a;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
