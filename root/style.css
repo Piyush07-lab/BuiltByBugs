@@ -21,8 +21,24 @@
 
 
 body {
-    background-color: #0f0f0f;
-    color: #ffffff;
+    background: #274b59;
+    background: radial-gradient(circle, rgba(39, 75, 89, 1) 0%, rgba(34, 71, 46, 1) 50%, rgba(34, 48, 34, 1) 100%);
+    background-size: 600% 600%;
+    animation: gradientShift 30s ease infinite;
+}
+
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 /* === Header === */
@@ -31,7 +47,7 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 0.5em 2em;
-    background-color: #1a1a1a;
+    background-color: #1213129e;
     height: 4.5em;
     width: 100%;
     box-sizing: border-box;
@@ -161,7 +177,7 @@ body {
 .nav-links {
     display: flex;
     list-style: none;
-    padding: 0;
+    padding: 1.2em;
     margin: 0;
     gap: 2em;
     align-items: center;
@@ -171,11 +187,15 @@ body {
     text-decoration: none;
     color: #ffffff;
     font-weight: 1em;
-    transition: color 0.3s ease;
+    transition: transform 0.3s ease, text-shadow 0.3s ease;
 }
 
 .nav-links a:hover {
     color: #00ff99;
+    transform: scale(1.2) perspective(400px) rotateX(5deg);
+    filter: brightness(1.2);
+    text-shadow: 0 0.2rem 0.3rem rgba(0, 0, 0, 0.3);
+    z-index: 2;
 }
 
 /*==== CTA-button ====*/
@@ -222,7 +242,8 @@ body {
 
 .modal {
     position: fixed;
-    top: 0; left: 0;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     background: var(--overlay-bg);
@@ -305,19 +326,34 @@ body {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.95); }
-    to { opacity: 1; transform: scale(1); }
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 /* ==== Main Section ==== */
 #mainSection {
     display: flex;
     justify-content: space-between;
+    border-radius: 0.4rem;
+    box-shadow: 0 0.3rem 0.4rem #1a1a1a61;
     align-items: stretch;
+    background: #000000;
+    background: radial-gradient(circle, rgba(0, 0, 0, 0.461) 0%, rgba(122, 252, 70, 0.1) 100%);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
     gap: 2%;
     padding: 2em 4vw;
+    width: 100%;
+    margin: 1.2rem 1.2rem;
     min-height: 100dvh;
-    box-sizing: border-box;
+    animation: gradientShift 30s ease infinite;
 }
 
 /* === Hero Section (mainOne) === */
@@ -325,7 +361,6 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
     padding: 2rem;
     min-height: 100vh;
 }
@@ -340,6 +375,7 @@ body {
 
 .mainOneText h1 {
     font-size: 2.5em;
+    color: #999;
 }
 
 .mainOneText .name {
@@ -379,6 +415,40 @@ body {
     }
 }
 
+.console-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 100%;
+    max-width: 35rem;
+    max-height: 40rem;
+    margin: 2rem auto;
+    border-radius: 0.3rem;
+    background: #1a1a1a86;
+    overflow: hidden;
+    position: relative;
+    font-family: monospace;
+    box-shadow: 0 0.3rem 0.4rem #1a1a1a41;
+}
+
+.canvas {
+    position: relative;
+    width: 100%;
+    padding: 1.5rem;
+    height: 100%;
+    background: #000;
+}
+
+#consoleCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+}
+
+
+
 /* === (mainTwo) === */
 :root {
     --cell-size: 0.8rem;
@@ -386,17 +456,28 @@ body {
     --max-width: 50rem;
 }
 
-.leetcode-chart { grid-area: leetcode; }
-.github-chart { grid-area: github; }
-.dev-logs { grid-area: devlogs; }
-.coding-activity { grid-area: activity; }
+.leetcode-chart {
+    grid-area: leetcode;
+}
+
+.github-chart {
+    grid-area: github;
+}
+
+.dev-logs {
+    grid-area: devlogs;
+}
+
+.coding-activity {
+    grid-area: activity;
+}
 
 .mainTwo {
-    grid-template-areas: 
+    grid-template-areas:
         "leetcode github"
         "devlogs activity";
     background: #26262648;
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(3px);
     border: 0.1rem solid #ddd;
     border-radius: 0.8rem;
     box-shadow: 0 4px 12px rgba(46, 46, 46, 0.08);
@@ -416,7 +497,7 @@ body {
     color: #00ff99;
 }
 
-.leetcode-chart{
+.leetcode-chart {
     display: flex;
     flex-direction: row;
     width: 16rem;
@@ -545,72 +626,37 @@ body {
     margin-top: 0.2rem;
 }
 
-/* === Responsive === */
-@media(max-width: 58em) {
-    #mainSection {
-        flex-direction: column;
-        gap: 1em;
-        padding: 2em 5vw;
-    }
-
-    .mainOne,
-    .mainTwo,
-    .mainTwo {
-        flex: 1 1 auto;
-        width: 100%;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .mainOneText,
-    .statsBox,
-    .quick-links {
-        text-align: center;
-    }
-
-    .quick-links {
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 0.8em;
-    }
-
-    .cta-button.floating {
-        position: fixed;
-        bottom: 5%;
-        right: 5%;
-        width: 3.5em;
-        height: 3.5em;
-        font-size: 1.4rem;
-        border-radius: 50%;
-        padding: 0;
-        background: hsl(110, 87%, 24%);
-        box-shadow: 0 0.2em 0.8em rgba(0, 0, 0, 0.25);
-        z-index: 999;
-    }
-
-    .cta-button.floating span {
-        display: none;
-    }
-
-    .cta-button.floating::bfore {
-        content: "🤝";
-        font-size: 1.3em;
-        line-height: 1;
-    }
-
+.footer {
+    display: flex;
+    width: 100%;
+    background: #0d1117;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    justify-content: space-evenly;
+    align-items: center;
+    min-height: 30vh;
+    border-top: 0.1rem solid #2f2e2e2c;
 }
 
-@media(max-width: 1024px) {
-    #mainSection {
-        gap: 1.5em
-    }
+.footer .quick-links {
+    display: flex;
+    width: 20vw;
+    padding: 2rem auto;
+}
 
-    .mainOne,
-    .mainTwo,
-    .mainTwo {
-        flex-basis: 100%;
-    }
+#quickLinks {
+    list-style: none;
+    gap: 1.5rem;
+}
+
+#quickLinks a {
+    text-decoration: none;
+    color: #999;
+    cursor: pointer;
+}
+
+#quickLinks a:hover {
+    color: #00ff99;
 }
 
 /* ----- Project Page ----- */
@@ -645,7 +691,7 @@ body {
     align-items: center;
     justify-content: center;
     width: 100%;
-    margin: 0.25rem ;
+    margin: 0.25rem;
     padding: 0.4rem;
     border: 0.04rem solid #333;
     border-radius: 0.5rem;
@@ -666,4 +712,3 @@ body {
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
 }
-
