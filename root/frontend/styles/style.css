@@ -518,38 +518,29 @@ a:hover {
     perspective: 800px;
 }
 
-.figure {
-    position: absolute;
-    width: 16rem;
-    height: 16rem;
-    background: url('assets/shadow-figure.png') no-repeat center/contain;
-    top: 74%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    filter: grayscale(1) opacity(0.8);
-}
-
 .orbit {
     position: absolute;
     width: 100%;
     height: 100%;
     top: 5em;
     left: 0;
-    animation: orbitXY 12s linear infinite;
+    animation: orbitX 12s linear infinite;
     transform-origin: center;
     transform-style: preserve-3d;
 }
 
-@keyframes orbitXY {
-  0% {
-    transform: rotateX(45deg) rotateY(0deg);
-  }
-  50% {
-    transform: rotateX(45deg) rotateY(180deg);
-  }
-  100% {
-    transform: rotateX(45deg) rotateY(360deg);
-  }
+@keyframes orbitX {
+    0% {
+        transform: rotateX(0deg);
+    }
+
+    50% {
+        transform: rotateX(180deg);
+    }
+
+    100% {
+        transform: rotateX(360deg);
+    }
 }
 
 .icon-wrapper {

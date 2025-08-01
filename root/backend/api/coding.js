@@ -55,7 +55,7 @@ function getCodingSummary(req, res) {
     let prevDate = null;
 
     for (const log of logs) {
-        const { date, minutes, languages } = logs;
+        const { date, minutes, languages } = log;
         totalMinutes += minutes;
         uniqueDates.add(date);
 
@@ -86,7 +86,7 @@ function getCodingSummary(req, res) {
         longestStreak,
         languageBreakdown: langMap
     };
-    req.writeHead(200, { "Contwnt-Type": "application/json" });
+    req.writeHead(200, { "Content-Type": "application/json" });
     res.end(JSON.stringify(summary));
 }
 

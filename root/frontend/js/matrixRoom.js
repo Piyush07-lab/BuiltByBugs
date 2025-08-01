@@ -22,14 +22,14 @@ function createMatrixOverlay() {
 
 
     const exitBtn = document.createElement('button');
-    exitBtn.textContent = 'X_X';
+    exitBtn.textContent = 'X';
     Object.assign(exitBtn.style, {
         position: 'absolute',
         top: '20px',
         right: '20px',
         padding: '10px 20px',
         fontSize: '14px',
-        background: '#142c23a4',
+        background: '#142c18d3',
         color: '#fff',
         border: 'none',
         borderRadius: '5px',
@@ -47,7 +47,7 @@ function createMatrixOverlay() {
         0.01,
         100
     );
-    camera.position.z = 10;
+    camera.position.z = 7;
 
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
@@ -76,7 +76,7 @@ function createMatrixOverlay() {
         direction: Math.random() > 0.5 ? 1 : -1,
         speed: Math.random() * 2 + 0.5,
         active: Math.random() > 0.7,
-        cooldown: Math.floor(Math.random() * 60)
+        cooldown: Math.floor(Math.random() * 40)
     }));
 
     function drawMatrixRain() {
@@ -97,7 +97,7 @@ function createMatrixOverlay() {
 
                 if (col.y * fontSize > matrixCanvas.height + fontSize || col.y < -1) {
                     col.active = false;
-                    col.cooldown = Math.floor(Math.random() * 60);
+                    col.cooldown = Math.floor(Math.random() * 30);
                     col.y = col.direction === 1 ? -1 : Math.floor(matrixCanvas.height / fontSize) + 1;
                 }
 
@@ -128,37 +128,69 @@ function createMatrixOverlay() {
     const cube = new THREE.Mesh(geometry, material);
     scene.add(cube);
 
+    // ----- Random ASCII messages ------- //
 
-
-    let rightClickActive = false;
-
-    document.addEventListener('contextmenu', (e) => e.preventDefault());
-
-    document.addEventListener('mousedown', (e) => {
-        if (e.button === 2) {
-            rightClickActive = true;
-        }
+    const messageLayer = document.createElement('div');
+    Object.assign(messageLayer.style, {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        pointerEvents: 'none',
+        zIndex: 100001,
+        color: '#0f0',
+        fontFamily: 'monospace'
     });
+    matrixOverlay.appendChild(messageLayer);
 
-    document.addEventListener('mouseup', (e) => {
-        if (e.button === 2) {
-            rightClickActive = false;
-        }
-    });
+    const messages = [
+        'hello_world'
+    ];
+
+    function showRandomMessage() {
+        const msg = document.createElement('div');
+        msg.textContent = messages[Math.floor(Math.random() * messages.lenght)];
+        Object.assign(msg.style, {
+            position: 'absolute',
+            top: `${Math.random() * 80 + 10}%`,
+            left: `${Math.random() * 80 + 10}%`,
+            fontSize: `${Math.floor(Math.random() * 24) + 12}px`,
+            opacity: 0,
+            transition: 'opacity 1s ease',
+            textShadow: '0 0 10px #0f0'
+        });
+        messageLayer.appendChild(msg);
+
+        setTimeout(() => (msg.style.opacity = 1), 50);
+        setTimeout(() => (msg.style.opacity = 0), 4000);
+        setTimeout(() => msg.remove(), 50);
+    }
+
+    setInterval(showRandomMessage, 5000);
+
+
+    let mouseX = 0, mouseY = 0;
+    let targetX = 0, targetY = 0;
 
     document.addEventListener('mousemove', (e) => {
-        if (rightClickActive) {
-            const x = (e.clientX / window.innerWidth) * 2 - 1;
-            const y = -(e.clientY / window.innerHeight) * 2 + 1;
-            camera.rotation.y = x * 0.1;
-            camera.rotation.x = y * 0.1;
-        }
+
+        mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+        mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
+        targetX = mouseX * 2; 
+        targetY = mouseY * 0.5;
+
     });
 
     let animationFrameId;
     function animate() {
         drawMatrixRain();
         matrixTexture.needsUpdate = true;
+
+        camera.rotation.y += (targetX - camera.rotation.y) * 0.05;
+        camera.rotation.x += (targetY - camera.rotation.x) * 0.05;
+
+
         animationFrameId = requestAnimationFrame(animate);
         renderer.render(scene, camera);
     }
