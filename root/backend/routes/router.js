@@ -68,6 +68,14 @@ function routeRequest(req, res) {
         return getCodingSummary(req, res);
     }
 
+    if (pathname === '/api/coding' && method === 'POST') {
+        return postCodingActivity(req, res);
+    }
+
+    if (pathname === '/api/github-contributions' && method === 'GET') {
+        return getGitHubContributions(req, res);
+    }
+
     res.writeHead(404, { 'Content-Type': 'test/plain' });
     res.end("Route not found");
 }
