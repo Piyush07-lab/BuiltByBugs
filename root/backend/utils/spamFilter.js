@@ -1,7 +1,7 @@
 //Logic of Spam filter for hire request
 
-function validateEmail(email) {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;  // Regex :- Regular Expression
+function validateEmail(email) {n
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;  
     return re.test(email);
 }
 

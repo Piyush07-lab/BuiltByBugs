@@ -1,3 +1,7 @@
+/* universal rules */
+
+
+
 :root {
     --bg-color: #f7f9f8;
     --bg-gradient: radial-gradient(circle at center, #f7f9f8 0%, #d4efe3 100%);
@@ -8,17 +12,7 @@
     --border-color: #d0f3e4;
 }
 
-/* Dark theme (for future toggle)
-[data-theme="dark"] {
-  --bg-color: #0d0d0d;
-  --bg-gradient: radial-gradient(circle, #0a0a0a 0%, #001a11 100%);
-  --text-color: #eaeaea;
-  --secondary-text: #b3b3b3;
-  --accent-color: #00ff99;
-  --panel-bg: rgba(20, 20, 20, 0.8);
-  --border-color: #00ff99;
-}
-*/
+
 
 
 /* === Global Styles === */
@@ -33,10 +27,10 @@
 
 @font-face {
     font-family: 'AcademiaSSK';
-    src: url('assets/fonts/academiassk_bold-webfont.woff2') format('woff2'),
-        url('assets/fonts/academiassk_bold-webfont.woff') format('woff');
-    src: url('assets/fonts/academiassk_regular-webfont.woff2') format('woff2'),
-        url('assets/fonts/academiassk_regular-webfont.woff') format('woff');
+    src: url('/root/frontend/assets/fonts/academiassk_bold-webfont.woff2') format('woff2'),
+        url('/root/frontend/assets/fonts/academiassk_bold-webfont.woff') format('woff');
+    src: url('/root/frontend/assets/fonts/academiassk_regular-webfont.woff2') format('woff2'),
+        url('/root/frontend/assets/fonts/academiassk_regular-webfont.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
@@ -94,7 +88,7 @@ a:hover {
     background: var(--panel-bg);
     backdrop-filter: blur(10px);
     border-bottom: 0.1rem solid var(--border-color);
-    padding: 1rem 2rem;
+    padding: 1rem 0.5rem;
     display: flex;
     width: 100%;
     justify-content: space-between;
@@ -456,53 +450,6 @@ a:hover {
 }
 
 
-.gateway {
-    position: relative;
-    top: -1em;
-    right: -15em;
-    height: 7em;
-    width: 5em;
-    border-radius: 4px;
-    border: 0.2em solid #999;
-    background: rgba(102, 67, 33, 0.9);
-    box-shadow: 7px 1em 2em 12px #3e3e3e8a;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    color: #fff;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-}
-
-.gateway:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 15px rgba(0, 204, 122, 0.6);
-}
-
-.chat-window {
-    position: relative;
-    height: 5em;
-    width: 5em;
-    top: -1em;
-    right: 1em;
-    border-radius: 4px;
-    border: 0.2em solid #999;
-    background: rgba(210, 248, 241, 0.9);
-    box-shadow: 7px 1em 2em 12px #3e3e3e8a;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.9rem;
-    color: #004d3f;
-    transition: transform 0.3s ease;
-}
-
-.chat-window:hover {
-    transform: scale(1.05);
-    cursor: pointer;
-    box-shadow: 0 0 15px rgba(0, 204, 122, 0.4);
-}
 
 
 /* ======================= LANG SUMMARY (Orbit Setup) ====================== */
@@ -516,31 +463,6 @@ a:hover {
     border-radius: 50%;
     overflow: visible;
     perspective: 800px;
-}
-
-.orbit {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 5em;
-    left: 0;
-    animation: orbitX 12s linear infinite;
-    transform-origin: center;
-    transform-style: preserve-3d;
-}
-
-@keyframes orbitX {
-    0% {
-        transform: rotateX(0deg);
-    }
-
-    50% {
-        transform: rotateX(180deg);
-    }
-
-    100% {
-        transform: rotateX(360deg);
-    }
 }
 
 .icon-wrapper {

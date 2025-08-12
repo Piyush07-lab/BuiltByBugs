@@ -11,7 +11,8 @@
   "author": "Piyush Mishra",
   "license": "UNLICENSED",
   "dependencies": {
-    "cheerio": "^1.1.0",
-    "dotenv": "^17.0.1"
+    "dotenv": "^17.0.1",
+    "node": "^24.5.0",
+    "puppeteer": "^24.15.0"
   }
 }

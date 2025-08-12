@@ -98,12 +98,14 @@ hireForm.addEventListener('submit', async (e) => {
 
 //======== LeetCode Api fetch ========//
 
-// fetch("http://localhost:5000/api/leetcode")
+// fetch("http://localhost:5500/api/leetcode")
 //  .then((res) => {
 //     if (!res.ok) throw new Error("Failed to fetch");
 //     return res.json();
 //  })
 //  .then((data) => {
+//     if (!data.success) throw new Error(data.error || "Unknown error");
+
 //     console.log("LeetCode API response:", data);
 //     document.getElementById("leetcodeChartContainer").textContent = JSON.stringify(data, null, 2);
 //  })
@@ -119,7 +121,7 @@ const modalGrid = document.querySelector('.full-heatmap-grid');
 
 let fullData = [];
 
-fetch("http://localhost:5000/api/github-contributions")
+fetch("http://localhost:5500/api/github-contributions")
     .then((res) => {
         if (!res.ok) throw new Error("GitHub API failed");
         return res.json();
@@ -177,7 +179,7 @@ document.addEventListener('keydown', (e) => {
     if (e.key === "Escape") gridModal.classList.remove('show');
 });
 
-fetch('http://localhost:5000/api/github/summary')
+fetch('http://localhost:5500/api/github/summary')
     .then(res => res.json())
     .then(data => {
         const { profile, repos } = data;

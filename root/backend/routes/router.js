@@ -3,9 +3,10 @@ require("dotenv").config({ path: __dirname + "/.env" });
 
 const url = require('url');
 
-const handleHireRequest = require('../api/hireRequest');
-const { getGitHubContributions } = require('../api/github-contributions');
-const { getUserAndRepos } = require('../api/utils/github');
+const handleHireRequest = require('../api/hireRequest.js');
+const { getGitHubContributions } = require('../api/github-contributions.js');
+const { getUserAndRepos } = require('../utils/github.js');
+// const handleLeetCodeRefresh = require('../api/leetcodeRefresh.js');
 const {
     getCodingActivity,
     postCodingActivity,
@@ -75,6 +76,10 @@ function routeRequest(req, res) {
     if (pathname === '/api/coding' && method === 'POST') {
         return postCodingActivity(req, res);
     }
+
+    // if (pathname === '/api/leetcode/refresh' && method === 'GET') {
+    //     return handleLeetCodeRefresh(req, res);
+    // }
 
     res.writeHead(404, { 'Content-Type': 'test/plain' });
     res.end("Route not found");
