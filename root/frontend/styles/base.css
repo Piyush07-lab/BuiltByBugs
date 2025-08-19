@@ -1,21 +1,57 @@
 /* universal rules */
 
-
-
 :root {
     --bg-color: #f7f9f8;
     --bg-gradient: radial-gradient(circle at center, #f7f9f8 0%, #d4efe3 100%);
+    --panel-bg: rgba(255, 255, 255, 0.6);
+
+    /* ---------------------------------------- */
+
     --text-color: #2a2a2a;
     --secondary-text: #313131;
-    --accent-color: #00cc7a;
-    --panel-bg: rgba(255, 255, 255, 0.6);
+
+    /* ---------------------------------------- */
+
+    --accent-color: #12a96d;
     --border-color: #d0f3e4;
+    --button-color: #072e22;
+    --button-color-hover: #104837;
+    --hover-color: #306d2a;
+
+    /* ---------------------------------------- */
+
+    --font-family-base: 'Poppins', sans-serif;
+    --font-size: 1rem;
+    --font-size-h1: 2rem;
+    --font-size-h2: 1.5rem;
+    --font-size-h3: 1.25rem;
+
+    /* ---------------------------------------- */
+
+    --space-xs: 0.25rem;
+    --space-sm: 0.5rem;
+    --space-md: 1rem;
+    --space-lg: 2rem;
+    --header-height: 60px;
+    
+    /* ---------------------------------------- */
+
+    --cell-size: 16px;
+    --cel-gap: 4px;
+
+    /* ---------------------------------------- */
+
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+
+    /* ---------------------------------------- */
+
+    --shadow-md: 0 2px 6px rgba(0, 0, 0, 0.3);
+    --transition-fast: 0.2s ease;
+    --transition-base: 0.5s ease;
 }
 
-
-
-
-/* === Global Styles === */
 * {
     margin: 0;
     padding: 0;
@@ -23,26 +59,20 @@
     transition: background 0.3s ease, color 0.3s ease;
 }
 
-/* ========= Fonts ========= */
-
 @font-face {
     font-family: 'AcademiaSSK';
-    src: url('/root/frontend/assets/fonts/academiassk_bold-webfont.woff2') format('woff2'),
-        url('/root/frontend/assets/fonts/academiassk_bold-webfont.woff') format('woff');
-    src: url('/root/frontend/assets/fonts/academiassk_regular-webfont.woff2') format('woff2'),
-        url('/root/frontend/assets/fonts/academiassk_regular-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
+    src: url('/root/frontend/assets/fonts/academiassk_bold-webfont.woff'),
+        url('/root/frontend/assets/fonts/academiassk_bold-webfont.woff2');
+    src: url('/root/frontend/assets/fonts/academiassk_regular-webfont.woff'),
+        url('/root/frontend/assets/fonts/academiassk_regular-webfont.woff2');
 }
 
-
-
 body {
-    font-family: 'Segoe UI', Tahoma, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: var(--bg-gradient);
     color: var(--text-color);
     min-height: 100vh;
-    max-width: 100vw;
+    min-width: 100vw;
     display: flex;
     flex-direction: column;
 }
@@ -67,376 +97,6 @@ body {
     }
 }
 
-h1,
-h2,
-h3,
-h4 {
-    color: var(--text-color);
-}
-
-a {
-    color: var(--secondary-text);
-    text-decoration: none;
-}
-
-a:hover {
-    color: var(--accent-color);
-}
-
-/* === Header === */
-.header {
-    background: var(--panel-bg);
-    backdrop-filter: blur(10px);
-    border-bottom: 0.1rem solid var(--border-color);
-    padding: 1rem 0.5rem;
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    align-items: center;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.434);
-    gap: 1em;
-}
-
-
-/* === Logo === */
-
-.logo-container {
-    display: flex;
-    gap: 0.5em;
-    align-items: center;
-    width: fit-content;
-    animation: fadeIn 2s ease;
-    user-select: none;
-    isolation: isolate;
-}
-
-.logo-core {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    isolation: isolate;
-}
-
-.logo-letter {
-    font-family: 'AcademiaSSK', serif;
-    font-size: 2em;
-    color: #00ff99;
-    margin-right: -0.3em;
-    user-select: none;
-}
-
-.logo-letter:last-child {
-    margin-right: 0;
-}
-
-#logo-o {
-    font-size: 3.4em;
-}
-
-#logo-c {
-    margin-left: -0.5em;
-    font-size: 2.7em;
-}
-
-#logo-d {
-    margin-left: -0.13em;
-    font-size: 1.9em;
-}
-
-.logo-text {
-    font-size: 0.75em;
-    color: #00ff99;
-    font-family: 'AcademiaSSK', sans-serif;
-    letter-spacing: 0.1em;
-}
-
-
-#bug-b {
-    font-family: 'AcademiaSSK', sans-serif;
-    font-weight: bold;
-    color: #3e3939;
-}
-
-.logo-link {
-    display: inline-block;
-    text-decoration: none;
-}
-
-.logo-link:hover {
-    cursor: pointer;
-}
-
-/* ==== Hero section Logo ==== */
-.mainOne .logo-container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    width: 100%;
-    max-width: 100%;
-    margin-bottom: 1.5em;
-    user-select: none;
-    animation: fadeIn 1s ease;
-}
-
-.mainOne .logo-core {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0;
-    font-size: 3vw;
-    line-height: 1;
-}
-
-.mainOne .logo-letter {
-    color: #00ff99;
-    font-family: 'AcademiaSSK', serif;
-    font-weight: 550;
-    margin-right: -0.3em;
-    user-select: none;
-}
-
-.mainOne .logo-letter:last-child {
-    margin-right: 0;
-}
-
-.mainOne .logo-text {
-    font-size: 1.2vw;
-    margin-left: 0.6em;
-    color: #00ff99;
-    font-family: 'AcademiaSSK', sans-serif;
-    letter-spacing: 0.1em;
-}
-
-
-/* ==== Navigation ==== */
-
-.nav-container {
-    flex-grow: 1;
-    display: flex;
-    justify-content: center;
-}
-
-.nav-links {
-    display: flex;
-    list-style: none;
-    padding: 1.2em;
-    margin: 0;
-    gap: 2em;
-    align-items: center;
-}
-
-.nav-links a {
-    text-decoration: none;
-    font-weight: 1em;
-    transition: transform 0.3s ease, text-shadow 0.3s ease;
-}
-
-.nav-links a:hover {
-    transform: scale(1.2) perspective(400px) rotateX(5deg);
-    filter: brightness(1.2);
-    text-shadow: 0 0.2rem 0.3rem rgba(0, 0, 0, 0.3);
-    z-index: 2;
-}
-
-/*==== CTA-button ====*/
-
-.cta-container {
-    display: flex;
-    align-items: center;
-}
-
-.cta-button {
-    position: relative;
-    padding: 0.6em 1.2em;
-    font-size: 1rem;
-    font-weight: bold;
-    border-radius: 0.5em;
-    background: rgba(255, 255, 255, 0.7);
-    border: 0.15rem solid var(--accent-color);
-    color: var(--text-color);
-    transition: all 0.3s ease-in-out;
-    cursor: pointer;
-}
-
-.cta-button:hover {
-    background: var(--accent-color);
-    color: #fff;
-    box-shadow: 0 0 15px rgba(0, 204, 122, 0.6);
-}
-
-/* ==== Hire Me Form modal ==== */
-
-:root {
-    --modal-bg: #fff;
-    --overlay-bg: rgba(0, 0, 0, 0.6);
-    --primary: #0078ff;
-    --primary-hover: #005ecb;
-    --border-color: #ccc;
-    --font-size: 1rem;
-}
-
-.modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: var(--overlay-bg);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
-
-.hidden {
-    display: none;
-}
-
-.modal-content {
-    background: var(--modal-bg);
-    padding: 1.5rem 2rem;
-    border-radius: 0.5rem;
-    width: 90%;
-    max-width: 40rem;
-    box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.3);
-    position: relative;
-    font-size: var(--font-size);
-    animation: fadeIn 0.3s ease;
-}
-
-.modal-content h2 {
-    margin-top: 0;
-    text-align: center;
-    font-size: 1.5rem;
-}
-
-.modal-content label {
-    display: block;
-    margin-top: 1rem;
-    font-weight: bold;
-    font-size: 0.95rem;
-    color: #1a1a1a;
-}
-
-.modal-content input,
-.modal-content textarea {
-    width: 100%;
-    padding: 0.75rem;
-    margin-top: 0.5rem;
-    border: 0.1rem solid var(--border-color);
-    border-radius: 0.25rem;
-    font-size: 1rem;
-}
-
-.modal-content textarea {
-    min-height: 6rem;
-    resize: vertical;
-}
-
-.modal-content button {
-    width: 100%;
-    margin-top: 1.5rem;
-    padding: 0.75rem;
-    background: var(--primary);
-    color: #fff;
-    border: none;
-    border-radius: 0.3rem;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background 0.3s ease;
-}
-
-.modal-content button:hover {
-    background: var(--primary-hover);
-}
-
-.close {
-    position: absolute;
-    color: #005ecb;
-    top: 1rem;
-    right: 1rem;
-    font-size: 1.5rem;
-    cursor: pointer;
-    line-height: 1;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: scale(0.95);
-    }
-
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-/* ==== Main Section ==== */
-#mainSection {
-    display: flex;
-    justify-content: space-between;
-    border-radius: 0.4rem;
-    box-shadow: 0 0.3rem 0.4rem #1a1a1a61;
-    align-items: stretch;
-    background: #000000;
-    background: radial-gradient(circle, rgba(0, 0, 0, 0.461) 0%, rgba(122, 252, 70, 0.1) 100%);
-    backdrop-filter: blur(3px);
-    -webkit-backdrop-filter: blur(3px);
-    gap: 2%;
-    padding: 2em 4vw;
-    width: 95%;
-    margin: 1.2rem 1.2rem;
-    min-height: 100dvh;
-    animation: gradientShift 30s ease infinite;
-}
-
-/* === Hero Section (mainOne) === */
-.mainOne {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem;
-    min-height: 100vh;
-}
-
-.mainOneText {
-    display: flex;
-    flex-direction: column;
-    gap: 1em;
-    width: 100%;
-    padding: 1em;
-}
-
-.mainOneText .name {
-    color: #00ff99;
-    font-weight: bold;
-}
-
-.mainOneText p {
-    margin: 20px 0;
-}
-
-.mainOneText button {
-    padding: 10px 20px;
-    border: none;
-    background-color: #00ff99;
-    color: #0f0f0f;
-    border-radius: 6px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.mainOneText button:hover {
-    background-color: #00cc7a;
-}
-
-/* === Fade-in Animation === */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -449,319 +109,21 @@ a:hover {
     }
 }
 
-
-
-
-/* ======================= LANG SUMMARY (Orbit Setup) ====================== */
-
-#lang-summary {
-    position: relative;
-    width: 20rem;
-    height: 20rem;
-    margin: 4rem auto;
-    background: rgba(0, 0, 0, 0);
-    border-radius: 50%;
-    overflow: visible;
-    perspective: 800px;
+h1,
+h2,
+h3,
+h4 {
+    color: var(--text-color);
 }
 
-.icon-wrapper {
-    position: absolute;
-    width: 2em;
-    height: 2em;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    transition: transform 0.3s ease;
-    cursor: pointer;
-    background: none;
-}
-
-.icon-wrapper:hover {
-    transform: scale(1.3) translateX(-50%);
-}
-
-.icon-wrapper svg {
-    width: 2em;
-    height: 2em;
-    fill: var(--text-color);
-    transition: fill 0.3s ease;
-}
-
-.tooltip {
-    position: absolute;
-    bottom: -2.5rem;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(0, 0, 0, 0.8);
-    color: #fff;
-    padding: 0.5rem 1rem;
-    border-radius: 0.3rem;
-    display: none;
-    font-size: 0.9rem;
-    pointer-events: none;
-}
-
-
-
-
-/* === (mainTwo) === */
-:root {
-    --cell-size: 0.8rem;
-    --cell-gap: 0.2rem;
-    --max-width: 50rem;
-}
-
-.leetcode-chart {
-    grid-area: leetcode;
-}
-
-.github-chart {
-    grid-area: github;
-}
-
-.dev-logs {
-    grid-area: devlogs;
-}
-
-.coding-activity {
-    grid-area: activity;
-}
-
-.mainTwo {
-    grid-template-areas:
-        "leetcode github"
-        "devlogs activity";
-    background: #26262648;
-    backdrop-filter: blur(3px);
-    border: 0.1rem solid #ddd;
-    border-radius: 0.8rem;
-    box-shadow: 0 4px 12px rgba(46, 46, 46, 0.08);
-    margin: 1.5rem 0.8rem;
-    width: 45vw;
-    aspect-ratio: 1 / 1;
-    display: grid;
-    grid-template-columns: 1 fr 1 fr;
-    grid-template-rows: 1fr 1fr;
-    border: #24292f;
-    gap: 1.5rem;
-    padding: 1.5rem;
-}
-
-.mainTwo h3 {
-    font-size: 1rem;
-    color: #00ff99;
-}
-
-.leetcode-chart {
-    display: flex;
-    flex-direction: row;
-    width: 16rem;
-    height: 13rem;
-    border: 0.08rem solid #ccc;
-    border-radius: 0.4rem;
-    box-shadow: 0 0.3rem 0.8rem rgba(0, 0, 0, 0.06);
-    padding: 0.8rem;
-}
-
-.github-chart {
-    display: flex;
-    width: 13rem;
-    height: 13rem;
-    flex-direction: column;
-    border: 0.08rem solid #ccc;
-    border-radius: 0.4rem;
-    box-shadow: 0 0.3rem 0.8rem rgba(0, 0, 0, 0.06);
-    padding: 0.8rem;
-    overflow: hidden;
-    background: #1a1a1a;
-}
-
-.github-chart h3 {
-    margin-bottom: 0.5rem;
-}
-
-.heatmap-container {
-    flex: 1;
-    overflow-x: auto;
-    scrollbar-width: none;
-    position: relative;
-}
-
-.heatmap-container::-webkit-scrollbar {
-    display: none;
-}
-
-.heatmap-container::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 1.5rem;
-    height: 100%;
-    pointer-events: none;
-}
-
-.grid {
-    overflow-x: auto;
-    scrollbar-width: none;
-}
-
-.heatmap-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    grid-template-rows: repeat(5, 1fr);
-    gap: 0.2rem;
-
-}
-
-.heatmap-cell {
-    width: 1rem;
-    height: 1rem;
-    border-radius: 0.2rem;
-    cursor: pointer;
-    transition: transform 0.2s;
-}
-
-.heatmap-cell:hover {
-    transform: scale(1.1);
-    outline: 0.05rem solid #333;
-}
-
-.activity-wrapper {
-    max-width: var(--max-width);
-    margin: 2rem auto;
-    font-family: Arial, sans-serif;
-    color: #24292f;
-    padding: 1rem;
-}
-
-.stats {
-    font-size: 0.8rem;
-    margin-top: 0.5rem;
-    border-top: 0.05rem solid #eee;
-    padding-top: 0.4rem;
-    display: flex;
-    justify-content: space-between;
-}
-
-/* =====GitHub Section===== */
-
-#githubProjects {
-    margin-top: 2rem;
-}
-
-#repoList li {
-    margin: 0.5rem 0;
-    list-style: none;
-}
-
-#repoList a {
-    color: #0af;
+a {
+    color: var(--accent-color);
     text-decoration: none;
+    transition: transform 0.3s ease text-shadow 0.3s ease;
 }
 
-.github-status-box {
-    background-color: #0d1117;
-    color: #c9d1d9;
-    padding: 1rem;
-    border-radius: 0.5em;
-    margin-top: 1rem;
-    font-size: 0.95rem;
-    line-height: 1.4;
-}
-
-.github-status-box p {
-    margin: 0.3rem 0;
-}
-
-.repo-meta {
-    font-size: 0.85rem;
-    color: #999;
-    display: block;
-    margin-top: 0.2rem;
-}
-
-footer {
-    background: rgba(255, 255, 255, 0.5);
-    border-top: 0.1rem solid var(--border-color);
-    padding: 1rem;
-    text-align: center;
-    color: var(--secondary-text);
-    font-size: 0.9rem;
-}
-
-.footer .quick-links {
-    display: flex;
-    width: 20vw;
-    padding: 2rem auto;
-}
-
-#quickLinks {
-    list-style: none;
-    gap: 1.5rem;
-}
-
-#quickLinks a {
-    text-decoration: none;
-    color: #999;
-    cursor: pointer;
-}
-
-#quickLinks a:hover {
-    color: #00ff99;
-}
-
-/* ----- Project Page ----- */
-
-.project-section {
-    display: flex;
-    padding: 0.5rem;
-    margin: 2rem 0.8rem;
-    box-shadow: 0 0.4rem 0.6rem rgba(36, 35, 35, 0.25);
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border: 0.09rem solid #24292f;
-    border-radius: 0.4rem;
-    width: 100%;
-}
-
-.title {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0.6rem;
-    font-weight: 700;
-    border-bottom: 0.03rem solid #24292f;
-    width: 100%;
-    font-family: 'Arial Narrow', Arial, sans-serif;
-    font-size: 1.5rem;
-}
-
-.summary-bar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    margin: 0.25rem;
-    padding: 0.4rem;
-    border: 0.04rem solid #333;
-    border-radius: 0.5rem;
-    box-shadow: 0 0.2rem 0.2rem rgba(33, 32, 32, 0.25);
-}
-
-.project-container {
-    display: grid;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100vh;
-    border: 0.04rem solid #0f0f0f;
-    border-radius: 0.4rem;
-    margin: 0.3rem;
-    padding: 0.4rem;
-    background: #1a1a1a;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+a:hover {
+    color: var(--hover-color);
+    transform: scale(1.2) perspective(400px) rotateX(5deg);
+    text-shadow: 0 0.2rem 0.3rem rgba(0, 0, 0, 0.3);
 }

@@ -1,1 +1,70 @@
 /* My logo bitch */
+
+.logo-container {
+    display: flex;
+    gap: 0.5em;
+    align-items: center;
+    width: fit-content;
+    animation: fadeIn 2s ease;
+    user-select: none;
+    isolation: isolate;
+}
+
+.logo-core {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    isolation: isolate;
+}
+
+.logo-letter {
+    font-family: 'AcademiaSSK', serif;
+    font-size: 2em;
+    color: #00ff99;
+    margin-right: -0.3em;
+    user-select: none;
+}
+
+.logo-letter:last-child {
+    margin-right: 0;
+}
+
+#logo-o {
+    font-size: 3.4em;
+}
+
+#logo-c {
+    margin-left: -0.5em;
+    font-size: 2.7em;
+}
+
+#logo-d {
+    margin-left: -0.13em;
+    font-size: 1.9em;
+}
+
+.logo-text {
+    font-size: 0.75em;
+    color: var(--accent-color);
+    font-family: 'AcademiaSSK', sans-serif;
+    letter-spacing: 0.1em;
+}
+
+
+#bug-b {
+    font-family: 'AcademiaSSK', sans-serif;
+    font-weight: bold;
+    color: #3e3939;
+}
+
+.logo-link {
+    display: inline-block;
+    text-decoration: none;
+}
+
+.logo-link:hover {
+    transform: none;
+    text-shadow: none;
+    cursor: default;
+}

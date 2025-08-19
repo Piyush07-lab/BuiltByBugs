@@ -1,1 +1,21 @@
-/* section styling, layout */
+/* Structure of the site */
+
+.header{
+    background: var(--panel-bg);
+    backdrop-filter: blur(10px);
+    border-bottom: 0.1rem solid var(--border-color);
+    padding: 1rem 0.5rem;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.434);
+    gap: 1em;
+}
+
+.nav-container{
+    
+}
