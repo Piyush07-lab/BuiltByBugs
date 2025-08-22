@@ -1,1 +1,54 @@
 /* reusable UI component (buttons, cards, status boxes) */
+
+button {
+    background: var(--button-color);
+    color: var(--text-color);
+    font-size: var(--font-size);
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    padding: var(--space-sm) var(--space-md);
+    transition: background var(--transition-md), transform var(--transition-fast);
+}
+
+button:hover {
+    background: var(--button-color-hover);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.hidden {
+    display: none;
+}
+
+.close {
+    position: absolute;
+    color: var(--accent-color);
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.dashboard {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    height: 100vh;
+    width: 100vw;
+}

@@ -14,9 +14,9 @@
 
     --accent-color: #12a96d;
     --border-color: #d0f3e4;
-    --button-color: #072e22;
-    --button-color-hover: #104837;
-    --hover-color: #306d2a;
+    --button-color: #00ff99;
+    --button-color-hover: #00a473;
+    --hover-color: #257d1d;
 
     /* ---------------------------------------- */
 
@@ -32,6 +32,11 @@
     --space-sm: 0.5rem;
     --space-md: 1rem;
     --space-lg: 2rem;
+    --space-rel-sm: 0.5em;
+    --space-rel-md: 1em;
+    --space-rel-sl: 1.2em;
+    --space-rel-lg: 1.5em;
+    --space-rel-vlg: 2em;
     --header-height: 60px;
     
     /* ---------------------------------------- */
@@ -49,6 +54,7 @@
 
     --shadow-md: 0 2px 6px rgba(0, 0, 0, 0.3);
     --transition-fast: 0.2s ease;
+    --transition-md: 0.3s ease;
     --transition-base: 0.5s ease;
 }
 
@@ -56,7 +62,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    transition: background 0.3s ease, color 0.3s ease;
+    transition: background var(--transition-md), color var(--transition-md);
 }
 
 @font-face {
@@ -116,10 +122,14 @@ h4 {
     color: var(--text-color);
 }
 
+li {
+    list-style: none;
+}
+
 a {
     color: var(--accent-color);
     text-decoration: none;
-    transition: transform 0.3s ease text-shadow 0.3s ease;
+    transition: transform var(--transition-md) text-shadow var(--transition-md);
 }
 
 a:hover {
@@ -127,3 +137,5 @@ a:hover {
     transform: scale(1.2) perspective(400px) rotateX(5deg);
     text-shadow: 0 0.2rem 0.3rem rgba(0, 0, 0, 0.3);
 }
+
+

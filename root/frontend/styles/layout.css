@@ -17,5 +17,40 @@
 }
 
 .nav-container{
-    
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+.nav-links {
+    display: flex;
+    padding: var(--space-rel-sl);
+    margin: 0;
+    gap: var(--space-rel-vlg);
+    align-items: center;
+}
+
+.cta-container {
+    display: flex;
+    align-items: center;
+}
+
+.cta-button {
+    position: relative;
+}
+
+.mainOne {
+    display: flex;
+    grid-row: 1 / span 2;
+    justify-content: center;
+    align-items: center;
+    padding: var(--space-lg);
+}
+
+.lang-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: var(--space-lg);
+    grid-row: 2;
 }
