@@ -1,5 +1,6 @@
-document.addEventListener('DOMContentLoaded', () => {
+import { fetchHireRequest } from "./API-fetch.js";
 
+export function ocdHireForm() {
     const modal = document.getElementById('hireModal');
     const openBtn = document.getElementById('hireMeBtn');
     const closeBtn = document.querySelector('.close');
@@ -34,21 +35,12 @@ document.addEventListener('DOMContentLoaded', () => {
         submitBtn.textContent = 'Sending...';
 
         try {
-            const response = await fetch('http://localhost:5000/api/hireRequest', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name, email, message })
-            });
+            await fetchHireRequest(name, email, message);
 
-            const result = await response.json();
+            alert("Your request has been sent successfully!");
 
-            if (response.ok) {
-                alert('Your request has been sent successfully!');
-                hireForm.reset();
-                document.getElementById('hireModal').classList.add('hidden');
-            } else {
-                alert(`Failed: ${result.error || 'Unknown Error'}`);
-            }
+            hireForm.reset();
+            modal.classList.add('hidden');
 
         } catch (err) {
             console.error('Request failed:', err);
@@ -59,5 +51,4 @@ document.addEventListener('DOMContentLoaded', () => {
         submitBtn.textContent = 'Send Request';
     });
 
-
-})
+}
