@@ -21,9 +21,9 @@ export function initCanvas() {
         const hueStart = (t * 360) % 360;
         const hueEnd = (hueStart + 180) % 360;
 
-        grad.addColorStop(0, `hsl(${hueStart}, 20%, 15%)`);
-        grad.addColorStop(0.5, `hsl(${(hueStart + 90) % 360}, 18%, 12%)`);
-        grad.addColorStop(1, `hsl(${hueEnd}, 20%, 10%)`)
+        grad.addColorStop(0, `hsl(${hueStart}, 25%, 25%)`);
+        grad.addColorStop(0.5, `hsl(${(hueStart + 90) % 360}, 20%, 20%)`);
+        grad.addColorStop(1, `hsl(${hueEnd}, 25%, 15%)`)
 
         ctx.fillStyle = grad;
         ctx.fillRect(0, 0, canvas.width, canvas.height);

@@ -30,3 +30,7 @@ export async function fetchGitSummary() {
     if (!res.ok) throw new Error("Github Summary response failed");
     return await res.json();
 }
+
+export async function loadCodingSummary() {
+    
+}

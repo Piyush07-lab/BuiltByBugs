@@ -4,176 +4,198 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="styles/base.css">
+    <link rel="stylesheet" href="styles/logo.css">
     <link rel="stylesheet" href="styles/about.css">
     <link rel="stylesheet" href="styles/project.css">
     <link rel="stylesheet" href="styles/components.css">
     <link rel="stylesheet" href="styles/github.css">
     <link rel="stylesheet" href="styles/index.css">
     <link rel="stylesheet" href="styles/layout.css">
-    <link rel="stylesheet" href="styles/logo.css">
     <link rel="stylesheet" href="styles/media.css">
     <link rel="stylesheet" href="styles/theme.css">
     <title>Portfolio #1</title>
 </head>
 
 <body>
+    <canvas id="backgroundCanvas"></canvas>
 
-    <header class="header" role="banner" aria-label="Site header">
-        <a class="logo-link" href="index.html">
-            <div class="logo-container" role="banner" aria-label="OCDbug logo">
-                <div class="logo-core">
-                    <span id="logo-o" class="logo-letter">O</span>
-                    <span id="logo-c" class="logo-letter">C</span>
-                    <span id="logo-d" class="logo-letter">D</span>
-                </div>
-                <div class="logo-text"><span id="bug-b">b</span>ug</div>
-            </div>
-        </a>
+    <div class="site-content">
 
-        <div class="nav-container">
-            <nav class="nav" aria-label="Primary navigation">
-                <ul class="nav-links">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="aboutMe.html">About</a></li>
-                    <li><a href="project.html">Project</a></li>
-                    <li><a href="#">Contact</a></li>
-                </ul>
-            </nav>
+        <header class="header" role="banner" aria-label="Site header">
 
-        </div>
-
-        <div class="cta-container">
-            <button class="cta-button" id="hireMeBtn">
-                <span>Hire Me!</span>
-            </button>
-        </div>
-
-        <div id="hireModal" class="modal hidden">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <h2>Hire Me</h2>
-                <form id="hireForm">
-                    <label for="name">Name:</label>
-                    <input type="text" id="name" name="name" required>
-
-                    <label for="email">Email:</label>
-                    <input type="email" name="email" id="email" required>
-
-                    <label for="message">Message:</label>
-                    <textarea name="message" id="message" required></textarea>
-
-                    <button type="submit">Send Request</button>
-                </form>
-            </div>
-        </div>
-
-    </header>
-
-    <section id="mainSection" class="dashboard">
-
-        <div class="mainOne">
-
-            <div class="mainOneText">
+            <a class="logo-link" href="index.html">
 
                 <div class="logo-container" role="banner" aria-label="OCDbug logo">
+
                     <div class="logo-core">
+
+                        <span id="logo-o" class="logo-letter">O</span>
+                        <span id="logo-c" class="logo-letter">C</span>
+                        <span id="logo-d" class="logo-letter">D</span>
+
+                    </div>
+
+                    <div class="logo-text"><span id="bug-b">b</span>ug</div>
+
+                </div>
+            </a>
+
+            <div class="nav-container">
+                <nav class="nav" aria-label="Primary navigation">
+                    <ul class="nav-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="aboutMe.html">About</a></li>
+                        <li><a href="project.html">Project</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </nav>
+
+            </div>
+
+            <div class="cta-container">
+                <button class="cta-button" id="hireMeBtn">
+                    <span>Hire Me!</span>
+                </button>
+            </div>
+
+            <div id="hireModal" class="modal hidden">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h2>Hire Me</h2>
+                    <form id="hireForm">
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" name="name" required>
+
+                        <label for="email">Email:</label>
+                        <input type="email" name="email" id="email" required>
+
+                        <label for="message">Message:</label>
+                        <textarea name="message" id="message" required></textarea>
+
+                        <button type="submit">Send Request</button>
+                    </form>
+                </div>
+            </div>
+
+        </header>
+
+        <section id="mainSection" class="dashboard">
+
+            <div class="mainOne">
+
+                <div class="logo-container main" role="banner" aria-label="OCDbug logo">
+                    <div class="logo-core override">
                         <span id="logo-o" class="logo-letter">O</span>
                         <span id="logo-c" class="logo-letter">C</span>
                         <span id="logo-d" class="logo-letter">D</span>
                     </div>
-                    <div class="logo-text"><span id="bug-b">b</span>ug</div>
+                    <div class="logo-text v1"><span id="bug-b">b</span>ug</div>
 
                 </div>
 
-                <h1>Hi, I'm <span class="name">Piyush</span></h1>
-                <p>I create, design and program stuffs.</p>
-                <a target="_blank" href="project.html">
-                    <button class="cta-button">See My Work</button>
-                </a>
+                <div class="text-box">
+                    <h1>Hi, I'm <span class="name">Piyush</span></h1>
+                    <p>I create, design and program stuffs.</p>
+
+                    <button class="cta-button">See My Work</button> 
+
+                </div>
 
             </div>
 
-        </div>
+            <div class="exp-feat"></div>
 
-        <div ></div>
+            <div id="lang-summary" class="lang-box">
 
-        <div id="lang-summary" class="lang-box">
-       
-            <canvas id="sphere"></canvas>
+                <canvas id="sphere"></canvas>
 
-            <div class="tooltip"></div>
-        </div>
-
-
-    </section>
-
-    <section class="mainTwo">
-
-        <div class="leetcode-chart grid">
-            <h3>LeetCode Activity</h3>
-            <div id="leetcodeChartContainer">Loading Chart...</div>
-        </div>
-
-        <div class="github-chart grid">
-            <h3>GitHub Contribution</h3>
-            <div class="heatmap-widget">
+                <div class="tooltip"></div>
             </div>
-            <div id="githubStats" class="stats">Just a moment...</div>
+
+
+        </section>
+
+        <section class="mainTwo">
+
+            <div class="leetcode-chart grid">
+                <h3>LeetCode Activity</h3>
+                <div id="leetcodeChartContainer">Loading Chart...</div>
+            </div>
+
+            <div class="github-chart grid">
+                <h3>GitHub Contribution</h3>
+                <div class="heatmap-widget">
+                </div>
+                <div id="githubStats" class="stats">Just a moment...</div>
+            </div>
+
+            <div class="dev-logs grid">
+                <h3>Daily Dev Logs</h3>
+                <div id="devLogsContainer">Log data incoming...</div>
+            </div>
+
+            <div class="coding-activity grid">
+                <h3>Cooding Tracker</h3>
+                <div id="codingTrackerContainer">Loading Activity...</div>
+            </div>
+
+        </section>
+
+        <section class="mainThree">
+
+        </section>
+
+
+
+        <div class="heatmap-modal hidden" id="heatmapmodal">
+            <div class="heatmap-modal-content">
+                <button class="close">&times;</button>
+                <h3>Full Contrribution Heatmap</h3>
+                <div class="full-heatmap-grid"></div>
+            </div>
         </div>
 
-        <div class="dev-logs grid">
-            <h3>Daily Dev Logs</h3>
-            <div id="devLogsContainer">Log data incoming...</div>
-        </div>
-
-        <div class="coding-activity grid">
-            <h3>Cooding Tracker</h3>
-            <div id="codingTrackerContainer">Loading Activity...</div>
-        </div>
-
-    </section>
-
-    <section class="mainThree">
-
-    </section>
-
-
-
-    <div class="heatmap-modal hidden" id="heatmapmodal">
-        <div class="heatmap-modal-content">
-            <button class="close">&times;</button>
-            <h3>Full Contrribution Heatmap</h3>
-            <div class="full-heatmap-grid"></div>
-        </div>
     </div>
+
+
 
     <footer class="footer">
 
-        <div class="quick-links">
-            <ul id="quickLinks">
-                <li><a href="/">Quick Links</a></li>
-                <li><a href="/">Quick Links</a></li>
-                <li><a href="/">Quick Links</a></li>
-            </ul>
+        <div class="shortcuts">
+
+            <div class="quick-links">
+                <ul id="quickLinks">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="aboutMe.html">About</a></li>
+                    <li><a href="project.html">Projects</a></li>
+                </ul>
+            </div>
+
+            <div class="quick-links">
+                <ul id="quickLinks">
+                    <li><a href="/">Contact</a></li>
+                    <li><a href="/">Help</a></li>
+                    <li><a href="/">Blogs</a></li>
+                </ul>
+            </div>
+
         </div>
 
-        <div class="quick-links">
-            <ul id="quickLinks">
-                <li><a href="/">Quick Links</a></li>
-                <li><a href="/">Quick Links</a></li>
-                <li><a href="/">Quick Links</a></li>
+        <div class="social-links">
+            <ul>
+                <li><a href="/">
+                        <i class='bx bxl-github'></i>
+                    </a></li>
+                <li><a href="/">
+                        <i class='bx bxl-linkedin'></i>
+                    </a></li>
+                <li><a href="/">
+                        <i class='bx bxl-twitter'></i>
+                    </a></li>
             </ul>
         </div>
-
-        <div class="quick-links">
-            <ul id="quickLinks">
-                <li><a href="/">Quick Links</a></li>
-                <li><a href="/">Quick Links</a></li>
-                <li><a href="/">Quick Links</a></li>
-            </ul>
-        </div>
-
 
     </footer>
 

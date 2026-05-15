@@ -5,7 +5,8 @@ button {
     color: var(--text-color);
     font-size: var(--font-size);
     font-weight: bold;
-    border: none;
+    width: fit-content;
+    border: 1px solid var(--border-color);
     cursor: pointer;
     border-radius: var(--radius-sm);
     padding: var(--space-sm) var(--space-md);
@@ -14,7 +15,7 @@ button {
 
 button:hover {
     background: var(--button-color-hover);
-    transform: translateY(-1px);
+    transform: translateY(1px);
     box-shadow: var(--shadow-md);
 }
 
@@ -51,4 +52,42 @@ button:hover {
     grid-template-rows: 1fr 1fr;
     height: 100vh;
     width: 100vw;
+}
+
+.text-box {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-rel-md);
+    width: 100%;
+    padding: var(--space-rel-md);
+}
+
+.name {
+    color: var(--accent-color);
+    font-weight: bold;
+}
+
+.main {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 1em;
+    user-select: none;
+    animation: fadeIn 1s ease;
+}
+
+.override {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+    font-size: 3vw;
+    line-height: 1;
+}
+
+.v1 {
+    font-size: 1.2vw;
+    margin-left: 0.6em;
 }

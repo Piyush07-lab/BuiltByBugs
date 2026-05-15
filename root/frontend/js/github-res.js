@@ -5,7 +5,7 @@ export async function renderGitHubContributions() {
         const data = await fetchGitContributions();
 
         const heatmapWidget = document.querySelector(".heatmap-widget");
-        heatmapWidget, innerHTML = data.html || "<p>Heatmap unavailable</p>";
+        heatmapWidget.innerHTML = data.html || "<p>Heatmap unavailable</p>";
 
         const statsBar = document.getElementById("githubStats");
         if (data.total && data.maxDay) {
