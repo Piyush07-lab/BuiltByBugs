@@ -11,11 +11,7 @@ This is not just a personal portfolio. This is a fully integrated, self-develope
 
 ---
 
-## 🧠 Recruiter Perspective
-
-### ✅ First Impression
-
-> "Unique. Professional. Clearly not a template."
+## Devloper's Intrest
 
 * Deployed, polished site with focused design
 * Clear access to LinkedIn + downloadable resume
@@ -36,9 +32,7 @@ This is not just a personal portfolio. This is a fully integrated, self-develope
 
 ---
 
-## 💼 Client Perspective
-
-### ✅ Functionality Built for Them
+### ✅ Functionality Built for Clients
 
 * **AI Assistant**: Free-to-chat assistant that guides users without sales pressure
 * **Service Flow**: Helps clients define their needs first, then suggests options
@@ -62,7 +56,7 @@ This is not just a personal portfolio. This is a fully integrated, self-develope
 * Professional summary
 * Social links, LinkedIn, Resume Download & Preview
 
-### 2. **Activity Dashboard (`.mainTwo`)**
+### 2. **Activity Dashboard**
 
 * GitHub Contribution Chart
 * LeetCode Activity + Sidebar
@@ -85,7 +79,7 @@ This is not just a personal portfolio. This is a fully integrated, self-develope
 
 ---
 
-## 📦 AI Assistant Overview
+## 📦 AI Assistant Overview(In progress)
 
 * Built from scratch — no third-party or paid solution
 * Includes logic to:
@@ -101,7 +95,7 @@ This is not just a personal portfolio. This is a fully integrated, self-develope
 ## 📑 Deployment & Tools
 
 * **Frontend**: HTML, CSS, JS (Vanilla)
-* **Backend**: Node.js (no Express), raw HTTP modules
+* **Backend**: Node.js, raw HTTP modules
 * **AI & Scripts**: Python (future ML integration planned)
 * **Hosting**: To be deployed on custom domain + Vercel/Render fallback
 * **CI/CD**: Manual + GitHub Actions (planned)
@@ -123,5 +117,4 @@ That’s the goal.
 
 ---
 
-*PDF copy available upon request or download link at /docs/vision.pdf*
 
