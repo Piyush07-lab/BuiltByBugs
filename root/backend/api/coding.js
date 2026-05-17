@@ -13,7 +13,7 @@ function getCodingActivity(req, res) {
     const logs = JSON.parse(raw);
 
     res.writeHead(200, { "Content-Type": "application/json" });
-    req.end(JSON.stringify(logs));
+    res.end(JSON.stringify(logs));
 }
 
 function postCodingActivity(req, res) {
@@ -86,7 +86,7 @@ function getCodingSummary(req, res) {
         longestStreak,
         languageBreakdown: langMap
     };
-    req.writeHead(200, { "Content-Type": "application/json" });
+    res.writeHead(200, { "Content-Type": "application/json" });
     res.end(JSON.stringify(summary));
 }
 

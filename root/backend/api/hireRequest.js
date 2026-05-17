@@ -24,9 +24,9 @@ async function handleHireRequest(req, res) {
                 return;
             }
 
-            const savePath = path.join(__direname, '../data/hire-requests.json');
+            const savePath = path.join(__dirname, '../data/hire-requests.json');
             const existing = fs.existsSync(savePath) ? JSON.parse(fs.readFileSync(savePath)) : [];
-            existing.push({ ...data, timestamp: new date().toISOString() });
+            existing.push({ ...data, timestamp: new Date().toISOString() });
             
             fs.writeFileSync(savePath, JSON.stringify(existing, null, 2));
 
@@ -35,7 +35,7 @@ async function handleHireRequest(req, res) {
 
         } catch (err) {
             console.error('[Hire API Error]', err);
-            res.writeHead(500, { 'Content-Type': 'appliction/json' });
+            res.writeHead(500, { 'Content-Type': 'application/json' });
             res.end(JSON.stringify({ error: 'Internal server error' }));
         }
     });
