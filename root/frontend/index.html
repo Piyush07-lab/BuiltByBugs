@@ -23,7 +23,7 @@
 
     <div class="site-content">
 
-        <header class="header" role="banner" aria-label="Site header">
+        <header class="header layout-header" role="banner" aria-label="Site header">
 
             <a class="logo-link" href="index.html">
 
@@ -42,9 +42,9 @@
                 </div>
             </a>
 
-            <div class="nav-container">
+            <div class="nav-container layout-nav-container">
                 <nav class="nav" aria-label="Primary navigation">
-                    <ul class="nav-links">
+                    <ul class="nav-links layout-nav-links">
                         <li><a href="index.html">Home</a></li>
                         <li><a href="aboutMe.html">About</a></li>
                         <li><a href="project.html">Project</a></li>
@@ -54,15 +54,15 @@
 
             </div>
 
-            <div class="cta-container">
-                <button class="cta-button" id="hireMeBtn">
+            <div class="cta-container layout-cta">
+                <button class="cta-button component-button" id="hireMeBtn">
                     <span>Hire Me!</span>
                 </button>
             </div>
 
-            <div id="hireModal" class="modal hidden">
+            <div id="hireModal" class="modal component-modal hidden">
                 <div class="modal-content">
-                    <span class="close">&times;</span>
+                    <span class="close component-modal-close">&times;</span>
                     <h2>Hire Me</h2>
                     <form id="hireForm">
                         <label for="name">Name:</label>
@@ -81,33 +81,33 @@
 
         </header>
 
-        <section id="mainSection" class="dashboard">
+        <section id="mainSection" class="dashboard section-dashboard">
 
-            <div class="mainOne">
+            <div class="mainOne card-hero card card-base flex-center u-flex-center stack u-stack">
 
-                <div class="logo-container main" role="banner" aria-label="OCDbug logo">
-                    <div class="logo-core override">
+                <div class="logo-container component-logo main component-logo-main" role="banner" aria-label="OCDbug logo">
+                    <div class="logo-core component-logo-core override component-logo-core-large">
                         <span id="logo-o" class="logo-letter">O</span>
                         <span id="logo-c" class="logo-letter">C</span>
                         <span id="logo-d" class="logo-letter">D</span>
                     </div>
-                    <div class="logo-text v1"><span id="bug-b">b</span>ug</div>
+                    <div class="logo-text component-logo-text v1 component-logo-text-compact"><span id="bug-b">b</span>ug</div>
 
                 </div>
 
-                <div class="text-box">
-                    <h1>Hi, I'm <span class="name">Piyush</span></h1>
+                <div class="text-box component-text-block">
+                    <h1>Hi, I'm <span class="name u-accent-text">Piyush</span></h1>
                     <p>I create, design and program stuffs.</p>
 
-                    <button class="cta-button">See My Work</button> 
+                    <button class="cta-button component-button"><a href="project.html">See My Work</a></button>
 
                 </div>
 
             </div>
 
-            <div class="exp-feat"></div>
+            <div class="exp-feat card-feature card card-base flex-center u-flex-center"></div>
 
-            <div id="lang-summary" class="lang-box">
+            <div id="lang-summary" class="lang-box card-language card card-base flex-center u-flex-center">
 
                 <canvas id="sphere"></canvas>
 
@@ -151,7 +151,7 @@
 
         <div class="heatmap-modal hidden" id="heatmapmodal">
             <div class="heatmap-modal-content">
-                <button class="close">&times;</button>
+                <button class="close component-modal-close">&times;</button>
                 <h3>Full Contrribution Heatmap</h3>
                 <div class="full-heatmap-grid"></div>
             </div>
@@ -161,20 +161,20 @@
 
 
 
-    <footer class="footer">
+    <footer class="footer layout-footer">
 
-        <div class="shortcuts">
+        <div class="shortcuts layout-footer-shortcuts">
 
-            <div class="quick-links">
-                <ul id="quickLinks">
+            <div class="quick-links component-link-list">
+                <ul class="quick-links-list">
                     <li><a href="index.html">Home</a></li>
                     <li><a href="aboutMe.html">About</a></li>
                     <li><a href="project.html">Projects</a></li>
                 </ul>
             </div>
 
-            <div class="quick-links">
-                <ul id="quickLinks">
+            <div class="quick-links component-link-list">
+                <ul class="quick-links-list">
                     <li><a href="/">Contact</a></li>
                     <li><a href="/">Help</a></li>
                     <li><a href="/">Blogs</a></li>
@@ -183,7 +183,7 @@
 
         </div>
 
-        <div class="social-links">
+        <div class="social-links layout-social-links">
             <ul>
                 <li><a href="/">
                         <i class='bx bxl-github'></i>

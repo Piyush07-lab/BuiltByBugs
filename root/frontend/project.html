@@ -17,7 +17,10 @@
     <title>Project Page</title>
 </head>
 <body>
-    <header class="header" role="banner" aria-label="Site header">
+
+    <canvas id="backgroundCanvas"></canvas>
+
+    <header class="header layout-header" role="banner" aria-label="Site header">
         <a class="logo-link" href="index.html">
             <div class="logo-container" role="banner" aria-label="OCDbug logo">
                 <div class="logo-core">
@@ -29,9 +32,9 @@
             </div>
         </a>
 
-        <div class="nav-container">
+        <div class="nav-container layout-nav-container">
             <nav class="nav" aria-label="Primary navigation">
-                <ul class="nav-links">
+                <ul class="nav-links layout-nav-links">
                     <li><a href="index.html">Home</a></li>
                     <li><a href="aboutMe.html">About</a></li>
                     <li><a href="project.html">Project</a></li>
@@ -41,37 +44,37 @@
 
         </div>
 
-        <div class="cta-container">
-            <button class="cta-button" id="hireMeBtn">
+        <div class="cta-container layout-cta">
+            <button class="cta-button component-button" id="hireMeBtn">
                 <span>Hire Me!</span>
             </button>
         </div>
 
     </header>
 
-    <section class="project-section">
-        <div class="title">Projects</div>
+    <section class="project-section section-projects flex-center u-flex-center">
+        <div class="title section-projects-title flex-center u-flex-center">Projects</div>
         
 
-        <div class="summary-bar">Project Summary incoming...</div>
+        <div class="summary-bar card-project-summary flex-center u-flex-center">Project Summary incoming...</div>
 
-        <div class="project-container">Projects will be shown here!</div>
+        <div class="project-container card-project-list flex-center u-flex-center">Projects will be shown here!</div>
     </section>
 
-    <footer class="footer">
+    <footer class="footer layout-footer">
 
-        <div class="shortcuts">
+        <div class="shortcuts layout-footer-shortcuts">
 
-            <div class="quick-links">
-                <ul id="quickLinks">
+            <div class="quick-links component-link-list">
+                <ul class="quick-links-list">
                     <li><a href="index.html">Home</a></li>
                     <li><a href="aboutMe.html">About</a></li>
                     <li><a href="project.html">Projects</a></li>
                 </ul>
             </div>
 
-            <div class="quick-links">
-                <ul id="quickLinks">
+            <div class="quick-links component-link-list">
+                <ul class="quick-links-list">
                     <li><a href="/">Contact</a></li>
                     <li><a href="/">Help</a></li>
                     <li><a href="/">Blogs</a></li>
@@ -80,7 +83,7 @@
 
         </div>
 
-        <div class="social-links">
+        <div class="social-links layout-social-links">
             <ul>
                 <li><a href="/">
                     <i class='bx bxl-github'></i>

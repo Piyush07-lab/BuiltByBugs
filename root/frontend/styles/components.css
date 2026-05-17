@@ -1,6 +1,8 @@
-/* reusable UI component (buttons, cards, status boxes) */
+/* Reusable UI components */
 
-button {
+/* Refactor: component naming alias */
+button,
+.component-button {
     background: var(--button-color);
     color: var(--text-color);
     font-size: var(--font-size);
@@ -13,13 +15,16 @@ button {
     transition: background var(--transition-md), transform var(--transition-fast);
 }
 
-button:hover {
+button:hover,
+.component-button:hover {
     background: var(--button-color-hover);
     transform: translateY(1px);
     box-shadow: var(--shadow-md);
 }
 
-.modal {
+/* Refactor: compatibility alias */
+.modal,
+.component-modal {
     position: fixed;
     top: 0;
     left: 0;
@@ -32,11 +37,15 @@ button:hover {
     z-index: 1000;
 }
 
-.hidden {
+/* Refactor: compatibility alias */
+.hidden,
+.u-hidden {
     display: none;
 }
 
-.close {
+/* Refactor: compatibility alias */
+.close,
+.component-modal-close {
     position: absolute;
     color: var(--accent-color);
     top: 1rem;
@@ -44,50 +53,4 @@ button:hover {
     font-size: 1.5rem;
     cursor: pointer;
     line-height: 1;
-}
-
-.dashboard {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    height: 100vh;
-    width: 100vw;
-}
-
-.text-box {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-rel-md);
-    width: 100%;
-    padding: var(--space-rel-md);
-}
-
-.name {
-    color: var(--accent-color);
-    font-weight: bold;
-}
-
-.main {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    width: 100%;
-    max-width: 100%;
-    margin-bottom: 1em;
-    user-select: none;
-    animation: fadeIn 1s ease;
-}
-
-.override {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0;
-    font-size: 3vw;
-    line-height: 1;
-}
-
-.v1 {
-    font-size: 1.2vw;
-    margin-left: 0.6em;
 }

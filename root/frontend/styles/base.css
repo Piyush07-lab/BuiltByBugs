@@ -1,19 +1,28 @@
-/* universal rules */
+/* Base tokens, resets, and primitives */
 
 :root {
+    /* Refactor: centralized theme token */
     --bg-color: #4c4c4c;
     --panel-bg: #28353db5;
     --card-bg: #374445b5;
+    --project-surface-bg: #1a1a1a;
 
     /* ---------------------------------------- */
 
+    /* Refactor: centralized theme token */
     --text-color: #f1f1f1;
     --secondary-text: #dad2d2;
 
     /* ---------------------------------------- */
 
+    /* Refactor: centralized theme token */
     --accent-color: #858e93;
     --border-color: #d0f3e4;
+    --project-border-color: #24292f;
+    --project-divider-color: #333;
+    --project-container-border-color: #0f0f0f;
+    --logo-primary-color: #00ff99;
+    --logo-muted-color: #788278;
     --button-color: #053c1ab5;
     --button-color-hover: #00a473;
     --hover-color: #257d1d;
@@ -42,7 +51,9 @@
     /* ---------------------------------------- */
 
     --cell-size: 16px;
-    --cel-gap: 4px;
+    --cell-gap: 4px;
+    /* Refactor: compatibility alias */
+    --cel-gap: var(--cell-gap);
 
     /* ---------------------------------------- */
 
@@ -52,7 +63,12 @@
 
     /* ---------------------------------------- */
 
+    /* Refactor: centralized theme token */
+    --shadow-sm: 0 0.2rem 0.2rem rgba(33, 32, 32, 0.25);
     --shadow-md: 0 2px 6px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 0.4rem 0.6rem rgba(36, 35, 35, 0.25);
+    --header-shadow: 0 4px 8px rgba(0, 0, 0, 0.434);
+    --blur-panel: 8px;
     --transition-fast: 0.2s ease;
     --transition-md: 0.3s ease;
     --transition-base: 0.5s ease;
@@ -76,7 +92,7 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: var(--text-color);
     min-height: 100vh;
-    min-width: 100svw;
+    min-width: 0;
     display: flex;
     flex-direction: column;
 }
@@ -94,6 +110,37 @@ body {
 .site-content {
     position: relative;
     z-index: 1;
+}
+
+/* Refactor: moved repeated card styles */
+.card,
+.card-base {
+    background: var(--card-bg);
+    box-shadow: var(--shadow-md);
+    padding: var(--space-lg);
+}
+
+/* Refactor: moved repeated panel styles */
+.panel,
+.component-panel {
+    background: var(--panel-bg);
+    border: 0.1rem solid var(--border-color);
+}
+
+/* Refactor: compatibility alias */
+.flex-center,
+.u-flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Refactor: compatibility alias */
+.stack,
+.u-stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
 }
 
 @keyframes fadeIn {

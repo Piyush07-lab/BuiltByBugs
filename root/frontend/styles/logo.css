@@ -1,6 +1,8 @@
-/* My logo bitch */
+/* Logo component */
 
-.logo-container {
+/* Refactor: compatibility alias */
+.logo-container,
+.component-logo {
     display: flex;
     gap: 0.5em;
     align-items: center;
@@ -10,7 +12,9 @@
     isolation: isolate;
 }
 
-.logo-core {
+/* Refactor: compatibility alias */
+.logo-core,
+.component-logo-core {
     display: inline-flex;
     justify-content: center;
     align-items: center;
@@ -18,15 +22,18 @@
     isolation: isolate;
 }
 
-.logo-letter {
+/* Refactor: compatibility alias */
+.logo-letter,
+.component-logo-letter {
     font-family: 'AcademiaSSK', serif;
     font-size: 2em;
-    color: #00ff99;
+    color: var(--logo-primary-color);
     margin-right: -0.3em;
     user-select: none;
 }
 
-.logo-letter:last-child {
+.logo-letter:last-child,
+.component-logo-letter:last-child {
     margin-right: 0;
 }
 
@@ -44,7 +51,9 @@
     font-size: 1.9em;
 }
 
-.logo-text {
+/* Refactor: compatibility alias */
+.logo-text,
+.component-logo-text {
     font-size: 0.75em;
     color: var(--accent-color);
     font-family: 'AcademiaSSK', sans-serif;
@@ -55,15 +64,18 @@
 #bug-b {
     font-family: 'AcademiaSSK', sans-serif;
     font-weight: bold;
-    color: #788278;
+    color: var(--logo-muted-color);
 }
 
-.logo-link {
+/* Refactor: compatibility alias */
+.logo-link,
+.component-logo-link {
     display: inline-block;
     text-decoration: none;
 }
 
-.logo-link:hover {
+.logo-link:hover,
+.component-logo-link:hover {
     transform: none;
     text-shadow: none;
     cursor: default;
