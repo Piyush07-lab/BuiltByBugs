@@ -38,7 +38,7 @@ async function handleGitHubSummary(req, res) {
             data: freshData
         };
 
-        res.writeHead(200, { "Content-Type": "appliction/json" });
+        res.writeHead(200, { "Content-Type": "application/json" });
         res.end(JSON.stringify(freshData));
     } catch (err) {
         console.error("[GitHub Summary Error]", err);
@@ -49,8 +49,12 @@ async function handleGitHubSummary(req, res) {
 
 
 function routeRequest(req, res) {
-    const parsedUrl = url.parse(req.url)
-    const { pathname } = parsedUrl;
+    const parsedUrl = new URL(
+        req.url,
+        `http://${req.headers.host}`
+    );
+    const { pathname } = parsedUrl.pathname;
+    
     const { method } = req;
 
     if (pathname === '/api/hireRequest' && method === 'POST') {
@@ -81,7 +85,7 @@ function routeRequest(req, res) {
     //     return handleLeetCodeRefresh(req, res);
     // }
 
-    res.writeHead(404, { 'Content-Type': 'test/plain' });
+    res.writeHead(404, { 'Content-Type': 'text/plain' });
     res.end("Route not found");
 }
 
