@@ -44,7 +44,7 @@ function getCodingSummary(req, res) {
     const logs = JSON.parse(raw);
 
 
-    logs.sort((a, b) => new Date(a.Date) - new Date(b.Date));
+    logs.sort((a, b) => new Date(a.date) - new Date(b.date));
 
     let totalMinutes = 0;
     let uniqueDates = new Set();
@@ -69,7 +69,7 @@ function getCodingSummary(req, res) {
         const curr = new Date(date);
 
         if (!prevDate) {
-            
+
             currentStreak = 1;
             prevDate = curr;
 
