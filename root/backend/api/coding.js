@@ -44,7 +44,7 @@ function getCodingSummary(req, res) {
     const logs = JSON.parse(raw);
 
 
-    logs.sort((a, b) => new Date(a.Date) - new Date(b.date));
+    logs.sort((a, b) => new Date(a.Date) - new Date(b.Date));
 
     let totalMinutes = 0;
     let uniqueDates = new Set();
@@ -55,29 +55,42 @@ function getCodingSummary(req, res) {
     let prevDate = null;
 
     for (const log of logs) {
+
         const { date, minutes, languages } = log;
+
         totalMinutes += minutes;
         uniqueDates.add(date);
 
 
-        for (const lang of languages) {
+        for (const lang of (languages || [])) {
             langMap[lang] = (langMap[lang] || 0) + 1;
         }
 
         const curr = new Date(date);
-        if (prevDate) {
-            const diff = (curr - prevDate) / (1000 * 60 * 60 * 24);
-            if (diff === 1) {
-                currentStreak++
-            } else if (diff > 1) {
-                currentStreak = 1;
-            } else {
-                currentStreak = 1;
-            }
+
+        if (!prevDate) {
+            
+            currentStreak = 1;
+            prevDate = curr;
 
             longestStreak = Math.max(longestStreak, currentStreak);
-            prevDate = new Date(date);
+
+            continue;
         }
+
+        const diff = (curr - prevDate) / (1000 * 60 * 60 * 24);
+
+        if (diff === 1) {
+            currentStreak++
+        } 
+        else {
+            currentStreak = 1;
+        }
+
+        longestStreak = Math.max(longestStreak, currentStreak);
+
+        prevDate = curr;
+
     }
     const summary = {
         totalDays: uniqueDates.size,
@@ -91,7 +104,7 @@ function getCodingSummary(req, res) {
 }
 
 module.exports = {
-    getCodingActivity, 
+    getCodingActivity,
     postCodingActivity,
     getCodingSummary
 };
