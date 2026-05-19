@@ -53,7 +53,7 @@ function routeRequest(req, res) {
         req.url,
         `http://${req.headers.host}`
     );
-    const { pathname } = parsedUrl.pathname;
+    const { pathname } = parsedUrl;
 
     console.log({
         url:req.url,

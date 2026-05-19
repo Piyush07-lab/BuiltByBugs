@@ -1,3 +1,4 @@
 {
-    "terminal.integrated.shellIntegration.enabled": false
+    "terminal.integrated.shellIntegration.enabled": false,
+    "chat.disableAIFeatures": false
 }
