@@ -4,12 +4,24 @@ const http = require('http');
 const { URL } = require('url');
 const { routeRequest } = require('./routes/router.js');
 
-const PORT = 5500;
+const PORT = process.env.PORT || 5500;
 
 const fs = require("fs");
 const path = require("path");
 
 const frontendPath = path.join(__dirname, "../frontend");
+
+const mimeTypes = {
+    ".html": "text/html; charset=utf-8",
+    ".css": "text/css; charset=utf-8",
+    ".js": "application/javascript; charset=utf-8",
+    ".png": "image/png",
+    ".jpg": "image/jpeg",
+    ".jpeg": "image/jpeg",
+    ".svg": "image/svg+xml",
+    ".woff": "font/woff",
+    ".woff2": "font/woff2"
+};
 
 
 const server = http.createServer((req, res) => {
@@ -57,6 +69,11 @@ const server = http.createServer((req, res) => {
         &&
         fs.statSync(filePath).isFile()
     ){
+        const contentType = mimeTypes[path.extname(filePath).toLowerCase()]
+            || "application/octet-stream";
+
+        res.writeHead(200, { "Content-Type": contentType });
+
         return fs
             .createReadStream(filePath)
             .pipe(res);

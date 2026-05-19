@@ -82,10 +82,10 @@
 
 @font-face {
     font-family: 'AcademiaSSK';
-    src: url('/root/frontend/assets/fonts/academiassk_bold-webfont.woff'),
-        url('/root/frontend/assets/fonts/academiassk_bold-webfont.woff2');
-    src: url('/root/frontend/assets/fonts/academiassk_regular-webfont.woff'),
-        url('/root/frontend/assets/fonts/academiassk_regular-webfont.woff2');
+    src: url('/assets/fonts/academiassk_bold-webfont.woff'),
+        url('/assets/fonts/academiassk_bold-webfont.woff2');
+    src: url('/assets/fonts/academiassk_regular-webfont.woff'),
+        url('/assets/fonts/academiassk_regular-webfont.woff2');
 }
 
 body {
