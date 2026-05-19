@@ -28,10 +28,10 @@ const server = http.createServer((req, res) => {
     }
 
 
-    if (parsedUrl.pathname === '/') {
-        res.writeHead(200, { 'Content-Type': 'text/plain' });
-        return res.end('Hello from backend');
-    }
+    // if (parsedUrl.pathname === '/') {
+    //     res.writeHead(200, { 'Content-Type': 'text/plain' });
+    //     return res.end('Hello from backend');
+    // }
 
 
     if (parsedUrl.pathname === '/favicon.ico') {
