@@ -6,6 +6,12 @@ const { routeRequest } = require('./routes/router.js');
 
 const PORT = 5500;
 
+const fs = require("fs");
+const path = require("path");
+
+const frontendPath = path.join(__dirname, "../frontend");
+
+
 const server = http.createServer((req, res) => {
 
     const parsedUrl = new URL(req.url, `http://${req.headers.host}`);
@@ -33,6 +39,22 @@ const server = http.createServer((req, res) => {
         return res.end();
     }
 
+    const filePath = path.join(
+        frontendPath,
+        parsedUrl.pathname === "/"
+        ? "index.html"
+        : parsedUrl.pathname
+    );
+
+    if (
+        fs.existsSync(filePath)
+        &&
+        fs.statSync(filePath).isFile()
+    ){
+        return fs
+            .createReadStream(filePath)
+            .pipe(res);
+    }
 
     routeRequest(req, res);
 });
