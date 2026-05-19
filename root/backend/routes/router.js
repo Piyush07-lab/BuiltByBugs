@@ -54,6 +54,13 @@ function routeRequest(req, res) {
         `http://${req.headers.host}`
     );
     const { pathname } = parsedUrl.pathname;
+
+    console.log({
+        url:req.url,
+        pathname,
+        method:req.method
+    });
+    
     
     const { method } = req;
 
