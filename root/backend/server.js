@@ -39,6 +39,12 @@ const server = http.createServer((req, res) => {
         return res.end();
     }
 
+    if (parsedUrl.pathname.startsWith(
+        "/api"
+    )){
+        return routeRequest(req,res);
+    }
+
     const filePath = path.join(
         frontendPath,
         parsedUrl.pathname === "/"
