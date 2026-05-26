@@ -1,5 +1,11 @@
 {
   "dependencies": {
+    "@babel/generator": "^7.29.7",
+    "@babel/parser": "^7.29.7",
+    "@babel/traverse": "^7.29.7",
+    "@babel/types": "^7.29.7",
+    "fs-extra": "^11.3.5",
+    "glob": "^13.0.6",
     "three": "^0.178.0"
   }
 }
