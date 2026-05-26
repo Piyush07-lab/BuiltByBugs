@@ -8,6 +8,8 @@ const parser = require("@babel/parser");
 
 const config = require("./config");  
 
+const traverse = require("@babel/traverse").default;
+
 //Making a compile function
 
 function compile() {
@@ -36,5 +38,15 @@ function compile() {
 
         }
     }
+
+    traverse(ast, {
+        
+        CallExpression(path) {
+
+            console.log(
+                `Function Call: ${path.node.callee.type}`
+            );
+        }
+    });
 }
 compile();
