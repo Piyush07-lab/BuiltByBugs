@@ -12,7 +12,7 @@ const config = require("./config");
 
 function compile() {
 
-    const files = cponfig.input.flatMap(pattern =>
+    const files = config.input.flatMap(pattern =>
         glob.sync(pattern)
     );                                                  //We sync the compiler with global environment
 
@@ -37,5 +37,4 @@ function compile() {
         }
     }
 }
-
 compile();
