@@ -6,7 +6,7 @@ module.exports = function(ast, file) {
             const callee = path.node.callee;
 
             if (
-                callee.bject?.name === "document" &&
+                callee.object?.name === "document" &&
                 (
                     callee.property?.name === "getElementById" ||
                     callee.property?.name === "querySelector"
