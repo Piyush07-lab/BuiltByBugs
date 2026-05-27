@@ -39,8 +39,12 @@ function compile() {
         }
     }
 
+    for (const analyzer of config.analyzers) {
+        analyzer(ast, file);
+    }
+
     traverse(ast, {
-        
+
         CallExpression(path) {
 
             console.log(
