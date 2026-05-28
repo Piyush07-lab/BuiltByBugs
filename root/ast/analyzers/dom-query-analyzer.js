@@ -1,8 +1,13 @@
 const traverse = require("@babel/traverse").default;
 
 module.exports = function(ast, file) {
+
+    const domQueries = [];
+
     traverse(ast, {
+
         CallExpression(path) {
+
             const callee = path.node.callee;
 
             if (
@@ -14,11 +19,14 @@ module.exports = function(ast, file) {
             ) {
                 const arg = path.node.arguments[0];
 
-                console.log(
-                    `[${file}] DOM Query -> ${arg?.value}`
-                );
+                domQueries.push({
+                    file,
+                    selector
+                });
                 
             }
         }
     });
+
+    return domQueries;
 };
