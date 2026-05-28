@@ -14,14 +14,26 @@ module.exports = function(ast, file) {
                 callee.object?.name === "document" &&
                 (
                     callee.property?.name === "getElementById" ||
-                    callee.property?.name === "querySelector"
+                    callee.property?.name === "querySelector"  ||
+                    callee.property?.name === "querySelectorAll"
                 )
             ) {
                 const arg = path.node.arguments[0];
 
+                if (!arg) {
+                    return;
+                }
+
+                if (arg.type !== "StringLiteral") {
+                    return;
+                }
+
+                const method = callee.property.name;
+
                 domQueries.push({
                     file,
-                    selector
+                    method,
+                    argument: arg.value
                 });
                 
             }
