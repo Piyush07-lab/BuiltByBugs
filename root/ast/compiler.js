@@ -1,11 +1,7 @@
-//setting up requirements
-
 const fs = require("fs");
 const path = require("path");
 const glob = require("glob");
-
 const parser = require("@babel/parser");
-
 const config = require("./config");
 const projectModel = require("./project-model");
 
