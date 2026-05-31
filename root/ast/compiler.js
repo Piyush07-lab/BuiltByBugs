@@ -7,6 +7,7 @@ const glob = require("glob");
 const parser = require("@babel/parser");
 
 const config = require("./config");
+const projectModel = require("./project-model");
 
 // const traverse = require("@babel/traverse").default;
 
@@ -33,6 +34,8 @@ function compile() {
 
             for (const analyzer of config.analyzers) {
                 const result = analyzer(ast, file);
+
+                projectModel.domQueries.push(...result);
             }
 
         } catch (error) {
