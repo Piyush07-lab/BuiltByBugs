@@ -6,9 +6,9 @@ const glob = require("glob");
 
 const parser = require("@babel/parser");
 
-const config = require("./config");  
+const config = require("./config");
 
-const traverse = require("@babel/traverse").default;
+// const traverse = require("@babel/traverse").default;
 
 //Making a compile function
 
@@ -30,7 +30,21 @@ function compile() {
 
             console.log(`Parsed: ${file}`);
             console.log(`AST Type: ${ast.type}\n`);
-            
+
+            for (const analyzer of config.analyzers) {
+                analyzer(ast, file);
+            }
+
+            traverse(ast, {
+
+                CallExpression(path) {
+
+                    console.log(
+                        `Function Call: ${path.node.callee.type}`
+                    );
+                }
+            });
+
         } catch (error) {
 
             console.log(`Failed: ${file}`);
@@ -39,18 +53,8 @@ function compile() {
         }
     }
 
-    for (const analyzer of config.analyzers) {
-        analyzer(ast, file);
-    }
 
-    traverse(ast, {
 
-        CallExpression(path) {
 
-            console.log(
-                `Function Call: ${path.node.callee.type}`
-            );
-        }
-    });
 }
 compile();
