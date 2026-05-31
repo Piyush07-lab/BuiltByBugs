@@ -11,11 +11,11 @@ module.exports = function (ast, file) {
             const specifier = path.node.specifiers;
             const source = path.node.source;
 
-            console.log(JSON.stringify(path.node, null, 2));
+            // console.log(JSON.stringify(path.node, null, 2));
 
             imports.push({
                 file,
-                specifier: specifier[0],
+                specifier: specifier[0].imported.name,
                 source: source.value
             })
 

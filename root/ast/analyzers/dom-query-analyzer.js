@@ -41,4 +41,5 @@ module.exports = function(ast, file) {
     });
 
     return domQueries;
+    
 };

@@ -1,4 +1,5 @@
 const domQueryAnalyzer = require("./analyzers/dom-query-analyzer");
+const importAnalyzer = require("./analyzers/import-analyzer");
 
 module.exports = {
 
@@ -8,7 +9,8 @@ module.exports = {
     ],
 
     analyzers: [
-        domQueryAnalyzer
+        domQueryAnalyzer,
+        importAnalyzer
     ],
 
     transforms: []

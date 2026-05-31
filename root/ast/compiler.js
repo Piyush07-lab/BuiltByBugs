@@ -29,6 +29,7 @@ function compile() {
             console.log(`AST Type: ${ast.type}\n`);
 
             for (const analyzer of config.analyzers) {
+                
                 const result = analyzer(ast, file);
 
                 projectModel.domQueries.push(...result);
@@ -42,7 +43,8 @@ function compile() {
         }
     }
 
-    console.log(projectModel);
+    console.log(projectModel.imports);
+    
     
 
 }
