@@ -32,18 +32,8 @@ function compile() {
             console.log(`AST Type: ${ast.type}\n`);
 
             for (const analyzer of config.analyzers) {
-                analyzer(ast, file);
+                const result = analyzer(ast, file);
             }
-
-            traverse(ast, {
-
-                CallExpression(path) {
-
-                    console.log(
-                        `Function Call: ${path.node.callee.type}`
-                    );
-                }
-            });
 
         } catch (error) {
 
