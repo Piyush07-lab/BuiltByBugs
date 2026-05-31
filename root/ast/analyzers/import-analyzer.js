@@ -1,6 +1,6 @@
 const traverse = require("@babel/traverse").default;
 
-module.exports = function (ast, files) {
+module.exports = function (ast, file) {
 
     const imports = [];
 
@@ -11,9 +11,11 @@ module.exports = function (ast, files) {
             const specifier = path.node.specifiers;
             const source = path.node.source;
 
+            console.log(JSON.stringify(path.node, null, 2));
+
             imports.push({
                 file,
-                specifier: specifier.value,
+                specifier: specifier[0],
                 source: source.value
             })
 
