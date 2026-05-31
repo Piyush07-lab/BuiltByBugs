@@ -11,10 +11,9 @@ module.exports = function (ast, file) {
             const callee = path.node.callee;
 
             if (
-                callee.object?.name === "button" ||
                 callee.property?.name === "addEventListener"
             ) {
-                const arg = path.node.arguments[0];
+                const arg = path.node.arguments[1];
 
                 if (!arg) {
                     return;
