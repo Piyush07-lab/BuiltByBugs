@@ -43,7 +43,7 @@ function compile() {
         }
     }
 
-    console.log(projectModel.domQueries);
+    console.log(projectModel.eventListener);
     
     
 
