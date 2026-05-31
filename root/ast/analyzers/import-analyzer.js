@@ -22,5 +22,8 @@ module.exports = function (ast, file) {
         }
     })
 
-    return imports;
+    return {
+        type: "imports",
+        data: imports
+    };
 }

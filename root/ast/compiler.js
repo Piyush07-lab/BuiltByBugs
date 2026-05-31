@@ -32,7 +32,7 @@ function compile() {
                 
                 const result = analyzer(ast, file);
 
-                projectModel.domQueries.push(...result);
+                projectModel[result.type].push(...result.data);
             }
 
         } catch (error) {
@@ -43,7 +43,7 @@ function compile() {
         }
     }
 
-    console.log(projectModel.imports);
+    console.log(projectModel.domQueries);
     
     
 

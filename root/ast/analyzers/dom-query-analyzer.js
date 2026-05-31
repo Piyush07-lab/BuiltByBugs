@@ -40,6 +40,9 @@ module.exports = function(ast, file) {
         }
     });
 
-    return domQueries;
+    return {
+        type: "domQueries",
+        data: domQueries
+    };
     
 };
