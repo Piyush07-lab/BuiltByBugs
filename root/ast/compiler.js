@@ -46,8 +46,8 @@ function compile() {
         }
     }
 
-
-
+    console.log(projectModel);
+    
 
 }
 compile();
