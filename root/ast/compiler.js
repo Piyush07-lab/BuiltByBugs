@@ -43,7 +43,7 @@ function compile() {
         }
     }
 
-    console.log(projectModel.eventListener);
+    console.log(projectModel.apiCalls);
     
     
 
