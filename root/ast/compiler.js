@@ -5,18 +5,14 @@ const parser = require("@babel/parser");
 const config = require("./config");
 const projectModel = require("./project-model");
 
-// const traverse = require("@babel/traverse").default;
-
-//Making a compile function
 
 function compile() {
 
     const files = config.input.flatMap(pattern =>
         glob.sync(pattern)
-    );                                                  //We sync the compiler with global environment
+    );                                                  
 
-    for (const file of files) {     //Parsing and error catching
-
+    for (const file of files) {     
         const source = fs.readFileSync(file, "utf-8");
 
         try {
@@ -43,7 +39,7 @@ function compile() {
         }
     }
 
-    console.log(projectModel.apiCalls);
+    console.log(projectModel);
     
     
 
