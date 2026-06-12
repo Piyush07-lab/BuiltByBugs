@@ -8,7 +8,7 @@ const importReport = require("./reports/import-report");
 const apiReport = require("./reports/api-report");
 const domReport = require("./reports/dom-report");
 const eventReport = require("./reports/event-report");
-
+const markdownWriter = require("./writers/md-writer");
 
 function compile() {
 
