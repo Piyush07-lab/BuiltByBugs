@@ -1,8 +1,4 @@
 # API Calls Report
 
-Total API Calls: 4
+Total API Calls: 0
 
-- frontend\js\API-fetch.js → undefined
-- frontend\js\API-fetch.js → undefined
-- frontend\js\API-fetch.js → undefined
-- frontend\js\API-fetch.js → undefined
