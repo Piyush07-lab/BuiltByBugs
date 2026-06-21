@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "ast": "node ast/compiler.js"
+    "ast": "node ast/compiler.js",
+    "inspect": "node inspect.js"
   },
 
   "dependencies": {

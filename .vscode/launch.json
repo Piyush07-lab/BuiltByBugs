@@ -12,6 +12,12 @@
                 "<node_internals>/**"
             ],
             "program": "${workspaceFolder}\\root\\ast\\compiler.js"
+        },
+        {
+            "name": "Inspect",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceFolder}\\root\\inspect.js"
         }
     ]
 }
