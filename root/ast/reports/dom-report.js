@@ -8,7 +8,7 @@ module.exports = function(projectModel) {
     markdown += `Total Dom Queries: ${totalDomQueries}\n\n`;
 
     for (const item of domQueries) {
-        markdown += `- ${item.file} → ${item.source}\n`;
+        markdown += `- ${item.file} → ${item.method}, ${item.argument}\n`;
     }
 
     return markdown;

@@ -2,10 +2,10 @@
 
 Total Event-Listener: 7
 
-- frontend\js\theme.js → undefined
-- frontend\js\main.js → undefined
-- frontend\js\components.js → undefined
-- frontend\js\components.js → undefined
-- frontend\js\components.js → undefined
-- frontend\js\components.js → undefined
-- frontend\js\components.js → undefined
+- frontend\js\theme.js → Identifier, resize
+- frontend\js\main.js → ArrowFunctionExpression, DOMContentLoaded
+- frontend\js\components.js → ArrowFunctionExpression, click
+- frontend\js\components.js → ArrowFunctionExpression, click
+- frontend\js\components.js → ArrowFunctionExpression, click
+- frontend\js\components.js → ArrowFunctionExpression, keydown
+- frontend\js\components.js → ArrowFunctionExpression, submit

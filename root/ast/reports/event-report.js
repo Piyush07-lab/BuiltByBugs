@@ -8,7 +8,7 @@ module.exports = function(projectModel) {
     markdown += `Total Event-Listener: ${totalEventListener}\n\n`;
 
     for (const item of eventListener) {
-        markdown += `- ${item.file} → ${item.source}\n`;
+        markdown += `- ${item.file} → ${item.handler}, ${item.event}\n`;
     }
 
     return markdown;

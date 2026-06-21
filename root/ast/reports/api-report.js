@@ -8,7 +8,7 @@ module.exports = function(projectModel) {
     markdown += `Total API Calls: ${totalApiCalls}\n\n`;
 
     for (const item of apiCalls) {
-        markdown += `- ${item.file} → ${item.source}\n`;
+        markdown += `- ${item.file} → ${item.endpoint}\n`;
     }
 
     return markdown;
