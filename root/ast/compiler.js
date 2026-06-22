@@ -9,6 +9,7 @@ const apiReport = require("./reports/api-report");
 const domReport = require("./reports/dom-report");
 const eventReport = require("./reports/event-report");
 const fileSummaryReport = require("./reports/file-summary-report");
+const metricsReport = require("./reports/metrics-report");
 const markdownWriter = require("./writers/md-writer");
 
 function buildFileModel(projectModel) {
@@ -111,7 +112,8 @@ function compile() {
         api: apiReport(projectModel),
         dom: domReport(projectModel),
         events: eventReport(projectModel),
-        fileSummary: fileSummaryReport(projectModel)
+        fileSummary: fileSummaryReport(projectModel),
+        metrics: metricsReport(projectModel)
     };
 
     markdownWriter(markdown);

@@ -34,4 +34,9 @@ module.exports = function (markdown) {
         markdown.fileSummary
     );
 
+    fs.writeFileSync(
+        path.join(outputDir, "metrics.md"),
+        markdown.metrics
+    );
+
 }
