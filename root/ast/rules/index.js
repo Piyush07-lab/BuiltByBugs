@@ -1,9 +1,9 @@
-const domQueryThreshold = require("./dom-q-threshold");
+const duplicateDomQuery = require("./duplicate-dom-query");
 
-module.exports = function(projectModel) {
+module.exports = function (projectModel) {
 
     return [
-        ...domQueryThreshold(projectModel)
+        ...duplicateDomQuery(projectModel)
     ];
 
-}
+};
