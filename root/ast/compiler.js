@@ -11,6 +11,8 @@ const eventReport = require("./reports/event-report");
 const fileSummaryReport = require("./reports/file-summary-report");
 const metricsReport = require("./reports/metrics-report");
 const markdownWriter = require("./writers/md-writer");
+const runRules = require("./rules");
+
 
 function buildFileModel(projectModel) {
 
@@ -66,6 +68,12 @@ function buildFileModel(projectModel) {
     return files;
 
 }
+
+const diagnostics = runRules(projectModel);
+
+console.dir(diagnostics, {
+    depth: null
+});
 
 function compile() {
 
