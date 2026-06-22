@@ -10,6 +10,61 @@ const domReport = require("./reports/dom-report");
 const eventReport = require("./reports/event-report");
 const markdownWriter = require("./writers/md-writer");
 
+function buildFileModel(projectModel) {
+
+    const files = {};
+
+    const ensureFile = (file) => {
+
+        if (!files[file]) {
+
+            files[file] = {
+                imports: [],
+                apiCalls: [],
+                domQueries: [],
+                eventListener: []
+            };
+
+        }
+
+    };
+
+    for (const item of projectModel.imports) {
+
+        ensureFile(item.file);
+
+        files[item.file].imports.push(item);
+
+    }
+
+    for (const item of projectModel.apiCalls) {
+
+        ensureFile(item.file);
+
+        files[item.file].apiCalls.push(item);
+
+    }
+
+    for (const item of projectModel.domQueries) {
+
+        ensureFile(item.file);
+
+        files[item.file].domQueries.push(item);
+
+    }
+
+    for (const item of projectModel.eventListener) {
+
+        ensureFile(item.file);
+
+        files[item.file].eventListener.push(item);
+
+    }
+
+    return files;
+
+}
+
 function compile() {
 
     const files = config.input.flatMap(pattern =>
@@ -42,6 +97,8 @@ function compile() {
 
         }
     }
+
+    projectModel.files = buildFileModel(projectModel);
 
     const markdown = {
         imports: importReport(projectModel),
