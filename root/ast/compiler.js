@@ -8,6 +8,7 @@ const importReport = require("./reports/import-report");
 const apiReport = require("./reports/api-report");
 const domReport = require("./reports/dom-report");
 const eventReport = require("./reports/event-report");
+const fileSummaryReport = require("./reports/file-summary-report");
 const markdownWriter = require("./writers/md-writer");
 
 function buildFileModel(projectModel) {
@@ -100,16 +101,22 @@ function compile() {
 
     projectModel.files = buildFileModel(projectModel);
 
+    // console.dir(projectModel.files, {
+    //     depth: null,
+    //     colors: true
+    // });
+
     const markdown = {
         imports: importReport(projectModel),
         api: apiReport(projectModel),
         dom: domReport(projectModel),
-        events: eventReport(projectModel)
+        events: eventReport(projectModel),
+        fileSummary: fileSummaryReport(projectModel)
     };
 
     markdownWriter(markdown);
 
-    console.log(projectModel);
+    // console.log(projectModel);
 
 
 

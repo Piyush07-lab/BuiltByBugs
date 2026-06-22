@@ -29,4 +29,9 @@ module.exports = function (markdown) {
         markdown.events
     );
 
+    fs.writeFileSync(
+        path.join(outputDir, "files-summary.md"),
+        markdown.fileSummary
+    );
+
 }
