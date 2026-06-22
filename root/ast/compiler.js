@@ -67,53 +67,44 @@ function buildFileModel(projectModel) {
 
     return files;
 
-}
-
-const diagnostics = runRules(projectModel);
-
-console.dir(diagnostics, {
-    depth: null
-});
+}l
 
 function compile() {
-
+    
     const files = config.input.flatMap(pattern =>
         glob.sync(pattern)
     );
 
     for (const file of files) {
         const source = fs.readFileSync(file, "utf-8");
-
+        
         try {
             const ast = parser.parse(source, {
                 sourceType: "module",
                 plugins: ["jsx"]
             });
-
+            
             console.log(`Parsed: ${file}`);
             console.log(`AST Type: ${ast.type}\n`);
-
+            
             for (const analyzer of config.analyzers) {
-
+                
                 const result = analyzer(ast, file);
-
+                
                 projectModel[result.type].push(...result.data);
             }
-
+            
         } catch (error) {
-
+            
             console.log(`Failed: ${file}`);
             console.error(error.message);
-
+            
         }
     }
-
+    
     projectModel.files = buildFileModel(projectModel);
-
-    // console.dir(projectModel.files, {
-    //     depth: null,
-    //     colors: true
-    // });
+    
+    const diagnostics = runRules(projectModel);
 
     const markdown = {
         imports: importReport(projectModel),
@@ -125,10 +116,6 @@ function compile() {
     };
 
     markdownWriter(markdown);
-
-    // console.log(projectModel);
-
-
 
 }
 compile();
