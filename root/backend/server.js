@@ -23,16 +23,72 @@ const mimeTypes = {
     ".woff2": "font/woff2"
 };
 
+function resolveSafePath(baseDir, requestPath) {
+    const normalizedPath = path.normalize(requestPath);
+
+    const resolvedPath = path.resolve(
+        baseDir,
+        "." + normalizedPath
+    );
+
+    if (
+        resolvedPath !== resolvedBase &&
+        !resolvedPath.startsWith(resolvedBase + path.sep)
+    ) {
+        return null;
+    }
+
+    return resolvedPath;
+}
+
 
 const server = http.createServer((req, res) => {
 
     const parsedUrl = new URL(req.url, `http://${req.headers.host}`);
 
 
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    const allowedOrigins = [
+        'http://localhost:5500',
+        'http://localhost:3000',
+        'https://builtbybugs.work.gd'
+    ];
 
+    const origin = req.headers.origin;
+
+    if (allowedOrigins.includes(origin)) {
+        res.setHeader(
+            'Access-Control-Allow-Origin',
+            origin
+        );
+    }
+
+    res.setHeader('Access-Control-Allow-Methods',
+        'GET, POST, OPTIONS'
+    );
+
+    res.setHeader('Access-Control-Allow-Headers',
+        'Content-Type'
+    );
+
+    res.setHeader(
+        "X-Content-Type-Options",
+        "nosniff"
+    );
+
+    res.setHeader(
+        "X-Frame-Options",
+        "DENY"
+    );
+
+    res.setHeader(
+        "Referrer-Policy",
+        "strict-origin-when-cross-origin"
+    );
+
+    res.setHeader(
+        "Permissions-Policy",
+        "camera=(), microphone=(), geolocation=()"
+    );
 
     if (req.method === 'OPTIONS') {
         res.writeHead(200, { 'Content-Type': 'text/plain' });
@@ -53,30 +109,42 @@ const server = http.createServer((req, res) => {
 
     if (parsedUrl.pathname.startsWith(
         "/api"
-    )){
-        return routeRequest(req,res);
+    )) {
+        return routeRequest(req, res);
     }
 
-    const filePath = path.join(
-        frontendPath,
+    const requestedPath =
         parsedUrl.pathname === "/"
-        ? "index.html"
-        : parsedUrl.pathname
+            ? "/index.html"
+            : decodeURIComponent(parsedUrl.pathname);
+
+    const filePath = resolveSafePath(
+        frontendPath,
+        requestedPath
     );
 
-    if (
-        fs.existsSync(filePath)
-        &&
-        fs.statSync(filePath).isFile()
-    ){
-        const contentType = mimeTypes[path.extname(filePath).toLowerCase()]
-            || "application/octet-stream";
+    if (filePath) {
+        try {
+            const stats = fs.statSync(filePath);
 
-        res.writeHead(200, { "Content-Type": contentType });
+            if (stats.isFile()) {
+                const contentType =
+                    mimeTypes[path.extname(filePath).toLowerCase()]
+                    || "application/octet-stream";
 
-        return fs
-            .createReadStream(filePath)
-            .pipe(res);
+                res.writeHead(200, {
+                    "Content-Type": contentType,
+                    "Cache-Control": "public, max-age=86400"
+                });
+
+                return fs
+                    .createReadStream(filePath)
+                    .pipe(res);
+            }
+        }
+        catch (err) {
+            // file doesn't exist
+        }
     }
 
     routeRequest(req, res);
