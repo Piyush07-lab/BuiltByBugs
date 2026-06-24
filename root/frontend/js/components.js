@@ -42,8 +42,8 @@ export function ocdHireForm() {
             hireForm.reset();
             modal.classList.add('hidden');
 
-        } catch (err) {
-            console.error('Request failed:', err);
+        } catch (error) {
+            console.error('Request failed:', error);
             alert('Something went wrong. Please try again later.');
         }
 

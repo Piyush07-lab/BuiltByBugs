@@ -32,7 +32,7 @@ function postCodingActivity(req, res) {
 
             res.writeHead(201, { "Content-Type": "application/json" });
             res.end(JSON.stringify({ message: "Activity logged successfully." }));
-        } catch (err) {
+        } catch (error) {
             res.writeHead(400, { "Content-Type": "application/json" });
             res.end(JSON.stringify({ error: "Invalid JSON payload" }));
         }

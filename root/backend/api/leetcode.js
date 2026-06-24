@@ -64,10 +64,10 @@ async function fetchLeetCodeStats() {
         await browser.close();
         return stats;
 
-    } catch (err) {
-        console.error('[Puppeteer] Error:', err.message);
+    } catch (error) {
+        console.error('[Puppeteer] error:', error.message);
         await browser.close();
-        throw err;
+        throw error;
     }
 }
 

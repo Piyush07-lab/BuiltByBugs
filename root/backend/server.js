@@ -81,7 +81,7 @@ const server = http.createServer((req, res) => {
     );
 
     res.setHeader(
-        "Referrer-Policy",
+        "Referrorer-Policy",
         "strict-origin-when-cross-origin"
     );
 
@@ -142,7 +142,7 @@ const server = http.createServer((req, res) => {
                     .pipe(res);
             }
         }
-        catch (err) {
+        catch (error) {
             // file doesn't exist
         }
     }

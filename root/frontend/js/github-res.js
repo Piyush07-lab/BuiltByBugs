@@ -17,8 +17,8 @@ export async function renderGitHubContributions() {
             statsBar.textContent = "No Contribution stats available.";
         }
 
-    } catch (err) {
-        console.error("Error rendering github contributions:", err);
+    } catch (error) {
+        console.error("error rendering github contributions:", error);
         document.getElementById("githubStats").textContent = "Failed to load contributions";
     }
 }

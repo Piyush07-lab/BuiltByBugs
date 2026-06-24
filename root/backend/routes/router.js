@@ -40,8 +40,8 @@ async function handleGitHubSummary(req, res) {
 
         res.writeHead(200, { "Content-Type": "application/json" });
         res.end(JSON.stringify(freshData));
-    } catch (err) {
-        console.error("[GitHub Summary Error]", err);
+    } catch (error) {
+        console.error("[GitHub Summary error]", error);
         res.writeHead(500, { "Content-Type": "application/json" });
         res.end(JSON.stringify({ error: "Failed to fetch GitHub summary" }));
     }
@@ -96,8 +96,8 @@ async function routeRequest(req, res) {
         res.writeHead(404, { 'Content-Type': 'text/plain' });
         res.end("Route not found");
 
-    } catch (err) {
-        console.error("[Router Error]", err);
+    } catch (error) {
+        console.error("[Router error]", error);
 
         if (!res.headersSent) {
             res.writeHead(500, {
@@ -106,7 +106,7 @@ async function routeRequest(req, res) {
 
             res.end(
                 JSON.stringify({
-                    error: "Internal Server Error"
+                    error: "Internal Server error"
                 })
             );
         }

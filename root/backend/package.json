@@ -7,12 +7,14 @@
   "scripts": {
     "start": "node server.js"
   },
+  "engines": {
+    "node": ">=24"
+  },
   "keywords": [],
-  "author": "Piyush Mishra",
+  "author": "Piyush",
   "license": "UNLICENSED",
   "dependencies": {
     "dotenv": "^17.0.1",
-    "node": "^24.5.0",
     "puppeteer": "^24.15.0"
   }
 }

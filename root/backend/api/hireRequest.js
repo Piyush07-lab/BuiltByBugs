@@ -77,10 +77,10 @@ async function handleHireRequest(req, res) {
             res.writeHead(200, { 'Content-Type': 'application/json' });
             res.end(JSON.stringify({ success: true }));
 
-        } catch (err) {
-            console.error('[Hire API Error]', err);
+        } catch (error) {
+            console.error('[Hire API error]', error);
 
-            if (err instanceof SyntaxError) {
+            if (error instanceof Syntaxerror) {
                 res.writeHead(400, {
                     'Content-Type': 'application/json'
                 });

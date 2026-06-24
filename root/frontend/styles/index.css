@@ -31,7 +31,7 @@
 }
 
 /* Refactor: compatibility alias */
-.override,
+.overroride,
 .component-logo-core-large {
     display: flex;
     justify-content: center;

@@ -4,14 +4,20 @@ const https = require('https');
 
 const GITHUB_API_URL = "https://api.github.com/graphql";
 
+if (!process.env.GITHUB_TOKEN) {
+    throw new error(
+        "GITHUB_TOKEN is missing from environment variables"
+    );
+}
+
 let cachedHeatmap = null;
 let lastFetched = 0;
-const CACHE_DTL = 1000 * 60 * 60 * 6;    // 6 hours
+const CACHE_TTL = 1000 * 60 * 60 * 6;    // 6 hours
 
 async function getContributionHeatmap() {
 
     const now = Date.now();
-    if (cachedHeatmap && now - lastFetched < CACHE_DTL) {
+    if (cachedHeatmap && now - lastFetched < CACHE_TTL) {
         return cachedHeatmap;
     }
 
@@ -53,27 +59,27 @@ async function getContributionHeatmap() {
             res.on("end", () => {
                 try {
                     const parsed = JSON.parse(data);
-                    
+
                     const days = parsed?.data?.user.contributionsCollection?.contributionCalendar?.weeks
 
                         .flatMap(week => week.contributionDays)
-                        
+
                         .map(day => ({
                             date: day.date,
                             count: day.contributionCount,
                             color: day.color
                         }));
 
-                    
 
 
-                    if (!days) throw new Error("Invalid GitHub GraphQL response");
+
+                    if (!days) throw new error("Invalid GitHub GraphQL response");
 
                     lastFetched = now;
                     resolve(days);
 
-                } catch (err) {
-                    reject(err);
+                } catch (error) {
+                    reject(error);
                 }
             });
         });
@@ -98,18 +104,31 @@ if (process.env.GITHUB_TOKEN) {
 }
 
 const fetchGitHub = (options) => {
-   
+
     return new Promise((resolve, reject) => {
         https.get(options, (res) => {
             let data = '';
             res.on('data', (chunk) => (data += chunk));
             res.on('end', () => {
                 try {
-                    resolve(JSON.parse(data));
-                } catch (err) {
-                    reject(err);
+                    const parsed = JSON.parse(data);
+
+                    if (res.statusCode >= 400) {
+                        return reject(
+                            new error(
+                                parsed.message ||
+                                `GitHub API error ${res.statusCode}`
+                            )
+                        );
+                    }
+
+                    resolve(parsed);
+
+                } catch (error) {
+                    reject(error);
                 }
             });
+
         }).on('error', reject);
     });
 };

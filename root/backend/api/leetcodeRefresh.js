@@ -7,9 +7,9 @@ function handleLeetCodeRefresh(req, res) {
                 res.writeHead(200, { 'Content-Type': 'application/json' });
                 res.end(JSON.stringify({ success: true, data }));
             })
-            .catch(err => {
+            .catch(error => {
                 res.writeHead(500, { 'Content-Type': 'application/json' });
-                res.end(JSON.stringify({ success: false, error: err.message }));
+                res.end(JSON.stringify({ success: false, error: error.message }));
             });
 
         return true;

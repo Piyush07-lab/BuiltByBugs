@@ -30,7 +30,7 @@ New selectors were added alongside old selectors as migration aliases:
 - `.text-box` -> `.component-text-block`
 - `.name` -> `.u-accent-text`
 - `.main` -> `.component-logo-main`
-- `.override` -> `.component-logo-core-large`
+- `.overroride` -> `.component-logo-core-large`
 - `.v1` -> `.component-logo-text-compact`
 - `.logo-container` -> `.component-logo`
 - `.logo-core` -> `.component-logo-core`
@@ -66,7 +66,7 @@ The old visual selectors are now compatibility selectors and should not be delet
 - `.footer`, `.shortcuts`, `.quick-links`, `.social-links`
 - `.card`, `.panel`, `.flex-center`, `.stack`
 - `.dashboard`, `.mainOne`, `.exp-feat`, `.lang-box`
-- `.text-box`, `.name`, `.main`, `.override`, `.v1`
+- `.text-box`, `.name`, `.main`, `.overroride`, `.v1`
 - `.project-section`, `.title`, `.summary-bar`, `.project-container`
 - `.logo-container`, `.logo-core`, `.logo-letter`, `.logo-text`, `.logo-link`
 
