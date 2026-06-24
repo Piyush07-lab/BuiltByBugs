@@ -41,6 +41,8 @@ export async function fetchGitContributions() {
     return await res.json();
 }
 
+// TODO Phase 1 follow-up: Reuse this summary payload for a GitHub profile card
+// (avatar, username, bio, repository count, followers, and profile link); do not render it yet.
 export async function fetchGitSummary() {
     const res = await fetch("/api/github/summary");
     if (!res.ok) throw new error("Github Summary response failed");

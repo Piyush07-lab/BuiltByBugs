@@ -1,5 +1,6 @@
 import { fetchGitContributions } from "./API-fetch.js";
 
+// TODO Phase 3: Retain this renderer for the future GitHub analytics and heatmap experience.
 export async function renderGitHubContributions() {
     try {
         const data = await fetchGitContributions();
