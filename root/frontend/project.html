@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,6 +17,7 @@
     <link rel="stylesheet" href="/styles/theme.css">
     <title>Project Page</title>
 </head>
+
 <body>
 
     <canvas id="backgroundCanvas"></canvas>
@@ -53,12 +55,180 @@
     </header>
 
     <section class="project-section section-projects flex-center u-flex-center">
-        <div class="title section-projects-title flex-center u-flex-center">Projects</div>
-        
 
-        <div class="summary-bar card-project-summary flex-center u-flex-center">Project Summary incoming...</div>
+        <div class="title section-projects-title flex-center u-flex-center">
+            Projects
+        </div>
 
-        <div class="project-container card-project-list flex-center u-flex-center">Projects will be shown here!</div>
+        <div class="summary-bar card-project-summary flex-center u-flex-center">
+
+            <div class="project-intro">
+
+                <span class="project-tag">
+                    Selected Work
+                </span>
+
+                <h2>
+                    Building software, one bug at a time.
+                </h2>
+
+                <p>
+                    Every project here represents a problem I wanted to solve,
+                    a concept I wanted to explore or a system I wanted to build.
+                    Some are production ready, while others are active experiments
+                    that continue to evolve.
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="project-container card-project-list">
+
+            <article class="project-card featured">
+
+                <div class="project-status status-progress">
+                    In Progress
+                </div>
+
+                <h3>BuiltByBugs</h3>
+
+                <p>
+                    Personal portfolio showcasing custom frontend,
+                    backend APIs and handcrafted UI architecture.
+                </p>
+
+                <div class="project-stack">
+                    HTML • CSS • JavaScript • Node.js
+                </div>
+
+                <div class="project-actions">
+
+                    <a href="#">
+                        Live Preview
+                    </a>
+
+                    <a href="#">
+                        GitHub
+                    </a>
+
+                </div>
+
+            </article>
+
+            <article class="project-card featured">
+
+                <div class="project-status status-progress">
+                    In Progress
+                </div>
+
+                <h3>AST Rule Engine</h3>
+
+                <p>
+                    A custom Abstract Syntax Tree rule engine
+                    focused on source-code analysis and
+                    transformation.
+                </p>
+
+                <div class="project-stack">
+                    JavaScript • Node.js • AST
+                </div>
+
+                <div class="project-actions">
+
+                    <a href="#">
+                        Details
+                    </a>
+
+                    <a href="#">
+                        GitHub
+                    </a>
+
+                </div>
+
+            </article>
+
+            <article class="project-card">
+
+                <div class="project-status status-progress">
+                    In Progress
+                </div>
+
+                <h3>Job Portal</h3>
+
+                <p>
+                    Recruitment platform featuring resume
+                    evaluation and ATS analysis.
+                </p>
+
+                <div class="project-stack">
+                    React • Express • MongoDB
+                </div>
+
+            </article>
+
+            <article class="project-card">
+
+                <div class="project-status status-planned">
+                    Planned
+                </div>
+
+                <h3>Music Application</h3>
+
+                <p>
+                    Modern music streaming application
+                    with a clean listening experience.
+                </p>
+
+                <div class="project-stack">
+                    React • Node.js
+                </div>
+
+            </article>
+
+            <article class="project-card">
+
+                <div class="project-status status-research">
+                    Research
+                </div>
+
+                <h3>Future Experiments</h3>
+
+                <p>
+                    Reserved for upcoming systems,
+                    research ideas and prototypes.
+                </p>
+
+                <div class="project-stack">
+                    —
+                </div>
+
+            </article>
+
+        </div>
+
+        <!--
+    =====================================================
+
+    Phase 2
+
+    GitHub Repository Showcase
+
+    This section will consume:
+
+    /api/github/summary
+
+    Planned Features
+
+    • Repository Cards
+    • Languages
+    • Stars
+    • Last Updated
+    • Direct Repository Links
+
+    =====================================================
+    -->
+
     </section>
 
     <footer class="footer layout-footer">
@@ -86,14 +256,14 @@
         <div class="social-links layout-social-links">
             <ul>
                 <li><a href="/">
-                    <i class='bx bxl-github'></i>
-                </a></li>
+                        <i class='bx bxl-github'></i>
+                    </a></li>
                 <li><a href="/">
-                    <i class='bx bxl-linkedin' ></i>
-                </a></li>
+                        <i class='bx bxl-linkedin'></i>
+                    </a></li>
                 <li><a href="/">
-                    <i class='bx bxl-twitter' ></i>
-                </a></li>
+                        <i class='bx bxl-twitter'></i>
+                    </a></li>
             </ul>
         </div>
 
@@ -102,4 +272,5 @@
     <script type="module" src="/js/main.js"></script>
 
 </body>
+
 </html>

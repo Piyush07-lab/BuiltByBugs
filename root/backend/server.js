@@ -26,6 +26,8 @@ const mimeTypes = {
 function resolveSafePath(baseDir, requestPath) {
     const normalizedPath = path.normalize(requestPath);
 
+    const resolvedBase = path.resolve(baseDir);
+
     const resolvedPath = path.resolve(
         baseDir,
         "." + normalizedPath
