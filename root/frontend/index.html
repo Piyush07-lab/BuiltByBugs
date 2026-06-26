@@ -4,48 +4,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="./styles/base.css">
-    <link rel="stylesheet" href="./styles/logo.css">
-    <link rel="stylesheet" href="./styles/library.css">
-    <link rel="stylesheet" href="./styles/project.css">
-    <link rel="stylesheet" href="./styles/components.css">
-    <link rel="stylesheet" href="./styles/github.css">
-    <link rel="stylesheet" href="./styles/index.css">
-    <link rel="stylesheet" href="./styles/layout.css">
-    <link rel="stylesheet" href="./styles/media.css">
-    <link rel="stylesheet" href="./styles/theme.css">
     <title>Portfolio #1</title>
 </head>
 
 <body>
     <canvas id="backgroundCanvas"></canvas>
 
-    <div class="site-content">
+    <div>
 
-        <header class="header layout-header" role="banner" aria-label="Site header">
+        <header role="banner" aria-label="Site header">
 
-            <a class="logo-link" href="/index.html">
+            <a href="/index.html">
 
                 <!-- TODO Branding: Confirm whether "OCDbug" remains the Phase 1 product name before launch. -->
-                <div class="logo-container" role="banner" aria-label="OCDbug logo">
+                <div role="banner" aria-label="OCDbug logo">
 
-                    <div class="logo-core">
+                    <div>
 
-                        <span id="logo-o" class="logo-letter">O</span>
-                        <span id="logo-c" class="logo-letter">C</span>
-                        <span id="logo-d" class="logo-letter">D</span>
+                        <span>O</span>
+                        <span>C</span>
+                        <span>D</span>
 
                     </div>
 
-                    <div class="logo-text"><span id="bug-b">b</span>ug</div>
+                    <div><span>b</span>ug</div>
 
                 </div>
             </a>
 
-            <div class="nav-container layout-nav-container">
-                <nav class="nav" aria-label="Primary navigation">
-                    <ul class="nav-links layout-nav-links">
+            <div>
+                <nav aria-label="Primary navigation">
+                    <ul>
                         <li><a href="/index.html">Home</a></li>
                         <li><a href="/library.html">Library</a></li>
                         <li><a href="/project.html">Project</a></li>
@@ -55,15 +44,15 @@
 
             </div>
 
-            <div class="cta-container layout-cta">
-                <button class="cta-button component-button" id="hireMeBtn">
+            <div>
+                <button id="hireMeBtn">
                     <span>Hire Me!</span>
                 </button>
             </div>
 
-            <div id="hireModal" class="modal component-modal hidden">
-                <div class="modal-content">
-                    <span class="close component-modal-close">&times;</span>
+            <div id="hireModal" class="hidden">
+                <div>
+                    <span class="close">&times;</span>
                     <h2>Hire Me</h2>
                     <form id="hireForm">
                         <label for="name">Name:</label>
@@ -82,103 +71,103 @@
 
         </header>
 
-        <section id="mainSection" class="dashboard section-dashboard">
+        <section>
 
-            <div class="mainOne card-hero card card-base flex-center u-flex-center stack u-stack">
+            <div>
 
-                <div class="text-box component-text-block">
-                    <h1>Hi, I'm <span class="name u-accent-text">Piyush</span></h1>
+                <div>
+                    <h1>Hi, I'm <span>Piyush</span></h1>
                     <p>I create, design and program stuffs.</p>
 
-                    <button class="cta-button component-button"><a href="/project.html">See My Work</a></button>
+                    <button><a href="/project.html">See My Work</a></button>
 
                 </div>
 
-                <div class="visuals">
+                <div>
                     <!-- TODO Phase 1: Add an approved hero visual when available. -->
                 </div>
 
             </div>
 
-            <div class="exp-feat card-feature card card-base flex-center u-flex-center"></div>
+            <div></div>
 
             <!-- TODO Phase 2: Re-enable the language sphere visualization after Phase 1 launch. -->
-            <!--
-            <div id="lang-summary" class="lang-box card-language card card-base flex-center u-flex-center">
+
+            <div id="lang-summary">
 
                 <canvas id="sphere"></canvas>
 
                 <div class="tooltip"></div>
             </div>
-            -->
+
 
 
         </section>
 
         <!-- TODO Phase 2/3: Preserve this section for LeetCode, GitHub Heatmap, Dev Logs, and Coding Tracker features. -->
-        <!--
-        <section class="mainTwo">
 
-            <div class="leetcode-chart grid">
+        <section>
+
+            <div>
                 <h3>LeetCode Activity</h3>
                 <div id="leetcodeChartContainer">Loading Chart...</div>
             </div>
 
-            <div class="github-chart grid">
+            <div>
                 <h3>GitHub Contribution</h3>
                 <div class="heatmap-widget">
                 </div>
-                <div id="githubStats" class="stats">Just a moment...</div>
+                <div id="githubStats">Just a moment...</div>
             </div>
 
-            <div class="dev-logs grid">
+            <div>
                 <h3>Daily Dev Logs</h3>
                 <div id="devLogsContainer">Log data incoming...</div>
             </div>
 
-            <div class="coding-activity grid">
+            <div>
                 <h3>Cooding Tracker</h3>
                 <div id="codingTrackerContainer">Loading Activity...</div>
             </div>
 
         </section>
-        -->
 
-        <section class="mainThree">
+
+        <section>
 
         </section>
 
 
 
         <!-- TODO Phase 3: Future GitHub analytics feature. -->
-        <!--
-        <div class="heatmap-modal hidden" id="heatmapmodal">
-            <div class="heatmap-modal-content">
-                <button class="close component-modal-close">&times;</button>
+
+        <div class="hidden" id="heatmapmodal">
+            <div>
+                <button class="close">&times;</button>
                 <h3>Full Contrribution Heatmap</h3>
-                <div class="full-heatmap-grid"></div>
+                <div></div>
             </div>
         </div>
-        -->
+
 
     </div>
 
 
 
-    <footer class="footer layout-footer">
+    <footer>
 
-        <div class="shortcuts layout-footer-shortcuts">
+        <div>
 
-            <div class="quick-links component-link-list">
-                <ul class="quick-links-list">
+            <div>
+                <ul>
                     <li><a href="/index.html">Home</a></li>
                     <li><a href="/library.html">Library</a></li>
                     <li><a href="/project.html">Projects</a></li>
                 </ul>
             </div>
 
-            <div class="quick-links component-link-list">
-                <ul class="quick-links-list">
+            <div>
+                <ul>
                     <li><a href="/">Contact</a></li>
                     <li><a href="/">Help</a></li>
                     <li><a href="/">Blogs</a></li>
@@ -187,16 +176,16 @@
 
         </div>
 
-        <div class="social-links layout-social-links">
+        <div>
             <ul>
                 <li><a href="/">
-                        <i class='bx bxl-github'></i>
+                        <i></i>
                     </a></li>
                 <li><a href="/">
-                        <i class='bx bxl-linkedin'></i>
+                        <i></i>
                     </a></li>
                 <li><a href="/">
-                        <i class='bx bxl-twitter'></i>
+                        <i></i>
                     </a></li>
             </ul>
         </div>
