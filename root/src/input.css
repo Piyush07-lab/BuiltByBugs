@@ -1,1 +1,51 @@
 @import "tailwindcss";
+
+@source "../frontend";
+
+@font-face {
+    font-family: "Academia";
+    src: url("../../assets/fonts/academiassk_regular-webfont.woff2") format("woff2");
+    font-display: swap;
+    font-style: normal;
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: "Academia";
+    src: url("../../assets/fonts/academiassk_bold-webfont.woff2") format("woff2");
+    font-display: swap;
+    font-style: normal;
+    font-weight: 700;
+}
+
+@theme {
+    --font-display: "Academia", ui-sans-serif, system-ui, sans-serif;
+    --color-ink-950: #08090d;
+    --color-ink-900: #0d1018;
+    --color-ink-850: #121621;
+    --color-electric-300: #b9a7ff;
+    --color-electric-400: #9f7aea;
+    --color-electric-500: #8155e8;
+}
+
+@layer base {
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        min-width: 320px;
+    }
+
+    ::selection {
+        background: rgb(129 85 232 / 45%);
+        color: white;
+    }
+
+    a,
+    button,
+    input,
+    textarea {
+        outline-color: var(--color-electric-400);
+    }
+}
