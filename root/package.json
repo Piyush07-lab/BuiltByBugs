@@ -1,8 +1,9 @@
 {
   "scripts": {
     "ast": "node ast/compiler.js",
-    "inspect": "node inspect.js"
-    
+    "inspect": "node inspect.js",
+    "dev:css": "tailwindcss -i ./src/input.css -o ./frontend/public/build/tailwind.css --watch",
+    "build:css": "tailwindcss -i ./src/input.css -o ./frontend/public/build/tailwind.css --watch"
   },
   "dependencies": {
     "@babel/generator": "^7.29.7",
