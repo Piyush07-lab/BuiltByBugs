@@ -5,7 +5,7 @@ const https = require('https');
 const GITHUB_API_URL = "https://api.github.com/graphql";
 
 if (!process.env.GITHUB_TOKEN) {
-    throw new error(
+    throw new Error(
         "GITHUB_TOKEN is missing from environment variables"
     );
 }
@@ -73,7 +73,7 @@ async function getContributionHeatmap() {
 
 
 
-                    if (!days) throw new error("Invalid GitHub GraphQL response");
+                    if (!days) throw new Error("Invalid GitHub GraphQL response");
 
                     lastFetched = now;
                     resolve(days);

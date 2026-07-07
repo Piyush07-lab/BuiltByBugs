@@ -3,7 +3,8 @@ require("dotenv").config({ path: __dirname + "/.env" });
 
 const url = require('url');
 
-const handleHireRequest = require('../api/hireRequest.js');
+const { handleHireRequest } = require('../api/hireRequest.js');
+const { handleContactRequest } = require('../api/contact.js');
 const { getGitHubContributions } = require('../api/github-contributions.js');
 const { getUserAndRepos } = require('../utils/github.js');
 // const handleLeetCodeRefresh = require('../api/leetcodeRefresh.js');
@@ -67,6 +68,10 @@ async function routeRequest(req, res) {
 
         if (pathname === '/api/hireRequest' && method === 'POST') {
             return handleHireRequest(req, res);
+        }
+
+        if (pathname === '/api/contact' && method === 'POST') {
+            return handleContactRequest(req, res);
         }
 
         if (pathname === '/api/github/summary' && method === 'GET') {

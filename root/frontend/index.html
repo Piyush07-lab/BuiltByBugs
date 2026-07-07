@@ -38,7 +38,7 @@
 
                 </nav>
 
-                <button
+                <button id="hireMe"
                     class="rounded-lg border border-slate-700 px-5 py-2 text-sm transition hover:border-cyan-400 hover:text-cyan-400">
 
                     Hire Me
@@ -86,7 +86,7 @@
 
                         </a>
 
-                        <button id="heroHireBtn"
+                        <button id="contactMe"
                             class="rounded-lg border border-slate-700 px-6 py-3 hover:border-cyan-400 hover:text-cyan-400">
 
                             Contact Me
@@ -97,61 +97,36 @@
 
                 </div>
 
-                <div class="flex justify-center">
-
-                    <canvas id="sphere" class="h-80 w-80 max-w-full"></canvas>
-
-                </div>
-
             </section>
 
             <!-- Development Activity -->
 
-            <section class="mx-auto max-w-6xl space-y-10 px-6 py-20">
+            <section class="mx-auto max-w-7xl px-6 py-20">
 
-                <div>
+                <!-- Section Layout -->
+                <div class="flex flex-wrap justify-center gap-8">
 
-                    <h2 class="text-3xl font-bold">
+                    <!-- Bulletin -->
+                    <div id="bulletin" class="h-[360px] w-[360px] rounded-xl border border-slate-800 bg-slate-900 p-6">
 
-                        Development Activity
+                        <h2 class="text-3xl font-bold">
+                            Development Activity
+                        </h2>
 
-                    </h2>
-
-                    <p class="mt-2 text-slate-400">
-
-                        Current progress across coding platforms and ongoing work.
-
-                    </p>
-
-                </div>
-
-                <div class="space-y-8">
-
-                    <div>
-
-                        <h3 class="mb-4 text-xl font-semibold">
-
-                            LeetCode
-
-                        </h3>
-
-                        <div id="leetcodeChartContainer" class="rounded-xl border border-slate-800 bg-slate-900 p-6">
-
-                            Loading Chart...
-
-                        </div>
+                        <p class="mt-2 text-slate-400">
+                            Current progress across coding platforms and ongoing work.
+                        </p>
 
                     </div>
 
-                    <div>
+                    <!-- GitHub -->
+                    <div id="github" class="h-[360px] w-[360px] rounded-xl border border-slate-800 bg-slate-900 p-6">
 
                         <h3 class="mb-4 text-xl font-semibold">
-
                             GitHub
-
                         </h3>
 
-                        <div class="heatmap-widget rounded-xl border border-slate-800 bg-slate-900 p-6"></div>
+                        <div class="heatmap-widget"></div>
 
                         <div id="githubStats" class="mt-4 text-slate-400">
 
@@ -161,37 +136,132 @@
 
                     </div>
 
-                    <div>
+                    <!-- Coding Tracker -->
+                    <div id="codingTracker"
+                        class="h-[360px] w-[360px] rounded-xl border border-slate-800 bg-slate-900 p-6">
 
                         <h3 class="mb-4 text-xl font-semibold">
-
-                            Daily Dev Logs
-
-                        </h3>
-
-                        <div id="devLogsContainer" class="rounded-xl border border-slate-800 bg-slate-900 p-6">
-
-                            Log data incoming...
-
-                        </div>
-
-                    </div>
-
-                    <div>
-
-                        <h3 class="mb-4 text-xl font-semibold">
-
                             Coding Tracker
-
                         </h3>
 
-                        <div id="codingTrackerContainer" class="rounded-xl border border-slate-800 bg-slate-900 p-6">
+                        <div id="codingTrackerContainer">
 
                             Loading Activity...
 
                         </div>
 
                     </div>
+
+                </div>
+
+            </section>
+
+            <!-- SkillSet -->
+
+            <section class="mx-auto flex max-w-6xl flex-col gap-16 px-6 py-24">
+
+                <div id="skill" class="space-y-6">
+
+                    <div>
+
+                        <h2 class="text-3xl font-bold">
+                            What I Build
+                        </h2>
+
+                        <p class="mt-2 max-w-3xl leading-8 text-slate-400">
+                            I enjoy designing software from first principles. My interests lie
+                            in backend systems, developer tooling, compiler techniques,
+                            automation and creating maintainable architectures rather than
+                            relying heavily on frameworks.
+                        </p>
+
+                    </div>
+
+                    <div class="flex flex-wrap gap-4">
+
+                        <span class="rounded-full border border-slate-700 px-4 py-2 text-sm">
+                            JavaScript (ES Modules)
+                        </span>
+
+                        <span class="rounded-full border border-slate-700 px-4 py-2 text-sm">
+                            Node.js
+                        </span>
+
+                        <span class="rounded-full border border-slate-700 px-4 py-2 text-sm">
+                            Backend APIs
+                        </span>
+
+                        <span class="rounded-full border border-slate-700 px-4 py-2 text-sm">
+                            AST Analysis
+                        </span>
+
+                        <span class="rounded-full border border-slate-700 px-4 py-2 text-sm">
+                            Rule Engine Design
+                        </span>
+
+                        <span class="rounded-full border border-slate-700 px-4 py-2 text-sm">
+                            Automation
+                        </span>
+
+                        <span class="rounded-full border border-slate-700 px-4 py-2 text-sm">
+                            System Architecture
+                        </span>
+
+                        <span class="rounded-full border border-slate-700 px-4 py-2 text-sm">
+                            REST APIs
+                        </span>
+
+                        <span class="rounded-full border border-slate-700 px-4 py-2 text-sm">
+                            Git & GitHub
+                        </span>
+
+                        <span class="rounded-full border border-slate-700 px-4 py-2 text-sm">
+                            Technical Documentation
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <div id="blogs" class="space-y-12">
+
+                    <article class="space-y-4">
+
+                        <h2 class="text-3xl font-bold">
+                            Why I Built My Own AST Engine
+                        </h2>
+
+                        <p class="leading-8 text-slate-400">
+                            Building an Abstract Syntax Tree engine from scratch taught me
+                            far more than using an existing library...
+                        </p>
+
+                    </article>
+
+                    <article class="space-y-4">
+
+                        <h2 class="text-3xl font-bold">
+                            Designing Deterministic Systems
+                        </h2>
+
+                        <p class="leading-8 text-slate-400">
+                            Most applications only need to work. Some systems need to be
+                            reproducible...
+                        </p>
+
+                    </article>
+
+                    <article class="space-y-4">
+
+                        <h2 class="text-3xl font-bold">
+                            Learning Through Building
+                        </h2>
+
+                        <p class="leading-8 text-slate-400">
+                            Rather than collecting tutorials, I prefer finishing projects...
+                        </p>
+
+                    </article>
 
                 </div>
 
@@ -253,17 +323,24 @@
 
     <!-- Hire Modal -->
 
-    <div id="hireModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/70 p-6">
+    <div id="hireModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/70 p-6">
 
-        <div class="w-full max-w-lg rounded-xl bg-slate-900 p-8">
+        <div class="w-full max-w-md rounded-xl border border-slate-800 bg-slate-900 p-6 shadow-2xl">
 
-            <button class="close mb-6 text-2xl">&times;</button>
 
-            <h2 class="mb-6 text-2xl font-bold">
+            <div class="flex items-center justify-between mb-6">
 
-                Hire Me
+                <h2 class="text-xl font-bold">
+                    Hire Me
+                </h2>
 
-            </h2>
+                <button class="close rounded-lg p-2 hover:bg-slate-800">
+
+                    &times;
+
+                </button>
+
+            </div>
 
             <form id="hireForm" class="space-y-5">
 
@@ -289,7 +366,7 @@
 
                     <label for="message" class="mb-2 block">Message</label>
 
-                    <textarea id="message" name="message" rows="5"
+                    <textarea id="message" name="message" rows="4"
                         class="w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-3"></textarea>
 
                 </div>
@@ -307,13 +384,62 @@
 
     </div>
 
+    <!-- Contact Modal  -->
+
+    <div id="contactModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/70 p-6">
+
+        <div class="w-full max-w-md rounded-xl border border-slate-800 bg-slate-900 p-6 shadow-2xl">
+
+            <div class="flex items-center justify-between mb-6">
+
+                <h2 class="text-xl font-bold">
+                    Contact
+                </h2>
+
+                <button class="cancel rounded-lg p-2 hover:bg-slate-800">&times;</button>
+
+            </div>
+
+            <form id="contactForm" class="space-y-5">
+
+                <div>
+
+                    <label for="email" class="mb-2 block">Email</label>
+
+                    <input id="email" name="email" type="email"
+                        class="w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-3">
+
+                </div>
+
+                <div>
+
+                    <label for="message" class="mb-2 block">Query</label>
+
+                    <textarea id="message" name="message" rows="4"
+                        class="w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-3"></textarea>
+
+                </div>
+
+                <button type="submit"
+                    class="w-full rounded-lg bg-cyan-500 py-3 font-medium text-slate-950 hover:bg-cyan-400">
+
+                    Send
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
     <!-- Heatmap Modal -->
 
     <div id="heatmapmodal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/70 p-6">
 
         <div class="w-full max-w-5xl rounded-xl bg-slate-900 p-8">
 
-            <button class="close mb-6 text-2xl">&times;</button>
+            <button class="mb-6 text-2xl">&times;</button>
 
             <h3 class="mb-6 text-2xl font-bold">
 

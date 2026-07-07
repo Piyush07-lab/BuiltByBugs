@@ -1,23 +1,32 @@
-const fs = require('fs');
 const fsPromises = require('fs').promises;
 const path = require('path');
-const { isValidHireRequest } = require('../utils/spamFilter');
 
-async function handleHireRequest(req, res) {
+const { isValidContactRequest } = require('../utils/spamFilter');
+
+async function handleContactRequest(req, res) {
+
     if (req.method !== 'POST') {
-        res.writeHead(405, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ error: 'Method Not Allowed' }));
+        res.writeHead(405, {
+            'Content-Type': 'application/json'
+        });
+
+        res.end(JSON.stringify({
+            error: 'Method Not Allowed'
+        }));
+
         return;
     }
 
-    const MAX_BODY_SIZE = 1024 * 1024; // 1MB
+    const MAX_BODY_SIZE = 1024 * 1024;
 
     let body = '';
 
     req.on('data', chunk => {
+
         body += chunk;
 
         if (body.length > MAX_BODY_SIZE) {
+
             res.writeHead(413, {
                 'Content-Type': 'application/json'
             });
@@ -27,67 +36,99 @@ async function handleHireRequest(req, res) {
             }));
 
             req.destroy();
+
         }
+
     });
 
     req.on('end', async () => {
+
         try {
+
             const data = JSON.parse(body);
-            const validation = isValidHireRequest(data);
+
+            const validation = isValidContactRequest(data);
 
             if (!validation.ok) {
-                res.writeHead(400, { 'Content-Type': 'application/json' });
-                res.end(JSON.stringify({ error: validation.reason }));
+
+                res.writeHead(400, {
+                    'Content-Type': 'application/json'
+                });
+
+                res.end(JSON.stringify({
+                    error: validation.reason
+                }));
+
                 return;
+
             }
 
             const savePath = path.join(
                 __dirname,
-                '../data/hire-requests.json'
+                '../data/contact-requests.json'
             );
 
             let existing = [];
 
             try {
+
                 await fsPromises.access(savePath);
 
-                const fileContent =
+                existing = JSON.parse(
                     await fsPromises.readFile(
                         savePath,
                         'utf8'
-                    );
+                    )
+                );
 
-                existing = JSON.parse(fileContent);
-            }
-            catch {
+            } catch {
+
                 existing = [];
+
             }
 
             existing.push({
+
                 ...data,
+
                 timestamp: new Date().toISOString()
+
             });
 
             await fsPromises.writeFile(
+
                 savePath,
+
                 JSON.stringify(existing, null, 2),
+
                 'utf8'
+
             );
 
-            res.writeHead(200, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify({ success: true }));
+            res.writeHead(200, {
+                'Content-Type': 'application/json'
+            });
+
+            res.end(JSON.stringify({
+                success: true
+            }));
 
         } catch (error) {
-            console.error('[Hire API error]', error);
+
+            console.error('[Contact API Error]', error);
 
             if (error instanceof SyntaxError) {
+
                 res.writeHead(400, {
                     'Content-Type': 'application/json'
                 });
 
-                return res.end(JSON.stringify({
+                res.end(JSON.stringify({
                     error: 'Invalid JSON payload'
                 }));
+
+                return;
+
             }
 
             res.writeHead(500, {
@@ -97,8 +138,13 @@ async function handleHireRequest(req, res) {
             res.end(JSON.stringify({
                 error: 'Internal server error'
             }));
-        }
-    });
-};
 
-module.exports = { handleHireRequest };
+        }
+
+    });
+
+}
+
+module.exports = {
+    handleContactRequest
+};

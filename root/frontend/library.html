@@ -4,117 +4,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../public/build/tailwind.css">
-    <title>Library</title>
+    <link rel="stylesheet" href="./public/build/tailwind.css">
+    <title>Library Page</title>
 </head>
 
-<body>
+<body class="bg-slate-950 text-slate-100 antialiased">
 
-    <canvas id="backgroundCanvas"></canvas>
+    <canvas id="backgroundCanvas" class="fixed inset-0 -z-10"></canvas>
 
-    <header role="banner" aria-label="Site header">
-        <a href="/index.html">
-            <div role="banner" aria-label="OCDbug logo">
-                <div>
-                    <span>O</span>
-                    <span>C</span>
-                    <span>D</span>
+    <div class="min-h-screen flex flex-col">
+
+        <header class=" sticky top-0 z-50 border-b border-white/10 bg-black/70 backdrop-blur-xl">
+
+            <div class=" mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
+
+                <a href="/index.html" class="text-xl font-semibold tracking-tight text-white">
+
+                    Built<span class="text-cyan-400">By</span>Bugs
+
+                </a>
+
+                <nav aria-label="Primary navigation">
+
+                    <ul class="hidden gap-8 text-sm md:flex">
+
+                        <li><a href="/index.html" class="hover:text-cyan-400 transition-colors active">Home</a></li>
+                        <li><a href="/library.html" class="hover:text-cyan-400 transition-colors">Library</a></li>
+                        <li><a href="/project.html" class="hover:text-cyan-400 transition-colors">Projects</a></li>
+                        <li><a href="#contact" class="hover:text-cyan-400 transition-colors">Contact</a></li>
+
+                    </ul>
+
+                </nav>
+
+                <button
+                    class="rounded-lg border border-slate-700 px-5 py-2 text-sm transition hover:border-cyan-400 hover:text-cyan-400">
+
+                    Hire Me
+
+                </button>
+
+            </div>
+
+        </header>
+
+        <main class="flex-1">
+
+            
+            
+            
+            
+            
+            
+            <!-- Phase 2 -->
+            
+            <!-- <div id="leetcode">
+            
+                <h3 class="mb-4 text-xl font-semibold">
+            
+                    LeetCode
+            
+                </h3>
+            
+                <div id="leetcodeChartContainer" class="rounded-xl border border-slate-800 bg-slate-900 p-6">
+            
+                    Loading Chart...
+            
                 </div>
-                <div><span>b</span>ug</div>
+            
+            </div> -->
+
+        </main>
+
+        <footer id="contact" class="border-t border-slate-800">
+
+            <div class="mx-auto max-w-6xl px-6 py-12">
+
+                <div class="flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
+
+                    <div>
+
+                        <h3 class="mb-4 text-xl font-bold">
+
+                            OCDbug
+
+                        </h3>
+
+                        <p class="max-w-md text-slate-400">
+
+                            Building software, automation tools and backend systems.
+
+                        </p>
+
+                    </div>
+
+                    <div class="grid gap-8 sm:grid-cols-2">
+
+                        <ul class="space-y-3 text-slate-400">
+
+                            <li><a href="/index.html" class="hover:text-cyan-400">Home</a></li>
+                            <li><a href="/library.html" class="hover:text-cyan-400">Library</a></li>
+                            <li><a href="/project.html" class="hover:text-cyan-400">Projects</a></li>
+
+                        </ul>
+
+                        <ul class="space-y-3 text-slate-400">
+
+                            <li><a href="/">GitHub</a></li>
+                            <li><a href="/">LinkedIn</a></li>
+                            <li><a href="/">X</a></li>
+
+                        </ul>
+
+                    </div>
+
+                </div>
+
             </div>
-        </a>
 
-        <div>
-            <nav aria-label="Primary navigation">
-                <ul>
-                    <li><a href="/index.html">Home</a></li>
-                    <li><a href="/library.html">Library</a></li>
-                    <li><a href="/project.html">Project</a></li>
-                    <li><a href="#">Contact</a></li>
-                </ul>
-            </nav>
-
-        </div>
-
-        <div>
-            <button id="hireMeBtn">
-                <span>Hire Me!</span>
-            </button>
-        </div>
-
-        <div id="hireModal" class="hidden">
-            <div>
-                <span class="close">&times;</span>
-                <h2>Hire Me</h2>
-                <form id="hireForm">
-                    <label for="name">Name:</label>
-                    <input type="text" id="name" name="name" required>
-
-                    <label for="email">Email:</label>
-                    <input type="email" name="email" id="email" required>
-
-                    <label for="message">Message:</label>
-                    <textarea name="message" id="message" required></textarea>
-
-                    <button type="submit">Send Request</button>
-                </form>
-            </div>
-        </div>
-
-    </header>
-
-    <div>
-
-        <div role="banner" aria-label="OCDbug logo">
-            <div>
-                <span>O</span>
-                <span>C</span>
-                <span>D</span>
-            </div>
-            <div><span>b</span>ug</div>
-
-        </div>
-
+        </footer>
 
     </div>
 
-    <footer>
+    
 
-        <div>
 
-            <div>
-                <ul>
-                    <li><a href="/index.html">Home</a></li>
-                    <li><a href="/library.html">Library</a></li>
-                    <li><a href="/project.html">Projects</a></li>
-                </ul>
-            </div>
-
-            <div>
-                <ul>
-                    <li><a href="/">Contact</a></li>
-                    <li><a href="/">Help</a></li>
-                    <li><a href="/">Blogs</a></li>
-                </ul>
-            </div>
-
-        </div>
-
-        <div>
-            <ul>
-                <li><a href="/">
-                    <i></i>
-                </a></li>
-                <li><a href="/">
-                    <i></i>
-                </a></li>
-                <li><a href="/">
-                    <i></i>
-                </a></li>
-            </ul>
-        </div>
-
-    </footer>
 
     <script type="module" src="/js/main.js"></script>
 
