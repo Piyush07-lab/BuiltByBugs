@@ -1,13 +1,12 @@
 import { hireForm } from "./components.js";
 import { contactForm } from "./components.js";
-// TODO Phase 3:
-// Re-enable GitHub contribution analytics and heatmap rendering.
-// import { renderGitHubContributions } from "./github-res.js";
+import { startBulletin } from "./bulletin/bulletinRender.js";
+import { startGithub } from "./github/github.js";
 // import { initCanvas } from "./theme.js"
 
 document.addEventListener('DOMContentLoaded', () => {
     hireForm();
     contactForm();
-    // renderGitHubContributions();
-    // initCanvas();
+    startBulletin();
+    startGithub();
 })
