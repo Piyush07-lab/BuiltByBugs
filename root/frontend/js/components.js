@@ -61,14 +61,22 @@ export function hireForm() {
 export function contactForm() {
 
     const modal = document.getElementById("contactModal");
-    const openBtn = document.getElementById("contactMe");
+    const openBtns = document.querySelectorAll("[data-contact-modal]");
     const closeBtn = modal.querySelector(".cancel");
 
     const form = document.getElementById("contactForm");
 
-    openBtn.addEventListener("click", () => {
-        modal.classList.remove("hidden");
-        modal.classList.add("flex");
+    openBtns.forEach(btn => {
+
+        btn.addEventListener("click", (e) => {
+
+            e.preventDefault();
+
+            modal.classList.remove("hidden");
+            modal.classList.add("flex");
+
+        });
+
     });
 
     closeBtn.addEventListener("click", () => {

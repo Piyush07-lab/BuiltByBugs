@@ -14,30 +14,36 @@
 
     <div class="min-h-screen flex flex-col">
 
+        <!-- Header -->
         <header class=" sticky top-0 z-50 border-b border-white/10 bg-black/70 backdrop-blur-xl">
 
             <div class=" mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
 
-                <a href="/index.html" class="text-xl font-semibold tracking-tight text-white">
-
-                    Built<span class="text-cyan-400">By</span>Bugs
-
+                <a href="/index.html" class="inline-flex items-center transition-opacity">
+                
+                    <img src="/api/assets/logo" alt="BuiltByBugs" class="block h-11 w-auto shrink-0 select-none" draggable="false"
+                        decoding="async">
+                
                 </a>
 
                 <nav aria-label="Primary navigation">
 
                     <ul class="hidden gap-8 text-sm md:flex">
 
-                        <li><a href="/index.html" class="hover:text-cyan-400 transition-colors active">Home</a></li>
-                        <li><a href="/library.html" class="hover:text-cyan-400 transition-colors">Library</a></li>
-                        <li><a href="/project.html" class="hover:text-cyan-400 transition-colors">Projects</a></li>
-                        <li><a href="#contact" class="hover:text-cyan-400 transition-colors">Contact</a></li>
+                        <li><a href="/index.html" class="nav-link hover:text-cyan-400 transition-colors">Home</a></li>
+                        <li><a href="/library.html" class="nav-link hover:text-cyan-400 transition-colors">Library</a>
+                        </li>
+                        <li><a href="/project.html" class="nav-link hover:text-cyan-400 transition-colors">Projects</a>
+                        </li>
+                        <li><a data-contact-modal href="#" class="nav-link hover:text-cyan-400 transition-colors">
+                                Contact
+                            </a></li>
 
                     </ul>
 
                 </nav>
 
-                <button
+                <button id="hireMe"
                     class="rounded-lg border border-slate-700 px-5 py-2 text-sm transition hover:border-cyan-400 hover:text-cyan-400">
 
                     Hire Me
@@ -50,87 +56,428 @@
 
         <main class="flex-1">
 
-            
-            
-            
-            
-            
-            
-            <!-- Phase 2 -->
-            
-            <!-- <div id="leetcode">
-            
-                <h3 class="mb-4 text-xl font-semibold">
-            
-                    LeetCode
-            
-                </h3>
-            
-                <div id="leetcodeChartContainer" class="rounded-xl border border-slate-800 bg-slate-900 p-6">
-            
-                    Loading Chart...
-            
-                </div>
-            
-            </div> -->
+            <section id="devLogs" class="mx-auto flex max-w-6xl flex-col gap-16 px-6 py-24">
+                <div class="flex flex-wrap justify-center gap-8">
+                    <div class="m-6 gap-4 p-6">
+                        <h1 class="mt-4 text-3xl text-cyan-400 justify-center ">DEV LOGS</h1>
 
-        </main>
+                        <h2 class="mt-6 text-2xl text-slate-400 justify-center">Comming Soon...</h2>
+                    </div>
 
-        <footer id="contact" class="border-t border-slate-800">
 
-            <div class="mx-auto max-w-6xl px-6 py-12">
+                    <div id="leetcode"
+                        class="m-6 h-[360px] w-[360px] rounded-xl border border-slate-800 bg-slate-900 p-6">
 
-                <div class="flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
+                        <h3 class="mb-4 text-xl font-semibold">
 
-                    <div>
-
-                        <h3 class="mb-4 text-xl font-bold">
-
-                            OCDbug
+                            LeetCode
 
                         </h3>
 
-                        <p class="max-w-md text-slate-400">
+                        <div id="leetcodeChartContainer" class="rounded-xl border border-slate-800 bg-slate-900 p-6">
 
-                            Building software, automation tools and backend systems.
+                            Comming Soon...
 
-                        </p>
-
-                    </div>
-
-                    <div class="grid gap-8 sm:grid-cols-2">
-
-                        <ul class="space-y-3 text-slate-400">
-
-                            <li><a href="/index.html" class="hover:text-cyan-400">Home</a></li>
-                            <li><a href="/library.html" class="hover:text-cyan-400">Library</a></li>
-                            <li><a href="/project.html" class="hover:text-cyan-400">Projects</a></li>
-
-                        </ul>
-
-                        <ul class="space-y-3 text-slate-400">
-
-                            <li><a href="/">GitHub</a></li>
-                            <li><a href="/">LinkedIn</a></li>
-                            <li><a href="/">X</a></li>
-
-                        </ul>
+                        </div>
 
                     </div>
+                </div>
+
+                <div id="articles" class="space-y-16">
+
+                    <!-- ======================================= -->
+                    <!-- Article 1 -->
+                    <!-- ======================================= -->
+
+                    <article id="ast-engine" class="rounded-xl border border-slate-800 bg-slate-900/30 p-10">
+
+                        <span
+                            class="inline-block rounded-full border border-cyan-500/30 px-3 py-1 text-xs text-cyan-300">
+
+                            Engineering
+
+                        </span>
+
+                        <h2 class="mt-5 text-3xl font-bold">
+
+                            Why I Built My Own AST Engine
+
+                        </h2>
+
+                        <div class="mt-8 space-y-6 text-justify leading-8 text-slate-400">
+
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                Vestibulum euismod, nisi vel consectetur interdum, nisl
+                                nisi consequat lorem, vitae tempus elit erat vitae
+                                sapien. Integer porttitor consequat velit, sed
+                                ullamcorper purus luctus vitae.
+                            </p>
+
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                Suspendisse potenti. Nulla facilisi. Vivamus sed
+                                malesuada mauris. Curabitur tempus nisi nec turpis
+                                convallis, vitae varius ipsum dictum. Praesent ut
+                                imperdiet risus.
+                            </p>
+
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                Quisque eu feugiat odio. Sed ultricies, augue et
+                                convallis pulvinar, tortor turpis viverra erat, ut
+                                tincidunt erat lorem sit amet lectus.
+                            </p>
+
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                Fusce commodo, sapien vitae tincidunt viverra, erat
+                                tortor dignissim mauris, vitae aliquam risus magna sed
+                                lorem. Donec fermentum neque vel arcu feugiat, sed
+                                volutpat nunc laoreet.
+                            </p>
+
+                        </div>
+
+                    </article>
+
+                    <!-- ======================================= -->
+                    <!-- Article 2 -->
+                    <!-- ======================================= -->
+
+                    <article id="deterministic-systems" class="rounded-xl border border-slate-800 bg-slate-900/30 p-10">
+
+                        <span
+                            class="inline-block rounded-full border border-lime-500/30 px-3 py-1 text-xs text-lime-300">
+
+                            Architecture
+
+                        </span>
+
+                        <h2 class="mt-5 text-3xl font-bold">
+
+                            Designing Deterministic Systems
+
+                        </h2>
+
+                        <div class="mt-8 space-y-6 text-justify leading-8 text-slate-400">
+
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non metus quis ipsum
+                                posuere tristique.
+                                Donec dictum magna vitae orci facilisis, sed faucibus augue consequat.</p>
+
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vulputate turpis vel
+                                ligula interdum,
+                                vitae gravida nisi porta. Duis ac dui at erat tempor volutpat.</p>
+
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent feugiat odio sed libero
+                                efficitur
+                                tincidunt. In finibus est ut nibh facilisis vulputate.</p>
+
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque habitant morbi
+                                tristique senectus
+                                et netus et malesuada fames ac turpis egestas.</p>
+
+                        </div>
+
+                    </article>
+
+                    <!-- ======================================= -->
+                    <!-- Article 3 -->
+                    <!-- ======================================= -->
+
+                    <article id="learning-through-building"
+                        class="rounded-xl border border-slate-800 bg-slate-900/30 p-10">
+
+                        <span
+                            class="inline-block rounded-full border border-amber-500/30 px-3 py-1 text-xs text-amber-300">
+
+                            Philosophy
+
+                        </span>
+
+                        <h2 class="mt-5 text-3xl font-bold">
+
+                            Learning Through Building
+
+                        </h2>
+
+                        <div class="mt-8 space-y-6 text-justify leading-8 text-slate-400">
+
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida, odio sed hendrerit
+                                feugiat, erat
+                                risus luctus magna, quis consectetur tortor nisl sed nibh.</p>
+
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse potenti. Aenean
+                                vitae nisl at justo
+                                posuere egestas. Aliquam erat volutpat.</p>
+
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras tristique lectus vel arcu
+                                malesuada, vitae
+                                consectetur justo volutpat. Sed consequat feugiat lectus.</p>
+
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec sem sed nisl
+                                malesuada pulvinar.
+                                Duis non risus vitae elit faucibus dignissim.</p>
+
+                        </div>
+
+                    </article>
 
                 </div>
 
-            </div>
+            </section>
 
+        </main>
+
+        <footer class="bg-black border-slate-800">
+        
+            <div class="mx-auto max-w-7xl px-6 py-14">
+        
+                <div class="grid items-start gap-12 md:grid-cols-[1fr_auto_auto]">
+        
+                    <!-- ========================================= -->
+                    <!-- Brand -->
+                    <!-- ========================================= -->
+        
+                    <div>
+        
+                        <h3 class="text-lg font-semibold">
+        
+                            OCDbug<span class="align-top text-[10px]">™</span>
+        
+                        </h3>
+        
+                        <p class="mt-2 text-sm text-slate-500">
+        
+                            Personal site by OCDbug.
+        
+                        </p>
+        
+                    </div>
+        
+                    <!-- ========================================= -->
+                    <!-- Navigation + Social -->
+                    <!-- ========================================= -->
+        
+                    <div class="space-y-6">
+        
+                        <div>
+        
+                            <p class="mb-3 text-xs uppercase tracking-[0.2em] text-slate-500">
+        
+                                Navigation
+        
+                            </p>
+        
+                            <div class="flex gap-6 text-sm text-slate-400">
+        
+                                <a href="/index.html" class="transition hover:text-cyan-400">
+                                    Home
+                                </a>
+        
+                                <a href="/library.html" class="transition hover:text-cyan-400">
+                                    Library
+                                </a>
+        
+                                <a href="/project.html" class="transition hover:text-cyan-400">
+                                    Projects
+                                </a>
+        
+                            </div>
+        
+                        </div>
+        
+                        <div>
+        
+                            <p class="mb-3 text-xs uppercase tracking-[0.2em] text-slate-500">
+        
+                                Social
+        
+                            </p>
+        
+                            <div class="flex gap-6 text-sm text-slate-400">
+        
+                                <a href="/">
+                                    GitHub
+                                </a>
+        
+                                <a href="/">
+                                    LinkedIn
+                                </a>
+        
+                                <a href="/">
+                                    X
+                                </a>
+        
+                            </div>
+        
+                        </div>
+        
+                    </div>
+        
+                    <!-- ========================================= -->
+                    <!-- Contact -->
+                    <!-- ========================================= -->
+        
+                    <div>
+        
+                        <p class="mb-3 text-xs uppercase tracking-[0.2em] text-slate-500">
+        
+                            Contact
+        
+                        </p>
+        
+                        <button data-contact-modal class="text-sm text-slate-400 transition hover:text-cyan-400">
+        
+                            Get in touch →
+        
+                        </button>
+        
+                    </div>
+        
+                </div>
+        
+                <!-- ========================================= -->
+                <!-- Bottom -->
+                <!-- ========================================= -->
+        
+                <div
+                    class="mt-12 flex flex-col gap-4 border-t border-slate-800 pt-6 text-sm text-slate-500 md:flex-row md:items-center md:justify-between">
+        
+                    <p>
+        
+                        © 2026 OCDbug. All rights reserved.
+        
+                    </p>
+        
+                    <p>
+        
+                        Designed & Built by OCDbug<span class="align-top text-[10px]">™</span>
+        
+                    </p>
+        
+                </div>
+        
+            </div>
+        
         </footer>
 
     </div>
 
-    
+    <!-- Hire Modal -->
+
+    <div id="hireModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/70 p-6">
+
+        <div class="w-full max-w-md rounded-xl border border-slate-800 bg-slate-900 p-6 shadow-2xl">
 
 
+            <div class="flex items-center justify-between mb-6">
 
-    <script type="module" src="/js/main.js"></script>
+                <h2 class="text-xl font-bold">
+                    Hire Me
+                </h2>
+
+                <button class="close rounded-lg p-2 hover:bg-slate-800">
+
+                    &times;
+
+                </button>
+
+            </div>
+
+            <form id="hireForm" class="space-y-5">
+
+                <div>
+
+                    <label for="name" class="mb-2 block">Name</label>
+
+                    <input id="name" name="name" type="text"
+                        class="w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-3">
+
+                </div>
+
+                <div>
+
+                    <label for="email" class="mb-2 block">Email</label>
+
+                    <input id="email" name="email" type="email"
+                        class="w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-3">
+
+                </div>
+
+                <div>
+
+                    <label for="message" class="mb-2 block">Message</label>
+
+                    <textarea id="message" name="message" rows="4"
+                        class="w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-3"></textarea>
+
+                </div>
+
+                <button type="submit"
+                    class="w-full rounded-lg bg-cyan-500 py-3 font-medium text-slate-950 hover:bg-cyan-400">
+
+                    Send Request
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <!-- Contact Modal  -->
+
+    <div id="contactModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/70 p-6">
+
+        <div class="w-full max-w-md rounded-xl border border-slate-800 bg-slate-900 p-6 shadow-2xl">
+
+            <div class="flex items-center justify-between mb-6">
+
+                <h2 class="text-xl font-bold">
+                    Contact
+                </h2>
+
+                <button class="cancel rounded-lg p-2 hover:bg-slate-800">&times;</button>
+
+            </div>
+
+            <form id="contactForm" class="space-y-5">
+
+                <div>
+
+                    <label for="email" class="mb-2 block">Email</label>
+
+                    <input id="email" name="email" type="email"
+                        class="w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-3">
+
+                </div>
+
+                <div>
+
+                    <label for="message" class="mb-2 block">Query</label>
+
+                    <textarea id="message" name="message" rows="4"
+                        class="w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-3"></textarea>
+
+                </div>
+
+                <button type="submit"
+                    class="w-full rounded-lg bg-cyan-500 py-3 font-medium text-slate-950 hover:bg-cyan-400">
+
+                    Send
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <script type="module" src="./js/main.js"></script>
 
 
 </body>

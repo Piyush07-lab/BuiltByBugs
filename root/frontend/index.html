@@ -19,9 +19,10 @@
 
             <div class=" mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
 
-                <a href="/index.html" class="text-xl font-semibold tracking-tight text-white">
+                <a href="/index.html" class="inline-flex items-center transition-opacity">
 
-                    Built<span class="text-cyan-400">By</span>Bugs
+                    <img src="/api/assets/logo" alt="BuiltByBugs" class="block h-11 w-auto shrink-0 select-none"
+                        draggable="false" decoding="async">
 
                 </a>
 
@@ -29,10 +30,14 @@
 
                     <ul class="hidden gap-8 text-sm md:flex">
 
-                        <li><a href="/index.html" class="hover:text-cyan-400 transition-colors active">Home</a></li>
-                        <li><a href="/library.html" class="hover:text-cyan-400 transition-colors">Library</a></li>
-                        <li><a href="/project.html" class="hover:text-cyan-400 transition-colors">Projects</a></li>
-                        <li><a href="#contact" class="hover:text-cyan-400 transition-colors">Contact</a></li>
+                        <li><a href="/index.html" class="nav-link hover:text-cyan-400 transition-colors">Home</a></li>
+                        <li><a href="/library.html" class="nav-link hover:text-cyan-400 transition-colors">Library</a>
+                        </li>
+                        <li><a href="/project.html" class="nav-link hover:text-cyan-400 transition-colors">Projects</a>
+                        </li>
+                        <li><a data-contact-modal href="#" class="nav-link hover:text-cyan-400 transition-colors">
+                                Contact
+                            </a></li>
 
                     </ul>
 
@@ -86,7 +91,7 @@
 
                         </a>
 
-                        <button id="contactMe"
+                        <button data-contact-modal
                             class="rounded-lg border border-slate-700 px-6 py-3 hover:border-cyan-400 hover:text-cyan-400">
 
                             Contact Me
@@ -122,21 +127,10 @@
                     <!-- GitHub -->
                     <div id="github" class="h-[360px] w-[360px] rounded-xl border border-slate-800 bg-slate-900 p-6">
                     </div>
-                    
+
                     <!-- Coding Tracker -->
                     <div id="codingTracker"
                         class="h-[360px] w-[360px] rounded-xl border border-slate-800 bg-slate-900 p-6">
-
-                        <h3 class="mb-4 text-xl font-semibold">
-                            Coding Tracker
-                        </h3>
-
-                        <div id="codingTrackerContainer">
-
-                            Loading Activity...
-
-                        </div>
-
                     </div>
 
                 </div>
@@ -151,7 +145,7 @@
 
                     <div>
 
-                        <h2 class="text-3xl font-bold">
+                        <h2 class="text-2xl text-cyan-400 font-bold">
                             What I Build
                         </h2>
 
@@ -166,43 +160,43 @@
 
                     <div class="flex flex-wrap gap-4">
 
-                        <span class="rounded-full border border-slate-700 px-4 py-2 text-sm">
+                        <span class="rounded-full border border-lime-400 px-4 py-2 text-sm">
                             JavaScript (ES Modules)
                         </span>
 
-                        <span class="rounded-full border border-slate-700 px-4 py-2 text-sm">
+                        <span class="rounded-full border border-lime-400 px-4 py-2 text-sm">
                             Node.js
                         </span>
 
-                        <span class="rounded-full border border-slate-700 px-4 py-2 text-sm">
+                        <span class="rounded-full border border-lime-400 px-4 py-2 text-sm">
                             Backend APIs
                         </span>
 
-                        <span class="rounded-full border border-slate-700 px-4 py-2 text-sm">
+                        <span class="rounded-full border border-lime-400 px-4 py-2 text-sm">
                             AST Analysis
                         </span>
 
-                        <span class="rounded-full border border-slate-700 px-4 py-2 text-sm">
+                        <span class="rounded-full border border-lime-400 px-4 py-2 text-sm">
                             Rule Engine Design
                         </span>
 
-                        <span class="rounded-full border border-slate-700 px-4 py-2 text-sm">
+                        <span class="rounded-full border border-lime-400 px-4 py-2 text-sm">
                             Automation
                         </span>
 
-                        <span class="rounded-full border border-slate-700 px-4 py-2 text-sm">
+                        <span class="rounded-full border border-lime-400 px-4 py-2 text-sm">
                             System Architecture
                         </span>
 
-                        <span class="rounded-full border border-slate-700 px-4 py-2 text-sm">
+                        <span class="rounded-full border border-lime-400 px-4 py-2 text-sm">
                             REST APIs
                         </span>
 
-                        <span class="rounded-full border border-slate-700 px-4 py-2 text-sm">
+                        <span class="rounded-full border border-lime-400 px-4 py-2 text-sm">
                             Git & GitHub
                         </span>
 
-                        <span class="rounded-full border border-slate-700 px-4 py-2 text-sm">
+                        <span class="rounded-full border border-lime-400 px-4 py-2 text-sm">
                             Technical Documentation
                         </span>
 
@@ -210,45 +204,153 @@
 
                 </div>
 
-                <div id="blogs" class="space-y-12">
+                <div id="blogs" class="space-y-8">
 
-                    <article class="space-y-4">
-
-                        <h2 class="text-3xl font-bold">
-                            Why I Built My Own AST Engine
-                        </h2>
-
-                        <p class="leading-8 text-slate-400">
-                            Building an Abstract Syntax Tree engine from scratch taught me
-                            far more than using an existing library...
-                        </p>
-
-                    </article>
-
-                    <article class="space-y-4">
+                    <div>
 
                         <h2 class="text-3xl font-bold">
-                            Designing Deterministic Systems
+                            From the <a href="./library.html" class="hover:text-cyan-300">Library</a>
                         </h2>
 
-                        <p class="leading-8 text-slate-400">
-                            Most applications only need to work. Some systems need to be
-                            reproducible...
+                        <p class="mt-2 max-w-3xl leading-7 text-slate-400">
+                            Developer logs, engineering notes and articles documenting my
+                            approach to software architecture, backend development and
+                            systems design.
                         </p>
 
-                    </article>
+                    </div>
 
-                    <article class="space-y-4">
+                    <div class="flex flex-wrap justify-center gap-6">
 
-                        <h2 class="text-3xl font-bold">
-                            Learning Through Building
-                        </h2>
+                        <!-- Article 1 -->
 
-                        <p class="leading-8 text-slate-400">
-                            Rather than collecting tutorials, I prefer finishing projects...
-                        </p>
+                        <a href="/library.html#ast-engine">
 
-                    </article>
+                            <article
+                                class="flex h-[320px] w-[320px] flex-col rounded-xl border border-slate-800 bg-slate-900/40 p-5 transition duration-200 hover:border-cyan-500/40 hover:bg-slate-900">
+
+                                <span
+                                    class="mb-4 inline-block w-fit rounded-full border border-cyan-500/30 px-3 py-1 text-xs text-cyan-300">
+
+                                    Engineering
+
+                                </span>
+
+                                <h3 class="text-lg font-semibold leading-7">
+
+                                    Why I Built My Own AST Engine
+
+                                </h3>
+
+                                <p class="mt-3 flex-1 text-justify text-sm leading-7 text-slate-400">
+
+                                    Building an Abstract Syntax Tree engine from scratch
+                                    taught me far more about parsing, traversal and
+                                    maintainable software architecture than relying on
+                                    existing tooling ever could.
+
+                                </p>
+
+                                <div class="mt-2 border-t border-slate-800 pt-4">
+
+                                    <span class="text-sm font-medium text-cyan-400">
+
+                                        Read Article →
+
+                                    </span>
+
+                                </div>
+
+                            </article>
+
+                        </a>
+
+                        <!-- Article 2 -->
+
+                        <a href="/library.html#deterministic-systems">
+
+                            <article
+                                class="flex h-[320px] w-[320px] flex-col rounded-xl border border-slate-800 bg-slate-900/40 p-5 transition duration-200 hover:border-cyan-500/40 hover:bg-slate-900">
+
+                                <span
+                                    class="mb-4 inline-block w-fit rounded-full border border-lime-500/30 px-3 py-1 text-xs text-lime-300">
+
+                                    Architecture
+
+                                </span>
+
+                                <h3 class="text-lg font-semibold leading-7">
+
+                                    Designing Deterministic Systems
+
+                                </h3>
+
+                                <p class="mt-3 flex-1 text-justify text-sm leading-7 text-slate-400">
+
+                                    What started as a simple event engine evolved into an
+                                    exploration of deterministic execution, immutable
+                                    histories and reproducible software behaviour.
+
+                                </p>
+
+                                <div class="mt-5 border-t border-slate-800 pt-4">
+
+                                    <span class="text-sm font-medium text-cyan-400">
+
+                                        Read Article →
+
+                                    </span>
+
+                                </div>
+
+                            </article>
+
+                        </a>
+
+                        <!-- Article 3 -->
+
+                        <a href="/library.html#learning-through-building">
+
+                            <article
+                                class="flex h-[320px] w-[320px] flex-col rounded-xl border border-slate-800 bg-slate-900/40 p-5 transition duration-200 hover:border-cyan-500/40 hover:bg-slate-900">
+
+                                <span
+                                    class="mb-4 inline-block w-fit rounded-full border border-amber-500/30 px-3 py-1 text-xs text-amber-300">
+
+                                    Philosophy
+
+                                </span>
+
+                                <h3 class="text-lg font-semibold leading-7">
+
+                                    Learning Through Building
+
+                                </h3>
+
+                                <p class="mt-3 flex-1 text-justify text-sm leading-7 text-slate-400">
+
+                                    Rather than collecting tutorials, I prefer finishing
+                                    complete systems. Every project becomes a practical
+                                    lesson that exposes design trade-offs and engineering
+                                    decisions.
+
+                                </p>
+
+                                <div class="mt-5 border-t border-slate-800 pt-4">
+
+                                    <span class="text-sm font-medium text-cyan-400">
+
+                                        Read Article →
+
+                                    </span>
+
+                                </div>
+
+                            </article>
+
+                        </a>
+
+                    </div>
 
                 </div>
 
@@ -258,47 +360,132 @@
 
         <!-- Footer -->
 
-        <footer id="contact" class="border-t border-slate-800">
+        <footer class="bg-black border-slate-800">
 
-            <div class="mx-auto max-w-6xl px-6 py-12">
+            <div class="mx-auto max-w-7xl px-6 py-14">
 
-                <div class="flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
+                <div class="grid items-start gap-12 md:grid-cols-[1fr_auto_auto]">
+
+                    <!-- ========================================= -->
+                    <!-- Brand -->
+                    <!-- ========================================= -->
 
                     <div>
 
-                        <h3 class="mb-4 text-xl font-bold">
+                        <h3 class="text-lg font-semibold">
 
-                            OCDbug
+                            OCDbug<span class="align-top text-[10px]">™</span>
 
                         </h3>
 
-                        <p class="max-w-md text-slate-400">
+                        <p class="mt-2 text-sm text-slate-500">
 
-                            Building software, automation tools and backend systems.
+                            Personal site by OCDbug.
 
                         </p>
 
                     </div>
 
-                    <div class="grid gap-8 sm:grid-cols-2">
+                    <!-- ========================================= -->
+                    <!-- Navigation + Social -->
+                    <!-- ========================================= -->
 
-                        <ul class="space-y-3 text-slate-400">
+                    <div class="space-y-6">
 
-                            <li><a href="/index.html" class="hover:text-cyan-400">Home</a></li>
-                            <li><a href="/library.html" class="hover:text-cyan-400">Library</a></li>
-                            <li><a href="/project.html" class="hover:text-cyan-400">Projects</a></li>
+                        <div>
 
-                        </ul>
+                            <p class="mb-3 text-xs uppercase tracking-[0.2em] text-slate-500">
 
-                        <ul class="space-y-3 text-slate-400">
+                                Navigation
 
-                            <li><a href="/">GitHub</a></li>
-                            <li><a href="/">LinkedIn</a></li>
-                            <li><a href="/">X</a></li>
+                            </p>
 
-                        </ul>
+                            <div class="flex gap-6 text-sm text-slate-400">
+
+                                <a href="/index.html" class="transition hover:text-cyan-400">
+                                    Home
+                                </a>
+
+                                <a href="/library.html" class="transition hover:text-cyan-400">
+                                    Library
+                                </a>
+
+                                <a href="/project.html" class="transition hover:text-cyan-400">
+                                    Projects
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                        <div>
+
+                            <p class="mb-3 text-xs uppercase tracking-[0.2em] text-slate-500">
+
+                                Social
+
+                            </p>
+
+                            <div class="flex gap-6 text-sm text-slate-400">
+
+                                <a href="/">
+                                    GitHub
+                                </a>
+
+                                <a href="/">
+                                    LinkedIn
+                                </a>
+
+                                <a href="/">
+                                    X
+                                </a>
+
+                            </div>
+
+                        </div>
 
                     </div>
+
+                    <!-- ========================================= -->
+                    <!-- Contact -->
+                    <!-- ========================================= -->
+
+                    <div>
+
+                        <p class="mb-3 text-xs uppercase tracking-[0.2em] text-slate-500">
+
+                            Contact
+
+                        </p>
+
+                        <button data-contact-modal class="text-sm text-slate-400 transition hover:text-cyan-400">
+
+                            Get in touch →
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <!-- ========================================= -->
+                <!-- Bottom -->
+                <!-- ========================================= -->
+
+                <div
+                    class="mt-12 flex flex-col gap-4 border-t border-slate-800 pt-6 text-sm text-slate-500 md:flex-row md:items-center md:justify-between">
+
+                    <p>
+
+                        © 2026 OCDbug. All rights reserved.
+
+                    </p>
+
+                    <p>
+
+                        Designed & Built by OCDbug<span class="align-top text-[10px]">™</span>
+
+                    </p>
 
                 </div>
 

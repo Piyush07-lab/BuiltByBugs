@@ -10,43 +10,43 @@ export function renderProfile(container, githubSummary) {
         .sort((a, b) => b.stargazers_count - a.stargazers_count)
         .slice(0, 3);
 
-    // Main wrapper
+
+    // ==========================
+    // Wrapper
+    // ==========================
+
     const wrapper = document.createElement("div");
     wrapper.className = "flex h-full flex-col";
 
     // ==========================
-    // Profile Header
+    // Header
     // ==========================
 
-    const header = document.createElement("div");
-    header.className = "flex items-center gap-4";
-
-    const avatar = document.createElement("img");
-    avatar.src = user.avatar_url;
-    avatar.alt = `${user.login} avatar`;
-    avatar.className = "h-16 w-16 rounded-full border border-slate-700";
-
-    const profileInfo = document.createElement("div");
-    profileInfo.className = "flex flex-col";
+    const heading = document.createElement("h2");
+    heading.className = "text-2xl font-bold";
+    heading.textContent = "GitHub";
 
     const username = document.createElement("h3");
-    username.className = "text-xl font-bold";
+    username.className = "text-xl text-cyan-400 font-semibold";
     username.textContent = user.login;
 
     const bio = document.createElement("p");
     bio.className = "text-sm text-slate-400";
     bio.textContent = user.bio || "No bio available.";
 
-    profileInfo.append(username, bio);
-    header.append(avatar, profileInfo);
+    // ==========================
+    // Content
+    // ==========================
 
-    // ==========================
-    // Stats
-    // ==========================
+    const content = document.createElement("div");
+    content.className =
+        "mt-6 flex flex-1 gap-4 border-t border-slate-800 pt-3";
+
+    // ---------- Stats ----------
 
     const stats = document.createElement("div");
     stats.className =
-        "mt-6 grid grid-cols-3 gap-3 text-center";
+        "flex w-28 shrink-0 flex-col gap-2 p-4";
 
     const statData = [
         {
@@ -65,50 +65,44 @@ export function renderProfile(container, githubSummary) {
 
     statData.forEach(stat => {
 
-        const card = document.createElement("div");
-        card.className =
-            "rounded-lg border border-slate-800 bg-slate-950 p-3";
+        const item = document.createElement("div");
 
         const value = document.createElement("p");
-        value.className = "text-lg font-bold";
+        value.className = "text-2xl font-bold leading-none";
         value.textContent = stat.value;
 
         const label = document.createElement("p");
-        label.className = "text-xs text-slate-500";
+        label.className = "mt-1 text-xs text-slate-500";
         label.textContent = stat.label;
 
-        card.append(value, label);
+        item.append(value, label);
 
-        stats.append(card);
+        stats.append(item);
 
     });
 
-    // ==========================
-    // Top Repositories
-    // ==========================
+    // ---------- Repository Section ----------
 
     const repoSection = document.createElement("div");
-    repoSection.className = "mt-6 flex-1";
+    repoSection.className = "p-3";
 
-    const repoHeading = document.createElement("h4");
-    repoHeading.className = "mb-3 font-semibold";
-    repoHeading.textContent = "Top Repositories";
+    const repoHeading = document.createElement("h3");
+    repoHeading.className = "mb-5 text-sm text-cyan-300 font-semibold uppercase tracking-wide";
+    repoHeading.textContent = "Repositories";
 
     const repoList = document.createElement("div");
-    repoList.className = "space-y-2";
+    repoList.className = "flex flex-col";
 
     topRepos.forEach(repo => {
 
         const row = document.createElement("div");
-        row.className =
-            "rounded-lg border border-slate-800 bg-slate-950 p-3";
 
         const name = document.createElement("p");
-        name.className = "font-medium";
+        name.className = "truncate text-base font-semibold";
         name.textContent = repo.name;
 
         const meta = document.createElement("p");
-        meta.className = "text-xs text-slate-500";
+        meta.className = "mt-1 text-xs text-slate-500";
         meta.textContent =
             `${repo.language || "Unknown"} • ★ ${repo.stargazers_count}`;
 
@@ -118,14 +112,22 @@ export function renderProfile(container, githubSummary) {
 
     });
 
-    repoSection.append(repoHeading, repoList);
+    repoSection.append(
+        repoHeading,
+        repoList
+    );
 
-    wrapper.append(
-        header,
+    content.append(
         stats,
         repoSection
     );
 
-    container.append(wrapper);
+    wrapper.append(
+        heading,
+        username,
+        bio,
+        content
+    );
 
+    container.append(wrapper);
 }

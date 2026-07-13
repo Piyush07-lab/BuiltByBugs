@@ -14,30 +14,36 @@
 
     <div class="min-h-screen flex flex-col">
 
+        <!-- Header -->
         <header class=" sticky top-0 z-50 border-b border-white/10 bg-black/70 backdrop-blur-xl">
 
             <div class=" mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
 
-                <a href="/index.html" class="text-xl font-semibold tracking-tight text-white">
-
-                    Built<span class="text-cyan-400">By</span>Bugs
-
+                <a href="/index.html" class="inline-flex items-center transition-opacity">
+                
+                    <img src="/api/assets/logo" alt="BuiltByBugs" class="block h-11 w-auto shrink-0 select-none" draggable="false"
+                        decoding="async">
+                
                 </a>
 
                 <nav aria-label="Primary navigation">
 
                     <ul class="hidden gap-8 text-sm md:flex">
 
-                        <li><a href="/index.html" class="hover:text-cyan-400 transition-colors">Home</a></li>
-                        <li><a href="/library.html" class="hover:text-cyan-400 transition-colors">Library</a></li>
-                        <li><a href="/project.html" class="hover:text-cyan-400 transition-colors active">Projects</a></li>
-                        <li><a href="#contact" class="hover:text-cyan-400 transition-colors">Contact</a></li>
+                        <li><a href="/index.html" class="nav-link hover:text-cyan-400 transition-colors">Home</a></li>
+                        <li><a href="/library.html" class="nav-link hover:text-cyan-400 transition-colors">Library</a>
+                        </li>
+                        <li><a href="/project.html" class="nav-link hover:text-cyan-400 transition-colors">Projects</a>
+                        </li>
+                        <li><a data-contact-modal href="#" class="nav-link hover:text-cyan-400 transition-colors">
+                                Contact
+                            </a></li>
 
                     </ul>
 
                 </nav>
 
-                <button
+                <button id="hireMe"
                     class="rounded-lg border border-slate-700 px-5 py-2 text-sm transition hover:border-cyan-400 hover:text-cyan-400">
 
                     Hire Me
@@ -50,7 +56,7 @@
 
         <main class="flex-1">
 
-            <section class="mx-auto flex max-w-7xl flex-col gap-20 px-6 py-24">
+            <section class="mx-auto flex max-w-7xl flex-col gap-10 px-6 py-24">
 
                 <!-- Page Title -->
                 <div>
@@ -100,9 +106,9 @@
                         class="flex h-[420px] w-[360px] flex-col rounded-xl border border-slate-800 bg-slate-900 p-6">
 
                         <div
-                            class="mb-6 flex h-40 items-center justify-center rounded-lg border border-dashed border-slate-700 text-slate-500">
+                            class="mb-6 flex h-40 items-center justify-center rounded-lg border border-dashed border-slate-700 text-slate-500 overflow-hidden">
 
-                            Thumbnail
+                            <img src="assets/B3Thumbnail.png" alt="BuiltByBugs">
 
                         </div>
 
@@ -152,145 +158,155 @@
 
                     </article>
 
-                    <article class="flex h-[420px] w-[360px] flex-col rounded-xl border border-slate-800 bg-slate-900 p-6">
-                    
+                    <article
+                        class="flex h-[420px] w-[360px] flex-col rounded-xl border border-slate-800 bg-slate-900 p-6">
+
                         <div
-                            class="mb-6 flex h-40 items-center justify-center rounded-lg border border-dashed border-slate-700 text-slate-500">
-                    
-                            Thumbnail
-                    
+                            class="mb-6 flex h-40 items-center justify-center rounded-lg border border-dashed border-slate-700 text-slate-500 overflow-hidden">
+
+                            <img src="assets/astThumbnail.png" alt="AST">
+
                         </div>
-                    
-                        <div class="mb-4 inline-block w-fit rounded-full border border-cyan-500/30 px-3 py-1 text-xs text-cyan-300">
-                    
+
+                        <div
+                            class="mb-4 inline-block w-fit rounded-full border border-cyan-500/30 px-3 py-1 text-xs text-cyan-300">
+
                             In Progress
-                    
+
                         </div>
-                    
+
                         <h3 class="text-2xl font-bold">
-                    
+
                             AST Rule Engine
-                    
+
                         </h3>
-                    
+
                         <p class="mt-3 flex-1 leading-7 text-slate-400">
-                    
+
                             A custom Abstract Syntax Tree rule engine
                             focused on source-code analysis and
                             transformation.
-                    
+
                         </p>
-                    
+
                         <div class="mt-5 text-sm text-slate-500">
-                    
+
                             JavaScript • Node.js • AST
-                    
+
                         </div>
-                    
+
                         <div class="mt-6 flex gap-4">
-                    
-                            <a href="#" class="rounded-lg bg-cyan-500 px-4 py-2 font-medium text-slate-950 hover:bg-cyan-400">
-                    
+
+                            <a href="#"
+                                class="rounded-lg bg-cyan-500 px-4 py-2 font-medium text-slate-950 hover:bg-cyan-400">
+
                                 Details
-                    
+
                             </a>
-                    
-                            <a href="https://github.com/Piyush07-lab/ast" target="_blank" class="rounded-lg border border-slate-700 px-4 py-2 hover:border-cyan-400 hover:text-cyan-400">
-                    
+
+                            <a href="https://github.com/Piyush07-lab/ast" target="_blank"
+                                class="rounded-lg border border-slate-700 px-4 py-2 hover:border-cyan-400 hover:text-cyan-400">
+
                                 GitHub
-                    
+
                             </a>
-                    
+
                         </div>
-                    
+
                     </article>
 
-                    <article class="flex h-[420px] w-[360px] flex-col rounded-xl border border-slate-800 bg-slate-900 p-6">
-                    
+                    <article
+                        class="flex h-[420px] w-[360px] flex-col rounded-xl border border-slate-800 bg-slate-900 p-6">
+
                         <div
-                            class="mb-6 flex h-40 items-center justify-center rounded-lg border border-dashed border-slate-700 text-slate-500">
-                    
-                            Thumbnail
-                    
+                            class="mb-6 flex h-20 items-center justify-center rounded-lg border border-dashed border-slate-700 text-slate-500 overflow-hidden">
+
+                            <img src="assets/thumbnail.png" alt="CareerFlow">
+
                         </div>
-                    
-                        <div class="mb-4 inline-block w-fit rounded-full border border-cyan-500/30 px-3 py-1 text-xs text-cyan-300">
-                    
+
+                        <div
+                            class="mb-4 inline-block w-fit rounded-full border border-cyan-500/30 px-3 py-1 text-xs text-cyan-300">
+
                             In Progress
-                    
+
                         </div>
-                    
+
                         <h3 class="text-2xl font-bold">
-                    
+
                             Job Portal
-                    
+
                         </h3>
-                    
+
                         <p class="mt-3 flex-1 leading-7 text-slate-400">
-                    
+
                             Recruitment platform featuring resume
                             evaluation and ATS analysis.
-                    
+
                         </p>
-                    
+
                         <div class="mt-5 text-sm text-slate-500">
-                    
+
                             React • Express • MongoDB
-                    
+
                         </div>
-                    
+
                         <div class="mt-6 flex gap-4">
-                    
-                            <a href="#" class="rounded-lg bg-cyan-500 px-4 py-2 font-medium text-slate-950 hover:bg-cyan-400">
-                    
+
+                            <a href="https://job-portal-eight-roan.vercel.app/" target="_blank"
+                                class="rounded-lg bg-cyan-500 px-4 py-2 font-medium text-slate-950 hover:bg-cyan-400">
+
                                 Live Preview
-                    
+
                             </a>
-                    
-                            <a href="https://github.com/PrashantMishra10232/Job_Portal" target="_blank" class="rounded-lg border border-slate-700 px-4 py-2 hover:border-cyan-400 hover:text-cyan-400">
-                    
+
+                            <a href="https://github.com/PrashantMishra10232/Job_Portal" target="_blank"
+                                class="rounded-lg border border-slate-700 px-4 py-2 hover:border-cyan-400 hover:text-cyan-400">
+
                                 GitHub
-                    
+
                             </a>
-                    
+
                         </div>
-                    
+
                     </article>
 
-                    <article class="flex h-[420px] w-[360px] flex-col rounded-xl border border-slate-800 bg-slate-900 p-6">
-                    
+                    <article
+                        class="flex h-[420px] w-[360px] flex-col rounded-xl border border-slate-800 bg-slate-900 p-6">
+
                         <div
                             class="mb-6 flex h-40 items-center justify-center rounded-lg border border-dashed border-slate-700 text-slate-500">
-                    
+
                             Thumbnail
-                    
+
                         </div>
-                    
-                        <div class="mb-4 inline-block w-fit rounded-full border border-cyan-500/30 px-3 py-1 text-xs text-cyan-300">
-                    
+
+                        <div
+                            class="mb-4 inline-block w-fit rounded-full border border-cyan-500/30 px-3 py-1 text-xs text-cyan-300">
+
                             Planning
-                    
+
                         </div>
-                    
+
                         <h3 class="text-2xl font-bold">
-                    
+
                             Music Application
-                    
+
                         </h3>
-                    
+
                         <p class="mt-3 flex-1 leading-7 text-slate-400">
-                    
+
                             Modern music streaming application
                             with a clean listening experience.
-                    
+
                         </p>
-                    
+
                         <div class="mt-5 text-sm text-slate-500">
-                    
+
                             React • Node.js
-                    
+
                         </div>
-                    
+
                     </article>
 
                     <!-- Repeat this article for every project -->
@@ -348,7 +364,7 @@
 
                         <span class="text-slate-500">
 
-                            Phase 2 Placeholder
+                            Comming Soon...
 
                         </span>
 
@@ -360,61 +376,254 @@
 
         </main>
 
-        <footer id="contact" class="border-t border-slate-800">
-
-            <div class="mx-auto max-w-6xl px-6 py-12">
-
-                <div class="flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
-
+        <footer class="bg-black border-slate-800">
+        
+            <div class="mx-auto max-w-7xl px-6 py-14">
+        
+                <div class="grid items-start gap-12 md:grid-cols-[1fr_auto_auto]">
+        
+                    <!-- ========================================= -->
+                    <!-- Brand -->
+                    <!-- ========================================= -->
+        
                     <div>
-
-                        <h3 class="mb-4 text-xl font-bold">
-
-                            OCDbug
-
+        
+                        <h3 class="text-lg font-semibold">
+        
+                            OCDbug<span class="align-top text-[10px]">™</span>
+        
                         </h3>
-
-                        <p class="max-w-md text-slate-400">
-
-                            Building software, automation tools and backend systems.
-
+        
+                        <p class="mt-2 text-sm text-slate-500">
+        
+                            Personal site by OCDbug.
+        
                         </p>
-
+        
                     </div>
-
-                    <div class="grid gap-8 sm:grid-cols-2">
-
-                        <ul class="space-y-3 text-slate-400">
-
-                            <li><a href="/index.html" class="hover:text-cyan-400">Home</a></li>
-                            <li><a href="/library.html" class="hover:text-cyan-400">Library</a></li>
-                            <li><a href="/project.html" class="hover:text-cyan-400">Projects</a></li>
-
-                        </ul>
-
-                        <ul class="space-y-3 text-slate-400">
-
-                            <li><a href="/">GitHub</a></li>
-                            <li><a href="/">LinkedIn</a></li>
-                            <li><a href="/">X</a></li>
-
-                        </ul>
-
+        
+                    <!-- ========================================= -->
+                    <!-- Navigation + Social -->
+                    <!-- ========================================= -->
+        
+                    <div class="space-y-6">
+        
+                        <div>
+        
+                            <p class="mb-3 text-xs uppercase tracking-[0.2em] text-slate-500">
+        
+                                Navigation
+        
+                            </p>
+        
+                            <div class="flex gap-6 text-sm text-slate-400">
+        
+                                <a href="/index.html" class="transition hover:text-cyan-400">
+                                    Home
+                                </a>
+        
+                                <a href="/library.html" class="transition hover:text-cyan-400">
+                                    Library
+                                </a>
+        
+                                <a href="/project.html" class="transition hover:text-cyan-400">
+                                    Projects
+                                </a>
+        
+                            </div>
+        
+                        </div>
+        
+                        <div>
+        
+                            <p class="mb-3 text-xs uppercase tracking-[0.2em] text-slate-500">
+        
+                                Social
+        
+                            </p>
+        
+                            <div class="flex gap-6 text-sm text-slate-400">
+        
+                                <a href="/">
+                                    GitHub
+                                </a>
+        
+                                <a href="/">
+                                    LinkedIn
+                                </a>
+        
+                                <a href="/">
+                                    X
+                                </a>
+        
+                            </div>
+        
+                        </div>
+        
                     </div>
-
+        
+                    <!-- ========================================= -->
+                    <!-- Contact -->
+                    <!-- ========================================= -->
+        
+                    <div>
+        
+                        <p class="mb-3 text-xs uppercase tracking-[0.2em] text-slate-500">
+        
+                            Contact
+        
+                        </p>
+        
+                        <button data-contact-modal class="text-sm text-slate-400 transition hover:text-cyan-400">
+        
+                            Get in touch →
+        
+                        </button>
+        
+                    </div>
+        
                 </div>
-
+        
+                <!-- ========================================= -->
+                <!-- Bottom -->
+                <!-- ========================================= -->
+        
+                <div
+                    class="mt-12 flex flex-col gap-4 border-t border-slate-800 pt-6 text-sm text-slate-500 md:flex-row md:items-center md:justify-between">
+        
+                    <p>
+        
+                        © 2026 OCDbug. All rights reserved.
+        
+                    </p>
+        
+                    <p>
+        
+                        Designed & Built by OCDbug<span class="align-top text-[10px]">™</span>
+        
+                    </p>
+        
+                </div>
+        
             </div>
-
+        
         </footer>
 
     </div>
 
+    <!-- Hire Modal -->
+
+    <div id="hireModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/70 p-6">
+
+        <div class="w-full max-w-md rounded-xl border border-slate-800 bg-slate-900 p-6 shadow-2xl">
 
 
+            <div class="flex items-center justify-between mb-6">
 
-    <script type="module" src="/js/main.js"></script>
+                <h2 class="text-xl font-bold">
+                    Hire Me
+                </h2>
 
+                <button class="close rounded-lg p-2 hover:bg-slate-800">
+
+                    &times;
+
+                </button>
+
+            </div>
+
+            <form id="hireForm" class="space-y-5">
+
+                <div>
+
+                    <label for="name" class="mb-2 block">Name</label>
+
+                    <input id="name" name="name" type="text"
+                        class="w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-3">
+
+                </div>
+
+                <div>
+
+                    <label for="email" class="mb-2 block">Email</label>
+
+                    <input id="email" name="email" type="email"
+                        class="w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-3">
+
+                </div>
+
+                <div>
+
+                    <label for="message" class="mb-2 block">Message</label>
+
+                    <textarea id="message" name="message" rows="4"
+                        class="w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-3"></textarea>
+
+                </div>
+
+                <button type="submit"
+                    class="w-full rounded-lg bg-cyan-500 py-3 font-medium text-slate-950 hover:bg-cyan-400">
+
+                    Send Request
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <!-- Contact Modal  -->
+
+    <div id="contactModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/70 p-6">
+
+        <div class="w-full max-w-md rounded-xl border border-slate-800 bg-slate-900 p-6 shadow-2xl">
+
+            <div class="flex items-center justify-between mb-6">
+
+                <h2 class="text-xl font-bold">
+                    Contact
+                </h2>
+
+                <button class="cancel rounded-lg p-2 hover:bg-slate-800">&times;</button>
+
+            </div>
+
+            <form id="contactForm" class="space-y-5">
+
+                <div>
+
+                    <label for="email" class="mb-2 block">Email</label>
+
+                    <input id="email" name="email" type="email"
+                        class="w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-3">
+
+                </div>
+
+                <div>
+
+                    <label for="message" class="mb-2 block">Query</label>
+
+                    <textarea id="message" name="message" rows="4"
+                        class="w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-3"></textarea>
+
+                </div>
+
+                <button type="submit"
+                    class="w-full rounded-lg bg-cyan-500 py-3 font-medium text-slate-950 hover:bg-cyan-400">
+
+                    Send
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <script type="module" src="./js/main.js"></script>
 </body>
 
 </html>

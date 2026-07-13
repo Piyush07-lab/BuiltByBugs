@@ -1,5 +1,6 @@
 // const API_BASE = "";
 import bulletinData from "./bulletin/bulletinData.js";
+import codingTrackerData from "./code-log/codingTrackerData.js";
 
 export async function fetchHireRequest(name, email, message) {
     try {
@@ -95,4 +96,10 @@ export async function fetchBulletin() {
 
     return Promise.resolve(bulletinData);
 
+}
+
+export async function fetchCodingTracker() {
+
+    return Promise.resolve(codingTrackerData);
+    
 }

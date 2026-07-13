@@ -4,6 +4,17 @@ export function renderHeatmap(container, heatmapData) {
 
     container.replaceChildren();
 
+    container.classList.add(
+        "cursor-pointer",
+        "transition-transform",
+        "duration-200",
+        "hover:scale-[1.01]"
+    );
+
+    container.onclick = () => {
+        window.open("https://github.com/Piyush07-lab", "_blank");
+    };
+
     // ==========================
     // Wrapper
     // ==========================
@@ -14,21 +25,33 @@ export function renderHeatmap(container, heatmapData) {
     // Title
 
     const title = document.createElement("h3");
-    title.className = "mb-4 text-xl font-bold";
+    title.className = "mb-4 text-xl text-cyan-300 font-bold";
     title.textContent = "Contribution Heatmap";
 
     // ==========================
-    // Heatmap Grid
+    // Recent Activity (49 Days)
     // ==========================
 
+    const recent = [...heatmapData]
+        .sort((a, b) => new Date(a.date) - new Date(b.date))
+        .slice(-70);
+
+
+    const heatmapContainer = document.createElement("div");
+
+    heatmapContainer.className =
+        "mt-5 mx-auto flex w-full flex-1 items-center justify-center px-2";
+
     const grid = document.createElement("div");
+
     grid.className =
-        "grid grid-cols-53 gap-1 justify-center";
+        "grid grid-cols-10 gap-[2px] w-[288px]";
+
 
     let total = 0;
     let maxDay = null;
 
-    heatmapData.forEach(day => {
+    recent.forEach(day => {
 
         total += day.count;
 
@@ -39,8 +62,8 @@ export function renderHeatmap(container, heatmapData) {
         const square = document.createElement("div");
 
         square.className =
-            "h-3 w-3 rounded-sm";
-
+            "aspect-square w-full rounded-[3px] transition-transform duration-150 hover:scale-110";
+            
         square.style.backgroundColor = day.color;
 
         square.title =
@@ -49,6 +72,8 @@ export function renderHeatmap(container, heatmapData) {
         grid.append(square);
 
     });
+
+    heatmapContainer.append(grid);
 
     // ==========================
     // Footer
@@ -78,7 +103,7 @@ export function renderHeatmap(container, heatmapData) {
 
     wrapper.append(
         title,
-        grid,
+        heatmapContainer,
         footer
     );
 

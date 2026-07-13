@@ -1,4 +1,6 @@
 // Routes
+const fs = require("fs");
+const path = require("path");
 require("dotenv").config({ path: __dirname + "/.env" });
 
 const url = require('url');
@@ -88,6 +90,40 @@ async function routeRequest(req, res) {
 
         if (pathname === '/api/coding/summary' && method === 'GET') {
             return getCodingSummary(req, res);
+        }
+
+        if (pathname === "/api/assets/logo" && method === "GET") {
+
+            const logoPath = path.join(
+                __dirname,
+                "../assets/Logo.svg"
+            );
+
+            fs.readFile(logoPath, (err, data) => {
+
+                if (err) {
+
+                    console.error("[Logo error]", err);
+
+                    res.writeHead(500, {
+                        "Content-Type": "text/plain"
+                    });
+
+                    return res.end("Unable to load logo.");
+
+                }
+
+                res.writeHead(200, {
+                    "Content-Type": "image/svg+xml",
+                    "Cache-Control": "public, max-age=86400"
+                });
+
+                res.end(data);
+
+            });
+
+            return;
+
         }
 
         if (pathname === '/api/coding' && method === 'POST') {
