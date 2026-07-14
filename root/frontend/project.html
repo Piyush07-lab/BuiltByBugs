@@ -10,8 +10,6 @@
 
 <body class="bg-slate-950 text-slate-100 antialiased">
 
-    <canvas id="backgroundCanvas" class="fixed inset-0 -z-10"></canvas>
-
     <div class="min-h-screen flex flex-col">
 
         <!-- Header -->
@@ -55,6 +53,8 @@
         </header>
 
         <main class="flex-1">
+
+            <canvas id="backgroundCanvas" class="absolute inset-0 -z-10 pointer-events-none"></canvas>
 
             <section class="mx-auto flex max-w-7xl flex-col gap-10 px-6 py-24" data-reveal>
 
