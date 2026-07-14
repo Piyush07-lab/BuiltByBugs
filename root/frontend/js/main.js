@@ -1,8 +1,13 @@
 import { hireForm, contactForm } from "./components.js";
-import { startBulletin } from "./bulletin/bulletinRender.js";
-import { startGithub } from "./github/github.js";
-import { startCodingTracker } from "./code-log/codingTracker.js";
-// import { initCanvas } from "./theme.js"
+import { loadBulletin } from "./bulletin/bulletinRender.js";
+import { loadGithub } from "./github/github.js";
+import { startGithubShowcase } from "./github/github-sc.js";
+import { loadCodingTracker } from "./code-log/codingTracker.js";
+import { initCanvas } from "./theme.js";
+import {
+    initMotion,
+    registerLazy
+} from "./motion.js";
 
 function setActiveNav() {
 
@@ -28,10 +33,29 @@ function setActiveNav() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    initMotion();
+    initCanvas();
     setActiveNav();
     hireForm();
     contactForm();
-    startBulletin();
-    startGithub();
-    startCodingTracker();
+
+    registerLazy(
+        document.getElementById("bulletin"),
+        loadBulletin
+    );
+
+    registerLazy(
+        document.getElementById("github"),
+        loadGithub
+    );
+
+    registerLazy(
+        document.getElementById("codingTracker"),
+        loadCodingTracker
+    );
+
+    registerLazy(
+        document.getElementById("githubShowcase"),
+        startGithubShowcase
+    )
 })

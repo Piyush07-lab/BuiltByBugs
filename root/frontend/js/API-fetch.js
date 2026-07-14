@@ -1,6 +1,7 @@
-// const API_BASE = "";
+
 import bulletinData from "./bulletin/bulletinData.js";
 import codingTrackerData from "./code-log/codingTrackerData.js";
+import { showToast } from "./utils/toast.js";
 
 export async function fetchHireRequest(name, email, message) {
     try {
@@ -13,16 +14,20 @@ export async function fetchHireRequest(name, email, message) {
 
         const result = await res.json();
         if (!res.ok) {
-            alert(`error: ${result.error || 'Unknown error'}`);
+            showToast(
+                `error: ${result.error || 'Unknown error'}`
+            );
         }
 
         return result;
 
     } catch (error) {
 
-        console.error(error);
+        console.error("[Hire Request]", error);
 
-        alert("Unable to contact server");
+        showToast(
+            "Unable to contact server"
+        );
 
         return {
             success: false,
@@ -49,16 +54,20 @@ export async function fetchContactRequest(email, message) {
         const result = await res.json();
 
         if (!res.ok) {
-            alert(`Error: ${result.error || "Unknown error"}`);
+            showToast(
+                `Error: ${result.error || "Unknown error"}`
+            );
         }
 
         return result;
 
     } catch (error) {
 
-        console.error(error);
+        console.error("[Contact Request]", error);
 
-        alert("Unable to contact server");
+        showToast(
+            "Unable to contact server"
+        );
 
         return {
             success: false,
@@ -80,8 +89,6 @@ export async function fetchGitContributions() {
     return await res.json();
 }
 
-// TODO Phase 1 follow-up: Reuse this summary payload for a GitHub profile card
-// (avatar, username, bio, repository count, followers, and profile link); do not render it yet.
 export async function fetchGitSummary() {
     const res = await fetch("/api/github/summary");
     if (!res.ok) throw new Error("Github Summary response failed");

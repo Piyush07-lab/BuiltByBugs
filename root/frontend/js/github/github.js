@@ -12,7 +12,7 @@ let heatmapData = null;
 let currentSlide = 0;
 let rotationTimer = null;
 
-export async function startGithub() {
+export async function loadGithub() {
 
     const container = document.getElementById("github");
 
@@ -28,19 +28,26 @@ export async function startGithub() {
         githubSummary = summary;
         heatmapData = heatmap;
 
-        renderCurrentSlide(container);
+        return {
 
-        rotationTimer = setInterval(() => {
+            render() {
 
-            currentSlide++;
+                renderCurrentSlide(container);
 
-            if (currentSlide >= 2) {
-                currentSlide = 0;
+                rotationTimer = setInterval(() => {
+
+                    currentSlide++;
+
+                    if (currentSlide >= 2)
+                        currentSlide = 0;
+
+                    renderCurrentSlide(container);
+
+                }, 7000);
+
             }
 
-            renderCurrentSlide(container);
-
-        }, 7000);
+        };
 
     } catch (error) {
 

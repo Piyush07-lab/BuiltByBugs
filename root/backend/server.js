@@ -83,13 +83,55 @@ const server = http.createServer((req, res) => {
     );
 
     res.setHeader(
-        "Referrorer-Policy",
+        "Referrer-Policy",
         "strict-origin-when-cross-origin"
     );
 
     res.setHeader(
         "Permissions-Policy",
-        "camera=(), microphone=(), geolocation=()"
+        [
+            "accelerometer=()",
+            "autoplay=()",
+            "camera=()",
+            "display-capture=()",
+            "fullscreen=(self)",
+            "geolocation=()",
+            "gyroscope=()",
+            "magnetometer=()",
+            "microphone=()",
+            "payment=()",
+            "usb=()"
+        ].join(", ")
+    );
+
+    res.setHeader(
+        "Content-Security-Policy",
+        [
+            "default-src 'none'",
+            "base-uri 'self'",
+            "form-action 'self'",
+            "frame-ancestors 'none'",
+            "object-src 'none'",
+            "script-src 'self'",
+            "style-src 'self'",
+            "img-src 'self' data:",
+            "font-src 'self'",
+            "connect-src 'self'",
+            "manifest-src 'self'",
+            "worker-src 'self'",
+            "media-src 'self'",
+            "upgrade-insecure-requests"
+        ].join("; ")
+    );
+
+    res.setHeader(
+        "Cross-Origin-Opener-Policy",
+        "same-origin"
+    );
+
+    res.setHeader(
+        "Cross-Origin-Resource-Policy",
+        "same-origin"
     );
 
     if (req.method === 'OPTIONS') {
@@ -97,11 +139,6 @@ const server = http.createServer((req, res) => {
         return res.end('Response Positive');
     }
 
-
-    // if (parsedUrl.pathname === '/') {
-    //     res.writeHead(200, { 'Content-Type': 'text/plain' });
-    //     return res.end('Hello from backend');
-    // }
 
 
     if (parsedUrl.pathname === '/favicon.ico') {
@@ -134,9 +171,14 @@ const server = http.createServer((req, res) => {
                     mimeTypes[path.extname(filePath).toLowerCase()]
                     || "application/octet-stream";
 
+                const cacheControl =
+                    path.basename(filePath) === "index.html"
+                        ? "no-cache"
+                        : "public, max-age=86400";
+
                 res.writeHead(200, {
                     "Content-Type": contentType,
-                    "Cache-Control": "public, max-age=86400"
+                    "Cache-Control": cacheControl
                 });
 
                 return fs
@@ -145,15 +187,16 @@ const server = http.createServer((req, res) => {
             }
         }
         catch (error) {
-            // file doesn't exist
+            console.error("[File Path]", error);
+            
         }
     }
 
     routeRequest(req, res);
 });
 
-server.listen(PORT, () => {
-    console.log(`Server running at http://localhost:${PORT}`);
+server.listen(PORT, "0.0.0.0", () => {
+    console.log(`Server running on port: ${PORT}`);
 });
 
 

@@ -33,7 +33,7 @@ function renderCurrentSlide(container) {
 
 }
 
-export async function startCodingTracker() {
+export async function loadCodingTracker() {
 
     const container = document.querySelector("#codingTracker");
 
@@ -53,20 +53,29 @@ export async function startCodingTracker() {
 
     }
 
-    renderCurrentSlide(container);
+    return {
 
-    if (intervalId) {
+        render() {
 
-        clearInterval(intervalId);
+            renderCurrentSlide(container);
 
+            if (intervalId) {
+
+                clearInterval(intervalId);
+
+            }
+
+            intervalId = setInterval(() => {
+
+                currentSlide = (currentSlide + 1) % 2;
+
+                renderCurrentSlide(container);
+
+            }, SLIDE_DURATION);
+        
+        }
     }
 
-    intervalId = setInterval(() => {
+};
 
-        currentSlide = (currentSlide + 1) % 2;
-
-        renderCurrentSlide(container);
-
-    }, SLIDE_DURATION);
-
-}
+    

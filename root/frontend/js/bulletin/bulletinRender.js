@@ -4,7 +4,7 @@ let bulletinData = [];
 let currentIndex = 0;
 let rotationTimer = null;
 
-export async function startBulletin() {
+export async function loadBulletin() {
 
     try {
 
@@ -14,19 +14,26 @@ export async function startBulletin() {
             throw new Error("No bulletin data available.");
         }
 
-        renderBulletin();
+        return {
 
-        rotationTimer = setInterval(() => {
+            render() {
 
-            currentIndex++;
+                renderBulletin();
 
-            if (currentIndex >= bulletinData.length) {
-                currentIndex = 0;
+                rotationTimer = setInterval(() => {
+
+                    currentIndex++;
+
+                    if (currentIndex >= bulletinData.length)
+                        currentIndex = 0;
+
+                    renderBulletin();
+
+                }, 7000);
+
             }
 
-            renderBulletin();
-
-        }, 7000);
+        };
 
     } catch (error) {
 

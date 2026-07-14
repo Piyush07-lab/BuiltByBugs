@@ -56,7 +56,7 @@
 
         <main class="flex-1">
 
-            <section id="devLogs" class="mx-auto flex max-w-6xl flex-col gap-16 px-6 py-24">
+            <section id="devLogs" class="mx-auto flex max-w-6xl flex-col gap-16 px-6 py-24" data-reveal>
                 <div class="flex flex-wrap justify-center gap-8">
                     <div class="m-6 gap-4 p-6">
                         <h1 class="mt-4 text-3xl text-cyan-400 justify-center ">DEV LOGS</h1>
@@ -66,7 +66,7 @@
 
 
                     <div id="leetcode"
-                        class="m-6 h-[360px] w-[360px] rounded-xl border border-slate-800 bg-slate-900 p-6">
+                        class="m-6 h-[360px] w-[360px] rounded-xl border border-slate-800 bg-blued p-6">
 
                         <h3 class="mb-4 text-xl font-semibold">
 
@@ -74,7 +74,7 @@
 
                         </h3>
 
-                        <div id="leetcodeChartContainer" class="rounded-xl border border-slate-800 bg-slate-900 p-6">
+                        <div id="leetcodeChartContainer" class="rounded-xl border border-slate-800 bg-blued p-6">
 
                             Comming Soon...
 
@@ -83,7 +83,7 @@
                     </div>
                 </div>
 
-                <div id="articles" class="space-y-16">
+                <div id="articles" class="space-y-16" data-reveal>
 
                     <!-- ======================================= -->
                     <!-- Article 1 -->
@@ -105,38 +105,40 @@
                         </h2>
 
                         <div class="mt-8 space-y-6 text-justify leading-8 text-slate-400">
-
+                        
                             <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                Vestibulum euismod, nisi vel consectetur interdum, nisl
-                                nisi consequat lorem, vitae tempus elit erat vitae
-                                sapien. Integer porttitor consequat velit, sed
-                                ullamcorper purus luctus vitae.
+                                Most developers interact with an Abstract Syntax Tree through an
+                                existing framework or compiler. I chose a different route. I wanted to
+                                understand how source code is transformed into a structured model that
+                                can be analyzed, queried and manipulated without relying on a black-box
+                                implementation.
                             </p>
-
+                        
                             <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                Suspendisse potenti. Nulla facilisi. Vivamus sed
-                                malesuada mauris. Curabitur tempus nisi nec turpis
-                                convallis, vitae varius ipsum dictum. Praesent ut
-                                imperdiet risus.
+                                The project began as a simple parser experiment but gradually evolved
+                                into a complete analysis pipeline. Source files are parsed into an AST,
+                                traversed by independent analyzers and combined into a project model
+                                that represents the architecture of an application. Reports are then
+                                generated directly from that model rather than from individual files,
+                                making the output consistent regardless of project size.
                             </p>
-
+                        
                             <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                Quisque eu feugiat odio. Sed ultricies, augue et
-                                convallis pulvinar, tortor turpis viverra erat, ut
-                                tincidunt erat lorem sit amet lectus.
+                                One of the primary goals was extensibility. Every analyzer focuses on a
+                                single responsibility—imports, exports, functions, classes,
+                                dependencies or future architectural rules. This modular design allows
+                                new analyses to be introduced without rewriting the existing pipeline
+                                and keeps each stage independently testable.
                             </p>
-
+                        
                             <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                Fusce commodo, sapien vitae tincidunt viverra, erat
-                                tortor dignissim mauris, vitae aliquam risus magna sed
-                                lorem. Donec fermentum neque vel arcu feugiat, sed
-                                volutpat nunc laoreet.
+                                The long-term vision extends beyond reporting. The engine is being
+                                designed to support custom rule evaluation, architectural diagnostics
+                                and eventually automated source transformations. Instead of merely
+                                describing a codebase, it aims to explain why a problem exists and how
+                                it can be resolved.
                             </p>
-
+                        
                         </div>
 
                     </article>
@@ -145,7 +147,7 @@
                     <!-- Article 2 -->
                     <!-- ======================================= -->
 
-                    <article id="deterministic-systems" class="rounded-xl border border-slate-800 bg-slate-900/30 p-10">
+                    <article id="deterministic-systems" class="rounded-xl border border-slate-800 bg-slate-900/30 p-10" data-reveal>
 
                         <span
                             class="inline-block rounded-full border border-lime-500/30 px-3 py-1 text-xs text-lime-300">
@@ -161,23 +163,37 @@
                         </h2>
 
                         <div class="mt-8 space-y-6 text-justify leading-8 text-slate-400">
-
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer non metus quis ipsum
-                                posuere tristique.
-                                Donec dictum magna vitae orci facilisis, sed faucibus augue consequat.</p>
-
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vulputate turpis vel
-                                ligula interdum,
-                                vitae gravida nisi porta. Duis ac dui at erat tempor volutpat.</p>
-
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent feugiat odio sed libero
-                                efficitur
-                                tincidunt. In finibus est ut nibh facilisis vulputate.</p>
-
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque habitant morbi
-                                tristique senectus
-                                et netus et malesuada fames ac turpis egestas.</p>
-
+                        
+                            <p>
+                                One concept that consistently influences my software design is
+                                determinism. Given the same inputs, a system should always produce the
+                                same output. Predictable behaviour makes debugging easier, testing more
+                                reliable and complex applications significantly easier to reason about.
+                            </p>
+                        
+                            <p>
+                                This philosophy appears throughout my projects. Instead of allowing
+                                components to share mutable state freely, I prefer clear data flow,
+                                explicit state transitions and well-defined execution order. Hidden
+                                dependencies often become today's convenience and tomorrow's debugging
+                                session.
+                            </p>
+                        
+                            <p>
+                                My event-driven experiments follow the same principle. Rather than
+                                storing arbitrary application state, actions are represented as
+                                immutable events that describe what happened. The current state becomes
+                                a consequence of previous events instead of a collection of unrelated
+                                variables that may change unexpectedly.
+                            </p>
+                        
+                            <p>
+                                Deterministic software is rarely the fastest solution to prototype, but
+                                it usually becomes the easiest system to maintain. As projects grow,
+                                predictability becomes more valuable than clever shortcuts, and that is
+                                a trade-off I intentionally make.
+                            </p>
+                        
                         </div>
 
                     </article>
@@ -187,7 +203,7 @@
                     <!-- ======================================= -->
 
                     <article id="learning-through-building"
-                        class="rounded-xl border border-slate-800 bg-slate-900/30 p-10">
+                        class="rounded-xl border border-slate-800 bg-slate-900/30 p-10" data-reveal>
 
                         <span
                             class="inline-block rounded-full border border-amber-500/30 px-3 py-1 text-xs text-amber-300">
@@ -203,23 +219,36 @@
                         </h2>
 
                         <div class="mt-8 space-y-6 text-justify leading-8 text-slate-400">
-
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida, odio sed hendrerit
-                                feugiat, erat
-                                risus luctus magna, quis consectetur tortor nisl sed nibh.</p>
-
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse potenti. Aenean
-                                vitae nisl at justo
-                                posuere egestas. Aliquam erat volutpat.</p>
-
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras tristique lectus vel arcu
-                                malesuada, vitae
-                                consectetur justo volutpat. Sed consequat feugiat lectus.</p>
-
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec sem sed nisl
-                                malesuada pulvinar.
-                                Duis non risus vitae elit faucibus dignissim.</p>
-
+                        
+                            <p>
+                                I learn best by building software instead of collecting tutorials.
+                                Reading documentation provides the theory, but implementing an idea
+                                exposes the assumptions, mistakes and engineering trade-offs that no
+                                video can fully demonstrate.
+                            </p>
+                        
+                            <p>
+                                This is why many of my projects intentionally avoid taking the shortest
+                                path. Building backend services without large frameworks, writing custom
+                                developer tooling and experimenting with compiler techniques require
+                                more effort, but they also reveal how the underlying technology
+                                actually works.
+                            </p>
+                        
+                            <p>
+                                Every completed project becomes more than a finished application. It
+                                becomes a record of decisions—what worked, what failed and what should
+                                be improved in the next iteration. That process has proven far more
+                                valuable than trying to memorize APIs or follow trends.
+                            </p>
+                        
+                            <p>
+                                My objective is not simply to produce applications that function today.
+                                It is to develop the engineering judgement required to design software
+                                that remains understandable, maintainable and adaptable as requirements
+                                evolve over time.
+                            </p>
+                        
                         </div>
 
                     </article>
@@ -230,7 +259,7 @@
 
         </main>
 
-        <footer class="bg-black border-slate-800">
+        <footer class="bg-black border-slate-800" data-reveal>
         
             <div class="mx-auto max-w-7xl px-6 py-14">
         
@@ -367,118 +396,122 @@
 
     <!-- Hire Modal -->
 
-    <div id="hireModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/70 p-6">
-
-        <div class="w-full max-w-md rounded-xl border border-slate-800 bg-slate-900 p-6 shadow-2xl">
-
-
+    <div id="hireModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/70 p-6" role="dialog"
+        aria-modal="true" aria-labelledby="hireModalTitle">
+    
+        <div class="w-full max-w-md rounded-xl border border-slate-800 bg-indigod p-6 shadow-2xl">
+    
+    
             <div class="flex items-center justify-between mb-6">
-
-                <h2 class="text-xl font-bold">
+    
+                <h2 id="hireModalTitle" class="text-xl font-bold">
                     Hire Me
                 </h2>
-
+    
                 <button class="close rounded-lg p-2 hover:bg-slate-800">
-
+    
                     &times;
-
+    
                 </button>
-
+    
             </div>
-
+    
             <form id="hireForm" class="space-y-5">
-
+    
                 <div>
-
+    
                     <label for="name" class="mb-2 block">Name</label>
-
+    
                     <input id="name" name="name" type="text"
                         class="w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-3">
-
+    
                 </div>
-
+    
                 <div>
-
+    
                     <label for="email" class="mb-2 block">Email</label>
-
+    
                     <input id="email" name="email" type="email"
                         class="w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-3">
-
+    
                 </div>
-
+    
                 <div>
-
+    
                     <label for="message" class="mb-2 block">Message</label>
-
+    
                     <textarea id="message" name="message" rows="4"
                         class="w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-3"></textarea>
-
+    
                 </div>
-
+    
                 <button type="submit"
-                    class="w-full rounded-lg bg-cyan-500 py-3 font-medium text-slate-950 hover:bg-cyan-400">
-
+                    class="w-full rounded-lg bg-blue-400 py-3 font-medium text-slate-950 hover:bg-cyan-400">
+    
                     Send Request
-
+    
                 </button>
-
+    
             </form>
-
+    
         </div>
-
+    
     </div>
-
+    
     <!-- Contact Modal  -->
-
-    <div id="contactModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/70 p-6">
-
-        <div class="w-full max-w-md rounded-xl border border-slate-800 bg-slate-900 p-6 shadow-2xl">
-
+    
+    <div id="contactModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/70 p-6" role="dialog"
+        aria-modal="true" aria-labelledby="contactModalTitle">
+    
+        <div class="w-full max-w-md rounded-xl border border-slate-800 bg-indigod p-6 shadow-2xl">
+    
             <div class="flex items-center justify-between mb-6">
-
-                <h2 class="text-xl font-bold">
+    
+                <h2 id="contactModalTitle" class="text-xl font-bold">
                     Contact
                 </h2>
-
+    
                 <button class="cancel rounded-lg p-2 hover:bg-slate-800">&times;</button>
-
+    
             </div>
-
+    
             <form id="contactForm" class="space-y-5">
-
+    
                 <div>
-
+    
                     <label for="email" class="mb-2 block">Email</label>
-
-                    <input id="email" name="email" type="email"
+    
+                    <input id="emailFC" name="email" type="email"
                         class="w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-3">
-
+    
                 </div>
-
+    
                 <div>
-
+    
                     <label for="message" class="mb-2 block">Query</label>
-
-                    <textarea id="message" name="message" rows="4"
+    
+                    <textarea id="messageFC" name="message" rows="4"
                         class="w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-3"></textarea>
-
+    
                 </div>
-
+    
                 <button type="submit"
-                    class="w-full rounded-lg bg-cyan-500 py-3 font-medium text-slate-950 hover:bg-cyan-400">
-
+                    class="w-full rounded-lg bg-blue-400 py-3 font-medium text-slate-950 hover:bg-cyan-400">
+    
                     Send
-
+    
                 </button>
-
+    
             </form>
-
+    
         </div>
-
+    
     </div>
 
     <script type="module" src="./js/main.js"></script>
 
+    <div id="toastContainer" class="fixed right-6 top-6 z-[9999] flex flex-col gap-3 pointer-events-none">
+    </div>
 
 </body>
 

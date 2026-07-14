@@ -56,7 +56,7 @@
 
         <main class="flex-1">
 
-            <section class="mx-auto flex max-w-7xl flex-col gap-10 px-6 py-24">
+            <section class="mx-auto flex max-w-7xl flex-col gap-10 px-6 py-24" data-reveal>
 
                 <!-- Page Title -->
                 <div>
@@ -103,7 +103,7 @@
 
                     <!-- BuiltByBugs -->
                     <article
-                        class="flex h-[420px] w-[360px] flex-col rounded-xl border border-slate-800 bg-slate-900 p-6">
+                        class="flex h-[420px] w-[360px] flex-col rounded-xl border border-slate-800 bg-blued p-6" data-reveal>
 
                         <div
                             class="mb-6 flex h-40 items-center justify-center rounded-lg border border-dashed border-slate-700 text-slate-500 overflow-hidden">
@@ -159,7 +159,7 @@
                     </article>
 
                     <article
-                        class="flex h-[420px] w-[360px] flex-col rounded-xl border border-slate-800 bg-slate-900 p-6">
+                        class="flex h-[420px] w-[360px] flex-col rounded-xl border border-slate-800 bg-blued p-6" data-reveal>
 
                         <div
                             class="mb-6 flex h-40 items-center justify-center rounded-lg border border-dashed border-slate-700 text-slate-500 overflow-hidden">
@@ -216,7 +216,7 @@
                     </article>
 
                     <article
-                        class="flex h-[420px] w-[360px] flex-col rounded-xl border border-slate-800 bg-slate-900 p-6">
+                        class="flex h-[420px] w-[360px] flex-col rounded-xl border border-slate-800 bg-blued p-6" data-reveal>
 
                         <div
                             class="mb-6 flex h-20 items-center justify-center rounded-lg border border-dashed border-slate-700 text-slate-500 overflow-hidden">
@@ -272,7 +272,7 @@
                     </article>
 
                     <article
-                        class="flex h-[420px] w-[360px] flex-col rounded-xl border border-slate-800 bg-slate-900 p-6">
+                        class="flex h-[420px] w-[360px] flex-col rounded-xl border border-slate-800 bg-blued p-6" data-reveal>
 
                         <div
                             class="mb-6 flex h-40 items-center justify-center rounded-lg border border-dashed border-slate-700 text-slate-500">
@@ -340,7 +340,7 @@
             
                 ==================================================== -->
 
-                <div class="space-y-6">
+                <div class="space-y-6" data-reveal>
 
                     <div>
 
@@ -359,15 +359,8 @@
 
                     </div>
 
-                    <div
-                        class="flex h-[500px] items-center justify-center rounded-xl border border-dashed border-slate-700 bg-slate-900">
-
-                        <span class="text-slate-500">
-
-                            Comming Soon...
-
-                        </span>
-
+                    <div id="githubShowcase" class="rounded-xl border border-slate-800 bg-blued p-8">
+                        
                     </div>
 
                 </div>
@@ -376,7 +369,7 @@
 
         </main>
 
-        <footer class="bg-black border-slate-800">
+        <footer class="bg-black border-slate-800" data-reveal>
         
             <div class="mx-auto max-w-7xl px-6 py-14">
         
@@ -513,117 +506,122 @@
 
     <!-- Hire Modal -->
 
-    <div id="hireModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/70 p-6">
-
-        <div class="w-full max-w-md rounded-xl border border-slate-800 bg-slate-900 p-6 shadow-2xl">
-
-
+    <div id="hireModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/70 p-6" role="dialog"
+        aria-modal="true" aria-labelledby="hireModalTitle">
+    
+        <div class="w-full max-w-md rounded-xl border border-slate-800 bg-indigod p-6 shadow-2xl">
+    
+    
             <div class="flex items-center justify-between mb-6">
-
-                <h2 class="text-xl font-bold">
+    
+                <h2 id="hireModalTitle" class="text-xl font-bold">
                     Hire Me
                 </h2>
-
+    
                 <button class="close rounded-lg p-2 hover:bg-slate-800">
-
+    
                     &times;
-
+    
                 </button>
-
+    
             </div>
-
+    
             <form id="hireForm" class="space-y-5">
-
+    
                 <div>
-
+    
                     <label for="name" class="mb-2 block">Name</label>
-
+    
                     <input id="name" name="name" type="text"
                         class="w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-3">
-
+    
                 </div>
-
+    
                 <div>
-
+    
                     <label for="email" class="mb-2 block">Email</label>
-
+    
                     <input id="email" name="email" type="email"
                         class="w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-3">
-
+    
                 </div>
-
+    
                 <div>
-
+    
                     <label for="message" class="mb-2 block">Message</label>
-
+    
                     <textarea id="message" name="message" rows="4"
                         class="w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-3"></textarea>
-
+    
                 </div>
-
+    
                 <button type="submit"
-                    class="w-full rounded-lg bg-cyan-500 py-3 font-medium text-slate-950 hover:bg-cyan-400">
-
+                    class="w-full rounded-lg bg-blue-400 py-3 font-medium text-slate-950 hover:bg-cyan-400">
+    
                     Send Request
-
+    
                 </button>
-
+    
             </form>
-
+    
         </div>
-
+    
     </div>
-
+    
     <!-- Contact Modal  -->
-
-    <div id="contactModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/70 p-6">
-
-        <div class="w-full max-w-md rounded-xl border border-slate-800 bg-slate-900 p-6 shadow-2xl">
-
+    
+    <div id="contactModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/70 p-6" role="dialog"
+        aria-modal="true" aria-labelledby="contactModalTitle">
+    
+        <div class="w-full max-w-md rounded-xl border border-slate-800 bg-indigod p-6 shadow-2xl">
+    
             <div class="flex items-center justify-between mb-6">
-
-                <h2 class="text-xl font-bold">
+    
+                <h2 id="contactModalTitle" class="text-xl font-bold">
                     Contact
                 </h2>
-
+    
                 <button class="cancel rounded-lg p-2 hover:bg-slate-800">&times;</button>
-
+    
             </div>
-
+    
             <form id="contactForm" class="space-y-5">
-
+    
                 <div>
-
+    
                     <label for="email" class="mb-2 block">Email</label>
-
-                    <input id="email" name="email" type="email"
+    
+                    <input id="emailFC" name="email" type="email"
                         class="w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-3">
-
+    
                 </div>
-
+    
                 <div>
-
+    
                     <label for="message" class="mb-2 block">Query</label>
-
-                    <textarea id="message" name="message" rows="4"
+    
+                    <textarea id="messageFC" name="message" rows="4"
                         class="w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-3"></textarea>
-
+    
                 </div>
-
+    
                 <button type="submit"
-                    class="w-full rounded-lg bg-cyan-500 py-3 font-medium text-slate-950 hover:bg-cyan-400">
-
+                    class="w-full rounded-lg bg-blue-400 py-3 font-medium text-slate-950 hover:bg-cyan-400">
+    
                     Send
-
+    
                 </button>
-
+    
             </form>
-
+    
         </div>
-
+    
     </div>
 
     <script type="module" src="./js/main.js"></script>
+
+    <div id="toastContainer" class="fixed right-6 top-6 z-[9999] flex flex-col gap-3 pointer-events-none">
+    </div>
 </body>
 
 </html>

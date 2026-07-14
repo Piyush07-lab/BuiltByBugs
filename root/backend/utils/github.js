@@ -115,7 +115,7 @@ const fetchGitHub = (options) => {
 
                     if (res.statusCode >= 400) {
                         return reject(
-                            new error(
+                            new Error(
                                 parsed.message ||
                                 `GitHub API error ${res.statusCode}`
                             )

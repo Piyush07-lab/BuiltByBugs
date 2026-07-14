@@ -1,5 +1,6 @@
 import { fetchHireRequest } from "./API-fetch.js";
 import { fetchContactRequest } from "./API-fetch.js";
+import { showToast } from "./utils/toast.js";
 
 export function hireForm() {
     const modal = document.getElementById('hireModal');
@@ -8,23 +9,35 @@ export function hireForm() {
 
     const hireForm = document.getElementById('hireForm');
 
-    openBtn.addEventListener('click', () => {
-        modal.classList.remove('hidden');
-    });
+    function openModal() {
+        modal.classList.remove("hidden");
 
-    closeBtn.addEventListener('click', () => {
-        modal.classList.add('hidden');
-    });
+        const firstInput = modal.querySelector(
+            "input, textarea, button"
+        );
+
+        firstInput.focus();
+    }
+
+    function closeModal() {
+        modal.classList.add("hidden");
+
+        openBtn.focus();
+    }
+
+    openBtn.addEventListener("click", openModal);
+
+    closeBtn.addEventListener("click", closeModal);
 
     modal.addEventListener('click', (e) => {
         if (e.target === modal) {
-            modal.classList.add('hidden');
+            closeModal();
         }
     });
 
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-            modal.classList.add('hidden');
+        if (e.key === "Escape") {
+            closeModal();
         }
     });
 
@@ -42,14 +55,19 @@ export function hireForm() {
         try {
             await fetchHireRequest(name, email, message);
 
-            alert("Your request has been sent successfully!");
+            showToast(
+                "Your request has been sent successfully."
+            );
 
             hireForm.reset();
-            modal.classList.add('hidden');
+            closeModal();
 
         } catch (error) {
             console.error('Request failed:', error);
-            alert('Something went wrong. Please try again later.');
+            showToast(
+                'Something went wrong. Please try again later.',
+                'error'
+            );
         }
 
         submitBtn.disabled = false;
@@ -66,35 +84,48 @@ export function contactForm() {
 
     const form = document.getElementById("contactForm");
 
+    let activeTrigger = null;
+
+    function openModal() {
+        modal.classList.remove("hidden");
+
+        const firstInput = modal.querySelector(
+            "input, textarea, button"
+        );
+
+        firstInput.focus();
+    }
+
+    function closeModal() {
+        modal.classList.add("hidden");
+
+        activeTrigger?.focus();
+    }
+
     openBtns.forEach(btn => {
 
         btn.addEventListener("click", (e) => {
 
             e.preventDefault();
 
-            modal.classList.remove("hidden");
-            modal.classList.add("flex");
+            activeTrigger = btn;
+
+            openModal();
 
         });
-
     });
 
-    closeBtn.addEventListener("click", () => {
-        modal.classList.add("hidden");
-        modal.classList.remove("flex");
-    });
+    closeBtn.addEventListener("click", closeModal);
 
     modal.addEventListener("click", (e) => {
         if (e.target === modal) {
-            modal.classList.add("hidden");
-            modal.classList.remove("flex");
+            closeModal();
         }
     });
 
     document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && modal.classList.contains("flex")) {
-            modal.classList.add("hidden");
-            modal.classList.remove("flex");
+        if (e.key === "Escape") {
+            closeModal();
         }
     });
 
@@ -114,18 +145,23 @@ export function contactForm() {
 
             await fetchContactRequest(email, message);
 
-            alert("Your message has been sent successfully!");
+            showToast(
+                "Your message has been sent successfully!"
+            );
 
             form.reset();
 
-            modal.classList.add("hidden");
-            modal.classList.remove("flex");
+            closeModal();
+    
 
         } catch (error) {
 
             console.error("Request failed:", error);
 
-            alert("Something went wrong. Please try again later.");
+            showToast(
+                "Something went wrong. Please try again later.",
+                "error"
+            );
 
         } finally {
 

@@ -8,10 +8,9 @@
     <title>BuiltByBugs</title>
 </head>
 
-<body class="bg-slate-950 text-slate-100 antialiased">
+<body class="bg-slate-950 text-slate-100 antialiased bg-mask">
 
-    <canvas id="backgroundCanvas" class="fixed inset-0 -z-10"></canvas>
-
+    
     <div class="min-h-screen flex flex-col">
 
         <!-- Header -->
@@ -57,7 +56,10 @@
         <!-- Hero -->
         <main class="flex-1">
 
-            <section class="mx-auto flex max-w-6xl flex-col gap-16 px-6 py-24">
+            <canvas id="backgroundCanvas" class="absolute inset-0 -z-10 pointer-events-none"></canvas>
+
+
+            <section class="mx-auto flex max-w-6xl flex-col gap-16 px-6 py-24" data-reveal>
 
                 <div class="space-y-6">
 
@@ -106,13 +108,13 @@
 
             <!-- Development Activity -->
 
-            <section class="mx-auto max-w-7xl px-6 py-20">
+            <section class="mx-auto max-w-7xl px-6 py-20" data-reveal>
 
                 <!-- Section Layout -->
                 <div class="flex flex-wrap justify-center gap-8">
 
                     <!-- Bulletin -->
-                    <div id="bulletin" class="h-[360px] w-[360px] rounded-xl border border-slate-800 bg-slate-900 p-6">
+                    <div id="bulletin" class="h-[360px] w-[360px] rounded-xl border border-slate-800 bg-blued p-6">
 
                         <h2 class="text-3xl font-bold">
                             Development Activity
@@ -125,12 +127,12 @@
                     </div>
 
                     <!-- GitHub -->
-                    <div id="github" class="h-[360px] w-[360px] rounded-xl border border-slate-800 bg-slate-900 p-6">
+                    <div id="github" class="h-[360px] w-[360px] rounded-xl border border-slate-800 bg-blued p-6">
                     </div>
 
                     <!-- Coding Tracker -->
                     <div id="codingTracker"
-                        class="h-[360px] w-[360px] rounded-xl border border-slate-800 bg-slate-900 p-6">
+                        class="h-[360px] w-[360px] rounded-xl border border-slate-800 bg-blued p-6">
                     </div>
 
                 </div>
@@ -139,7 +141,7 @@
 
             <!-- SkillSet -->
 
-            <section class="mx-auto flex max-w-6xl flex-col gap-16 px-6 py-24">
+            <section class="mx-auto flex max-w-6xl flex-col gap-16 px-6 py-24" data-reveal>
 
                 <div id="skill" class="space-y-6">
 
@@ -360,7 +362,7 @@
 
         <!-- Footer -->
 
-        <footer class="bg-black border-slate-800">
+        <footer class="bg-black border-slate-800" data-reveal>
 
             <div class="mx-auto max-w-7xl px-6 py-14">
 
@@ -497,14 +499,14 @@
 
     <!-- Hire Modal -->
 
-    <div id="hireModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/70 p-6">
+    <div id="hireModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/70 p-6" role="dialog" aria-modal="true" aria-labelledby="hireModalTitle">
 
-        <div class="w-full max-w-md rounded-xl border border-slate-800 bg-slate-900 p-6 shadow-2xl">
+        <div class="w-full max-w-md rounded-xl border border-slate-800 bg-indigod p-6 shadow-2xl">
 
 
             <div class="flex items-center justify-between mb-6">
 
-                <h2 class="text-xl font-bold">
+                <h2 id="hireModalTitle" class="text-xl font-bold">
                     Hire Me
                 </h2>
 
@@ -546,7 +548,7 @@
                 </div>
 
                 <button type="submit"
-                    class="w-full rounded-lg bg-cyan-500 py-3 font-medium text-slate-950 hover:bg-cyan-400">
+                    class="w-full rounded-lg bg-blue-400 py-3 font-medium text-slate-950 hover:bg-cyan-400">
 
                     Send Request
 
@@ -560,13 +562,13 @@
 
     <!-- Contact Modal  -->
 
-    <div id="contactModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/70 p-6">
+    <div id="contactModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/70 p-6" role="dialog" aria-modal="true" aria-labelledby="contactModalTitle">
 
-        <div class="w-full max-w-md rounded-xl border border-slate-800 bg-slate-900 p-6 shadow-2xl">
+        <div class="w-full max-w-md rounded-xl border border-slate-800 bg-indigod p-6 shadow-2xl">
 
             <div class="flex items-center justify-between mb-6">
 
-                <h2 class="text-xl font-bold">
+                <h2 id="contactModalTitle" class="text-xl font-bold">
                     Contact
                 </h2>
 
@@ -580,7 +582,7 @@
 
                     <label for="email" class="mb-2 block">Email</label>
 
-                    <input id="email" name="email" type="email"
+                    <input id="emailFC" name="email" type="email"
                         class="w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-3">
 
                 </div>
@@ -589,13 +591,13 @@
 
                     <label for="message" class="mb-2 block">Query</label>
 
-                    <textarea id="message" name="message" rows="4"
+                    <textarea id="messageFC" name="message" rows="4"
                         class="w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-3"></textarea>
 
                 </div>
 
                 <button type="submit"
-                    class="w-full rounded-lg bg-cyan-500 py-3 font-medium text-slate-950 hover:bg-cyan-400">
+                    class="w-full rounded-lg bg-blue-400 py-3 font-medium text-slate-950 hover:bg-cyan-400">
 
                     Send
 
@@ -608,6 +610,9 @@
     </div>
 
     <script type="module" src="./js/main.js"></script>
+
+    <div id="toastContainer" class="fixed right-6 top-6 z-[9999] flex flex-col gap-3 pointer-events-none">
+    </div>
 
 </body>
 
