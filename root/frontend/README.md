@@ -2,6 +2,15 @@
 
 ## 📌 Overview
 
+The frontend now runs as a JavaScript React application powered by Vite. The `/`, `/library`, and `/project` routes are rendered from the shared React entrypoint in `src/main.jsx`; existing API modules and generated Tailwind styles are reused.
+
+```bash
+npm install
+npm run dev
+```
+
+Use `npm run build` for a production bundle.
+
 This is not just a personal portfolio. This is a fully integrated, self-developed digital platform designed to:
 
 * Showcase my skills (frontend, backend, automation, AI)

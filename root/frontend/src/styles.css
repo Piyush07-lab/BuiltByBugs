@@ -1,0 +1,4 @@
+html { scroll-behavior: smooth; }
+body { min-width: 320px; }
+#backgroundCanvas { min-height: 100%; }
+main { isolation: isolate; }
