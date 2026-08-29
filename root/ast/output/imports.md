@@ -1,9 +1,6 @@
 # Import Report
 
-Total Imports: 5
+Total Imports: 2
 
-- frontend\js\theme.js → ./utils/particles.js
-- frontend\js\main.js → ./components.js
-- frontend\js\main.js → ./github-res.js
-- frontend\js\github-res.js → ./API-fetch.js
-- frontend\js\components.js → ./API-fetch.js
+- frontend\src\hooks\usePathname.js → react
+- frontend\src\api\fetchApi.js → ./client

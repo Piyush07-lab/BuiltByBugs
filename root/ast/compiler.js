@@ -67,7 +67,7 @@ function buildFileModel(projectModel) {
 
     return files;
 
-}l
+}
 
 function compile() {
     

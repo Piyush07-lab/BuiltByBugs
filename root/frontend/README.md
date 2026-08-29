@@ -1,129 +1,31 @@
-# 🌐 Piyush Mishra — Personal Website: Vision, Functionality & Impact
+# Frontend
 
-## 📌 Overview
+This directory contains the new React + Vite frontend.
 
-The frontend now runs as a JavaScript React application powered by Vite. The `/`, `/library`, and `/project` routes are rendered from the shared React entrypoint in `src/main.jsx`; existing API modules and generated Tailwind styles are reused.
+Dependencies are intentionally installed in the parent `root` package. The frontend package keeps only its local scripts and calls the shared Vite binary from `../node_modules`.
+
+## Commands
+
+Run from `root`:
 
 ```bash
-npm install
 npm run dev
+npm run build
 ```
 
-Use `npm run build` for a production bundle.
+Run from `root/frontend`:
 
-This is not just a personal portfolio. This is a fully integrated, self-developed digital platform designed to:
+```bash
+npm run dev
+npm run build
+```
 
-* Showcase my skills (frontend, backend, automation, AI)
-* Offer services and product previews
-* Engage recruiters and clients
-* Automate daily activity tracking and development logs
+The Vite development server runs on `http://localhost:5173`. API requests under `/api` are proxied to the backend on `http://localhost:3000` when the backend is running.
 
----
+## Structure
 
-## Devloper's Intrest
-
-* Deployed, polished site with focused design
-* Clear access to LinkedIn + downloadable resume
-* GitHub integration with modal previews
-* Activity box demonstrating live engagement and tech stack mastery
-
-### ✅ Core Strengths
-
-* **Frontend Excellence**: Tailored UI, theme consistency, modal interactions
-* **Backend Control**: Barebones API, custom endpoints, data processing
-* **Project Ownership**: All code written by me, deployed and maintained
-* **Collaboration Ready**: Ongoing collab project + community platform in development
-* **AI Integration**: Custom self-developed assistant with clear documentation
-
-### 📌 Value Signal
-
-> "I’m not just hireable — I’m a creator. I can work with your team or build a startup with you."
-
----
-
-### ✅ Functionality Built for Clients
-
-* **AI Assistant**: Free-to-chat assistant that guides users without sales pressure
-* **Service Flow**: Helps clients define their needs first, then suggests options
-* **Task ID System**: No login required, but every job tracked for transparency & updates
-* **Privacy First**: Clients choose whether their project stays public or private
-* **Direct Contact**: Option to call, message, or email directly
-
-### ✅ Client Trust Framework
-
-* Clear onboarding steps with chatbot
-* Transparent communication flow
-* Pricing discussions based on task complexity, not fixed packages.
-* Encouraged comparison to build confidence
-
----
-
-## 🧩 Core Sections
-
-### 1. **Intro Area**
-
-* Professional summary
-* Social links, LinkedIn, Resume Download & Preview
-
-### 2. **Activity Dashboard**
-
-* GitHub Contribution Chart
-* LeetCode Activity + Sidebar
-* Custom Coding Activity Chart
-* Auto-Generated Dev Logs (AI-assisted)
-
-### 3. **Projects Section**
-
-* Live previews for major works
-* GitHub-style repo popups with extended info
-
-### 4. **Service Area**
-
-* Dynamic chatbot to help scope client needs
-* Privacy-first ID system for job tracking
-
-### 5. **Footer / Social Activity**
-
-* Live links and recent posts from platforms
-
----
-
-## 📦 AI Assistant Overview(In progress)
-
-* Built from scratch — no third-party or paid solution
-* Includes logic to:
-
-  * Interpret user intent
-  * Offer relevant service suggestions
-  * Recommend template previews based on user answers
-  * Communicate in a relaxed, human tone
-* Fully documented in a `/ai-readme.md` file
-
----
-
-## 📑 Deployment & Tools
-
-* **Frontend**: HTML, CSS, JS (Vanilla)
-* **Backend**: Node.js, raw HTTP modules
-* **AI & Scripts**: Python (future ML integration planned)
-* **Hosting**: To be deployed on custom domain + Vercel/Render fallback
-* **CI/CD**: Manual + GitHub Actions (planned)
-
----
-
-## 💬 Final Word
-
-This is not just a dev showcase.
-It’s a platform that reflects:
-
-* My growth
-* My process
-* My professionalism
-* And my ability to work solo or in a team
-
-**Recruiters will see my readiness. Clients will see my reliability.**
-That’s the goal.
-
----
-
-
+- `index.html` is the Vite document shell.
+- `src/main.jsx` is the React entry point.
+- `src/App.jsx` contains the initial route-aware application shell.
+- `src/styles.css` contains the foundation styles and imports the shared root Tailwind entry.
+- `vite.config.mjs` configures React, Tailwind, development proxying, and the production output directory.

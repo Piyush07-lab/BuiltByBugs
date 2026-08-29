@@ -1,14 +1,14 @@
 # Metrics Report
 
 ## Most DOM Queries
-frontend\js\components.js (7)
+frontend\src\hooks\usePathname.js (0)
 
 ## Most Event Listeners
-frontend\js\components.js (5)
+frontend\dist\assets\index-BaSgDg2A.js (19)
 
 ## Most API Calls
-frontend\js\API-fetch.js (4)
+frontend\src\hooks\usePathname.js (0)
 
 ## Most Imports
-frontend\js\main.js (2)
+frontend\src\hooks\usePathname.js (1)
 

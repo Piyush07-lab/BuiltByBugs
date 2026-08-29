@@ -1,11 +1,24 @@
 # Event Listeners Report
 
-Total Event-Listener: 7
+Total Event-Listener: 20
 
-- frontend\js\theme.js → Identifier, resize
-- frontend\js\main.js → ArrowFunctionExpression, DOMContentLoaded
-- frontend\js\components.js → ArrowFunctionExpression, click
-- frontend\js\components.js → ArrowFunctionExpression, click
-- frontend\js\components.js → ArrowFunctionExpression, click
-- frontend\js\components.js → ArrowFunctionExpression, keydown
-- frontend\js\components.js → ArrowFunctionExpression, submit
+- frontend\src\hooks\usePathname.js → Identifier, popstate
+- frontend\dist\assets\index-BaSgDg2A.js → Identifier, undefined
+- frontend\dist\assets\index-BaSgDg2A.js → Identifier, undefined
+- frontend\dist\assets\index-BaSgDg2A.js → Identifier, undefined
+- frontend\dist\assets\index-BaSgDg2A.js → Identifier, undefined
+- frontend\dist\assets\index-BaSgDg2A.js → Identifier, undefined
+- frontend\dist\assets\index-BaSgDg2A.js → Identifier, undefined
+- frontend\dist\assets\index-BaSgDg2A.js → Identifier, undefined
+- frontend\dist\assets\index-BaSgDg2A.js → FunctionExpression, undefined
+- frontend\dist\assets\index-BaSgDg2A.js → FunctionExpression, undefined
+- frontend\dist\assets\index-BaSgDg2A.js → FunctionExpression, undefined
+- frontend\dist\assets\index-BaSgDg2A.js → FunctionExpression, undefined
+- frontend\dist\assets\index-BaSgDg2A.js → Identifier, undefined
+- frontend\dist\assets\index-BaSgDg2A.js → Identifier, undefined
+- frontend\dist\assets\index-BaSgDg2A.js → Identifier, undefined
+- frontend\dist\assets\index-BaSgDg2A.js → Identifier, undefined
+- frontend\dist\assets\index-BaSgDg2A.js → Identifier, undefined
+- frontend\dist\assets\index-BaSgDg2A.js → Identifier, undefined
+- frontend\dist\assets\index-BaSgDg2A.js → Identifier, undefined
+- frontend\dist\assets\index-BaSgDg2A.js → Identifier, undefined
