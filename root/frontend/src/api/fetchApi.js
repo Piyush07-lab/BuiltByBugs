@@ -20,15 +20,6 @@ export function fetchGitContributions() {
     return apiRequest("/api/github-contributions")
 };
 
-/*
-Incorrect frontend route stub kept for reference.
-Logo serving is handled by root/backend/routes/router.js at GET /api/assets/logo.
-
-app.get("/api/assets/logo", (req, res) => {
-    res.sendFile(path.join(process.cwd(),))
-})
-*/
-
 export function sendContact(data) {
     return apiRequest("/api/contact", {
         method: "POST",

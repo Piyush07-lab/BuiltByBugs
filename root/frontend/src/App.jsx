@@ -1,6 +1,5 @@
 import Header from "./components/Header.jsx";
-import { DrawerProvider, useDrawer } from './context/DrawerContext';
-import Drawer from './components/Drawer';
+import { DrawerProvider, GlobalDrawerContainer } from "./components/drawer";
 import usePathname from "./hooks/usePathname.js";
 import Home from "./pages/Home.jsx";
 import Library from "./pages/Library.jsx";
@@ -12,36 +11,14 @@ const routes = {
   "/project": Project,
 };
 
-function GlobalDrawerContainer() {
-  const { drawerState, closeDrawer } = useDrawer();
 
-  const titles = {
-    hire: `Hire For: ${drawerState.data?.service || 'General'}`,
-    chat: 'AI Assistant',
-    settings: 'Preferences',
-  };
-
-  return (
-    <Drawer
-      isOpen={drawerState.isOpen}
-      onClose={closeDrawer}
-      title={titles[drawerState.type] || ''}
-    >
-      {drawerState.type === 'hire' && (
-        <HireForm service={drawerState.data?.service} onClose={closeDrawer} />
-      )}
-      {drawerState.type === 'chat' && (
-        <ChatBot onClose={closeDrawer} />
-      )}
-    </Drawer>
-  );
-}
 
 function App() {
   const pathname = usePathname();
   const Page = routes[pathname] ?? Home;
 
   return (
+    <DrawerProvider>
     <div className="relative flex min-h-screen flex-col overflow-hidden isolate">
       <div className="pointer-events-none absolute -z-10 h-[28rem] w-[28rem] rounded-full border border-[#a7f3d0]/10 top-[18rem] -left-[19rem]" aria-hidden="true" />
       <div className="pointer-events-none absolute -z-10 h-[28rem] w-[28rem] rounded-full border border-[#93c5fd]/10 top-[8rem] -right-[20rem]" aria-hidden="true" />
@@ -56,7 +33,9 @@ function App() {
         <span>React + Vite</span>
         <span>Inventory-led rebuild</span>
       </footer>
+      <GlobalDrawerContainer />
     </div>
+    </DrawerProvider>
   );
 }
 

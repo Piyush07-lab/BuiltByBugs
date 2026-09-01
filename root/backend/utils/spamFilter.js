@@ -15,8 +15,9 @@ function containsBannedWords(message) {
     );
 }
 
-function isValidHireRequest({ name, email, message }) {
-
+// function isValidHireRequest({ service, name, email, message }) {
+function isValidHireRequest({ service, name, email, details: message }) {
+    
     name = name?.trim();
     email = email?.trim();
     message = message?.trim();
