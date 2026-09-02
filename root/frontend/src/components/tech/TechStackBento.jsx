@@ -59,6 +59,59 @@ const cards = [
   },
 ];
 
+const miniCards = [
+  {
+    id: 'docker',
+    title: 'Docker',
+    description: 'Containers',
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-white opacity-80 group-hover:opacity-100 transition-opacity">
+        <path d="M2 13.5c1.5 0 2.5 1 4 1s2.5-1 4-1 2.5 1 4 1 2.5-1 4-1 2.5 1 4 1" />
+        <path d="M2 17.5c1.5 0 2.5 1 4 1s2.5-1 4-1 2.5 1 4 1 2.5-1 4-1 2.5 1 4 1" />
+        <rect x="4" y="9" width="3" height="3" rx="0.5" />
+        <rect x="8" y="9" width="3" height="3" rx="0.5" />
+        <rect x="12" y="9" width="3" height="3" rx="0.5" />
+        <rect x="8" y="5.5" width="3" height="3" rx="0.5" />
+      </svg>
+    ),
+  },
+  {
+    id: 'tailwind',
+    title: 'Tailwind',
+    description: 'Styling',
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-white opacity-80 group-hover:opacity-100 transition-opacity">
+        <path d="M6 12c.5-2.5 2.5-4 5-3.5 1.5.3 2.5 1.5 3.5 2.5 1.5 1.5 3 2 5.5 1-1 2.5-2.5 4-5 3.5-1.5-.3-2.5-1.5-3.5-2.5-1.5-1.5-3-2-5.5-1z" />
+        <path d="M2 16c.5-2.5 2.5-4 5-3.5 1.5.3 2.5 1.5 3.5 2.5 1.5 1.5 3 2 5.5 1-1 2.5-2.5 4-5 3.5-1.5-.3-2.5-1.5-3.5-2.5-1.5-1.5-3-2-5.5-1z" />
+      </svg>
+    ),
+  },
+  {
+    id: 'git',
+    title: 'Git',
+    description: 'VCS',
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-white opacity-80 group-hover:opacity-100 transition-opacity">
+        <line x1="6" y1="3" x2="6" y2="15" />
+        <circle cx="18" cy="6" r="3" />
+        <circle cx="6" cy="18" r="3" />
+        <path d="M18 9a9 9 0 0 1-9 9" />
+      </svg>
+    ),
+  },
+  {
+    id: 'terminal',
+    title: 'Terminal',
+    description: 'CLI & Shell',
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-white opacity-80 group-hover:opacity-100 transition-opacity">
+        <polyline points="4 17 10 11 4 5" />
+        <line x1="12" y1="19" x2="20" y2="19" />
+      </svg>
+    ),
+  },
+];
+
 export default function TechStackBento() {
   const [hoveredCard, setHoveredCard] = useState(null);
 
@@ -79,12 +132,12 @@ export default function TechStackBento() {
               key={card.id}
               className={`
                 group relative flex flex-col justify-center items-center overflow-hidden
-                bg-[rgba(47,77,70,0.14)] backdrop-blur-[10px] 
+                bg-[rgba(47, 77,70,0.04)] backdrop-blur-[10px] 
                 border border-white/10 rounded-2xl p-6
                 transition-all duration-300 ease-in-out cursor-default
                 ${card.className}
                 ${isDimmed ? 'opacity-40 scale-[0.98]' : 'opacity-100 scale-100'}
-                ${isHovered ? 'shadow-[0_8px_30px_rgb(0,0,0,0.2)] bg-[rgba(13,95,62,0.7)]' : ''}
+                ${isHovered ? 'shadow-[0_8px_30px_rgb(0,0,0,0.2)] bg-[rgba(10,100,69,0.7)]' : ''}
               `}
               onMouseEnter={() => setHoveredCard(card.id)}
               onMouseLeave={() => setHoveredCard(null)}
@@ -115,6 +168,53 @@ export default function TechStackBento() {
             </div>
           );
         })}
+
+        <div className="grid grid-cols-2 grid-rows-2 gap-2 md:col-start-1 md:row-start-2 h-full">
+          {miniCards.map((mini) => {
+            const isHovered = hoveredCard === mini.id;
+            const isDimmed = hoveredCard !== null && hoveredCard !== mini.id;
+
+            return (
+              <div
+                key={mini.id}
+                className={`
+                  group relative flex flex-col justify-center items-center overflow-hidden
+                  bg-[rgba(47, 77,70,0.04)] backdrop-blur-[10px] 
+                  border border-white/10 rounded-xl p-2
+                  transition-all duration-300 ease-in-out cursor-default
+                  ${isDimmed ? 'opacity-40 scale-[0.98]' : 'opacity-100 scale-100'}
+                  ${isHovered ? 'shadow-[0_8px_30px_rgb(0,0,0,0.2)] bg-[rgba(10,100,69,0.7)]' : ''}
+                `}
+                onMouseEnter={() => setHoveredCard(mini.id)}
+                onMouseLeave={() => setHoveredCard(null)}
+              >
+                <div 
+                  className={`
+                    transition-transform duration-300 ease-in-out
+                    ${isHovered ? '-translate-y-2.5 scale-105' : 'translate-y-0 scale-100'}
+                  `}
+                >
+                  {mini.icon}
+                </div>
+
+                <Transition
+                  as="div"
+                  show={isHovered}
+                  enter="transition-all duration-300 ease-out"
+                  enterFrom="opacity-0 translate-y-2"
+                  enterTo="opacity-100 translate-y-0"
+                  leave="transition-all duration-200 ease-in"
+                  leaveFrom="opacity-100 translate-y-0"
+                  leaveTo="opacity-0 translate-y-1"
+                  className="absolute bottom-2 text-center px-1"
+                >
+                  <h3 className="text-white text-[11px] font-bold tracking-tight leading-none">{mini.title}</h3>
+                  <p className="text-[#a7f3d0] text-[9px] font-medium mt-0.5 leading-none">{mini.description}</p>
+                </Transition>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </section>
   );
