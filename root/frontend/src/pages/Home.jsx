@@ -3,6 +3,7 @@ import { AutoSwitchHireTag } from "../components/contact/Services.jsx";
 import BulletinWidget from "../components/bulletin/BulletinWidget.jsx";
 import CodingTracker from "../components/coding/CodingTracker.jsx";
 import GitHubWidget from "../components/github/GithubWidget.jsx";
+import TechStackBento from "../components/tech/TechStackBento.jsx";
 
 function Home() {
     const page = pages["/"];
@@ -24,6 +25,8 @@ function Home() {
                 <CodingTracker />
                 <BulletinWidget />
             </section>
+
+            <TechStackBento />
         </>
     );
 }
