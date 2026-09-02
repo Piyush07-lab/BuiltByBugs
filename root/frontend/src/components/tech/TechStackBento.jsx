@@ -5,8 +5,8 @@ const cards = [
   {
     id: 'backend',
     title: 'Backend Core',
-    description: 'Python & SQL',
-    className: 'md:col-span-2 md:row-span-2',
+    description: 'Node & SQL',
+    className: 'md:col-span-2',
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-white opacity-80 group-hover:opacity-100 transition-opacity">
         <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
@@ -79,17 +79,16 @@ export default function TechStackBento() {
               key={card.id}
               className={`
                 group relative flex flex-col justify-center items-center overflow-hidden
-                bg-[rgba(20,20,25,0.6)] backdrop-blur-[10px] 
+                bg-[rgba(47,77,70,0.14)] backdrop-blur-[10px] 
                 border border-white/10 rounded-2xl p-6
                 transition-all duration-300 ease-in-out cursor-default
                 ${card.className}
                 ${isDimmed ? 'opacity-40 scale-[0.98]' : 'opacity-100 scale-100'}
-                ${isHovered ? 'shadow-[0_8px_30px_rgb(0,0,0,0.2)] bg-[rgba(30,30,35,0.7)]' : ''}
+                ${isHovered ? 'shadow-[0_8px_30px_rgb(0,0,0,0.2)] bg-[rgba(13,95,62,0.7)]' : ''}
               `}
               onMouseEnter={() => setHoveredCard(card.id)}
               onMouseLeave={() => setHoveredCard(null)}
             >
-              {/* Icon Container - Moves up slightly on hover */}
               <div 
                 className={`
                   transition-transform duration-300 ease-in-out
@@ -99,8 +98,8 @@ export default function TechStackBento() {
                 {card.icon}
               </div>
 
-              {/* Text Description - Slides in on hover */}
               <Transition
+                as="div"
                 show={isHovered}
                 enter="transition-all duration-300 ease-out"
                 enterFrom="opacity-0 translate-y-4"
@@ -120,4 +119,3 @@ export default function TechStackBento() {
     </section>
   );
 }
-
