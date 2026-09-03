@@ -1,7 +1,5 @@
-const fs = require('fs');
-const fsPromises = require('fs').promises;
-const path = require('path');
 const { isValidHireRequest } = require('../utils/spamFilter');
+const { saveHireRequest } = require('../services/inquiryService');
 
 async function handleHireRequest(req, res) {
     if (req.method !== 'POST') {
@@ -31,6 +29,8 @@ async function handleHireRequest(req, res) {
     });
 
     req.on('end', async () => {
+        if (res.writableEnded || res.headersSent) return;
+
         try {
             const data = JSON.parse(body);
             const validation = isValidHireRequest(data);
@@ -41,38 +41,7 @@ async function handleHireRequest(req, res) {
                 return;
             }
 
-            const savePath = path.join(
-                __dirname,
-                '../data/hire-requests.json'
-            );
-
-            let existing = [];
-
-            try {
-                await fsPromises.access(savePath);
-
-                const fileContent =
-                    await fsPromises.readFile(
-                        savePath,
-                        'utf8'
-                    );
-
-                existing = JSON.parse(fileContent);
-            }
-            catch {
-                existing = [];
-            }
-
-            existing.push({
-                ...data,
-                timestamp: new Date().toISOString()
-            });
-
-            await fsPromises.writeFile(
-                savePath,
-                JSON.stringify(existing, null, 2),
-                'utf8'
-            );
+            await saveHireRequest(data);
 
             res.writeHead(200, { 'Content-Type': 'application/json' });
             res.end(JSON.stringify({ success: true }));
