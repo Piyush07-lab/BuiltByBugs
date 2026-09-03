@@ -20,8 +20,8 @@ function App() {
   return (
     <DrawerProvider>
     <div className="relative flex min-h-screen flex-col overflow-hidden isolate">
-      <div className="pointer-events-none absolute -z-10 h-[28rem] w-[28rem] rounded-full border border-[#a7f3d0]/10 top-[18rem] -left-[19rem]" aria-hidden="true" />
-      <div className="pointer-events-none absolute -z-10 h-[28rem] w-[28rem] rounded-full border border-[#93c5fd]/10 top-[8rem] -right-[20rem]" aria-hidden="true" />
+      <div className="pointer-events-none absolute -z-10 h-112 w-md rounded-full border border-accent/10 top-72 -left-76" aria-hidden="true" />
+      <div className="pointer-events-none absolute -z-10 h-112 w-md rounded-full border border-[#93c5fd]/10 top-32 -right-80" aria-hidden="true" />
 
       <Header pathname={pathname} />
 
@@ -29,7 +29,7 @@ function App() {
         <Page />
       </main>
 
-      <footer className="mx-auto flex min-h-[74px] w-[min(100%-2rem,1120px)] sm:w-[min(100%-3rem,1120px)] items-center justify-between gap-4 border-t border-[#9eaedb]/10 text-xs uppercase tracking-[0.04em] text-[#78849f]">
+      <footer className="mx-auto flex min-h-18.5 w-[min(100%-2rem,1120px)] sm:w-[min(100%-3rem,1120px)] items-center justify-between gap-4 border-t border-[#9eaedb]/10 text-xs uppercase tracking-[0.04em] text-subtle">
         <span>React + Vite</span>
         <span>Inventory-led rebuild</span>
       </footer>
