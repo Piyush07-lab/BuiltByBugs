@@ -136,14 +136,14 @@ export default function TechStackBento() {
 
   return (
     <section className="mt-16 md:mt-28" aria-label="Tech Stack Showcase">
-      <div className="max-w-[760px]">
+      <div className="max-w-190">
         <p className="mb-4 text-xs font-extrabold uppercase tracking-[0.14em] text-accent">Tech Stack</p>
         <h2 className="mb-8 text-[clamp(1.75rem,4vw,2.5rem)] font-bold leading-tight tracking-[-0.03em] text-white">
           Tools &amp; Technologies
         </h2>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:auto-rows-[220px]">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:auto-rows-55">
         {/* Row 1, Col 1-2: Backend */}
         <div
           tabIndex={0}

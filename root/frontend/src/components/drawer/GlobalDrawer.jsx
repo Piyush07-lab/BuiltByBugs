@@ -68,7 +68,7 @@ function HireForm({ service, onClose }) {
                     value={formData.name}
                     onChange={handleChange}
                     placeholder="Your Name"
-                    className="bg-zinc-800/80 border border-zinc-700 rounded p-2 text-white outline-none focus:border-emerald-500 disabled:opacity-50"
+                    className="bg-zinc-800/80 border border-zinc-700 rounded p-2 text-white outline-none focus:ring-1 focus:ring-emerald-500 disabled:opacity-50"
                 />
             </div>
 
@@ -82,7 +82,7 @@ function HireForm({ service, onClose }) {
                     value={formData.email}
                     onChange={handleChange}
                     placeholder="you@example.com"
-                    className="bg-zinc-800/80 border border-zinc-700 rounded p-2 text-white outline-none focus:border-emerald-500 disabled:opacity-50"
+                    className="bg-zinc-800/80 border border-zinc-700 rounded p-2 text-white outline-none focus:ring-1 focus:ring-emerald-500 disabled:opacity-50"
                 />
             </div>
 
@@ -96,7 +96,7 @@ function HireForm({ service, onClose }) {
                     value={formData.details}
                     onChange={handleChange}
                     placeholder="Proposition..."
-                    className="bg-zinc-800/80 border border-zinc-700 rounded p-2 text-white outline-none focus:border-emerald-500 resize-none disabled:opacity-50"
+                    className="bg-zinc-800/80 border border-zinc-700 rounded p-2 text-white outline-none focus:ring-1 focus:ring-emerald-500 resize-none disabled:opacity-50"
                 />
             </div>
 

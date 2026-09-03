@@ -21,11 +21,11 @@ function BulletinWidget() {
             title="Activity bulletin"
             status={`${index + 1} / ${bulletinItems.length}`}
         >
-            <div className="flex min-h-auto md:min-h-[240px] flex-col gap-4">
+            <div className="flex min-h-auto md:min-h-60 flex-col gap-4">
                 <p className="m-0 text-[1.15rem] font-extrabold text-white">{item.title}</p>
-                <p className="m-0 font-bold text-[#a7f3d0]">{item.subtitle}</p>
-                <p className="m-0 leading-relaxed text-[#99a4be]">{item.description}</p>
-                <p className="m-0 mt-auto border-t border-[#9eaedb]/[0.12] pt-4 text-xs uppercase text-[#78849f]">{item.date}</p>
+                <p className="m-0 font-bold text-accent">{item.subtitle}</p>
+                <p className="m-0 leading-relaxed text-muted">{item.description}</p>
+                <p className="m-0 mt-auto border-t border-[#9eaedb]/12 pt-4 text-xs uppercase text-subtle">{item.date}</p>
             </div>
         </WidgetShell>
     );
