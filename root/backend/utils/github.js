@@ -4,17 +4,14 @@ const https = require('https');
 
 const GITHUB_API_URL = "https://api.github.com/graphql";
 
-if (!process.env.GITHUB_TOKEN) {
-    throw new Error(
-        "GITHUB_TOKEN is missing from environment variables"
-    );
-}
-
 let cachedHeatmap = null;
 let lastFetched = 0;
 const CACHE_TTL = 1000 * 60 * 60 * 6;    // 6 hours
 
 async function getContributionHeatmap() {
+    if (!process.env.GITHUB_TOKEN) {
+        throw new Error("GITHUB_TOKEN is missing from environment variables");
+    }
 
     const now = Date.now();
     if (cachedHeatmap && now - lastFetched < CACHE_TTL) {
@@ -94,15 +91,6 @@ async function getContributionHeatmap() {
 
 
 
-const headers = {
-    'User-Agent': 'Manual-Node-Client',
-    'Accept': 'application/vnd.github.v3+json'
-};
-
-if (process.env.GITHUB_TOKEN) {
-    headers['Authorization'] = `Bearer ${process.env.GITHUB_TOKEN}`;
-}
-
 const fetchGitHub = (options) => {
 
     return new Promise((resolve, reject) => {
@@ -134,6 +122,16 @@ const fetchGitHub = (options) => {
 };
 
 const getUserAndRepos = async () => {
+    if (!process.env.GITHUB_TOKEN) {
+        throw new Error("GITHUB_TOKEN is missing from environment variables");
+    }
+
+    const headers = {
+        'User-Agent': 'Manual-Node-Client',
+        'Accept': 'application/vnd.github.v3+json',
+        'Authorization': `Bearer ${process.env.GITHUB_TOKEN}`
+    };
+
     const userOptions = {
         hostname: 'api.github.com',
         path: `/users/Piyush07-lab`,

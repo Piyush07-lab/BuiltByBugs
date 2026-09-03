@@ -48,4 +48,32 @@ function isValidHireRequest({ service, name, email, details: message }) {
     return { ok: true };
 }
 
-module.exports = { isValidHireRequest };
+function isValidContactRequest({ name, email, message, details }) {
+    name = name?.trim();
+    email = email?.trim();
+    const content = (message || details)?.trim();
+
+    if (!name || !email || !content) return { ok: false, reason: 'Missing required fields' };
+
+    if (typeof name !== 'string' || typeof email !== 'string' || typeof content !== 'string') {
+        return { ok: false, reason: 'Invalid field types' };
+    }
+
+    if (!validateEmail(email)) return { ok: false, reason: 'Invalid email address' };
+
+    if (name.length > 100) return { ok: false, reason: 'Name too long' };
+    if (name.length < 2) return { ok: false, reason: 'Name too short' };
+    if (!/^[a-zA-Z\s.'-]+$/.test(name)) return { ok: false, reason: 'Invalid characters in name' };
+
+    if (email.length > 254) return { ok: false, reason: 'Email too long' };
+    if (content.length > 5000) return { ok: false, reason: 'Message too long' };
+
+    if (containsBannedWords(content)) return { ok: false, reason: 'Spam detected' };
+
+    return { ok: true };
+}
+
+module.exports = {
+    isValidHireRequest,
+    isValidContactRequest
+};

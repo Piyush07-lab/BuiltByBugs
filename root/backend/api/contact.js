@@ -1,7 +1,5 @@
-const fsPromises = require('fs').promises;
-const path = require('path');
-
 const { isValidContactRequest } = require('../utils/spamFilter');
+const { saveContactRequest } = require('../services/inquiryService');
 
 async function handleContactRequest(req, res) {
 
@@ -42,6 +40,7 @@ async function handleContactRequest(req, res) {
     });
 
     req.on('end', async () => {
+        if (res.writableEnded || res.headersSent) return;
 
         try {
 
@@ -63,47 +62,7 @@ async function handleContactRequest(req, res) {
 
             }
 
-            const savePath = path.join(
-                __dirname,
-                '../data/contact-requests.json'
-            );
-
-            let existing = [];
-
-            try {
-
-                await fsPromises.access(savePath);
-
-                existing = JSON.parse(
-                    await fsPromises.readFile(
-                        savePath,
-                        'utf8'
-                    )
-                );
-
-            } catch {
-
-                existing = [];
-
-            }
-
-            existing.push({
-
-                ...data,
-
-                timestamp: new Date().toISOString()
-
-            });
-
-            await fsPromises.writeFile(
-
-                savePath,
-
-                JSON.stringify(existing, null, 2),
-
-                'utf8'
-
-            );
+            await saveContactRequest(data);
 
             res.writeHead(200, {
                 'Content-Type': 'application/json'

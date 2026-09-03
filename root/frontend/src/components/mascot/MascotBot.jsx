@@ -104,7 +104,7 @@ export default function MascotBot() {
                             width="100"
                             height="90"
                             rx="28"
-                            className="fill-[#161922] stroke-white/10 stroke-[2] transition-colors duration-300 group-hover:stroke-accent/40"
+                            className="fill-[#161922] stroke-white/10 stroke-2 transition-colors duration-300 group-hover:stroke-accent/40"
                         />
 
                         {/* Visor Screen */}
