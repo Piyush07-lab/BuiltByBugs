@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { fetchGitHubSummary } from "../../api/fetchApi.js";
-import ErrorState from "../ErrorState.jsx";
-import LoadingState from "../LoadingState.jsx";
-import WidgetShell from "../WidgetShell.jsx";
+import ErrorState from "../miscellaneous/ErrorState.jsx";
+import LoadingState from "../miscellaneous/LoadingState.jsx";
+import WidgetShell from "../miscellaneous/WidgetShell.jsx";
 
 function GitHubProfileSlide({ summary }) {
     const { user } = summary;
@@ -106,7 +106,7 @@ function GitHubWidget() {
             number="W1"
             eyebrow="GitHub"
             title="Live repository signal"
-            // status={`${slide + 1} / 2`}
+        // status={`${slide + 1} / 2`}
         >
             {error && <ErrorState label="Unable to load GitHub data." />}
             {!error && !summary && <LoadingState label="Loading GitHub..." />}

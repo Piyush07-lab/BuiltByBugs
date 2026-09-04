@@ -1,4 +1,5 @@
-import Header from "./components/Header.jsx";
+import Header from "./components/miscellaneous/Header.jsx";
+import Footer from "./components/miscellaneous/Footer.jsx";
 import { DrawerProvider, GlobalDrawerContainer } from "./components/drawer";
 import MascotBot from "./components/mascot/MascotBot.jsx";
 import usePathname from "./hooks/usePathname.js";
@@ -30,10 +31,7 @@ function App() {
           <Page />
         </main>
 
-        <footer className="mx-auto flex min-h-18.5 w-[min(100%-2rem,1120px)] sm:w-[min(100%-3rem,1120px)] items-center justify-between gap-4 border-t border-[#9eaedb]/10 text-xs uppercase tracking-[0.04em] text-subtle">
-          <span>React + Vite</span>
-          <span>Inventory-led rebuild</span>
-        </footer>
+        <Footer />
         <MascotBot />
         <GlobalDrawerContainer />
       </div>

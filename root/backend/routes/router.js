@@ -11,6 +11,7 @@ const { handleHireRequest } = require('../api/hireRequest.js');
 const { handleContactRequest } = require('../api/contact.js');
 const { getGitHubContributions } = require('../api/github-contributions.js');
 const { getUserAndRepos } = require('../utils/github.js');
+const { handleGeminiChat } = require('../api/geminiChat.js');
 // const handleLeetCodeRefresh = require('../api/leetcodeRefresh.js');
 const {
     getCodingActivity,
@@ -75,6 +76,10 @@ async function routeRequest(req, res) {
 
         if (pathname === '/api/contact' && method === 'POST') {
             return handleContactRequest(req, res);
+        }
+
+        if (pathname === '/api/chat' && method === 'POST') {
+            return handleGeminiChat(req, res);
         }
 
         if (pathname === '/api/github/summary' && method === 'GET') {

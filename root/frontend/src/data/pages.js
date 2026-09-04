@@ -10,7 +10,7 @@ export const pages = {
         eyebrow: "Library",
         title: "A dedicated space for documents, analitics and articles.",
         description:
-            "This route is ready for the bulletin, article cards, filters, and other library elements listed in the frontend inventory.",
+            "Browse my technical writing, architectural notes, and real-time activity bulletins focused on backend engineering and automation.",
         next: "Library content will move into data objects and map into presentational components.",
     },
     "/project": {

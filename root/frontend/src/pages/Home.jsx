@@ -13,8 +13,8 @@ function Home() {
         <>
             {/* Hero Section */}
             <section className="max-w-190 mt-12 sm:mt-16 md:mt-[14vh] lg:mt-[16vh]">
-                <p className="mb-5 text-xs font-extrabold uppercase tracking-[0.14em] text-accent">{page.eyebrow}</p>
-                <h1 className="mb-6 max-w-182.5 text-[clamp(2.75rem,7vw,5.7rem)] font-bold leading-[0.98] tracking-[-0.055em] text-white">{page.title}</h1>
+                <p className="mb-5 text-md font-extrabold uppercase tracking-[0.14em] text-accent">{page.eyebrow}</p>
+                <h1 className="mb-6 max-w-182.5 text-[clamp(2.75rem,7vw,5.7rem)] font-bold leading-[0.98] tracking-[-0.055em] text-emerald-100">{page.title}</h1>
                 <p className="mb-8 max-w-162.5 text-[clamp(1rem,1.5vw,1.15rem)] leading-[1.75] text-muted">{page.description}</p>
                 <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-[0.9rem] text-[#d7deed]">
                     <AutoSwitchHireTag/>

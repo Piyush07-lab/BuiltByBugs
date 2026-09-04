@@ -18,7 +18,7 @@ function getAllowedOrigins() {
         'http://localhost:5173',
         'http://localhost:3000',
         'http://localhost:5500',
-        'https://builtbybugs.work.gd'
+        'https://builtbybugs.in'
     ];
 }
 

@@ -2,7 +2,6 @@
   "scripts": {
     "dev": "vite --config frontend/vite.config.mjs",
     "build": "vite build --config frontend/vite.config.mjs",
-    "ast": "node ast/compiler.js",
     "inspect": "node inspect.js",
     "dev:css": "tailwindcss -i ./src/input.css -o ./frontend/public/build/tailwind.css --watch",
     "build:css": "tailwindcss -i ./src/input.css -o ./frontend/public/build/tailwind.css --watch"

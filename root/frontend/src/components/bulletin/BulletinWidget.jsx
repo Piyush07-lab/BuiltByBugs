@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { bulletinItems } from "../../data/bulletin.js";
-import WidgetShell from "../WidgetShell.jsx";
+import WidgetShell from "../miscellaneous/WidgetShell.jsx";
 
 function BulletinWidget() {
     const [index, setIndex] = useState(0);

@@ -33,3 +33,10 @@ export function sendHireRequest(data) {
         body: JSON.stringify(data),
     });
 }
+
+export function sendChatMessage(messages) {
+    return apiRequest("/api/chat", {
+        method: "POST",
+        body: JSON.stringify({ messages }),
+    });
+}
