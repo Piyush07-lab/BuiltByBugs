@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-page-bg: #080b16;
+  --color-panel: rgba(17, 23, 42, 0.78);
+  --color-panel-border: rgba(158, 174, 219, 0.16);
+  --color-muted: #99a4be;
+  --color-accent: #a7f3d0;
+  --color-accent-strong: #4ade80;
+  --color-subtle: #78849f;
+  --font-nunito: "Nunito", sans-serif;
+}
+
+@layer base {
+  :root {
+    --page-bg: #080b16;
+    --panel: rgba(17, 23, 42, 0.78);
+    --panel-border: rgba(158, 174, 219, 0.16);
+    --muted: #99a4be;
+    --accent: #a7f3d0;
+    --accent-strong: #4ade80;
+  }
+
+  html {
+    font-family: "Nunito", sans-serif;
+    background-color: #080b16;
+    color: #e8ecf7;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    min-width: 320px;
+    box-sizing: border-box;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  body {
+    min-width: 320px;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #080b16;
+    background-image:
+      radial-gradient(circle at 12% 4%, rgba(74, 222, 128, 0.1), transparent 32rem),
+      radial-gradient(circle at 88% 18%, rgba(96, 165, 250, 0.11), transparent 30rem);
+    color: #e8ecf7;
+  }
+
+  a {
+    color: inherit;
+  }
+
+  button,
+  a {
+    -webkit-tap-highlight-color: transparent;
+  }
+}

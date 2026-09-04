@@ -8,13 +8,17 @@
     "start": "node server.js"
   },
   "engines": {
-    "node": ">=24"
+    "node": ">=20"
   },
   "keywords": [],
   "author": "Piyush",
   "license": "UNLICENSED",
   "dependencies": {
+    "@google/genai": "^2.21.0",
     "dotenv": "^17.0.1",
+    "mongodb": "^7.6.0"
+  },
+  "optionalDependencies": {
     "puppeteer": "^24.15.0"
   }
 }

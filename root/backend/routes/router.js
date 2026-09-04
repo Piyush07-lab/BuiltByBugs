@@ -1,7 +1,9 @@
 // Routes
 const fs = require("fs");
 const path = require("path");
-require("dotenv").config({ path: __dirname + "/.env" });
+require("dotenv").config({
+    path: path.join(__dirname, "../.env")
+});
 
 const url = require('url');
 
@@ -9,10 +11,10 @@ const { handleHireRequest } = require('../api/hireRequest.js');
 const { handleContactRequest } = require('../api/contact.js');
 const { getGitHubContributions } = require('../api/github-contributions.js');
 const { getUserAndRepos } = require('../utils/github.js');
+const { handleGeminiChat } = require('../api/geminiChat.js');
 // const handleLeetCodeRefresh = require('../api/leetcodeRefresh.js');
 const {
     getCodingActivity,
-    postCodingActivity,
     getCodingSummary
 } = require('../api/coding');
 
@@ -76,6 +78,10 @@ async function routeRequest(req, res) {
             return handleContactRequest(req, res);
         }
 
+        if (pathname === '/api/chat' && method === 'POST') {
+            return handleGeminiChat(req, res);
+        }
+
         if (pathname === '/api/github/summary' && method === 'GET') {
             return handleGitHubSummary(req, res);
         }
@@ -96,7 +102,7 @@ async function routeRequest(req, res) {
 
             const logoPath = path.join(
                 __dirname,
-                "../assets/Logo.svg"
+                "../assets/B3Logo-plain.svg"
             );
 
             fs.readFile(logoPath, (err, data) => {
@@ -127,7 +133,10 @@ async function routeRequest(req, res) {
         }
 
         if (pathname === '/api/coding' && method === 'POST') {
-            return postCodingActivity(req, res);
+            res.writeHead(405, { "Content-Type": "application/json" });
+            return res.end(JSON.stringify({
+                error: "Coding activity is read-only and synced from WakaTime."
+            }));
         }
 
         // if (pathname === '/api/leetcode/refresh' && method === 'GET') {

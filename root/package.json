@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "ast": "node ast/compiler.js",
+    "dev": "vite --config frontend/vite.config.mjs",
+    "build": "vite build --config frontend/vite.config.mjs",
     "inspect": "node inspect.js",
     "dev:css": "tailwindcss -i ./src/input.css -o ./frontend/public/build/tailwind.css --watch",
     "build:css": "tailwindcss -i ./src/input.css -o ./frontend/public/build/tailwind.css --watch"
@@ -15,5 +16,9 @@
     "glob": "^13.0.6",
     "tailwindcss": "^4.3.1",
     "three": "^0.178.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "@vitejs/plugin-react": "^6.0.5"
   }
 }
