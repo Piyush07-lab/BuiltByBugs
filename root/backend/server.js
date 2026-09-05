@@ -77,7 +77,7 @@ const server = http.createServer((req, res) => {
     );
 
     res.setHeader("Cross-Origin-Opener-Policy", "same-origin");
-    res.setHeader("Cross-Origin-Resource-Policy", "same-origin");
+    res.setHeader("Cross-Origin-Resource-Policy", "cross-origin");
 
     if (req.method === 'OPTIONS') {
         res.writeHead(200, { 'Content-Type': 'text/plain' });
