@@ -89,6 +89,15 @@ const server = http.createServer((req, res) => {
         return res.end();
     }
 
+    if (parsedUrl.pathname === '/health' && req.method === 'GET') {
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        return res.end(JSON.stringify({ 
+            status: 'ok', 
+            timestamp: new Date().toISOString(),
+            uptime: process.uptime()
+        }));
+    }
+
     if (parsedUrl.pathname.startsWith("/api")) {
         return routeRequest(req, res);
     }
