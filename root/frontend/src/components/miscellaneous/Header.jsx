@@ -6,7 +6,7 @@ function Header({ pathname }) {
             <a className="flex items-center gap-2.5 text-base font-extrabold tracking-[0.02em] text-white no-underline" href="/" aria-label="BuiltByBugs home">
                 <img
                     className="block h-8 w-auto"
-                    src="/api/assets/logo"
+                    src={`${import.meta.env.VITE_API_BASE_URL || ""}/api/assets/logo`}
                     alt="BuiltByBugs"
                 />
                 <span>BuiltByBugs</span>
