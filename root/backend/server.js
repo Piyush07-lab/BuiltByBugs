@@ -7,14 +7,7 @@ const { routeRequest } = require('./routes/router.js');
 const PORT = process.env.PORT || 5500;
 
 function getAllowedOrigins() {
-    const envOrigins = process.env.ALLOWED_ORIGINS;
-    if (envOrigins) {
-        return envOrigins
-            .split(',')
-            .map(origin => origin.trim().replace(/\/+$/, ''))
-            .filter(Boolean);
-    }
-    return [
+    const defaultOrigins = [
         'http://localhost:5173',
         'http://localhost:3000',
         'http://localhost:5500',
@@ -22,6 +15,16 @@ function getAllowedOrigins() {
         'https://www.builtbybugs.in',
         'https://built-by-bugs-tan.vercel.app'
     ];
+
+    const envOrigins = process.env.ALLOWED_ORIGINS;
+    if (envOrigins) {
+        const envList = envOrigins
+            .split(',')
+            .map(origin => origin.trim().replace(/\/+$/, ''))
+            .filter(Boolean);
+        return [...new Set([...defaultOrigins, ...envList])];
+    }
+    return defaultOrigins;
 }
 
 const server = http.createServer((req, res) => {
@@ -30,13 +33,19 @@ const server = http.createServer((req, res) => {
     const allowedOrigins = getAllowedOrigins();
     const origin = req.headers.origin;
 
-    if (origin && allowedOrigins.includes(origin)) {
+    const isAllowedOrigin = origin && (
+        allowedOrigins.includes(origin) || 
+        origin.endsWith('.vercel.app') // Allow Vercel preview deployments
+    );
+
+    if (isAllowedOrigin) {
         res.setHeader('Access-Control-Allow-Origin', origin);
+        res.setHeader('Access-Control-Allow-Credentials', 'true');
         res.setHeader('Vary', 'Origin');
     }
 
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, Accept, X-Requested-With');
 
     res.setHeader("X-Content-Type-Options", "nosniff");
     res.setHeader("X-Frame-Options", "DENY");
