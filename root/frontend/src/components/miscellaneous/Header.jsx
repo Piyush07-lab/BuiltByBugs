@@ -35,7 +35,7 @@ function Header({ pathname }) {
 
             <span className="flex items-center gap-2 rounded-full border border-transparent px-0 py-1 text-xs whitespace-nowrap text-muted sm:border-accent/16 sm:px-3 sm:py-1.5">
                 <span className="h-[0.45rem] w-[0.45rem] rounded-full bg-accent-strong shadow-[0_0_0.8rem_#4ade80]" aria-hidden="true" />
-                UI Building
+                Live
             </span>
         </header>
     );
