@@ -18,7 +18,7 @@ function Header({ pathname }) {
 
                     return (
                         <a
-                            className={`flex-1 md:flex-initial rounded-[0.55rem] px-3.5 py-2 text-center text-[0.9rem] no-underline transition duration-150 ease-in-out ${
+                            className={`flex-1 md:flex-initial rounded-[0.55rem] px-2.5 sm:px-3.5 py-2 text-center text-[0.8rem] sm:text-[0.9rem] no-underline transition duration-150 ease-in-out ${
                                 isActive
                                     ? "bg-accent/8 text-white"
                                     : "text-muted hover:bg-accent/8 hover:text-white focus-visible:bg-accent/8 focus-within:text-white"

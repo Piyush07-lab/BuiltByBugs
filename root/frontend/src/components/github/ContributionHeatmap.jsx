@@ -9,7 +9,7 @@ function ContributionHeatmap({ heatmap = [], profileUrl }) {
     }, null);
 
     return (
-        <section className="rounded-2xl border border-[#9eaedb]/16 bg-[#11172a]/62 p-6">
+        <section className="rounded-2xl border border-[#9eaedb]/16 bg-[#11172a]/62 p-4 sm:p-6">
             <div className="flex flex-col items-start justify-between gap-4 md:flex-row">
                 <div>
                     <p className="mb-5 text-xs font-extrabold uppercase tracking-[0.14em] text-accent">Contribution Heatmap</p>
@@ -22,12 +22,17 @@ function ContributionHeatmap({ heatmap = [], profileUrl }) {
                 )}
             </div>
 
-            <div className="mt-6 overflow-x-auto overflow-y-hidden">
-                <div className="grid w-max grid-flow-col grid-rows-[repeat(7,0.78rem)] gap-[0.2rem]" aria-label="GitHub contribution heatmap">
+            {/* Heatmap grid — responsive cell sizing */}
+            <div className="mt-6 w-full">
+                <div
+                    className="grid w-full grid-flow-col grid-rows-[repeat(7,1fr)]"
+                    style={{ gap: 'clamp(1px, 0.4vw, 3px)' }}
+                    aria-label="GitHub contribution heatmap"
+                >
                     {sortedDays.map((day) => (
                         <span
                             key={day.date}
-                            className="h-[0.78rem] w-[0.78rem] rounded-[0.16rem] transition duration-150 ease-in-out hover:scale-125"
+                            className="aspect-square rounded-[1px] sm:rounded-[2px] transition duration-150 ease-in-out hover:scale-125"
                             style={{ backgroundColor: day.color }}
                             title={`${day.date}: ${day.count} contributions`}
                         />
@@ -35,7 +40,7 @@ function ContributionHeatmap({ heatmap = [], profileUrl }) {
                 </div>
             </div>
 
-            <div className="mt-4 flex flex-col items-start justify-between gap-4 border-t border-[#9eaedb]/12 pt-4 text-[0.85rem] text-subtle md:flex-row">
+            <div className="mt-4 flex flex-col items-start justify-between gap-2 border-t border-[#9eaedb]/12 pt-4 text-[0.78rem] sm:text-[0.85rem] text-subtle sm:flex-row sm:gap-4">
                 <span>Total contributions: {total}</span>
                 <span>Best day: {bestDay?.count ?? 0}</span>
             </div>
