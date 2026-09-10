@@ -3,7 +3,7 @@ import { navigation } from "../../data/navigation.js";
 function Header({ pathname }) {
     return (
         <header className="mx-auto flex min-h-21 w-[min(100%-2rem,1120px)] sm:w-[min(100%-3rem,1120px)] flex-wrap items-center justify-between gap-6 border-b border-[#9eaedb]/10 py-4 md:flex-nowrap md:py-0">
-            <a className="flex items-center gap-2.5 text-base font-extrabold tracking-[0.02em] text-white no-underline" href="/" aria-label="BuiltByBugs home">
+            <a className="flex items-center gap-2.5 text-base font-extrabold tracking-[0.02em] text-white no-underline select-none" href="/" aria-label="BuiltByBugs home">
                 <img
                     className="block h-8 w-auto"
                     src={`${import.meta.env.VITE_API_BASE_URL || ""}/api/assets/logo`}
