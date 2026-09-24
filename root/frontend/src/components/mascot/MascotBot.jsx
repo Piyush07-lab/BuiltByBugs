@@ -24,6 +24,7 @@ export default function MascotBot() {
     // Movement, Dragging, Eye Tracking, and Pull Animation logic
     const {
         displayPos,
+        bankingTilt,
         isDraggingState,
         isPulling,
         eyeOffset,
@@ -34,10 +35,10 @@ export default function MascotBot() {
 
     return (
         <div 
-            className="fixed bottom-5 right-5 sm:bottom-6 sm:right-6 md:bottom-8 md:right-8 z-40 select-none origin-bottom-right"
+            className="fixed bottom-5 right-5 sm:bottom-6 sm:right-6 md:bottom-8 md:right-8 z-40 select-none origin-bottom-right will-change-transform"
             style={{
-                transform: `translate(${displayPos.x}px, ${displayPos.y}px)`,
-                transition: isDraggingState ? 'none' : 'transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)',
+                transform: `translate3d(${displayPos.x}px, ${displayPos.y}px, 0)`,
+                transition: isPulling ? 'transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)' : 'none',
                 touchAction: 'none' // Important for native dragging on touch devices
             }}
         >
@@ -45,13 +46,8 @@ export default function MascotBot() {
                 {/* Ambient Background Glow */}
                 <div className="pointer-events-none absolute inset-0 -z-10 rounded-full bg-blue-500/15 blur-2xl transition-all duration-500 group-hover:bg-cyan-500/30 group-hover:scale-125" />
 
-                {/* Idle Breathing Wrapper */}
-                <div 
-                    className="relative flex flex-col items-center"
-                    style={{
-                        animation: isDraggingState ? 'none' : 'botBreathe 4s ease-in-out infinite',
-                    }}
-                >
+                {/* Companion Bot Wrapper */}
+                <div className="relative flex flex-col items-center">
                     <button
                         ref={botRef}
                         type="button"
@@ -59,8 +55,8 @@ export default function MascotBot() {
                         aria-label="Ask AI Assistant"
                         className="relative flex flex-col items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#161922] rounded-[30px]"
                         style={{
-                            transform: `perspective(400px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
-                            transition: "transform 0.1s ease-out",
+                            transform: `perspective(400px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg) rotateZ(${bankingTilt}deg)`,
+                            transition: isDraggingState ? "none" : "transform 0.12s ease-out",
                         }}
                     >
                         {/* 3D Layered SVG Mascot Graphic */}
@@ -91,10 +87,6 @@ export default function MascotBot() {
             </div>
             
             <style>{`
-                @keyframes botBreathe {
-                    0%, 100% { transform: translateY(0px) scale(1); }
-                    50% { transform: translateY(-6px) scale(1.02); }
-                }
                 @keyframes botBlink {
                     0%, 96%, 98%, 100% { transform: scaleY(1); transform-origin: center 56px; }
                     97% { transform: scaleY(0.1); transform-origin: center 56px; }
