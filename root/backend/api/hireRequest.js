@@ -1,5 +1,5 @@
-const { isValidHireRequest } = require('../utils/spamFilter');
-const { saveHireRequest } = require('../services/inquiryService');
+import { isValidHireRequest } from '../utils/spamFilter.js';
+import { saveHireRequest } from '../services/inquiryService.js';
 
 async function handleHireRequest(req, res) {
     if (req.method !== 'POST') {
@@ -70,4 +70,4 @@ async function handleHireRequest(req, res) {
     });
 };
 
-module.exports = { handleHireRequest };
+export { handleHireRequest };

@@ -1,5 +1,5 @@
-const { isValidContactRequest } = require('../utils/spamFilter');
-const { saveContactRequest } = require('../services/inquiryService');
+import { isValidContactRequest } from '../utils/spamFilter.js';
+import { saveContactRequest } from '../services/inquiryService.js';
 
 async function handleContactRequest(req, res) {
 
@@ -104,6 +104,6 @@ async function handleContactRequest(req, res) {
 
 }
 
-module.exports = {
+export {
     handleContactRequest
 };

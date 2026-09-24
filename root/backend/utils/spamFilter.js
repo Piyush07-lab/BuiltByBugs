@@ -1,3 +1,4 @@
+
 //Logic of Spam filter for hire request
 
 function validateEmail(email) {
@@ -73,7 +74,7 @@ function isValidContactRequest({ name, email, message, details }) {
     return { ok: true };
 }
 
-module.exports = {
+export {
     isValidHireRequest,
     isValidContactRequest
-};
+};

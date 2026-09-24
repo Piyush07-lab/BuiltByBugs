@@ -1,8 +1,8 @@
-require("dotenv").config({ path: __dirname + "/.env" });
+import './env.js';
 
-const http = require('http');
-const { URL } = require('url');
-const { routeRequest } = require('./routes/router.js');
+import http from 'node:http';
+import { URL } from 'node:url';
+import { routeRequest } from './routes/router.js';
 
 const PORT = process.env.PORT || 5500;
 

@@ -1,6 +1,4 @@
-require("dotenv").config({ path: __dirname + "/.env" });
-
-const https = require('https');
+import https from 'node:https';
 
 const GITHUB_API_URL = "https://api.github.com/graphql";
 
@@ -158,7 +156,7 @@ const getUserAndRepos = async () => {
 
 
 
-module.exports = {
+export {
     getUserAndRepos,
     getContributionHeatmap
 };

@@ -1,4 +1,4 @@
-const { getContributionHeatmap } = require("../utils/github");
+import { getContributionHeatmap } from "../utils/github.js";
 
 async function getGitHubContributions(req, res) {
     try {
@@ -12,4 +12,4 @@ async function getGitHubContributions(req, res) {
     }
 }
 
-module.exports = { getGitHubContributions };
+export { getGitHubContributions };

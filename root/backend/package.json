@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Manual backend API for the project",
   "main": "server.js",
-  "type": "commonjs",
+  "type": "module",
   "scripts": {
     "start": "node server.js"
   },
@@ -17,8 +17,5 @@
     "@google/genai": "^2.21.0",
     "dotenv": "^17.0.1",
     "mongodb": "^7.6.0"
-  },
-  "optionalDependencies": {
-    "puppeteer": "^24.15.0"
   }
 }

@@ -1,22 +1,17 @@
 // Routes
-const fs = require("fs");
-const path = require("path");
-require("dotenv").config({
-    path: path.join(__dirname, "../.env")
-});
+import fs from 'node:fs';
+import path from 'node:path';
 
-const url = require('url');
-
-const { handleHireRequest } = require('../api/hireRequest.js');
-const { handleContactRequest } = require('../api/contact.js');
-const { getGitHubContributions } = require('../api/github-contributions.js');
-const { getUserAndRepos } = require('../utils/github.js');
-const { handleGeminiChat } = require('../api/geminiChat.js');
-// const handleLeetCodeRefresh = require('../api/leetcodeRefresh.js');
-const {
+import { handleHireRequest } from '../api/hireRequest.js';
+import { handleContactRequest } from '../api/contact.js';
+import { getGitHubContributions } from '../api/github-contributions.js';
+import { getUserAndRepos } from '../utils/github.js';
+import { handleGeminiChat } from '../api/geminiChat.js';
+import { getLeetcodeStats } from '../api/leetcode.js';
+import {
     getCodingActivity,
     getCodingSummary
-} = require('../api/coding');
+} from '../api/coding.js';
 
 
 //---- github-summary ----//
@@ -101,7 +96,7 @@ async function routeRequest(req, res) {
         if (pathname === "/api/assets/logo" && method === "GET") {
 
             const logoPath = path.join(
-                __dirname,
+                import.meta.dirname,
                 "../assets/B3Logo-plain.svg"
             );
 
@@ -139,9 +134,9 @@ async function routeRequest(req, res) {
             }));
         }
 
-        // if (pathname === '/api/leetcode/refresh' && method === 'GET') {
-        //     return handleLeetCodeRefresh(req, res);
-        // }
+        if (pathname === '/api/leetcode' && method === 'GET') {
+            return getLeetcodeStats(req, res);
+        }
 
         res.writeHead(404, { 'Content-Type': 'text/plain' });
         res.end("Route not found");
@@ -163,5 +158,5 @@ async function routeRequest(req, res) {
     }
 }
 
-module.exports = { routeRequest };
+export { routeRequest };
 

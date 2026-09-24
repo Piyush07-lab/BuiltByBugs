@@ -1,7 +1,7 @@
 // WakaTime coding activity adapter.
 // This file fetches real coding data from WakaTime, caches it, and exposes it
 // through simple route handlers for the portfolio frontend.
-require("dotenv").config({ path: __dirname + "/.env" });
+
 // Default WakaTime endpoint used when WAKATIME_API_URL is not set in .env.
 const DEFAULT_WAKATIME_API_URL =
     "https://api.wakatime.com/api/v1/users/current/stats/last_7_days";
@@ -262,7 +262,7 @@ async function getCodingSummary(req, res) {
 }
 
 // Expose route handlers for backend/routes/router.js.
-module.exports = {
+export {
     getCodingActivity,
     getCodingSummary
 };

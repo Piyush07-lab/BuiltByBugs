@@ -1,6 +1,13 @@
-const { GoogleGenAI } = require('@google/genai');
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+import { GoogleGenAI } from '@google/genai';
+
+let ai = null;
+function getAi() {
+    if (!ai) {
+        ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+    }
+    return ai;
+}
 
 const SYSTEM_INSTRUCTION = `You are a helpful and professional AI assistant for BuiltByBugs website by Piyush Mishra.
 Your goal is to assist visitors, answer questions about Piyush's work, experience, and services. 
@@ -23,7 +30,7 @@ async function handleGeminiChat(req, res) {
                 return res.end(JSON.stringify({ error: "Invalid messages format" }));
             }
 
-            const response = await ai.models.generateContent({
+            const response = await getAi().models.generateContent({
                 model: 'gemini-3.5-flash-lite',
                 contents: messages,
                 config: {
@@ -43,4 +50,4 @@ async function handleGeminiChat(req, res) {
     });
 }
 
-module.exports = { handleGeminiChat };
+export { handleGeminiChat };

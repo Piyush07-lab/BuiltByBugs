@@ -1,74 +1,97 @@
-require("dotenv").config({ path: __dirname + "/.env" });
+let cachedData = null;
+let lastFetchTime = 0;
+const CACHE_TTL_MS = 60 * 60 * 1000; // 1 hour in milliseconds
 
-const puppeteer = require("puppeteer");
-const fs = require("fs");
-const path = require("path");
+// Fetches and caches LeetCode GraphQL user statistics
+export async function fetchLeetcodeData() {
+    const endpoint = process.env.LEETCODE_ENDPOINT_URL;
+    const username = process.env.LEETCODE_USER;
 
+    if (!endpoint) {
+        throw new Error("Missing endpoint url (LEETCODE_ENDPOINT_URL)!");
+    }
+    if (!username) {
+        throw new Error("Missing username (LEETCODE_USER)!");
+    }
 
-async function fetchLeetCodeStats() {
+    const now = Date.now();
+    if (cachedData && now - lastFetchTime < CACHE_TTL_MS) {
+        return cachedData;
+    }
 
-    console.log('[Debug] fetchLeetCodeStats() called')
-
-    const browser = await puppeteer.launch({ headless: 'new' });
-    const page = await browser.newPage();
-
-    const { LEETCODE_USER, LEETCODE_PASS } = process.env;
+    const query = `
+    query getUserProfile($username: String!) {
+      matchedUser(username: $username) {
+        username
+        submitStatsGlobal {
+          acSubmissionNum {
+            difficulty
+            count
+          }
+          totalSubmissionNum {
+            difficulty
+            count
+            submissions
+          }
+        }
+        profile {
+          ranking
+          reputation
+        }
+      }
+    }
+  `;
 
     try {
-        console.log('[Puppeteer] Logging into Leetcode...');
-
-        await page.goto('https://leetcode.com/accounts/login/', { waitUntil: 'networkidle2' });
-
-        await page.type('#id_login', LEETCODE_USER, { delay: 50 });
-        await page.type('#id_password', LEETCODE_PASS, { delay: 50 });
-        await page.click("button[type='submit']");
-
-        await page.waitForNavigation({ waitUntil: 'networkidle2' });
-        console.log('[Puppeteer] Logged in! Navigating to profile...');
-
-        await page.goto(`https://leetcode.com/${LEETCODE_USER}/`, { waitUntil: 'networkidle2' });
-
-        await page.waitForSelector('.flex.items-center.space-x-4');
-
-        const stats = await page.evaluate(() => {
-            const getText = selector => {
-                const el = document.querySelector(selector);
-                return el ? el.textContent.trim() : 'N/A';
-            };
-
-            const allStats = document.querySelectorAll('.text-[24px]');
-            const [solved, easy, medium, hard] = [...allStats].map(el => el.textContent.trim());
-
-            const ranking = getText('.ttext-label-1');
-            const stars = getText('[data-cy="star-rating"]');
-
-            return {
-                solved,
-                easy,
-                medium,
-                hard,
-                ranking,
-                stars,
-                timestamp: new Date().toISOString()
-            };
+        const response = await fetch(endpoint, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Referer": "https://leetcode.com",
+            },
+            body: JSON.stringify({
+                query,
+                variables: { username },
+            }),
         });
 
-        const outputPath = path.join(__dirname, '../data/leetcode.json');
-        fs.writeFileSync(outputPath, JSON.stringify(stats, null, 2), 'utf-8');
+        if (!response.ok) {
+            throw new Error(`LeetCode API responded with status ${response.status}`);
+        }
 
-        console.log('[Puppeteer] Stats saved:', stats);
+        const payload = await response.json();
 
-        console.log('[SUCCESS] LeetCode stats scraping complete');
+        if (payload.errors && payload.errors.length > 0) {
+            throw new Error(`GraphQL Error: ${payload.errors[0].message}`);
+        }
 
+        const matchedUser = payload.data?.matchedUser;
+        if (!matchedUser) {
+            throw new Error(`User "${username}" not found on LeetCode.`);
+        }
 
-        await browser.close();
-        return stats;
+        // Update cache
+        cachedData = matchedUser;
+        lastFetchTime = now;
 
+        return matchedUser;
     } catch (error) {
-        console.error('[Puppeteer] error:', error.message);
-        await browser.close();
+        console.error("Failed to fetch LeetCode stats:", error.message);
         throw error;
     }
 }
 
-module.exports = { fetchLeetCodeStats };
+// Route handler for router.js: handles HTTP req/res lifecycle to prevent connection hanging
+export async function getLeetcodeStats(req, res) {
+    try {
+        const data = await fetchLeetcodeData();
+        res.writeHead(200, { "Content-Type": "application/json" });
+        res.end(JSON.stringify(data));
+    } catch (error) {
+        res.writeHead(500, { "Content-Type": "application/json" });
+        res.end(JSON.stringify({
+            error: "Failed to fetch LeetCode statistics",
+            message: error.message
+        }));
+    }
+}
