@@ -121,7 +121,7 @@ async function routeRequest(req, res) {
             return sendMethodNotAllowed(res, "GET, OPTIONS");
         }
 
-        // CODING SUMMARY 
+        // CODING SUMMARY
 
         if (pathname === "/api/coding/summary") {
             if (method === "GET") return getCodingSummary(req, res);

@@ -1,4 +1,3 @@
-
 const DEFAULT_WAKATIME_API_URL =
     "https://api.wakatime.com/api/v1/users/current/stats/last_7_days";
 
