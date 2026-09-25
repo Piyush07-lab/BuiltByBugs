@@ -1,8 +1,7 @@
 let cachedData = null;
 let lastFetchTime = 0;
-const CACHE_TTL_MS = 60 * 60 * 1000; // 1 hour in milliseconds
+const CACHE_TTL_MS = 60 * 60 * 1000; 
 
-// Fetches and caches LeetCode GraphQL user statistics
 export async function fetchLeetcodeData() {
     const endpoint = process.env.LEETCODE_ENDPOINT_URL;
     const username = process.env.LEETCODE_USER;
@@ -47,7 +46,7 @@ export async function fetchLeetcodeData() {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "Referer": "https://leetcode.com",
+                Referer: "https://leetcode.com",
             },
             body: JSON.stringify({
                 query,
@@ -81,17 +80,18 @@ export async function fetchLeetcodeData() {
     }
 }
 
-// Route handler for router.js: handles HTTP req/res lifecycle to prevent connection hanging
 export async function getLeetcodeStats(req, res) {
     try {
         const data = await fetchLeetcodeData();
         res.writeHead(200, { "Content-Type": "application/json" });
         res.end(JSON.stringify(data));
     } catch (error) {
-        res.writeHead(500, { "Content-Type": "application/json" });
-        res.end(JSON.stringify({
-            error: "Failed to fetch LeetCode statistics",
-            message: error.message
-        }));
+        res.writeHead(502, { "Content-Type": "application/json" });
+        res.end(
+            JSON.stringify({
+                error: "Failed to fetch LeetCode statistics",
+                message: error.message,
+            })
+        );
     }
 }

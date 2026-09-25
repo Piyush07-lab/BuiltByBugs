@@ -1,5 +1,5 @@
-
-import { GoogleGenAI } from '@google/genai';
+import { GoogleGenAI } from "@google/genai";
+import { readJsonBody } from "../utils/request.js";
 
 let ai = null;
 function getAi() {
@@ -14,40 +14,52 @@ Your goal is to assist visitors, answer questions about Piyush's work, experienc
 Be polite, concise, and enthusiastic.`;
 
 async function handleGeminiChat(req, res) {
-    let body = "";
+    if (req.method !== "POST") {
+        res.writeHead(405, {
+            "Content-Type": "application/json",
+            Allow: "POST, OPTIONS",
+        });
+        return res.end(JSON.stringify({ error: "Method Not Allowed" }));
+    }
 
-    req.on("data", chunk => {
-        body += chunk.toString();
-    });
+    const data = await readJsonBody(req, res, 512 * 1024);
+    if (!data) return;
 
-    req.on("end", async () => {
-        try {
-            const data = JSON.parse(body);
-            const { messages } = data; // Expected: [{ role: 'user' | 'model', parts: [{ text: '...' }] }]
+    try {
+        const { messages } = data; // Expected: [{ role: 'user' | 'model', parts: [{ text: '...' }] }]
 
-            if (!messages || !Array.isArray(messages)) {
-                res.writeHead(400, { "Content-Type": "application/json" });
-                return res.end(JSON.stringify({ error: "Invalid messages format" }));
-            }
-
-            const response = await getAi().models.generateContent({
-                model: 'gemini-3.5-flash-lite',
-                contents: messages,
-                config: {
-                    systemInstruction: SYSTEM_INSTRUCTION
-                }
-            });
-
-            res.writeHead(200, { "Content-Type": "application/json" });
-            res.end(JSON.stringify({
-                text: response.text
-            }));
-        } catch (error) {
-            console.error("[Gemini API Error]", error);
-            res.writeHead(500, { "Content-Type": "application/json" });
-            res.end(JSON.stringify({ error: "Failed to generate AI response" }));
+        if (!messages || !Array.isArray(messages)) {
+            res.writeHead(400, { "Content-Type": "application/json" });
+            return res.end(JSON.stringify({ error: "Invalid messages format" }));
         }
-    });
+
+        const modelName = process.env.GEMINI_MODEL || "gemini-2.5-flash";
+        const response = await getAi().models.generateContent({
+            model: modelName,
+            contents: messages,
+            config: {
+                systemInstruction: SYSTEM_INSTRUCTION,
+            },
+        });
+
+        res.writeHead(200, { "Content-Type": "application/json" });
+        res.end(
+            JSON.stringify({
+                text: response.text,
+            })
+        );
+    } catch (error) {
+        console.error("[Gemini API Error]", error);
+        if (!res.headersSent) {
+            res.writeHead(502, { "Content-Type": "application/json" });
+            res.end(
+                JSON.stringify({
+                    error: "Failed to generate AI response",
+                    message: error.message,
+                })
+            );
+        }
+    }
 }
 
 export { handleGeminiChat };

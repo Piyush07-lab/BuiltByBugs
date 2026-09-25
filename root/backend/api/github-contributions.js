@@ -7,8 +7,13 @@ async function getGitHubContributions(req, res) {
         res.end(JSON.stringify(heatmap, null, 2));
     } catch (error) {
         console.error("GitHub Heatmap error:", error);
-        res.writeHead(500, { "Content-Type": "application/json" });
-        res.end(JSON.stringify({ error: "Failed to fetch GitHub Contributions."}))
+        res.writeHead(502, { "Content-Type": "application/json" });
+        res.end(
+            JSON.stringify({
+                error: "Failed to fetch GitHub Contributions.",
+                message: error.message,
+            })
+        );
     }
 }
 

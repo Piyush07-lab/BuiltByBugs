@@ -1,109 +1,60 @@
-import { isValidContactRequest } from '../utils/spamFilter.js';
-import { saveContactRequest } from '../services/inquiryService.js';
+import { isValidContactRequest } from "../utils/spamFilter.js";
+import { saveContactRequest } from "../services/inquiryService.js";
+import { readJsonBody } from "../utils/request.js";
 
 async function handleContactRequest(req, res) {
-
-    if (req.method !== 'POST') {
+    if (req.method !== "POST") {
         res.writeHead(405, {
-            'Content-Type': 'application/json'
+            "Content-Type": "application/json",
+            Allow: "POST, OPTIONS",
         });
-
-        res.end(JSON.stringify({
-            error: 'Method Not Allowed'
-        }));
-
-        return;
+        return res.end(
+            JSON.stringify({
+                error: "Method Not Allowed",
+            })
+        );
     }
 
-    const MAX_BODY_SIZE = 1024 * 1024;
+    const data = await readJsonBody(req, res);
+    if (!data) return;
 
-    let body = '';
+    try {
+        const validation = isValidContactRequest(data);
 
-    req.on('data', chunk => {
-
-        body += chunk;
-
-        if (body.length > MAX_BODY_SIZE) {
-
-            res.writeHead(413, {
-                'Content-Type': 'application/json'
+        if (!validation.ok) {
+            res.writeHead(400, {
+                "Content-Type": "application/json",
             });
-
-            res.end(JSON.stringify({
-                error: 'Payload too large'
-            }));
-
-            req.destroy();
-
+            return res.end(
+                JSON.stringify({
+                    error: validation.reason,
+                })
+            );
         }
 
-    });
+        await saveContactRequest(data);
 
-    req.on('end', async () => {
-        if (res.writableEnded || res.headersSent) return;
-
-        try {
-
-            const data = JSON.parse(body);
-
-            const validation = isValidContactRequest(data);
-
-            if (!validation.ok) {
-
-                res.writeHead(400, {
-                    'Content-Type': 'application/json'
-                });
-
-                res.end(JSON.stringify({
-                    error: validation.reason
-                }));
-
-                return;
-
-            }
-
-            await saveContactRequest(data);
-
-            res.writeHead(200, {
-                'Content-Type': 'application/json'
-            });
-
-            res.end(JSON.stringify({
-                success: true
-            }));
-
-        } catch (error) {
-
-            console.error('[Contact API Error]', error);
-
-            if (error instanceof SyntaxError) {
-
-                res.writeHead(400, {
-                    'Content-Type': 'application/json'
-                });
-
-                res.end(JSON.stringify({
-                    error: 'Invalid JSON payload'
-                }));
-
-                return;
-
-            }
-
+        res.writeHead(200, {
+            "Content-Type": "application/json",
+        });
+        res.end(
+            JSON.stringify({
+                success: true,
+            })
+        );
+    } catch (error) {
+        console.error("[Contact API Error]", error);
+        if (!res.headersSent) {
             res.writeHead(500, {
-                'Content-Type': 'application/json'
+                "Content-Type": "application/json",
             });
-
-            res.end(JSON.stringify({
-                error: 'Internal server error'
-            }));
-
+            res.end(
+                JSON.stringify({
+                    error: "Internal server error",
+                })
+            );
         }
-
-    });
-
+    }
 }
 
-export {
-    handleContactRequest
-};
+export { handleContactRequest };

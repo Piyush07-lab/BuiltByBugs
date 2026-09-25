@@ -1,18 +1,14 @@
 // Routes
-import fs from 'node:fs';
-import path from 'node:path';
+import fs from "node:fs";
+import path from "node:path";
 
-import { handleHireRequest } from '../api/hireRequest.js';
-import { handleContactRequest } from '../api/contact.js';
-import { getGitHubContributions } from '../api/github-contributions.js';
-import { getUserAndRepos } from '../utils/github.js';
-import { handleGeminiChat } from '../api/geminiChat.js';
-import { getLeetcodeStats } from '../api/leetcode.js';
-import {
-    getCodingActivity,
-    getCodingSummary
-} from '../api/coding.js';
-
+import { handleHireRequest } from "../api/hireRequest.js";
+import { handleContactRequest } from "../api/contact.js";
+import { getGitHubContributions } from "../api/github-contributions.js";
+import { getUserAndRepos } from "../utils/github.js";
+import { handleGeminiChat } from "../api/geminiChat.js";
+import { getLeetcodeStats } from "../api/leetcode.js";
+import { getCodingActivity, getCodingSummary } from "../api/coding.js";
 
 //---- github-summary ----//
 
@@ -20,7 +16,7 @@ const CACHE_TTL = 5 * 60 * 1000;
 
 let githubCache = {
     timestamp: null,
-    data: null
+    data: null,
 };
 
 async function handleGitHubSummary(req, res) {
@@ -35,123 +31,149 @@ async function handleGitHubSummary(req, res) {
         const freshData = await getUserAndRepos();
         githubCache = {
             timestamp: now,
-            data: freshData
+            data: freshData,
         };
 
         res.writeHead(200, { "Content-Type": "application/json" });
         res.end(JSON.stringify(freshData));
     } catch (error) {
         console.error("[GitHub Summary error]", error);
-        res.writeHead(500, { "Content-Type": "application/json" });
-        res.end(JSON.stringify({ error: "Failed to fetch GitHub summary" }));
+        res.writeHead(502, { "Content-Type": "application/json" });
+        res.end(
+            JSON.stringify({
+                error: "Failed to fetch GitHub summary",
+                message: error.message,
+            })
+        );
     }
 }
 
+function sendMethodNotAllowed(res, allowMethods, customMessage) {
+    res.writeHead(405, {
+        "Content-Type": "application/json",
+        Allow: allowMethods,
+    });
+    res.end(
+        JSON.stringify({
+            error: customMessage || "Method Not Allowed",
+        })
+    );
+}
 
 async function routeRequest(req, res) {
     try {
-        const parsedUrl = new URL(
-            req.url,
-            `http://${req.headers.host}`
-        );
+        const parsedUrl = new URL(req.url, `http://${req.headers.host}`);
         const { pathname } = parsedUrl;
+        const { method } = req;
 
         console.log({
             url: req.url,
             pathname,
-            method: req.method
+            method: req.method,
         });
 
+        // HIRE REQUEST
 
-        const { method } = req;
-
-        if (pathname === '/api/hireRequest' && method === 'POST') {
-            return handleHireRequest(req, res);
+        if (pathname === "/api/hireRequest") {
+            if (method === "POST") return handleHireRequest(req, res);
+            return sendMethodNotAllowed(res, "POST, OPTIONS");
         }
 
-        if (pathname === '/api/contact' && method === 'POST') {
-            return handleContactRequest(req, res);
+        // CONTACT REQUEST
+
+        if (pathname === "/api/contact") {
+            if (method === "POST") return handleContactRequest(req, res);
+            return sendMethodNotAllowed(res, "POST, OPTIONS");
         }
 
-        if (pathname === '/api/chat' && method === 'POST') {
-            return handleGeminiChat(req, res);
+        // CHAT BOX
+
+        if (pathname === "/api/chat") {
+            if (method === "POST") return handleGeminiChat(req, res);
+            return sendMethodNotAllowed(res, "POST, OPTIONS");
         }
 
-        if (pathname === '/api/github/summary' && method === 'GET') {
-            return handleGitHubSummary(req, res);
+        // GITHUB SUMMARY
+
+        if (pathname === "/api/github/summary") {
+            if (method === "GET") return handleGitHubSummary(req, res);
+            return sendMethodNotAllowed(res, "GET, OPTIONS");
         }
 
-        if (pathname === '/api/github-contributions' && method === 'GET') {
-            return getGitHubContributions(req, res);
+        // GITHUB CONTRIBUTION
+
+        if (pathname === "/api/github-contributions") {
+            if (method === "GET") return getGitHubContributions(req, res);
+            return sendMethodNotAllowed(res, "GET, OPTIONS");
         }
 
-        if (pathname === '/api/coding' && method === 'GET') {
-            return getCodingActivity(req, res);
+        // CODING ACTIVITY (WAKA-TIME)
+
+        if (pathname === "/api/coding") {
+            if (method === "GET") return getCodingActivity(req, res);
+            if (method === "POST") {
+                return sendMethodNotAllowed(
+                    res,
+                    "GET, OPTIONS",
+                    "Coding activity is read-only and synced from WakaTime."
+                );
+            }
+            return sendMethodNotAllowed(res, "GET, OPTIONS");
         }
 
-        if (pathname === '/api/coding/summary' && method === 'GET') {
-            return getCodingSummary(req, res);
+        // CODING SUMMARY 
+
+        if (pathname === "/api/coding/summary") {
+            if (method === "GET") return getCodingSummary(req, res);
+            return sendMethodNotAllowed(res, "GET, OPTIONS");
         }
 
-        if (pathname === "/api/assets/logo" && method === "GET") {
+        // LEETCODE API
+        if (pathname === "/api/leetcode") {
+            if (method === "GET") return getLeetcodeStats(req, res);
+            return sendMethodNotAllowed(res, "GET, OPTIONS");
+        }
 
-            const logoPath = path.join(
-                import.meta.dirname,
-                "../assets/B3Logo-plain.svg"
-            );
+        // LOGO
+        if (pathname === "/api/assets/logo") {
+            if (method !== "GET") {
+                return sendMethodNotAllowed(res, "GET, OPTIONS");
+            }
+
+            const logoPath = path.join(import.meta.dirname, "../assets/B3Logo-plain.svg");
 
             fs.readFile(logoPath, (err, data) => {
-
                 if (err) {
-
                     console.error("[Logo error]", err);
-
-                    res.writeHead(500, {
-                        "Content-Type": "text/plain"
-                    });
-
-                    return res.end("Unable to load logo.");
-
+                    res.writeHead(500, { "Content-Type": "application/json" });
+                    return res.end(
+                        JSON.stringify({
+                            error: "Unable to load logo.",
+                        })
+                    );
                 }
 
                 res.writeHead(200, {
                     "Content-Type": "image/svg+xml",
-                    "Cache-Control": "public, max-age=86400"
+                    "Cache-Control": "public, max-age=86400",
                 });
-
                 res.end(data);
-
             });
-
             return;
-
         }
 
-        if (pathname === '/api/coding' && method === 'POST') {
-            res.writeHead(405, { "Content-Type": "application/json" });
-            return res.end(JSON.stringify({
-                error: "Coding activity is read-only and synced from WakaTime."
-            }));
-        }
-
-        if (pathname === '/api/leetcode' && method === 'GET') {
-            return getLeetcodeStats(req, res);
-        }
-
-        res.writeHead(404, { 'Content-Type': 'text/plain' });
-        res.end("Route not found");
-
+        res.writeHead(404, { "Content-Type": "application/json" });
+        res.end(JSON.stringify({ error: "Route not found" }));
     } catch (error) {
         console.error("[Router error]", error);
 
         if (!res.headersSent) {
             res.writeHead(500, {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
             });
-
             res.end(
                 JSON.stringify({
-                    error: "Internal Server error"
+                    error: "Internal Server error",
                 })
             );
         }
@@ -159,4 +181,3 @@ async function routeRequest(req, res) {
 }
 
 export { routeRequest };
-

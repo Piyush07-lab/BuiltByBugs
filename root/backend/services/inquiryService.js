@@ -37,7 +37,7 @@ async function saveToJsonFallback(fileName, data) {
 
     await fsPromises.mkdir(dataDir, { recursive: true });
 
-    let existing = [];
+    let existing;
     try {
         await fsPromises.access(filePath);
         const content = await fsPromises.readFile(filePath, "utf8");
@@ -49,11 +49,7 @@ async function saveToJsonFallback(fileName, data) {
 
     existing.push(data);
 
-    await fsPromises.writeFile(
-        filePath,
-        JSON.stringify(existing, null, 2),
-        "utf8"
-    );
+    await fsPromises.writeFile(filePath, JSON.stringify(existing, null, 2), "utf8");
 }
 
 /**
@@ -110,7 +106,4 @@ async function saveContactRequest(data) {
     return { success: true, storage: "local_json" };
 }
 
-export {
-    saveHireRequest,
-    saveContactRequest,
-};
+export { saveHireRequest, saveContactRequest };

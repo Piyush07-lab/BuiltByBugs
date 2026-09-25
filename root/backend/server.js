@@ -1,26 +1,26 @@
-import './env.js';
+import "./env.js";
 
-import http from 'node:http';
-import { URL } from 'node:url';
-import { routeRequest } from './routes/router.js';
+import http from "node:http";
+import { URL } from "node:url";
+import { routeRequest } from "./routes/router.js";
 
 const PORT = process.env.PORT || 5500;
 
 function getAllowedOrigins() {
     const defaultOrigins = [
-        'http://localhost:5173',
-        'http://localhost:3000',
-        'http://localhost:5500',
-        'https://builtbybugs.in',
-        'https://www.builtbybugs.in',
-        'https://built-by-bugs-tan.vercel.app'
+        "http://localhost:5173",
+        "http://localhost:3000",
+        "http://localhost:5500",
+        "https://builtbybugs.in",
+        "https://www.builtbybugs.in",
+        "https://built-by-bugs-tan.vercel.app",
     ];
 
     const envOrigins = process.env.ALLOWED_ORIGINS;
     if (envOrigins) {
         const envList = envOrigins
-            .split(',')
-            .map(origin => origin.trim().replace(/\/+$/, ''))
+            .split(",")
+            .map((origin) => origin.trim().replace(/\/+$/, ""))
             .filter(Boolean);
         return [...new Set([...defaultOrigins, ...envList])];
     }
@@ -28,24 +28,25 @@ function getAllowedOrigins() {
 }
 
 const server = http.createServer((req, res) => {
-    const parsedUrl = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
+    const parsedUrl = new URL(req.url, `http://${req.headers.host || "localhost"}`);
 
     const allowedOrigins = getAllowedOrigins();
     const origin = req.headers.origin;
 
-    const isAllowedOrigin = origin && (
-        allowedOrigins.includes(origin) || 
-        origin.endsWith('.vercel.app') // Allow Vercel preview deployments
-    );
+    const isAllowedOrigin =
+        origin && (allowedOrigins.includes(origin) || origin.endsWith(".vercel.app")); // Allow Vercel preview deployments
 
     if (isAllowedOrigin) {
-        res.setHeader('Access-Control-Allow-Origin', origin);
-        res.setHeader('Access-Control-Allow-Credentials', 'true');
-        res.setHeader('Vary', 'Origin');
+        res.setHeader("Access-Control-Allow-Origin", origin);
+        res.setHeader("Access-Control-Allow-Credentials", "true");
+        res.setHeader("Vary", "Origin");
     }
 
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, Accept, X-Requested-With');
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
+    res.setHeader(
+        "Access-Control-Allow-Headers",
+        "Content-Type, Authorization, Accept, X-Requested-With"
+    );
 
     res.setHeader("X-Content-Type-Options", "nosniff");
     res.setHeader("X-Frame-Options", "DENY");
@@ -63,7 +64,7 @@ const server = http.createServer((req, res) => {
             "magnetometer=()",
             "microphone=()",
             "payment=()",
-            "usb=()"
+            "usb=()",
         ].join(", ")
     );
 
@@ -83,40 +84,48 @@ const server = http.createServer((req, res) => {
             "manifest-src 'self'",
             "worker-src 'self'",
             "media-src 'self'",
-            "upgrade-insecure-requests"
+            "upgrade-insecure-requests",
         ].join("; ")
     );
 
     res.setHeader("Cross-Origin-Opener-Policy", "same-origin");
     res.setHeader("Cross-Origin-Resource-Policy", "cross-origin");
 
-    if (req.method === 'OPTIONS') {
-        res.writeHead(200, { 'Content-Type': 'text/plain' });
-        return res.end('Response Positive');
-    }
-
-    if (parsedUrl.pathname === '/favicon.ico') {
+    if (req.method === "OPTIONS") {
         res.writeHead(204);
         return res.end();
     }
 
-    if (parsedUrl.pathname === '/health' && req.method === 'GET') {
-        res.writeHead(200, { 'Content-Type': 'application/json' });
-        return res.end(JSON.stringify({ 
-            status: 'ok', 
-            timestamp: new Date().toISOString(),
-            uptime: process.uptime()
-        }));
+    if (parsedUrl.pathname === "/favicon.ico") {
+        res.writeHead(204);
+        return res.end();
+    }
+
+    if (parsedUrl.pathname === "/health" && req.method === "GET") {
+        res.writeHead(200, { "Content-Type": "application/json" });
+        return res.end(
+            JSON.stringify({
+                status: "ok",
+                timestamp: new Date().toISOString(),
+                uptime: process.uptime(),
+            })
+        );
     }
 
     if (parsedUrl.pathname.startsWith("/api")) {
         return routeRequest(req, res);
     }
 
-    res.writeHead(404, { 'Content-Type': 'application/json' });
+    // AUDIT FLAG (Response Type Inconsistency): Server fallback returns 404 application/json,
+    // whereas router.js unmatched /api/* fallback returns 404 text/plain. Flagged for manual inspection.
+    res.writeHead(404, { "Content-Type": "application/json" });
     res.end(JSON.stringify({ error: "Endpoint not found" }));
 });
 
-server.listen(PORT, "0.0.0.0", () => {
-    console.log(`Server running on port: ${PORT}`);
-});
+if (process.env.NODE_ENV !== "test") {
+    server.listen(PORT, "0.0.0.0", () => {
+        console.log(`Server running on port: ${PORT}`);
+    });
+}
+
+export { server };

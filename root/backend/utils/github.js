@@ -1,10 +1,10 @@
-import https from 'node:https';
+import https from "node:https";
 
 const GITHUB_API_URL = "https://api.github.com/graphql";
 
 let cachedHeatmap = null;
 let lastFetched = 0;
-const CACHE_TTL = 1000 * 60 * 60 * 6;    // 6 hours
+const CACHE_TTL = 1000 * 60 * 60 * 6; // 6 hours
 
 async function getContributionHeatmap() {
     if (!process.env.GITHUB_TOKEN) {
@@ -33,7 +33,7 @@ async function getContributionHeatmap() {
                 }
             }
         }
-        `
+        `,
     });
 
     const options = {
@@ -41,38 +41,35 @@ async function getContributionHeatmap() {
         headers: {
             "Content-Type": "application/json",
             "Content-Length": Buffer.byteLength(query),
-            "Authorization": `Bearer ${process.env.GITHUB_TOKEN}`,
-            "User-Agent": "OCDbug-GitHubFetcher/1.0"
-        }
-    }
+            Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+            "User-Agent": "OCDbug-GitHubFetcher/1.0",
+        },
+    };
 
     cachedHeatmap = await new Promise((resolve, reject) => {
-        const req = https.request(GITHUB_API_URL, options, res => {
+        const req = https.request(GITHUB_API_URL, options, (res) => {
             let data = "";
 
-            res.on("data", chunk => data += chunk);
+            res.on("data", (chunk) => (data += chunk));
             res.on("end", () => {
                 try {
                     const parsed = JSON.parse(data);
 
-                    const days = parsed?.data?.user.contributionsCollection?.contributionCalendar?.weeks
+                    const days =
+                        parsed?.data?.user.contributionsCollection?.contributionCalendar?.weeks
 
-                        .flatMap(week => week.contributionDays)
+                            .flatMap((week) => week.contributionDays)
 
-                        .map(day => ({
-                            date: day.date,
-                            count: day.contributionCount,
-                            color: day.color
-                        }));
-
-
-
+                            .map((day) => ({
+                                date: day.date,
+                                count: day.contributionCount,
+                                color: day.color,
+                            }));
 
                     if (!days) throw new Error("Invalid GitHub GraphQL response");
 
                     lastFetched = now;
                     resolve(days);
-
                 } catch (error) {
                     reject(error);
                 }
@@ -87,35 +84,31 @@ async function getContributionHeatmap() {
     return cachedHeatmap;
 }
 
-
-
 const fetchGitHub = (options) => {
-
     return new Promise((resolve, reject) => {
-        https.get(options, (res) => {
-            let data = '';
-            res.on('data', (chunk) => (data += chunk));
-            res.on('end', () => {
-                try {
-                    const parsed = JSON.parse(data);
+        https
+            .get(options, (res) => {
+                let data = "";
+                res.on("data", (chunk) => (data += chunk));
+                res.on("end", () => {
+                    try {
+                        const parsed = JSON.parse(data);
 
-                    if (res.statusCode >= 400) {
-                        return reject(
-                            new Error(
-                                parsed.message ||
-                                `GitHub API error ${res.statusCode}`
-                            )
-                        );
+                        if (res.statusCode >= 400) {
+                            return reject(
+                                new Error(
+                                    parsed.message || `GitHub API error ${res.statusCode}`
+                                )
+                            );
+                        }
+
+                        resolve(parsed);
+                    } catch (error) {
+                        reject(error);
                     }
-
-                    resolve(parsed);
-
-                } catch (error) {
-                    reject(error);
-                }
-            });
-
-        }).on('error', reject);
+                });
+            })
+            .on("error", reject);
     });
 };
 
@@ -125,38 +118,31 @@ const getUserAndRepos = async () => {
     }
 
     const headers = {
-        'User-Agent': 'Manual-Node-Client',
-        'Accept': 'application/vnd.github.v3+json',
-        'Authorization': `Bearer ${process.env.GITHUB_TOKEN}`
+        "User-Agent": "Manual-Node-Client",
+        Accept: "application/vnd.github.v3+json",
+        Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
     };
 
     const userOptions = {
-        hostname: 'api.github.com',
+        hostname: "api.github.com",
         path: `/users/Piyush07-lab`,
-        method: 'GET',
+        method: "GET",
         headers: headers,
     };
 
     const repoOptions = {
-        hostname: 'api.github.com',
+        hostname: "api.github.com",
         path: `/users/Piyush07-lab/repos?sort=updated`,
-        method: 'GET',
+        method: "GET",
         headers: headers,
     };
 
     const [user, repos] = await Promise.all([
         fetchGitHub(userOptions),
-        fetchGitHub(repoOptions)
+        fetchGitHub(repoOptions),
     ]);
 
     return { user, repos };
-
 };
 
-
-
-
-export {
-    getUserAndRepos,
-    getContributionHeatmap
-};
+export { getUserAndRepos, getContributionHeatmap };
