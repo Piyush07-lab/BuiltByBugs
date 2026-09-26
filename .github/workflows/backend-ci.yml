@@ -34,6 +34,20 @@ jobs:
       run:
         working-directory: root/backend
 
+    env:
+      ALLOWED_ORIGINS: ${{ secrets.ALLOWED_ORIGINS }}
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      LEETCODE_ENDPOINT_URL: ${{ secrets.LEETCODE_ENDPOINT_URL }}
+      LEETCODE_PASS: ${{ secrets.LEETCODE_PASS }}
+      LEETCODE_USER: ${{ secrets.LEETCODE_USER }}
+      MONGODB_DB_NAME: ${{ secrets.MONGODB_DB_NAME }}
+      MONGODB_URI: ${{ secrets.MONGODB_URI }}
+      TOKEN_GITHUB: ${{ secrets.TOKEN_GITHUB }}
+      GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
+      WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
+      WAKATIME_API_URL: ${{ secrets.WAKATIME_API_URL }}
+      WAKATIME_CACHE_TTL_MS: ${{ secrets.WAKATIME_CACHE_TTL_MS }}
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
