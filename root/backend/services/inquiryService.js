@@ -1,6 +1,6 @@
-const { MongoClient } = require("mongodb");
-const fsPromises = require("fs").promises;
-const path = require("path");
+import { MongoClient } from "mongodb";
+import fsPromises from "node:fs/promises";
+import path from "node:path";
 
 let client = null;
 let db = null;
@@ -32,12 +32,12 @@ async function getMongoDb() {
  * Fallback to local JSON files for local development when MONGODB_URI is not set.
  */
 async function saveToJsonFallback(fileName, data) {
-    const dataDir = path.join(__dirname, "../data");
+    const dataDir = path.join(import.meta.dirname, "../data");
     const filePath = path.join(dataDir, fileName);
 
     await fsPromises.mkdir(dataDir, { recursive: true });
 
-    let existing = [];
+    let existing;
     try {
         await fsPromises.access(filePath);
         const content = await fsPromises.readFile(filePath, "utf8");
@@ -49,11 +49,7 @@ async function saveToJsonFallback(fileName, data) {
 
     existing.push(data);
 
-    await fsPromises.writeFile(
-        filePath,
-        JSON.stringify(existing, null, 2),
-        "utf8"
-    );
+    await fsPromises.writeFile(filePath, JSON.stringify(existing, null, 2), "utf8");
 }
 
 /**
@@ -110,7 +106,4 @@ async function saveContactRequest(data) {
     return { success: true, storage: "local_json" };
 }
 
-module.exports = {
-    saveHireRequest,
-    saveContactRequest,
-};
+export { saveHireRequest, saveContactRequest };

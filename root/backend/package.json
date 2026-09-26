@@ -1,24 +1,34 @@
 {
-  "name": "backend",
-  "version": "1.0.0",
-  "description": "Manual backend API for the project",
-  "main": "server.js",
-  "type": "commonjs",
-  "scripts": {
-    "start": "node server.js"
-  },
-  "engines": {
-    "node": ">=20"
-  },
-  "keywords": [],
-  "author": "Piyush",
-  "license": "UNLICENSED",
-  "dependencies": {
-    "@google/genai": "^2.21.0",
-    "dotenv": "^17.0.1",
-    "mongodb": "^7.6.0"
-  },
-  "optionalDependencies": {
-    "puppeteer": "^24.15.0"
-  }
+    "name": "backend",
+    "version": "1.0.0",
+    "description": "Manual backend API for the project",
+    "main": "server.js",
+    "type": "module",
+    "scripts": {
+        "start": "node server.js",
+        "lint": "eslint .",
+        "lint:fix": "eslint . --fix",
+        "format": "prettier --write .",
+        "format:check": "prettier --check .",
+        "test": "node --test test/**/*.test.js",
+        "check:routes": "node scripts/route-check.js"
+    },
+    "engines": {
+        "node": ">=20"
+    },
+    "keywords": [],
+    "author": "Piyush",
+    "license": "UNLICENSED",
+    "dependencies": {
+        "@google/genai": "^2.21.0",
+        "dotenv": "^17.0.1",
+        "mongodb": "^7.6.0"
+    },
+    "devDependencies": {
+        "@eslint/js": "^10.0.1",
+        "eslint": "^10.11.0",
+        "eslint-config-prettier": "^10.1.8",
+        "globals": "^17.12.0",
+        "prettier": "^3.9.9"
+    }
 }
