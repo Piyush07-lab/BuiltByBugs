@@ -2,10 +2,11 @@ import { useRef } from 'react';
 import { useDrawer } from '../drawer';
 import { useMascotEasterEgg } from './hooks/useMascotEasterEgg';
 import { useMascotMovement } from './hooks/useMascotMovement';
+import { useMascotArms } from './hooks/useMascotArms';
 import { MascotChassis } from './components/MascotChassis';
 import { MascotFace } from './components/MascotFace';
 
-export default function MascotBot() {
+export default function MascotBot({ armAction = null } = {}) {
   const { openDrawer } = useDrawer();
   const botRef = useRef(null);
 
@@ -33,6 +34,19 @@ export default function MascotBot() {
     handlePointerDown,
   } = useMascotMovement(botRef, handleMascotAction);
 
+  // 3D Point-to-Point Arm Kinematics & Actions
+  const {
+    armStates,
+    leftTransform,
+    rightTransform,
+    triggerAction,
+  } = useMascotArms({
+    isCurious,
+    isDraggingState,
+    isEasterEgg,
+    externalAction: armAction,
+  });
+
   return (
     <div
       className="fixed bottom-5 right-5 sm:bottom-6 sm:right-6 md:bottom-8 md:right-8 z-40 select-none origin-bottom-right will-change-transform"
@@ -56,6 +70,9 @@ export default function MascotBot() {
             ref={botRef}
             type="button"
             onPointerDown={handlePointerDown}
+            onMouseEnter={() => {
+              if (!isDraggingState) triggerAction('wave');
+            }}
             aria-label="Ask AI Assistant"
             className="relative flex flex-col items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#161922] rounded-[30px]"
             style={{
@@ -73,7 +90,12 @@ export default function MascotBot() {
               className="drop-shadow-2xl pointer-events-none"
               style={{ filter: 'drop-shadow(0 0 20px rgba(0,0,0,0.5))' }}
             >
-              <MascotChassis isEasterEgg={isEasterEgg} />
+              <MascotChassis
+                isEasterEgg={isEasterEgg}
+                armStates={armStates}
+                leftArmTransform={leftTransform}
+                rightArmTransform={rightTransform}
+              />
               <MascotFace
                 eyeOffset={eyeOffset}
                 isCurious={isCurious}
@@ -81,25 +103,14 @@ export default function MascotBot() {
               />
             </svg>
 
-            {/* Subtitle Prompt Badge */}
-            <span className="absolute -bottom-8 whitespace-nowrap inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-[#161922]/80 px-3 py-1 text-[0.7rem] font-medium tracking-wide text-zinc-400 backdrop-blur-sm transition-colors opacity-0 group-hover:opacity-100 group-hover:border-cyan-400/40 group-hover:text-white">
-              <span className="h-1.5 w-1.5 rounded-full bg-cyan-400 animate-ping" />
-              {isEasterEgg
-                ? 'Overclocked mode!'
-                : isDraggingState
-                  ? 'Dragging...'
-                  : isPulling
-                    ? 'Opening...'
-                    : 'Click to converse'}
-            </span>
           </button>
         </div>
       </div>
 
       <style>{`
                 @keyframes botBlink {
-                    0%, 96%, 98%, 100% { transform: scaleY(1); transform-origin: center 56px; }
-                    97% { transform: scaleY(0.1); transform-origin: center 56px; }
+                    0%, 96%, 98%, 100% { transform: scaleY(1); transform-origin: center 29.5px; }
+                    97% { transform: scaleY(0.1); transform-origin: center 29.5px; }
                 }
             `}</style>
     </div>
