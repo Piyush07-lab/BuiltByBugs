@@ -89,44 +89,6 @@ export const documents = [
   },
 ];
 
-export const mockCodingSummary = {
-  totalText: '35 hrs 12 mins',
-  dailyAverageText: '5 hrs 2 mins',
-  languages: [
-    { name: 'JavaScript', percent: 65, text: '22 hrs 52 mins' },
-    { name: 'Python', percent: 20, text: '7 hrs 2 mins' },
-    { name: 'CSS', percent: 10, text: '3 hrs 31 mins' },
-    { name: 'HTML', percent: 5, text: '1 hr 45 mins' },
-  ],
-  projects: [
-    { name: 'BuiltByBugs-Platform', text: '15 hrs 20 mins' },
-    { name: 'AST-Linter-Core', text: '12 hrs 10 mins' },
-    { name: 'Personal-API', text: '7 hrs 42 mins' },
-  ],
-  cache: { hit: false },
-};
-
-export const mockLeetcodeData = {
-  username: 'PiyushMishra07',
-  submitStatsGlobal: {
-    acSubmissionNum: [
-      { difficulty: 'All', count: 31 },
-      { difficulty: 'Easy', count: 14 },
-      { difficulty: 'Medium', count: 10 },
-      { difficulty: 'Hard', count: 7 },
-    ],
-    totalSubmissionNum: [
-      { difficulty: 'All', count: 31, submissions: 36 },
-      { difficulty: 'Easy', count: 14, submissions: 15 },
-      { difficulty: 'Medium', count: 10, submissions: 11 },
-      { difficulty: 'Hard', count: 7, submissions: 10 },
-    ],
-  },
-  profile: {
-    ranking: 3607985,
-    reputation: 0,
-  },
-};
 
 export const mockLeetcodeData = {
     username: "PiyushMishra07",
