@@ -24,6 +24,11 @@ export function fetchLeetcodeStats() {
   return apiRequest('/api/leetcode');
 }
 
+export function fetchLeetcodeStats() {
+    return apiRequest("/api/leetcode");
+}
+
+
 export function sendContact(data) {
   return apiRequest('/api/contact', {
     method: 'POST',
