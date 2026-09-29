@@ -5,3 +5,4 @@ inspect.js
 *.stackdump
 backend/data/
 backend/data/*.json
+temporary_asset
