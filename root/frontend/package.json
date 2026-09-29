@@ -2,6 +2,9 @@
   "name": "portfolio-frontend",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "scripts": {
     "dev": "vite --config vite.config.mjs",
     "build": "vite build",
