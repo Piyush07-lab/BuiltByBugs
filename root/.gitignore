@@ -1,7 +1,6 @@
 node_modules
 frontend/dist
 .env
-inspect.js
 *.stackdump
 backend/data/
 backend/data/*.json
