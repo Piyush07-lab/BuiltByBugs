@@ -1,0 +1,67 @@
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="strataPaperShadow" x="-10%" y="-10%" width="120%" height="150%">
+      <feDropShadow dx="0" dy="-10" stdDeviation="16" flood-color="#000000" flood-opacity="0.6" />
+    </filter>
+
+    <linearGradient id="deepStrataTier1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#140D26" stop-opacity="0.85" />
+      <stop offset="100%" stop-color="#0A0614" stop-opacity="0.95" />
+    </linearGradient>
+
+    <linearGradient id="midStrataTier2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#111B38" stop-opacity="0.7" />
+      <stop offset="100%" stop-color="#090E1F" stop-opacity="0.9" />
+    </linearGradient>
+
+    <linearGradient id="mistStrataTier3" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8B5CF6" stop-opacity="0.18" />
+      <stop offset="50%" stop-color="#3B82F6" stop-opacity="0.12" />
+      <stop offset="100%" stop-color="#06B6D4" stop-opacity="0.08" />
+    </linearGradient>
+
+    <linearGradient id="crestStrokeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8B5CF6" stop-opacity="0.2" />
+      <stop offset="40%" stop-color="#06B6D4" stop-opacity="0.5" />
+      <stop offset="70%" stop-color="#10B981" stop-opacity="0.4" />
+      <stop offset="100%" stop-color="#3B82F6" stop-opacity="0.1" />
+    </linearGradient>
+  </defs>
+
+  <!-- TIER 1: Deep Indigo Strata Base Wave (Low-canvas topographical base) -->
+  <g filter="url(#strataPaperShadow)">
+    <path
+      d="M 0,680 C 380,780 720,580 1140,720 C 1480,830 1720,740 1920,700 L 1920,1080 L 0,1080 Z"
+      fill="url(#deepStrataTier1)"
+    />
+  </g>
+
+  <!-- TIER 2: Mid Royal Navy Strata with Flowing Curves -->
+  <g filter="url(#strataPaperShadow)">
+    <path
+      d="M 0,760 C 320,670 760,860 1220,790 C 1560,730 1780,840 1920,810 L 1920,1080 L 0,1080 Z"
+      fill="url(#midStrataTier2)"
+    />
+    <!-- Subtle Top Edge Contour Stroke -->
+    <path
+      d="M 0,760 C 320,670 760,860 1220,790 C 1560,730 1780,840 1920,810"
+      stroke="url(#crestStrokeGrad)"
+      stroke-width="1.8"
+      fill="none"
+    />
+  </g>
+
+  <!-- TIER 3: Translucent Violet-Cyan Mist Surface Wave -->
+  <g>
+    <path
+      d="M 0,840 C 420,910 880,780 1340,860 C 1640,910 1820,880 1920,860 L 1920,1080 L 0,1080 Z"
+      fill="url(#mistStrataTier3)"
+    />
+  </g>
+
+  <!-- High Elevation Topographical Contour Ripple Lines -->
+  <g fill="none" stroke-opacity="0.15" stroke-width="1.2">
+    <path d="M 0,590 C 410,690 750,490 1170,630 C 1510,740 1750,650 1920,610" stroke="#8B5CF6" />
+    <path d="M 0,520 C 360,610 800,430 1240,560 C 1580,660 1790,570 1920,530" stroke="#06B6D4" stroke-dasharray="8 6" />
+  </g>
+</svg>

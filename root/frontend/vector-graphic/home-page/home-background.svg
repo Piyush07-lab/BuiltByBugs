@@ -1,0 +1,153 @@
+<svg width="1920" height="2800" viewBox="0 0 1920 2800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      @keyframes homeHexOrbit {
+        0%, 100% {
+          transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+        }
+        50% {
+          transform: translate3d(24px, -18px, 0) rotate(5deg) scale(1.025);
+        }
+      }
+
+      @keyframes homeDiamondFloat {
+        0%, 100% {
+          transform: translate3d(0, 0, 0) rotate(0deg);
+        }
+        50% {
+          transform: translate3d(-18px, 22px, 0) rotate(-4deg);
+        }
+      }
+
+      @keyframes homePulseNodes {
+        0%, 100% {
+          opacity: 0.6;
+          filter: drop-shadow(0 0 4px rgba(6, 182, 212, 0.4));
+        }
+        50% {
+          opacity: 1.0;
+          filter: drop-shadow(0 0 14px rgba(16, 185, 129, 0.85));
+        }
+      }
+
+      .anim-home-hex {
+        transform-origin: 1400px 300px;
+        animation: homeHexOrbit 45s ease-in-out infinite;
+      }
+
+      .anim-home-hex-lower {
+        transform-origin: 200px 2200px;
+        animation: homeHexOrbit 38s ease-in-out infinite reverse;
+      }
+
+      .anim-home-diamonds {
+        transform-origin: 1540px 350px;
+        animation: homeDiamondFloat 34s ease-in-out infinite;
+      }
+
+      .anim-home-nodes {
+        animation: homePulseNodes 5s ease-in-out infinite;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .anim-home-hex, .anim-home-hex-lower, .anim-home-diamonds, .anim-home-nodes {
+          animation: none !important;
+        }
+      }
+    </style>
+
+    <filter id="masterHomeGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <linearGradient id="bgHexGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06B6D4" stop-opacity="0.14" />
+      <stop offset="60%" stop-color="#3B82F6" stop-opacity="0.05" />
+      <stop offset="100%" stop-color="#8B5CF6" stop-opacity="0.02" />
+    </linearGradient>
+
+    <linearGradient id="bgDiamondGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8B5CF6" stop-opacity="0.2" />
+      <stop offset="100%" stop-color="#06B6D4" stop-opacity="0.05" />
+    </linearGradient>
+  </defs>
+
+  <!-- Ambient Backdrop Glow Gradients -->
+  <g opacity="0.55">
+    <circle cx="1500" cy="300" r="340" fill="url(#bgHexGrad)" filter="url(#masterHomeGlow)" />
+    <circle cx="300" cy="1200" r="300" fill="url(#bgDiamondGrad)" filter="url(#masterHomeGlow)" />
+    <circle cx="1600" cy="2100" r="320" fill="url(#bgHexGrad)" filter="url(#masterHomeGlow)" />
+  </g>
+
+  <!-- Circuit Tracks and Micro Crosshairs Across Scroll Height -->
+  <g stroke="#06B6D4" stroke-opacity="0.25" stroke-width="1.2">
+    <path d="M 0,220 L 320,540 L 580,540 L 720,680 L 860,680" />
+    <path d="M 60,160 L 360,460 L 520,460 L 620,560 L 620,720" stroke-dasharray="6 4" stroke-opacity="0.3" />
+    <path d="M 1300,0 L 1480,180 L 1480,340 L 1620,480 L 1920,480" />
+    <path d="M 1120,80 L 1260,220 L 1260,420 L 1420,580 L 1580,580" stroke-opacity="0.2" />
+    <circle cx="860" cy="680" r="12" fill="none" stroke="#06B6D4" stroke-opacity="0.35" stroke-dasharray="3 3" />
+    <path d="M 860,680 L 860,940 L 680,1120 L 420,1120 L 320,1220" />
+    <path d="M 1580,580 L 1580,840 L 1720,980 L 1720,1280 L 1560,1440" stroke-dasharray="8 4" stroke-opacity="0.25" />
+    <path d="M 0,1320 L 220,1540 L 540,1540 L 680,1680 L 980,1680" />
+    <path d="M 980,1680 L 1240,1940 L 1540,1940 L 1680,2080 L 1680,2400" />
+    <path d="M 180,2450 L 380,2650 L 860,2650" />
+  </g>
+
+  <!-- Group 1: Isometric Hexagon Matrix (Hero) -->
+  <g class="anim-home-hex">
+    <g transform="translate(1180, 50)">
+      <polygon points="260,30 364,90 364,210 260,270 156,210 156,90" fill="url(#bgHexGrad)" stroke="#06B6D4" stroke-opacity="0.38" stroke-width="1.5" />
+      <polygon points="468,150 572,210 572,330 468,390 364,330 364,210" fill="url(#bgHexGrad)" stroke="#3B82F6" stroke-opacity="0.32" stroke-width="1.5" />
+      <polygon points="260,270 364,330 364,450 260,510 156,450 156,330" fill="none" stroke="#06B6D4" stroke-opacity="0.25" stroke-width="1.2" stroke-dasharray="6 3" />
+      <polygon points="52,150 156,210 156,330 52,390 -52,330 -52,210" fill="url(#bgHexGrad)" stroke="#8B5CF6" stroke-opacity="0.22" stroke-width="1.2" />
+      <polygon points="468,390 572,450 572,570 468,630 364,570 364,450" fill="url(#bgHexGrad)" stroke="#06B6D4" stroke-opacity="0.32" stroke-width="1.5" />
+      <path d="M 260,30 L 260,150 L 364,210 M 260,150 L 156,210" stroke="#06B6D4" stroke-opacity="0.28" stroke-width="1.2" fill="none" />
+      <path d="M 468,150 L 468,270 L 572,330 M 468,270 L 364,330" stroke="#3B82F6" stroke-opacity="0.28" stroke-width="1.2" fill="none" />
+    </g>
+  </g>
+
+  <!-- Group 2: Lower Hexagon Accent Matrix -->
+  <g class="anim-home-hex-lower">
+    <g transform="translate(80, 2100)">
+      <polygon points="180,20 252,62 252,145 180,187 108,145 108,62" fill="url(#bgHexGrad)" stroke="#06B6D4" stroke-opacity="0.28" stroke-width="1.2" />
+      <polygon points="324,103 396,145 396,228 324,270 252,228 252,145" fill="none" stroke="#3B82F6" stroke-opacity="0.22" stroke-width="1" stroke-dasharray="4 4" />
+      <polygon points="180,187 252,228 252,311 180,353 108,311 108,228" fill="url(#bgHexGrad)" stroke="#8B5CF6" stroke-opacity="0.22" stroke-width="1.2" />
+    </g>
+  </g>
+
+  <!-- Group 3: Floating Diamond Geometric Plates -->
+  <g class="anim-home-diamonds">
+    <g transform="translate(1540, 260) rotate(45)">
+      <rect x="-80" y="-80" width="160" height="160" rx="20" fill="url(#bgDiamondGrad)" stroke="#06B6D4" stroke-width="1.5" stroke-opacity="0.4" />
+      <rect x="-60" y="-60" width="120" height="120" rx="14" fill="none" stroke="#3B82F6" stroke-width="1" stroke-opacity="0.25" stroke-dasharray="6 4" />
+    </g>
+    <g transform="translate(1720, 480) rotate(45)">
+      <rect x="-42" y="-42" width="84" height="84" rx="12" fill="none" stroke="#06B6D4" stroke-width="1.8" stroke-opacity="0.45" />
+      <rect x="-24" y="-24" width="48" height="48" rx="8" fill="url(#bgDiamondGrad)" stroke="#8B5CF6" stroke-width="1" stroke-opacity="0.3" />
+    </g>
+    <g transform="translate(1020, 780) rotate(45)">
+      <rect x="-55" y="-55" width="110" height="110" rx="16" fill="url(#bgDiamondGrad)" stroke="#8B5CF6" stroke-width="1.2" stroke-opacity="0.3" />
+    </g>
+    <g transform="translate(320, 1400) rotate(45)">
+      <rect x="-45" y="-45" width="90" height="90" rx="14" fill="none" stroke="#06B6D4" stroke-width="1.4" stroke-opacity="0.35" />
+    </g>
+  </g>
+
+  <!-- Group 4: Pulsating Tech Node Terminals Across Scroll Height -->
+  <g class="anim-home-nodes" filter="url(#masterHomeGlow)">
+    <circle cx="1440" cy="80" r="3.5" fill="#06B6D4" />
+    <circle cx="1544" cy="140" r="3" fill="#3B82F6" />
+    <circle cx="1544" cy="260" r="4.5" fill="#10B981" />
+    <circle cx="320" cy="540" r="3.5" fill="#06B6D4" />
+    <circle cx="580" cy="540" r="3.5" fill="#10B981" />
+    <circle cx="860" cy="680" r="4" fill="#F97316" />
+    <circle cx="680" cy="1120" r="3.5" fill="#06B6D4" />
+    <circle cx="1720" cy="1280" r="4" fill="#10B981" />
+    <circle cx="980" cy="1680" r="4" fill="#F97316" />
+    <circle cx="1680" cy="2080" r="4" fill="#10B981" />
+  </g>
+</svg>
