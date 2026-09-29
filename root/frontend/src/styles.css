@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
   --color-page-bg: #080b16;
@@ -9,7 +9,7 @@
   --color-accent: #a7f3d0;
   --color-accent-strong: #4ade80;
   --color-subtle: #78849f;
-  --font-nunito: "Nunito", sans-serif;
+  --font-nunito: 'Nunito', sans-serif;
 }
 
 @layer base {
@@ -23,7 +23,7 @@
   }
 
   html {
-    font-family: "Nunito", sans-serif;
+    font-family: 'Nunito', sans-serif;
     background-color: #080b16;
     color: #e8ecf7;
     font-synthesis: none;
@@ -59,7 +59,13 @@
   }
 
   @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(6px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 }
