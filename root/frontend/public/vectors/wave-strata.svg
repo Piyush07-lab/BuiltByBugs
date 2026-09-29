@@ -1,0 +1,49 @@
+<svg width="1440" height="240" viewBox="0 0 1440 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="strataShadow" x="-10%" y="-10%" width="120%" height="150%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.5" />
+    </filter>
+    <linearGradient id="strataTier1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stopColor="#1E1435" stopOpacity="0.8" />
+      <stop offset="100%" stopColor="#110D24" stopOpacity="0.95" />
+    </linearGradient>
+    <linearGradient id="strataTier2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stopColor="#1A274A" stopOpacity="0.75" />
+      <stop offset="100%" stopColor="#0F1833" stopOpacity="0.9" />
+    </linearGradient>
+    <linearGradient id="strataTier3" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stopColor="#8B5CF6" stopOpacity="0.15" />
+      <stop offset="50%" stopColor="#3B82F6" stopOpacity="0.12" />
+      <stop offset="100%" stopColor="#06B6D4" stopOpacity="0.08" />
+    </linearGradient>
+  </defs>
+
+  <!-- Tier 1: Deep Violet Strata Base -->
+  <path
+    d="M0,70 C320,130 580,20 900,85 C1180,140 1340,90 1440,60 L1440,240 L0,240 Z"
+    fill="url(#strataTier1)"
+    filter="url(#strataShadow)"
+  />
+
+  <!-- Tier 2: Royal Navy Mid Strata with Paper Depth -->
+  <path
+    d="M0,110 C280,50 640,160 980,105 C1220,65 1360,135 1440,120 L1440,240 L0,240 Z"
+    fill="url(#strataTier2)"
+    filter="url(#strataShadow)"
+  />
+
+  <!-- Tier 3: Turquoise / Violet Mist Accent Surface -->
+  <path
+    d="M0,150 C360,195 720,120 1080,165 C1280,190 1380,170 1440,160 L1440,240 L0,240 Z"
+    fill="url(#strataTier3)"
+  />
+
+  <!-- Subtle Top Strata Accent Line -->
+  <path
+    d="M0,110 C280,50 640,160 980,105 C1220,65 1360,135 1440,120"
+    stroke="#06B6D4"
+    stroke-opacity="0.2"
+    stroke-width="1.5"
+    fill="none"
+  />
+</svg>

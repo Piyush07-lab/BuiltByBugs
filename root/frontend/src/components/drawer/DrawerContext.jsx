@@ -3,30 +3,31 @@ import { createContext, useContext, useState } from 'react';
 const DrawerContext = createContext(null);
 
 export function DrawerProvider({ children }) {
-    const [drawerState, setDrawerState] = useState({
-        isOpen: false,
-        type: null,
-        data: null,
-    });
+  const [drawerState, setDrawerState] = useState({
+    isOpen: false,
+    type: null,
+    data: null,
+  });
 
-    const openDrawer = (type, data = null) => {
-        setDrawerState({ isOpen: true, type, data });
-    };
-    const closeDrawer = () => {
-        setDrawerState((prev) => ({ ...prev, isOpen: false }));
-    };
+  const openDrawer = (type, data = null) => {
+    setDrawerState({ isOpen: true, type, data });
+  };
+  const closeDrawer = () => {
+    setDrawerState((prev) => ({ ...prev, isOpen: false }));
+  };
 
-    return (
-        <DrawerContext.Provider value={{ drawerState, openDrawer, closeDrawer}}>
-            {children}
-        </DrawerContext.Provider>
-    );
+  return (
+    <DrawerContext.Provider value={{ drawerState, openDrawer, closeDrawer }}>
+      {children}
+    </DrawerContext.Provider>
+  );
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useDrawer() {
-    const context = useContext(DrawerContext);
-    if (!context) {
-        throw new Error('useDrawer must be used within a DrawerProvider');
-    }
-    return context;
+  const context = useContext(DrawerContext);
+  if (!context) {
+    throw new Error('useDrawer must be used within a DrawerProvider');
+  }
+  return context;
 }
