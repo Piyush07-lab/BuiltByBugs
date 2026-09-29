@@ -102,3 +102,26 @@ export const mockCodingSummary = {
     ],
     cache: { hit: false }
 };
+
+export const mockLeetcodeData = {
+    username: "PiyushMishra07",
+    submitStatsGlobal: {
+        acSubmissionNum: [
+            { difficulty: "All", count: 31 },
+            { difficulty: "Easy", count: 14 },
+            { difficulty: "Medium", count: 10 },
+            { difficulty: "Hard", count: 7 }
+        ],
+        totalSubmissionNum: [
+            { difficulty: "All", count: 31, submissions: 36 },
+            { difficulty: "Easy", count: 14, submissions: 15 },
+            { difficulty: "Medium", count: 10, submissions: 11 },
+            { difficulty: "Hard", count: 7, submissions: 10 }
+        ]
+    },
+    profile: {
+        ranking: 3607985,
+        reputation: 0
+    }
+};
+

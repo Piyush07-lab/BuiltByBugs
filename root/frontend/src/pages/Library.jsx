@@ -1,21 +1,12 @@
-import { useState, useEffect } from "react";
 import { pages } from "../data/pages.js";
 import BulletinWidget from "../components/bulletin/BulletinWidget.jsx";
-import CodingSummary from "../components/coding/CodingSummary.jsx";
+import { LeetcodeStats } from "../components/leetcode/LeetcodeStats.jsx";
 import ArticleCard from "../components/library/ArticleCard.jsx";
 import DocumentCard from "../components/library/DocumentCard.jsx";
 import { articles, documents } from "../data/libraryData.js";
-import { getCodingSummary } from "../api/fetchApi.js";
 
 function Library() {
     const page = pages["/library"];
-    const [codingSummary, setCodingSummary] = useState(null);
-
-    useEffect(() => {
-        getCodingSummary().then(data => {
-            setCodingSummary(data);
-        }).catch(err => console.error("Failed to fetch coding summary:", err));
-    }, []);
 
     return (
         <>
@@ -31,15 +22,10 @@ function Library() {
                     <BulletinWidget />
                 </div>
                 <div className="lg:col-span-2">
-                    {codingSummary ? (
-                        <CodingSummary summary={codingSummary} />
-                    ) : (
-                        <div className="rounded-2xl border border-[#9eaedb]/16 bg-[#11172a]/62 p-6 flex items-center justify-center min-h-55">
-                            <span className="text-muted text-sm italic">Loading coding activity...</span>
-                        </div>
-                    )}
+                    <LeetcodeStats />
                 </div>
             </section>
+
 
             {/* Middle Section: Technical Writing */}
             <section className="mt-16 md:mt-24">
