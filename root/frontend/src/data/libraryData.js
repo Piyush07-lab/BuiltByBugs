@@ -89,6 +89,7 @@ export const documents = [
   },
 ];
 
+
 export const mockLeetcodeData = {
     username: "PiyushMishra07",
     submitStatsGlobal: {
