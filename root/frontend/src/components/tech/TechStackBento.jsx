@@ -213,11 +213,11 @@ export default function TechStackBento() {
     const isDimmed = activeCard !== null && !isActive;
     return `
       group relative flex flex-col justify-between overflow-hidden outline-none
-      bg-[rgba(47,77,70,0.04)] backdrop-blur-[10px] border border-white/10
+      bg-brand-card/70 backdrop-blur-md border border-brand-border-subtle
       transition-all duration-300 ease-in-out cursor-default
-      focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-black
+      focus-visible:ring-2 focus-visible:ring-brand-turquoise focus-visible:ring-offset-2 focus-visible:ring-offset-black
       ${isDimmed ? 'opacity-40 scale-[0.98]' : 'opacity-100 scale-100'}
-      ${isActive ? 'shadow-[0_8px_30px_rgba(0,0,0,0.25)] border-white/20' : ''}
+      ${isActive ? 'shadow-[0_8px_30px_rgba(0,0,0,0.4)] border-brand-violet/50 shadow-glow-violet/20' : ''}
       ${extra}
     `;
   };
@@ -225,7 +225,7 @@ export default function TechStackBento() {
   return (
     <section className="mt-16 md:mt-28" aria-label="Tech Stack Showcase">
       <div className="max-w-190">
-        <p className="mb-4 text-xs font-extrabold uppercase tracking-[0.14em] text-accent">
+        <p className="mb-4 text-xs font-extrabold uppercase tracking-[0.14em] text-brand-turquoise">
           Tech Stack
         </p>
         <h2 className="mb-8 text-[clamp(1.75rem,4vw,2.5rem)] font-bold leading-tight tracking-[-0.03em] text-white">
@@ -251,7 +251,7 @@ export default function TechStackBento() {
             style={{
               opacity: activeCard === cards[0].id ? 1 : 0,
               background:
-                'radial-gradient(360px circle at var(--mouse-x, -999px) var(--mouse-y, -999px), rgba(10,100,69,0.75), transparent 80%)',
+                'radial-gradient(360px circle at var(--mouse-x, -999px) var(--mouse-y, -999px), rgba(139, 92, 246, 0.28), rgba(6, 182, 212, 0.15), transparent 80%)',
             }}
           />
           <div className="relative z-10 text-white/80 transition-all duration-300 group-hover:text-white group-hover:scale-105 group-focus-visible:scale-105">
@@ -261,7 +261,7 @@ export default function TechStackBento() {
             <h3 className="text-white font-bold text-lg tracking-tight">
               {cards[0].title}
             </h3>
-            <p className="text-accent text-sm font-medium mt-0.5">
+            <p className="text-brand-turquoise text-sm font-medium mt-0.5">
               {cards[0].description}
             </p>
           </div>
@@ -284,7 +284,7 @@ export default function TechStackBento() {
             style={{
               opacity: activeCard === cards[1].id ? 1 : 0,
               background:
-                'radial-gradient(280px circle at var(--mouse-x, -999px) var(--mouse-y, -999px), rgba(10,100,69,0.75), transparent 80%)',
+                'radial-gradient(280px circle at var(--mouse-x, -999px) var(--mouse-y, -999px), rgba(139, 92, 246, 0.28), rgba(6, 182, 212, 0.15), transparent 80%)',
             }}
           />
           <div className="relative z-10 text-white/80 transition-all duration-300 group-hover:text-white group-hover:scale-105 group-focus-visible:scale-105">
@@ -294,7 +294,7 @@ export default function TechStackBento() {
             <h3 className="text-white font-bold text-base tracking-tight">
               {cards[1].title}
             </h3>
-            <p className="text-accent text-sm font-medium mt-0.5">
+            <p className="text-brand-turquoise text-sm font-medium mt-0.5">
               {cards[1].description}
             </p>
           </div>
@@ -320,7 +320,7 @@ export default function TechStackBento() {
                 style={{
                   opacity: activeCard === mini.id ? 1 : 0,
                   background:
-                    'radial-gradient(160px circle at var(--mouse-x, -999px) var(--mouse-y, -999px), rgba(10,100,69,0.75), transparent 85%)',
+                    'radial-gradient(160px circle at var(--mouse-x, -999px) var(--mouse-y, -999px), rgba(139, 92, 246, 0.35), rgba(6, 182, 212, 0.2), transparent 85%)',
                 }}
               />
               <div className="relative z-10 text-white/80 transition-all duration-300 group-hover:text-white group-hover:scale-105 group-focus-visible:scale-105">
@@ -330,7 +330,7 @@ export default function TechStackBento() {
                 <h4 className="text-white text-xs font-bold tracking-tight leading-snug">
                   {mini.title}
                 </h4>
-                <p className="text-accent text-[10px] font-medium leading-tight">
+                <p className="text-brand-turquoise text-[10px] font-medium leading-tight">
                   {mini.description}
                 </p>
               </div>
@@ -355,7 +355,7 @@ export default function TechStackBento() {
             style={{
               opacity: activeCard === cards[2].id ? 1 : 0,
               background:
-                'radial-gradient(280px circle at var(--mouse-x, -999px) var(--mouse-y, -999px), rgba(10,100,69,0.75), transparent 80%)',
+                'radial-gradient(280px circle at var(--mouse-x, -999px) var(--mouse-y, -999px), rgba(139, 92, 246, 0.28), rgba(6, 182, 212, 0.15), transparent 80%)',
             }}
           />
           <div className="relative z-10 text-white/80 transition-all duration-300 group-hover:text-white group-hover:scale-105 group-focus-visible:scale-105">
@@ -365,7 +365,7 @@ export default function TechStackBento() {
             <h3 className="text-white font-bold text-base tracking-tight">
               {cards[2].title}
             </h3>
-            <p className="text-accent text-sm font-medium mt-0.5">
+            <p className="text-brand-turquoise text-sm font-medium mt-0.5">
               {cards[2].description}
             </p>
           </div>
@@ -388,7 +388,7 @@ export default function TechStackBento() {
             style={{
               opacity: activeCard === cards[3].id ? 1 : 0,
               background:
-                'radial-gradient(280px circle at var(--mouse-x, -999px) var(--mouse-y, -999px), rgba(10,100,69,0.75), transparent 80%)',
+                'radial-gradient(280px circle at var(--mouse-x, -999px) var(--mouse-y, -999px), rgba(139, 92, 246, 0.28), rgba(6, 182, 212, 0.15), transparent 80%)',
             }}
           />
           <div className="relative z-10 text-white/80 transition-all duration-300 group-hover:text-white group-hover:scale-105 group-focus-visible:scale-105">
@@ -398,7 +398,7 @@ export default function TechStackBento() {
             <h3 className="text-white font-bold text-base tracking-tight">
               {cards[3].title}
             </h3>
-            <p className="text-accent text-sm font-medium mt-0.5">
+            <p className="text-brand-turquoise text-sm font-medium mt-0.5">
               {cards[3].description}
             </p>
           </div>

@@ -1,8 +1,8 @@
 function DocumentCard({ document }) {
   return (
-    <article className="flex flex-col rounded-2xl border border-[#9eaedb]/16 bg-linear-to-br from-[#11172a]/78 to-[#0d111f]/52 p-6 shadow-[0_1.5rem_4rem_rgba(0,0,0,0.16)] transition-transform hover:-translate-y-1">
+    <article className="flex flex-col rounded-2xl border border-brand-border bg-brand-card backdrop-blur-md p-6 shadow-paper-depth transition-all duration-300 hover:-translate-y-1 hover:border-brand-violet/40">
       <div className="flex items-start justify-between gap-4 mb-4">
-        <div className="flex items-center justify-center w-10 h-10 rounded-full bg-emerald-500/10 text-emerald-400">
+        <div className="flex items-center justify-center w-10 h-10 rounded-full border border-brand-turquoise/20 bg-brand-turquoise/10 text-brand-turquoise shadow-glow-turquoise/20">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="20"
@@ -30,7 +30,7 @@ function DocumentCard({ document }) {
 
       <a
         href={document.link}
-        className="mt-auto self-start text-sm font-semibold text-emerald-400 hover:text-emerald-300 flex items-center gap-1.5 transition-colors"
+        className="mt-auto self-start text-sm font-semibold text-brand-turquoise hover:text-brand-green flex items-center gap-1.5 transition-colors"
         target="_blank"
         rel="noreferrer"
       >

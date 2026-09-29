@@ -44,13 +44,13 @@ function HireForm({ service, onClose }) {
     <form onSubmit={handleSubmit} className="flex flex-col gap-4 text-xs">
       <p className="text-zinc-400">
         Selected Service:{' '}
-        <span className="font-semibold text-emerald-400">
+        <span className="font-semibold text-brand-turquoise">
           {service || 'General Inquiry'}
         </span>
       </p>
 
       {status === 'success' && (
-        <div className="rounded border border-emerald-500/40 bg-emerald-950/40 p-2.5 text-emerald-300">
+        <div className="rounded border border-brand-green/40 bg-brand-green/10 p-2.5 text-brand-green">
           Inquiry sent successfully! Closing drawer...
         </div>
       )}
@@ -71,7 +71,7 @@ function HireForm({ service, onClose }) {
           value={formData.name}
           onChange={handleChange}
           placeholder="Your Name"
-          className="bg-zinc-800/80 border border-zinc-700 rounded p-2 text-white outline-none focus:ring-1 focus:ring-emerald-500 disabled:opacity-50"
+          className="bg-brand-bg/80 border border-brand-border-subtle rounded p-2 text-white placeholder-zinc-500 outline-none focus:ring-1 focus:ring-brand-turquoise focus:border-brand-turquoise transition-all disabled:opacity-50"
         />
       </div>
 
@@ -85,7 +85,7 @@ function HireForm({ service, onClose }) {
           value={formData.email}
           onChange={handleChange}
           placeholder="you@example.com"
-          className="bg-zinc-800/80 border border-zinc-700 rounded p-2 text-white outline-none focus:ring-1 focus:ring-emerald-500 disabled:opacity-50"
+          className="bg-brand-bg/80 border border-brand-border-subtle rounded p-2 text-white placeholder-zinc-500 outline-none focus:ring-1 focus:ring-brand-turquoise focus:border-brand-turquoise transition-all disabled:opacity-50"
         />
       </div>
 
@@ -99,14 +99,14 @@ function HireForm({ service, onClose }) {
           value={formData.details}
           onChange={handleChange}
           placeholder="Proposition..."
-          className="bg-zinc-800/80 border border-zinc-700 rounded p-2 text-white outline-none focus:ring-1 focus:ring-emerald-500 resize-none disabled:opacity-50"
+          className="bg-brand-bg/80 border border-brand-border-subtle rounded p-2 text-white placeholder-zinc-500 outline-none focus:ring-1 focus:ring-brand-turquoise focus:border-brand-turquoise resize-none transition-all disabled:opacity-50"
         />
       </div>
 
       <button
         type="submit"
         disabled={status === 'loading'}
-        className="mt-2 py-2.5 bg-emerald-500 text-black font-semibold rounded hover:bg-emerald-400 transition-colors disabled:opacity-50 cursor-pointer"
+        className="mt-2 py-2.5 bg-gradient-to-r from-brand-violet to-brand-turquoise text-white font-semibold rounded hover:brightness-110 shadow-glow-turquoise/30 transition-all disabled:opacity-50 cursor-pointer"
       >
         {status === 'loading' ? 'Submitting...' : 'Submit Proposal'}
       </button>
@@ -142,7 +142,7 @@ function ContactForm({ onClose }) {
       </p>
 
       {status === 'success' && (
-        <div className="rounded border border-emerald-500/40 bg-emerald-950/40 p-2.5 text-emerald-300">
+        <div className="rounded border border-brand-green/40 bg-brand-green/10 p-2.5 text-brand-green">
           Message sent successfully!
         </div>
       )}
@@ -157,7 +157,7 @@ function ContactForm({ onClose }) {
           value={formData.name}
           onChange={handleChange}
           placeholder="Your Name"
-          className="bg-zinc-800/80 border border-zinc-700 rounded p-2 text-white outline-none focus:ring-1 focus:ring-emerald-500 disabled:opacity-50"
+          className="bg-brand-bg/80 border border-brand-border-subtle rounded p-2 text-white placeholder-zinc-500 outline-none focus:ring-1 focus:ring-brand-turquoise focus:border-brand-turquoise transition-all disabled:opacity-50"
         />
       </div>
 
@@ -171,7 +171,7 @@ function ContactForm({ onClose }) {
           value={formData.email}
           onChange={handleChange}
           placeholder="you@example.com"
-          className="bg-zinc-800/80 border border-zinc-700 rounded p-2 text-white outline-none focus:ring-1 focus:ring-emerald-500 disabled:opacity-50"
+          className="bg-brand-bg/80 border border-brand-border-subtle rounded p-2 text-white placeholder-zinc-500 outline-none focus:ring-1 focus:ring-brand-turquoise focus:border-brand-turquoise transition-all disabled:opacity-50"
         />
       </div>
 
@@ -185,14 +185,14 @@ function ContactForm({ onClose }) {
           value={formData.message}
           onChange={handleChange}
           placeholder="How can I help you?"
-          className="bg-zinc-800/80 border border-zinc-700 rounded p-2 text-white outline-none focus:ring-1 focus:ring-emerald-500 resize-none disabled:opacity-50"
+          className="bg-brand-bg/80 border border-brand-border-subtle rounded p-2 text-white placeholder-zinc-500 outline-none focus:ring-1 focus:ring-brand-turquoise focus:border-brand-turquoise resize-none transition-all disabled:opacity-50"
         />
       </div>
 
       <button
         type="submit"
         disabled={status === 'loading'}
-        className="mt-2 py-2.5 bg-emerald-500 text-black font-semibold rounded hover:bg-emerald-400 transition-colors disabled:opacity-50 cursor-pointer"
+        className="mt-2 py-2.5 bg-gradient-to-r from-brand-violet to-brand-turquoise text-white font-semibold rounded hover:brightness-110 shadow-glow-turquoise/30 transition-all disabled:opacity-50 cursor-pointer"
       >
         {status === 'loading' ? 'Sending...' : 'Send Message'}
       </button>
@@ -247,13 +247,13 @@ function ChatAssistant({ onClose: _onClose }) {
         {messages.map((msg, i) => (
           <div
             key={i}
-            className={`max-w-[85%] rounded p-2.5 ${msg.role === 'user' ? 'bg-emerald-950/40 border border-emerald-500/40 text-emerald-300 self-end' : 'bg-zinc-800/60 border border-zinc-700/50 text-zinc-300 self-start'}`}
+            className={`max-w-[85%] rounded p-2.5 ${msg.role === 'user' ? 'bg-gradient-to-r from-brand-violet/25 to-brand-turquoise/25 border border-brand-turquoise/40 text-brand-turquoise self-end' : 'bg-brand-surface border border-brand-border text-zinc-200 self-start'}`}
           >
             {msg.parts[0].text}
           </div>
         ))}
         {isLoading && (
-          <div className="max-w-[85%] rounded p-2.5 bg-zinc-800/60 border border-zinc-700/50 text-zinc-400 self-start italic">
+          <div className="max-w-[85%] rounded p-2.5 bg-brand-surface border border-brand-border text-zinc-400 self-start italic">
             Typing...
           </div>
         )}
@@ -261,7 +261,7 @@ function ChatAssistant({ onClose: _onClose }) {
 
       <form
         onSubmit={handleSend}
-        className="mt-4 pt-4 border-t border-zinc-800 flex gap-2"
+        className="mt-4 pt-4 border-t border-brand-border-subtle flex gap-2"
       >
         <input
           type="text"
@@ -269,12 +269,12 @@ function ChatAssistant({ onClose: _onClose }) {
           onChange={(e) => setInput(e.target.value)}
           placeholder="Ask me anything..."
           disabled={isLoading}
-          className="flex-1 bg-zinc-800/80 border border-zinc-700 rounded p-2 text-white outline-none focus:ring-1 focus:ring-emerald-500 disabled:opacity-50"
+          className="flex-1 bg-brand-bg/80 border border-brand-border-subtle rounded p-2 text-white placeholder-zinc-500 outline-none focus:ring-1 focus:ring-brand-turquoise focus:border-brand-turquoise transition-all disabled:opacity-50"
         />
         <button
           type="submit"
           disabled={isLoading || !input.trim()}
-          className="px-4 py-2 bg-emerald-500 text-black font-semibold rounded hover:bg-emerald-400 transition-colors disabled:opacity-50 cursor-pointer"
+          className="px-4 py-2 bg-gradient-to-r from-brand-violet to-brand-turquoise text-white font-semibold rounded hover:brightness-110 shadow-glow-turquoise/30 transition-all disabled:opacity-50 cursor-pointer"
         >
           Send
         </button>

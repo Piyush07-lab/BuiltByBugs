@@ -3,9 +3,9 @@ function GitHubShowcase({ summary }) {
   const joinedYear = user.created_at ? new Date(user.created_at).getFullYear() : 'n/a';
 
   return (
-    <section className="rounded-2xl border border-[#9eaedb]/16 bg-[#11172a]/62 p-6">
+    <section className="rounded-2xl border border-brand-border bg-brand-card backdrop-blur-md p-6 shadow-paper-depth">
       <div>
-        <p className="mb-5 text-xs font-extrabold uppercase tracking-[0.14em] text-accent">
+        <p className="mb-5 text-xs font-extrabold uppercase tracking-[0.14em] text-brand-turquoise">
           GitHub Showcase
         </p>
         <h2 className="mb-3 text-[clamp(1.45rem,3vw,2rem)] font-bold text-white">
@@ -16,7 +16,7 @@ function GitHubShowcase({ summary }) {
 
       <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-4">
         <a
-          className="flex min-w-0 flex-col gap-1 rounded-[0.55rem] border border-[#9eaedb]/12 bg-page-bg/48 p-3 text-[0.76rem] text-muted no-underline transition duration-150 ease-in-out hover:border-accent/50"
+          className="flex min-w-0 flex-col gap-1 rounded-[0.55rem] border border-brand-border-subtle bg-brand-bg/60 p-3 text-[0.76rem] text-muted no-underline transition duration-150 ease-in-out hover:border-brand-turquoise/40 hover:-translate-y-0.5"
           href={`${user.html_url}?tab=repositories`}
           target="_blank"
           rel="noreferrer"
@@ -25,7 +25,7 @@ function GitHubShowcase({ summary }) {
           <span>Repositories</span>
         </a>
         <a
-          className="flex min-w-0 flex-col gap-1 rounded-[0.55rem] border border-[#9eaedb]/12 bg-page-bg/48 p-3 text-[0.76rem] text-muted no-underline transition duration-150 ease-in-out hover:border-accent/50"
+          className="flex min-w-0 flex-col gap-1 rounded-[0.55rem] border border-brand-border-subtle bg-brand-bg/60 p-3 text-[0.76rem] text-muted no-underline transition duration-150 ease-in-out hover:border-brand-turquoise/40 hover:-translate-y-0.5"
           href={`${user.html_url}?tab=followers`}
           target="_blank"
           rel="noreferrer"
@@ -34,7 +34,7 @@ function GitHubShowcase({ summary }) {
           <span>Followers</span>
         </a>
         <a
-          className="flex min-w-0 flex-col gap-1 rounded-[0.55rem] border border-[#9eaedb]/12 bg-page-bg/48 p-3 text-[0.76rem] text-muted no-underline transition duration-150 ease-in-out hover:border-accent/50"
+          className="flex min-w-0 flex-col gap-1 rounded-[0.55rem] border border-brand-border-subtle bg-brand-bg/60 p-3 text-[0.76rem] text-muted no-underline transition duration-150 ease-in-out hover:border-brand-turquoise/40 hover:-translate-y-0.5"
           href={`${user.html_url}?tab=following`}
           target="_blank"
           rel="noreferrer"
@@ -43,7 +43,7 @@ function GitHubShowcase({ summary }) {
           <span>Following</span>
         </a>
         <a
-          className="flex min-w-0 flex-col gap-1 rounded-[0.55rem] border border-[#9eaedb]/12 bg-page-bg/48 p-3 text-[0.76rem] text-muted no-underline transition duration-150 ease-in-out hover:border-accent/50"
+          className="flex min-w-0 flex-col gap-1 rounded-[0.55rem] border border-brand-border-subtle bg-brand-bg/60 p-3 text-[0.76rem] text-muted no-underline transition duration-150 ease-in-out hover:border-brand-turquoise/40 hover:-translate-y-0.5"
           href={user.html_url}
           target="_blank"
           rel="noreferrer"

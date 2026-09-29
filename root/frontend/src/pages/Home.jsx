@@ -13,10 +13,10 @@ function Home() {
     <>
       {/* Hero Section */}
       <section className="max-w-190 mt-12 sm:mt-16 md:mt-[14vh] lg:mt-[16vh]">
-        <p className="mb-5 text-md font-extrabold uppercase tracking-[0.14em] text-accent">
+        <p className="mb-5 text-md font-extrabold uppercase tracking-[0.14em] text-brand-turquoise">
           {page.eyebrow}
         </p>
-        <h1 className="mb-6 max-w-182.5 text-[clamp(2.75rem,7vw,5.7rem)] font-bold leading-[0.98] tracking-[-0.055em] text-emerald-100">
+        <h1 className="mb-6 max-w-182.5 text-[clamp(2.75rem,7vw,5.7rem)] font-bold leading-[0.98] tracking-[-0.055em] text-white">
           {page.title}
         </h1>
         <p className="mb-8 max-w-162.5 text-[clamp(1rem,1.5vw,1.15rem)] leading-[1.75] text-muted">
@@ -67,8 +67,14 @@ function Home() {
         </AlternatingStoryRow>
       </div>
 
+      {/* Layered Wave Strata Section Divider */}
+      <div
+        className="mt-20 md:mt-32 w-full h-16 md:h-24 bg-wave-strata bg-contain bg-center bg-no-repeat opacity-40 pointer-events-none"
+        aria-hidden="true"
+      />
+
       {/* Dedicated Full-Width Tech Stack Showcase */}
-      <div className="mt-28 md:mt-44 lg:mt-56">
+      <div className="mt-8 md:mt-16">
         <TechStackBento />
       </div>
     </>

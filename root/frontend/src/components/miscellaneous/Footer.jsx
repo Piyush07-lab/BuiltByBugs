@@ -4,7 +4,7 @@ export default function Footer() {
   const { openDrawer } = useDrawer();
 
   return (
-    <footer className="relative mt-auto w-full border-t border-white/10 bg-black text-zinc-400">
+    <footer className="relative mt-auto w-full border-t border-brand-border-subtle bg-brand-bg/95 backdrop-blur-md text-zinc-400">
       <div className="mx-auto w-[min(100%-2rem,1120px)] sm:w-[min(100%-3rem,1120px)] py-14 md:py-20">
         {/* Quick Link Navigation Columns */}
         <div className="grid grid-cols-2 gap-10 sm:grid-cols-4 md:gap-12">
@@ -13,13 +13,13 @@ export default function Footer() {
             <span className="text-xs font-semibold uppercase tracking-[0.14em] text-white">
               Navigation
             </span>
-            <a href="/" className="text-sm transition-colors hover:text-accent">
+            <a href="/" className="text-sm transition-colors hover:text-brand-turquoise">
               Home
             </a>
-            <a href="/project" className="text-sm transition-colors hover:text-accent">
+            <a href="/project" className="text-sm transition-colors hover:text-brand-turquoise">
               Projects
             </a>
-            <a href="/library" className="text-sm transition-colors hover:text-accent">
+            <a href="/library" className="text-sm transition-colors hover:text-brand-turquoise">
               Library
             </a>
           </div>
@@ -32,14 +32,14 @@ export default function Footer() {
             <button
               type="button"
               onClick={() => openDrawer('chat')}
-              className="text-left text-sm transition-colors hover:text-accent focus:outline-none"
+              className="text-left text-sm transition-colors hover:text-brand-turquoise focus:outline-none cursor-pointer"
             >
               AI Assistant Chat
             </button>
             <button
               type="button"
               onClick={() => openDrawer('contact')}
-              className="text-left text-sm transition-colors hover:text-accent focus:outline-none"
+              className="text-left text-sm transition-colors hover:text-brand-turquoise focus:outline-none cursor-pointer"
             >
               Contact
             </button>
@@ -54,7 +54,7 @@ export default function Footer() {
               href="https://github.com"
               target="_blank"
               rel="noreferrer"
-              className="text-sm transition-colors hover:text-accent"
+              className="text-sm transition-colors hover:text-brand-turquoise"
             >
               GitHub Source
             </a>
@@ -62,7 +62,7 @@ export default function Footer() {
               href="https://gitlab.com"
               target="_blank"
               rel="noreferrer"
-              className="text-sm transition-colors hover:text-accent"
+              className="text-sm transition-colors hover:text-brand-turquoise"
             >
               GitLab Pipelines
             </a>
@@ -75,12 +75,12 @@ export default function Footer() {
             </span>
             <span className="text-sm text-zinc-500">React + Vite SPA</span>
             <span className="text-sm text-zinc-500">Headless UI Core</span>
-            <span className="text-sm text-zinc-500">Tailwind Engine</span>
+            <span className="text-sm text-zinc-500">Tailwind CSS v4</span>
           </div>
         </div>
 
         {/* Bottom Utility Bar */}
-        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/5 pt-8 text-xs tracking-[0.04em] text-zinc-500 sm:flex-row">
+        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-brand-border-subtle/50 pt-8 text-xs tracking-[0.04em] text-zinc-500 sm:flex-row">
           <span>&copy; {new Date().getFullYear()} All rights reserved.</span>
           <span>Inventory-led rebuild</span>
         </div>

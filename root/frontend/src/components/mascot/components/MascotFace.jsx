@@ -7,7 +7,7 @@ export function MascotFace({ eyeOffset, isCurious, isEasterEgg }) {
   const eyeFill = isEasterEgg
     ? 'url(#eyeLedAmber)'
     : isCurious
-      ? '#67e8f9'
+      ? '#06b6d4'
       : 'url(#eyeLedCyan)';
 
   return (
@@ -59,7 +59,7 @@ export function MascotFace({ eyeOffset, isCurious, isEasterEgg }) {
           <>
             <path
               d={`M 43 ${23 + eyeOffset.y} Q ${48 + eyeOffset.x} ${20 + eyeOffset.y} 53 ${22 + eyeOffset.y}`}
-              stroke="#67e8f9"
+              stroke="#06b6d4"
               strokeWidth="1.8"
               strokeLinecap="round"
               fill="none"
@@ -68,7 +68,7 @@ export function MascotFace({ eyeOffset, isCurious, isEasterEgg }) {
             />
             <path
               d={`M 67 ${22 + eyeOffset.y} Q ${72 + eyeOffset.x} ${20 + eyeOffset.y} 77 ${23 + eyeOffset.y}`}
-              stroke="#67e8f9"
+              stroke="#06b6d4"
               strokeWidth="1.8"
               strokeLinecap="round"
               fill="none"
@@ -93,14 +93,14 @@ export function MascotFace({ eyeOffset, isCurious, isEasterEgg }) {
           cy="37.5"
           rx="2.6"
           ry="3.2"
-          fill="#38bdf8"
+          fill="#06b6d4"
           filter="url(#hologlow)"
           className="transition-all duration-300"
         />
       ) : (
         <path
           d="M 57 36 C 57 39.5, 63 39.5, 63 36 Z"
-          fill="#38bdf8"
+          fill="#06b6d4"
           filter="url(#hologlow)"
           className="transition-all duration-300 group-hover:fill-cyan-300"
         />

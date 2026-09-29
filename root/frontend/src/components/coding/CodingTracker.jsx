@@ -4,6 +4,15 @@ import ErrorState from '../miscellaneous/ErrorState.jsx';
 import LoadingState from '../miscellaneous/LoadingState.jsx';
 import WidgetShell from '../miscellaneous/WidgetShell.jsx';
 
+function getLangGradient(name = '') {
+  const lower = name.toLowerCase();
+  if (lower.includes('typescript')) return 'from-brand-violet to-brand-blue';
+  if (lower.includes('javascript')) return 'from-brand-blue to-brand-turquoise';
+  if (lower.includes('json') || lower.includes('html') || lower.includes('css'))
+    return 'from-brand-turquoise to-brand-green';
+  return 'from-brand-turquoise to-brand-green';
+}
+
 function CodingOverviewSlide({ summary }) {
   const languages = (summary.languages || []).slice(0, 3);
 
@@ -11,13 +20,13 @@ function CodingOverviewSlide({ summary }) {
     <div className="flex h-full flex-col justify-between">
       <div className="flex flex-col gap-2.5">
         <div className="grid grid-cols-2 gap-2.5">
-          <span className="flex min-w-0 flex-col gap-0.5 rounded-[0.55rem] border border-[#9eaedb]/12 bg-page-bg/48 p-2.5 text-[0.74rem] text-muted">
+          <span className="flex min-w-0 flex-col gap-0.5 rounded-[0.55rem] border border-brand-border-subtle bg-brand-bg/60 p-2.5 text-[0.74rem] text-muted">
             <strong className="text-lg font-bold text-white">
               {summary.totalMinutes ?? 0}
             </strong>
             Minutes Logged
           </span>
-          <span className="flex min-w-0 flex-col gap-0.5 rounded-[0.55rem] border border-[#9eaedb]/12 bg-page-bg/48 p-2.5 text-[0.74rem] text-muted">
+          <span className="flex min-w-0 flex-col gap-0.5 rounded-[0.55rem] border border-brand-border-subtle bg-brand-bg/60 p-2.5 text-[0.74rem] text-muted">
             <strong className="text-lg font-bold text-white">
               {summary.dailyAverageText || 'n/a'}
             </strong>
@@ -34,9 +43,9 @@ function CodingOverviewSlide({ summary }) {
                   {language.text || `${language.percent}%`}
                 </small>
               </div>
-              <div className="h-1.5 overflow-hidden rounded-full bg-page-bg/72">
+              <div className="h-1.5 overflow-hidden rounded-full bg-brand-bg/80">
                 <span
-                  className="block h-full rounded-[inherit] bg-linear-to-r from-accent-strong to-[#60a5fa] transition-all duration-500"
+                  className={`block h-full rounded-[inherit] bg-gradient-to-r ${getLangGradient(language.name)} transition-all duration-500`}
                   style={{ width: `${language.percent || 0}%` }}
                 />
               </div>
@@ -45,9 +54,9 @@ function CodingOverviewSlide({ summary }) {
         </div>
       </div>
 
-      <div className="pt-2 border-t border-[#9eaedb]/10">
+      <div className="pt-2 border-t border-brand-border-subtle">
         <p className="m-0 truncate text-[0.72rem] text-muted">
-          <span className="text-subtle">Activity status:</span>{' '}
+          <span className="text-brand-green font-medium">● Live Uptime:</span>{' '}
           {summary.totalText || 'Active cadence'}
         </p>
       </div>
@@ -63,12 +72,12 @@ function CodingSpecificSlide({ summary, activity: _activity }) {
     <div className="flex h-full flex-col justify-between">
       <div className="flex flex-col gap-2.5">
         <div className="grid grid-cols-2 gap-2.5">
-          <span className="flex min-w-0 flex-col gap-0.5 rounded-[0.55rem] border border-[#9eaedb]/12 bg-page-bg/48 p-2.5 text-[0.74rem] text-muted">
+          <span className="flex min-w-0 flex-col gap-0.5 rounded-[0.55rem] border border-brand-border-subtle bg-brand-bg/60 p-2.5 text-[0.74rem] text-muted">
             <strong className="text-lg font-bold text-white">{projects.length}</strong>
             Active Projects
           </span>
-          <span className="flex min-w-0 flex-col gap-0.5 rounded-[0.55rem] border border-[#9eaedb]/12 bg-page-bg/48 p-2.5 text-[0.74rem] text-muted">
-            <strong className="text-lg font-bold text-white">
+          <span className="flex min-w-0 flex-col gap-0.5 rounded-[0.55rem] border border-brand-border-subtle bg-brand-bg/60 p-2.5 text-[0.74rem] text-muted">
+            <strong className="text-lg font-bold text-brand-turquoise">
               {editors[0]?.name || 'VS Code'}
             </strong>
             Primary Editor
@@ -78,11 +87,11 @@ function CodingSpecificSlide({ summary, activity: _activity }) {
         <div className="flex flex-col gap-1.5">
           {projects.map((project) => (
             <div
-              className="flex items-center justify-between gap-3 border-b border-[#9eaedb]/10 pb-1 text-xs text-[#d7deed]"
+              className="flex items-center justify-between gap-3 border-b border-brand-border-subtle pb-1 text-xs text-[#d7deed]"
               key={project.name}
             >
               <span className="truncate font-medium">{project.name}</span>
-              <small className="shrink-0 text-subtle text-[0.7rem]">
+              <small className="shrink-0 text-brand-turquoise/80 text-[0.7rem]">
                 {project.text || `${project.totalMinutes} min`}
               </small>
             </div>
@@ -90,9 +99,9 @@ function CodingSpecificSlide({ summary, activity: _activity }) {
         </div>
       </div>
 
-      <div className="pt-2 border-t border-[#9eaedb]/10">
+      <div className="pt-2 border-t border-brand-border-subtle">
         <p className="m-0 truncate text-[0.72rem] text-muted">
-          <span className="text-subtle">Environment:</span>{' '}
+          <span className="text-brand-violet font-medium">Environment:</span>{' '}
           {editors.map((editor) => editor.name).join(', ') || 'Active workspace'}
         </p>
       </div>
@@ -149,7 +158,7 @@ function CodingTracker() {
           aria-label={`Slide ${idx + 1}`}
           onClick={() => setSlide(idx)}
           className={`h-1.5 rounded-full transition-all duration-300 focus:outline-hidden cursor-pointer ${
-            slide === idx ? 'w-4 bg-accent' : 'w-1.5 bg-white/20 hover:bg-white/40'
+            slide === idx ? 'w-4 bg-brand-turquoise shadow-glow-turquoise' : 'w-1.5 bg-white/20 hover:bg-white/40'
           }`}
         />
       ))}

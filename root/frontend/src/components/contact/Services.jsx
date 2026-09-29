@@ -48,14 +48,14 @@ export function AutoSwitchHireTag() {
         onMouseLeave={() => {
           setIsPaused(false);
         }}
-        className="group relative px-2.5 py-1 text-xs font-semibold text-emerald-400 bg-emerald-950/20 rounded border border-emerald-900/40 hover:bg-emerald-950/50 transition-all overflow-hidden"
+        className="group relative px-2.5 py-1 text-xs font-semibold text-brand-turquoise bg-brand-surface rounded border border-brand-turquoise/40 hover:bg-brand-surface-elevated hover:border-brand-turquoise/70 transition-all overflow-hidden"
       >
         {currentService}
 
-        <span className="absolute bottom-0 left-0 h-0.5 w-full bg-emerald-500/20" />
+        <span className="absolute bottom-0 left-0 h-0.5 w-full bg-brand-turquoise/20" />
 
         <span
-          className="absolute bottom-0 left-0 h-0.5 w-1/2 bg-linear-to-r from-transparent via-emerald-400 to-transparent"
+          className="absolute bottom-0 left-0 h-0.5 w-1/2 bg-linear-to-r from-transparent via-brand-turquoise to-transparent"
           style={{
             animation: 'pulseSlide 2.5s ease-in-out infinite',
           }}

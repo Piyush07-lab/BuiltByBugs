@@ -98,41 +98,41 @@ export function LeetcodeStats({ stats: initialStats }) {
       solved: easySolved,
       submissions: easySubmissions,
       rate: easyRate,
-      accentColor: 'text-emerald-400',
-      badgeBg: 'bg-emerald-400/10 border-emerald-400/20',
-      barColor: 'bg-emerald-400',
+      accentColor: 'text-brand-green',
+      badgeBg: 'bg-brand-green/10 border-brand-green/20',
+      barColor: 'bg-brand-green',
     },
     {
       difficulty: 'Medium',
       solved: mediumSolved,
       submissions: mediumSubmissions,
       rate: mediumRate,
-      accentColor: 'text-amber-400',
-      badgeBg: 'bg-amber-400/10 border-amber-400/20',
-      barColor: 'bg-amber-400',
+      accentColor: 'text-brand-turquoise',
+      badgeBg: 'bg-brand-turquoise/10 border-brand-turquoise/20',
+      barColor: 'bg-brand-turquoise',
     },
     {
       difficulty: 'Hard',
       solved: hardSolved,
       submissions: hardSubmissions,
       rate: hardRate,
-      accentColor: 'text-rose-400',
-      badgeBg: 'bg-rose-400/10 border-rose-400/20',
-      barColor: 'bg-rose-500',
+      accentColor: 'text-brand-violet',
+      badgeBg: 'bg-brand-violet/10 border-brand-violet/20',
+      barColor: 'bg-brand-violet',
     },
   ];
 
   return (
-    <section className="rounded-2xl border border-[#9eaedb]/[0.16] bg-[#11172a]/[0.62] p-6 flex flex-col justify-between">
+    <section className="rounded-2xl border border-brand-border bg-brand-card backdrop-blur-md p-6 shadow-paper-depth flex flex-col justify-between">
       {/* Top row: Header & Profile badge */}
       <div className="flex flex-col items-start justify-between gap-4 md:flex-row">
         <div>
           <div className="flex items-center gap-2 mb-2">
-            <p className="text-xs font-extrabold uppercase tracking-[0.14em] text-accent">
+            <p className="text-xs font-extrabold uppercase tracking-[0.14em] text-brand-turquoise">
               LeetCode Activity
             </p>
             {isCached && (
-              <span className="rounded-full border border-white/10 bg-white/5 px-2 py-0.5 text-[0.68rem] text-subtle">
+              <span className="rounded-full border border-brand-border-subtle bg-brand-bg/60 px-2 py-0.5 text-[0.68rem] text-subtle">
                 Offline Cached
               </span>
             )}
@@ -143,7 +143,7 @@ export function LeetcodeStats({ stats: initialStats }) {
               Problems Solved
             </span>
           </h2>
-          <p className="mt-1 leading-relaxed text-[#99a4be] text-sm">
+          <p className="mt-1 leading-relaxed text-muted text-sm">
             Continuous practice across algorithmic data structures and problem solving.
           </p>
         </div>
@@ -152,7 +152,7 @@ export function LeetcodeStats({ stats: initialStats }) {
           href={profileUrl}
           target="_blank"
           rel="noreferrer"
-          className="inline-flex items-center gap-1.5 self-start md:self-auto rounded-full border border-[#9eaedb]/20 bg-page-bg/48 px-3.5 py-1.5 text-xs font-bold text-[#a7f3d0] transition-colors hover:border-[#a7f3d0]/40 hover:bg-[#a7f3d0]/10"
+          className="inline-flex items-center gap-1.5 self-start md:self-auto rounded-full border border-brand-turquoise/30 bg-brand-bg/60 px-3.5 py-1.5 text-xs font-bold text-brand-turquoise transition-colors hover:border-brand-turquoise/60 hover:bg-brand-turquoise/10"
         >
           <span>@{username}</span>
           <svg
@@ -173,27 +173,27 @@ export function LeetcodeStats({ stats: initialStats }) {
 
       {/* Middle Quick Stats */}
       <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-3">
-        <div className="flex flex-col rounded-xl border border-[#9eaedb]/12 bg-page-bg/48 p-3">
+        <div className="flex flex-col rounded-xl border border-brand-border-subtle bg-brand-bg/60 p-3">
           <span className="text-[0.7rem] font-bold uppercase tracking-wider text-subtle">
             Global Ranking
           </span>
           <strong className="mt-1 text-base font-extrabold text-white">#{ranking}</strong>
         </div>
 
-        <div className="flex flex-col rounded-xl border border-[#9eaedb]/12 bg-page-bg/48 p-3">
+        <div className="flex flex-col rounded-xl border border-brand-border-subtle bg-brand-bg/60 p-3">
           <span className="text-[0.7rem] font-bold uppercase tracking-wider text-subtle">
             Acceptance Rate
           </span>
-          <strong className="mt-1 text-base font-extrabold text-emerald-400">
+          <strong className="mt-1 text-base font-extrabold text-brand-green">
             {overallAcceptance}%
           </strong>
         </div>
 
-        <div className="flex flex-col rounded-xl border border-[#9eaedb]/12 bg-page-bg/48 p-3">
+        <div className="flex flex-col rounded-xl border border-brand-border-subtle bg-brand-bg/60 p-3">
           <span className="text-[0.7rem] font-bold uppercase tracking-wider text-subtle">
             Total Submissions
           </span>
-          <strong className="mt-1 text-base font-extrabold text-[#60a5fa]">
+          <strong className="mt-1 text-base font-extrabold text-brand-turquoise">
             {allSubmissions}
           </strong>
         </div>
@@ -212,7 +212,7 @@ export function LeetcodeStats({ stats: initialStats }) {
           {difficultyCards.map((item) => (
             <div
               key={item.difficulty}
-              className="rounded-xl border border-[#9eaedb]/12 bg-page-bg/48 p-3 flex flex-col justify-between"
+              className="rounded-xl border border-brand-border-subtle bg-brand-bg/60 p-3 flex flex-col justify-between"
             >
               <div className="flex items-center justify-between">
                 <span className={`text-xs font-bold ${item.accentColor}`}>
@@ -226,7 +226,7 @@ export function LeetcodeStats({ stats: initialStats }) {
                   / {item.submissions} subs
                 </span>
               </div>
-              <div className="h-1.5 w-full overflow-hidden rounded-full bg-[#080b16]/72">
+              <div className="h-1.5 w-full overflow-hidden rounded-full bg-brand-bg/80">
                 <span
                   className={`block h-full rounded-full ${item.barColor} transition-all duration-500`}
                   style={{ width: `${Math.min(100, Math.max(8, Number(item.rate)))}%` }}
@@ -237,31 +237,31 @@ export function LeetcodeStats({ stats: initialStats }) {
         </div>
 
         {/* Proportional distribution bar */}
-        <div className="mt-4 rounded-xl border border-[#9eaedb]/10 bg-page-bg/30 p-3">
+        <div className="mt-4 rounded-xl border border-brand-border-subtle bg-brand-bg/40 p-3">
           <div className="mb-2 flex items-center justify-between text-[0.72rem] text-muted">
             <span className="font-semibold text-subtle">Distribution</span>
             <span>
               {easySolved} Easy · {mediumSolved} Medium · {hardSolved} Hard
             </span>
           </div>
-          <div className="flex h-2 w-full overflow-hidden rounded-full bg-[#080b16] p-0.5 gap-0.5">
+          <div className="flex h-2 w-full overflow-hidden rounded-full bg-brand-bg p-0.5 gap-0.5">
             {easyPct > 0 && (
               <div
-                className="h-full rounded-full bg-emerald-400"
+                className="h-full rounded-full bg-brand-green"
                 style={{ width: `${easyPct}%` }}
                 title={`Easy: ${easySolved}`}
               />
             )}
             {medPct > 0 && (
               <div
-                className="h-full rounded-full bg-amber-400"
+                className="h-full rounded-full bg-brand-turquoise"
                 style={{ width: `${medPct}%` }}
                 title={`Medium: ${mediumSolved}`}
               />
             )}
             {hardPct > 0 && (
               <div
-                className="h-full rounded-full bg-rose-500"
+                className="h-full rounded-full bg-brand-violet"
                 style={{ width: `${hardPct}%` }}
                 title={`Hard: ${hardSolved}`}
               />

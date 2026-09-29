@@ -1,0 +1,27 @@
+<svg width="120" height="104" viewBox="0 0 120 104" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="nodeGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="2" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+  <!-- Hexagon Path Unit -->
+  <g fill="none" stroke="#06B6D4" stroke-opacity="0.15" stroke-width="1">
+    <path d="M 30,2 L 60,19 L 60,53 L 30,70 L 0,53 L 0,19 Z" />
+    <path d="M 90,2 L 120,19 L 120,53 L 90,70 L 60,53 L 60,19 Z" />
+    <path d="M 60,53 L 90,70 L 90,104 L 60,121 L 30,104 L 30,70 Z" />
+    <path d="M 0,53 L 30,70 L 30,104 L 0,121 L -30,104 L -30,70 Z" />
+    <path d="M 120,53 L 150,70 L 150,104 L 120,121 L 90,104 L 90,70 Z" />
+  </g>
+  <!-- Live Circuit Junction Nodes -->
+  <g fill="#06B6D4" filter="url(#nodeGlow)">
+    <circle cx="30" cy="2" r="2.2" opacity="0.8" />
+    <circle cx="60" cy="53" r="2.5" opacity="0.9" fill="#10B981" />
+    <circle cx="90" cy="2" r="1.8" opacity="0.6" />
+    <circle cx="30" cy="70" r="2.2" opacity="0.75" />
+    <circle cx="90" cy="70" r="2.4" opacity="0.85" />
+  </g>
+</svg>

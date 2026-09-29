@@ -11,10 +11,10 @@ function Library() {
   return (
     <>
       <section className="max-w-190">
-        <p className="mb-5 text-md font-extrabold uppercase tracking-[0.14em] text-accent">
+        <p className="mb-5 text-md font-extrabold uppercase tracking-[0.14em] text-brand-turquoise">
           {page.eyebrow}
         </p>
-        <h1 className="mb-6 max-w-182.5 text-[clamp(2.75rem,7vw,5.7rem)] font-bold leading-[0.98] tracking-[-0.055em] text-emerald-100">
+        <h1 className="mb-6 max-w-182.5 text-[clamp(2.75rem,7vw,5.7rem)] font-bold leading-[0.98] tracking-[-0.055em] text-white">
           {page.title}
         </h1>
         <p className="mb-8 max-w-162.5 text-[clamp(1rem,1.5vw,1.15rem)] leading-[1.75] text-muted">

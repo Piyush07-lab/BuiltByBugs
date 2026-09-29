@@ -62,7 +62,7 @@ export default function MascotBot({ armAction = null } = {}) {
         className={`relative group ${isDraggingState ? 'cursor-grabbing' : 'cursor-grab'}`}
       >
         {/* Ambient Background Glow */}
-        <div className="pointer-events-none absolute inset-0 -z-10 rounded-full bg-blue-500/15 blur-2xl transition-all duration-500 group-hover:bg-cyan-500/30 group-hover:scale-125" />
+        <div className="pointer-events-none absolute inset-0 -z-10 rounded-full bg-brand-violet/20 blur-2xl transition-all duration-500 group-hover:bg-brand-turquoise/30 group-hover:scale-125" />
 
         {/* Companion Bot Wrapper */}
         <div className="relative flex flex-col items-center">
@@ -74,7 +74,7 @@ export default function MascotBot({ armAction = null } = {}) {
               if (!isDraggingState) triggerAction('wave');
             }}
             aria-label="Ask AI Assistant"
-            className="relative flex flex-col items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#161922] rounded-[30px]"
+            className="relative flex flex-col items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-turquoise focus-visible:ring-offset-2 focus-visible:ring-offset-brand-bg rounded-[30px]"
             style={{
               transform: `perspective(400px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg) rotateZ(${bankingTilt}deg)`,
               transition: isDraggingState ? 'none' : 'transform 0.12s ease-out',

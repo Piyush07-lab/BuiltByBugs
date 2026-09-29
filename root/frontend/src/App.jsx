@@ -21,11 +21,11 @@ function App() {
     <DrawerProvider>
       <div className="relative flex min-h-screen flex-col overflow-hidden isolate">
         <div
-          className="pointer-events-none absolute -z-10 h-112 w-md rounded-full border border-accent/10 top-72 -left-76"
+          className="pointer-events-none absolute -z-10 h-112 w-md rounded-full border border-brand-violet/20 bg-brand-violet/[0.02] shadow-glow-violet top-72 -left-76"
           aria-hidden="true"
         />
         <div
-          className="pointer-events-none absolute -z-10 h-112 w-md rounded-full border border-[#93c5fd]/10 top-32 -right-80"
+          className="pointer-events-none absolute -z-10 h-112 w-md rounded-full border border-brand-turquoise/20 bg-brand-turquoise/[0.02] shadow-glow-turquoise top-32 -right-80"
           aria-hidden="true"
         />
 

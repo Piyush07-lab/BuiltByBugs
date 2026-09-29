@@ -15,13 +15,13 @@ export default function AlternatingStoryRow({
         <div className={`relative ${reverse ? 'md:order-2' : 'md:order-1'}`}>
           <span
             aria-hidden="true"
-            className="pointer-events-none absolute -top-12 -left-4 select-none text-7xl font-black text-white/5 md:-top-16 md:text-8xl"
+            className="pointer-events-none absolute -top-12 -left-4 select-none text-7xl font-black text-brand-violet/10 md:-top-16 md:text-8xl"
           >
             {index}
           </span>
 
           <div className="relative z-10">
-            <p className="mb-3 text-xs font-extrabold uppercase tracking-[0.14em] text-accent">
+            <p className="mb-3 text-xs font-extrabold uppercase tracking-[0.14em] text-brand-turquoise">
               {tag}
             </p>
             <h2 className="mb-4 text-2xl font-bold tracking-[-0.03em] text-white md:text-3xl lg:text-4xl">
@@ -33,10 +33,12 @@ export default function AlternatingStoryRow({
             {linkText && (
               <a
                 href={linkHref}
-                className="group inline-flex items-center gap-2 text-sm font-semibold text-white transition-colors hover:text-accent"
+                className="group inline-flex items-center gap-2 text-sm font-semibold text-white transition-colors hover:text-brand-turquoise"
               >
                 {linkText}
-                <span className="transition-transform group-hover:translate-x-1">→</span>
+                <span className="transition-transform group-hover:translate-x-1 text-brand-turquoise">
+                  →
+                </span>
               </a>
             )}
           </div>

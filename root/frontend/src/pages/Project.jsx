@@ -73,10 +73,10 @@ function Project() {
   return (
     <>
       <section className="max-w-190">
-        <p className="mb-5 text-md font-extrabold uppercase tracking-[0.14em] text-accent">
+        <p className="mb-5 text-md font-extrabold uppercase tracking-[0.14em] text-brand-turquoise">
           {page.eyebrow}
         </p>
-        <h1 className="mb-6 max-w-182.5 text-[clamp(2.75rem,7vw,5.7rem)] font-bold leading-[0.98] tracking-[-0.055em] text-emerald-100">
+        <h1 className="mb-6 max-w-182.5 text-[clamp(2.75rem,7vw,5.7rem)] font-bold leading-[0.98] tracking-[-0.055em] text-white">
           {page.title}
         </h1>
         <p className="mb-8 max-w-162.5 text-[clamp(1rem,1.5vw,1.15rem)] leading-[1.75] text-muted">
@@ -93,7 +93,7 @@ function Project() {
           <>
             {/* ── Mobile Tab Bar ── */}
             <nav
-              className="md:hidden sticky z-20 -mx-4 px-4 py-3 border-b border-[#9eaedb]/10 bg-[#080b16]/90 backdrop-blur-md"
+              className="md:hidden sticky z-20 -mx-4 px-4 py-3 border-b border-brand-border-subtle bg-brand-bg/90 backdrop-blur-md"
               style={{ top: '84px' }}
               aria-label="Project sections"
             >
@@ -107,7 +107,7 @@ function Project() {
                     onClick={() => switchTab(tab.id)}
                     className={`flex-1 rounded-lg py-2 text-center text-[0.8rem] font-semibold transition-all duration-200 cursor-pointer ${
                       activeTab === tab.id
-                        ? 'bg-accent/12 text-white border border-accent/20'
+                        ? 'bg-brand-violet/20 text-white border border-brand-violet/40 shadow-[0_0_12px_rgba(139,92,246,0.2)]'
                         : 'text-muted border border-transparent hover:bg-white/5 hover:text-white'
                     }`}
                   >

@@ -18,19 +18,19 @@ function GitHubProfileSlide({ summary }) {
         </div>
 
         <div className="grid grid-cols-3 gap-2.5">
-          <span className="flex min-w-0 flex-col gap-0.5 rounded-[0.55rem] border border-[#9eaedb]/12 bg-page-bg/48 p-2.5 text-[0.74rem] text-muted">
+          <span className="flex min-w-0 flex-col gap-0.5 rounded-[0.55rem] border border-brand-border-subtle bg-brand-bg/60 p-2.5 text-[0.74rem] text-muted">
             <strong className="text-lg font-bold text-white">
               {user.public_repos ?? 0}
             </strong>
             Repos
           </span>
-          <span className="flex min-w-0 flex-col gap-0.5 rounded-[0.55rem] border border-[#9eaedb]/12 bg-page-bg/48 p-2.5 text-[0.74rem] text-muted">
+          <span className="flex min-w-0 flex-col gap-0.5 rounded-[0.55rem] border border-brand-border-subtle bg-brand-bg/60 p-2.5 text-[0.74rem] text-muted">
             <strong className="text-lg font-bold text-white">
               {user.followers ?? 0}
             </strong>
             Followers
           </span>
-          <span className="flex min-w-0 flex-col gap-0.5 rounded-[0.55rem] border border-[#9eaedb]/12 bg-page-bg/48 p-2.5 text-[0.74rem] text-muted">
+          <span className="flex min-w-0 flex-col gap-0.5 rounded-[0.55rem] border border-brand-border-subtle bg-brand-bg/60 p-2.5 text-[0.74rem] text-muted">
             <strong className="text-lg font-bold text-white">
               {user.following ?? 0}
             </strong>
@@ -41,7 +41,7 @@ function GitHubProfileSlide({ summary }) {
 
       <div className="pt-2">
         <a
-          className="inline-flex items-center gap-1.5 text-xs font-extrabold text-accent no-underline hover:underline"
+          className="inline-flex items-center gap-1.5 text-xs font-extrabold text-brand-turquoise no-underline hover:text-brand-green transition-colors"
           href={user.html_url}
           target="_blank"
           rel="noreferrer"
@@ -68,13 +68,13 @@ function GitHubRepoStatsSlide({ summary }) {
     <div className="flex h-full flex-col justify-between">
       <div className="flex flex-col gap-2.5">
         <div className="grid grid-cols-2 gap-2.5">
-          <span className="flex min-w-0 flex-col gap-0.5 rounded-[0.55rem] border border-[#9eaedb]/12 bg-page-bg/48 p-2.5 text-[0.74rem] text-muted">
+          <span className="flex min-w-0 flex-col gap-0.5 rounded-[0.55rem] border border-brand-border-subtle bg-brand-bg/60 p-2.5 text-[0.74rem] text-muted">
             <strong className="text-lg font-bold text-white">{repos.length}</strong>
             Public Repos
           </span>
-          <span className="flex min-w-0 flex-col gap-0.5 rounded-[0.55rem] border border-[#9eaedb]/12 bg-page-bg/48 p-2.5 text-[0.74rem] text-muted">
-            <strong className="text-lg font-bold text-white">
-              {topRepos[0]?.stargazers_count ?? 0}
+          <span className="flex min-w-0 flex-col gap-0.5 rounded-[0.55rem] border border-brand-border-subtle bg-brand-bg/60 p-2.5 text-[0.74rem] text-muted">
+            <strong className="text-lg font-bold text-brand-gold">
+              ★ {topRepos[0]?.stargazers_count ?? 0}
             </strong>
             Top Stars
           </span>
@@ -83,14 +83,14 @@ function GitHubRepoStatsSlide({ summary }) {
         <div className="flex flex-col gap-1.5">
           {topRepos.map((repo) => (
             <a
-              className="flex items-center justify-between gap-3 border-b border-[#9eaedb]/10 pb-1 text-xs text-[#d7deed] no-underline hover:text-white transition-colors"
+              className="flex items-center justify-between gap-3 border-b border-brand-border-subtle pb-1 text-xs text-[#d7deed] no-underline hover:text-brand-turquoise transition-colors"
               href={repo.html_url}
               target="_blank"
               rel="noreferrer"
               key={repo.id || repo.name}
             >
               <span className="truncate font-medium">{repo.name}</span>
-              <small className="shrink-0 text-subtle text-[0.7rem]">
+              <small className="shrink-0 text-brand-turquoise/80 text-[0.7rem]">
                 {repo.language || 'Unknown'} · ★{repo.stargazers_count || 0}
               </small>
             </a>
@@ -99,9 +99,9 @@ function GitHubRepoStatsSlide({ summary }) {
       </div>
 
       {latestRepo && (
-        <div className="pt-2 border-t border-[#9eaedb]/10">
+        <div className="pt-2 border-t border-brand-border-subtle">
           <p className="m-0 truncate text-[0.72rem] text-muted">
-            <span className="text-subtle">Latest update:</span> {latestRepo.name}
+            <span className="text-brand-turquoise">Latest update:</span> {latestRepo.name}
           </p>
         </div>
       )}
@@ -152,7 +152,7 @@ function GitHubWidget() {
           aria-label={`Slide ${idx + 1}`}
           onClick={() => setSlide(idx)}
           className={`h-1.5 rounded-full transition-all duration-300 focus:outline-hidden cursor-pointer ${
-            slide === idx ? 'w-4 bg-accent' : 'w-1.5 bg-white/20 hover:bg-white/40'
+            slide === idx ? 'w-4 bg-brand-turquoise shadow-glow-turquoise' : 'w-1.5 bg-white/20 hover:bg-white/40'
           }`}
         />
       ))}

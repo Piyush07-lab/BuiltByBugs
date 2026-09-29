@@ -110,9 +110,9 @@ export function MascotChassis({
 
         {/* Eye LED Glow Gradients */}
         <radialGradient id="eyeLedCyan" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#cffafe" />
-          <stop offset="40%" stopColor="#38bdf8" />
-          <stop offset="100%" stopColor="#0284c7" />
+          <stop offset="0%" stopColor="#a5f3fc" />
+          <stop offset="40%" stopColor="#06b6d4" />
+          <stop offset="100%" stopColor="#0891b2" />
         </radialGradient>
         <radialGradient id="eyeLedAmber" cx="50%" cy="50%" r="50%">
           <stop offset="0%" stopColor="#fef08a" />

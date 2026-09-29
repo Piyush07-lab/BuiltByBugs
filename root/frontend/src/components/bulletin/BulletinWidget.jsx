@@ -16,6 +16,34 @@ function BulletinWidget() {
     return () => clearInterval(timer);
   }, [isPaused]);
 
+  const getStatusBadge = (bulletin) => {
+    if (bulletin.title?.includes('Compiler Pipeline')) {
+      return (
+        <span className="inline-flex items-center gap-1.5 rounded-full border-metallic-green bg-brand-green/10 px-2 py-0.5 text-[0.65rem] font-bold text-brand-green">
+          <span className="h-1.5 w-1.5 rounded-full bg-brand-green shadow-glow-green" />
+          Build Success
+        </span>
+      );
+    }
+    if (bulletin.title?.includes('Rule Engine')) {
+      return (
+        <span className="inline-flex items-center gap-1.5 rounded-full border border-brand-turquoise/40 bg-brand-turquoise/10 px-2 py-0.5 text-[0.65rem] font-bold text-cyan-300 animate-pulse-glow">
+          <span className="h-1.5 w-1.5 rounded-full bg-brand-turquoise" />
+          Active Execution
+        </span>
+      );
+    }
+    if (bulletin.tag?.includes('Next') || bulletin.tag?.includes('Upcoming')) {
+      return (
+        <span className="inline-flex items-center gap-1.5 rounded-full border border-brand-violet/30 bg-brand-violet/10 px-2 py-0.5 text-[0.65rem] font-bold text-purple-300">
+          <span className="h-1.5 w-1.5 rounded-full bg-brand-violet" />
+          Queued / Parsing
+        </span>
+      );
+    }
+    return null;
+  };
+
   const indicators = (
     <div
       className="flex items-center gap-1.5"
@@ -31,7 +59,9 @@ function BulletinWidget() {
           aria-label={`Bulletin ${idx + 1}`}
           onClick={() => setIndex(idx)}
           className={`h-1.5 rounded-full transition-all duration-300 focus:outline-hidden cursor-pointer ${
-            index === idx ? 'w-4 bg-accent' : 'w-1.5 bg-white/20 hover:bg-white/40'
+            index === idx
+              ? 'w-4 bg-brand-turquoise shadow-glow-turquoise'
+              : 'w-1.5 bg-white/20 hover:bg-white/40'
           }`}
         />
       ))}
@@ -56,15 +86,20 @@ function BulletinWidget() {
             }`}
           >
             <div className="flex flex-col gap-2">
-              <p className="m-0 text-[1.1rem] font-extrabold text-white">
-                {bulletin.title}
+              <div className="flex items-start justify-between gap-2">
+                <p className="m-0 text-[1.1rem] font-extrabold text-white">
+                  {bulletin.title}
+                </p>
+                {getStatusBadge(bulletin)}
+              </div>
+              <p className="m-0 text-xs font-bold text-brand-turquoise">
+                {bulletin.subtitle}
               </p>
-              <p className="m-0 text-xs font-bold text-accent">{bulletin.subtitle}</p>
               <p className="mt-2 line-clamp-3 text-xs leading-relaxed text-muted">
                 {bulletin.description}
               </p>
             </div>
-            <div className="pt-2 border-t border-[#9eaedb]/10">
+            <div className="pt-2 border-t border-brand-border-subtle">
               <p className="m-0 text-[0.72rem] uppercase tracking-wider text-subtle">
                 {bulletin.date}
               </p>
