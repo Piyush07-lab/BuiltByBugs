@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Drawer from './Drawer.jsx';
 import { useDrawer } from './DrawerContext.jsx';
-import { sendHireRequest, sendChatMessage } from '../../api/fetchApi'; 
+import { sendHireRequest, sendContact, sendChatMessage } from '../../api/fetchApi'; 
 
 function HireForm({ service, onClose }) {
     const [formData, setFormData] = useState({
@@ -115,6 +115,7 @@ function HireForm({ service, onClose }) {
 function ContactForm({ onClose }) {
     const [formData, setFormData] = useState({ name: '', email: '', message: '' });
     const [status, setStatus] = useState('idle');
+    const [errorMessage, setErrorMessage] = useState('');
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -124,13 +125,23 @@ function ContactForm({ onClose }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setStatus('loading');
-        
-        // TODO: Wire this to your actual contact API endpoint later
-        // Simulating a network request for now
-        setTimeout(() => {
+        setErrorMessage('');
+
+        try {
+            await sendContact({
+                name: formData.name,
+                email: formData.email,
+                message: formData.message,
+            });
+
             setStatus('success');
-            setTimeout(() => onClose(), 1500);
-        }, 1000);
+            setTimeout(() => {
+                onClose();
+            }, 1500);
+        } catch (err) {
+            setStatus('error');
+            setErrorMessage(err.message || 'Failed to send message. Please try again.');
+        }
     };
 
     return (
@@ -140,6 +151,12 @@ function ContactForm({ onClose }) {
             {status === 'success' && (
                 <div className="rounded border border-emerald-500/40 bg-emerald-950/40 p-2.5 text-emerald-300">
                     Message sent successfully!
+                </div>
+            )}
+
+            {status === 'error' && (
+                <div className="rounded border border-rose-500/40 bg-rose-950/40 p-2.5 text-rose-300">
+                    {errorMessage}
                 </div>
             )}
 
