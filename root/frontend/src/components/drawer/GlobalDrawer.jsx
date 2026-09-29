@@ -16,15 +16,7 @@ function HireForm({ service, onClose }) {
         const { name, value } = e.target;
         setFormData((prev) => ({ ...prev, [name]: value }));
     };
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData((prev) => ({ ...prev, [name]: value }));
-    };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setStatus('loading');
-        setErrorMessage('');
     const handleSubmit = async (e) => {
         e.preventDefault();
         setStatus('loading');
@@ -79,33 +71,7 @@ function HireForm({ service, onClose }) {
                     className="bg-zinc-800/80 border border-zinc-700 rounded p-2 text-white outline-none focus:ring-1 focus:ring-emerald-500 disabled:opacity-50"
                 />
             </div>
-            <div className="flex flex-col gap-1.5">
-                <label className="text-zinc-300 font-medium">Name</label>
-                <input
-                    type="text"
-                    name="name"
-                    required
-                    disabled={status === 'loading'}
-                    value={formData.name}
-                    onChange={handleChange}
-                    placeholder="Your Name"
-                    className="bg-zinc-800/80 border border-zinc-700 rounded p-2 text-white outline-none focus:ring-1 focus:ring-emerald-500 disabled:opacity-50"
-                />
-            </div>
 
-            <div className="flex flex-col gap-1.5">
-                <label className="text-zinc-300 font-medium">Email</label>
-                <input
-                    type="email"
-                    name="email"
-                    required
-                    disabled={status === 'loading'}
-                    value={formData.email}
-                    onChange={handleChange}
-                    placeholder="you@example.com"
-                    className="bg-zinc-800/80 border border-zinc-700 rounded p-2 text-white outline-none focus:ring-1 focus:ring-emerald-500 disabled:opacity-50"
-                />
-            </div>
             <div className="flex flex-col gap-1.5">
                 <label className="text-zinc-300 font-medium">Email</label>
                 <input
