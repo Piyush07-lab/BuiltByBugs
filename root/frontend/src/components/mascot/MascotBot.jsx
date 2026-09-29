@@ -10,29 +10,28 @@ export default function MascotBot({ armAction = null } = {}) {
   const { openDrawer } = useDrawer();
   const botRef = useRef(null);
 
-  // Easter egg logic
-  const { isEasterEgg, handleEasterEggClick } = useMascotEasterEgg();
+    // Easter egg logic
+    const { isEasterEgg, handleEasterEggClick } = useMascotEasterEgg();
 
-  // Action dispatcher from movement hook
-  const handleMascotAction = (action) => {
-    if (action.type === 'click') {
-      handleEasterEggClick();
-    } else if (action.type === 'openDrawer') {
-      openDrawer('chat');
-    }
-  };
+    // Action dispatcher from movement hook
+    const handleMascotAction = (action) => {
+        if (action.type === 'click') {
+            handleEasterEggClick();
+        } else if (action.type === 'openDrawer') {
+            openDrawer("chat");
+        }
+    };
 
-  // Movement, Dragging, Eye Tracking, and Pull Animation logic
-  const {
-    displayPos,
-    bankingTilt,
-    isDraggingState,
-    isPulling,
-    eyeOffset,
-    tilt,
-    isCurious,
-    handlePointerDown,
-  } = useMascotMovement(botRef, handleMascotAction);
+    // Movement, Dragging, Eye Tracking, and Pull Animation logic
+    const {
+        displayPos,
+        isDraggingState,
+        isPulling,
+        eyeOffset,
+        tilt,
+        isCurious,
+        handlePointerDown
+    } = useMascotMovement(botRef, handleMascotAction);
 
   // 3D Point-to-Point Arm Kinematics & Actions
   const {
@@ -76,8 +75,9 @@ export default function MascotBot({ armAction = null } = {}) {
             aria-label="Ask AI Assistant"
             className="relative flex flex-col items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#161922] rounded-[30px]"
             style={{
-              transform: `perspective(400px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg) rotateZ(${bankingTilt}deg)`,
-              transition: isDraggingState ? 'none' : 'transform 0.12s ease-out',
+                transform: `translate(${displayPos.x}px, ${displayPos.y}px)`,
+                transition: isDraggingState ? 'none' : 'transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)',
+                touchAction: 'none' // Important for native dragging on touch devices
             }}
           >
             {/* 3D Layered SVG Mascot Graphic */}
@@ -107,12 +107,25 @@ export default function MascotBot({ armAction = null } = {}) {
         </div>
       </div>
 
-      <style>{`
+                        {/* Subtitle Prompt Badge */}
+                        <span className="absolute -bottom-8 whitespace-nowrap inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-[#161922]/80 px-3 py-1 text-[0.7rem] font-medium tracking-wide text-zinc-400 backdrop-blur-sm transition-colors opacity-0 group-hover:opacity-100 group-hover:border-cyan-400/40 group-hover:text-white">
+                            <span className="h-1.5 w-1.5 rounded-full bg-cyan-400 animate-ping" />
+                            {isEasterEgg ? "Overclocked mode!" : isDraggingState ? "Dragging..." : isPulling ? "Opening..." : "Click to converse"}
+                        </span>
+                    </button>
+                </div>
+            </div>
+            
+            <style>{`
+                @keyframes botBreathe {
+                    0%, 100% { transform: translateY(0px) scale(1); }
+                    50% { transform: translateY(-6px) scale(1.02); }
+                }
                 @keyframes botBlink {
                     0%, 96%, 98%, 100% { transform: scaleY(1); transform-origin: center 29.5px; }
                     97% { transform: scaleY(0.1); transform-origin: center 29.5px; }
                 }
             `}</style>
-    </div>
-  );
+        </div>
+    );
 }

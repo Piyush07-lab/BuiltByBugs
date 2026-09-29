@@ -1,5 +1,5 @@
 import { isValidHireRequest } from "../utils/spamFilter.js";
-import { saveHireRequest } from "../services/inquiryService.js";
+import { sendHireNotification } from "../services/emailService.js";
 import { readJsonBody } from "../utils/request.js";
 
 async function handleHireRequest(req, res) {
@@ -22,7 +22,7 @@ async function handleHireRequest(req, res) {
             return res.end(JSON.stringify({ error: validation.reason }));
         }
 
-        await saveHireRequest(data);
+        await sendHireNotification(data);
 
         res.writeHead(200, { "Content-Type": "application/json" });
         res.end(JSON.stringify({ success: true }));

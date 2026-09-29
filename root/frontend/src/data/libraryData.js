@@ -1,14 +1,13 @@
 import resumePdf from './assets/resume.pdf';
 
 export const articles = [
-  {
-    id: 'art-1',
-    title: 'Understanding AST for Custom Linters',
-    date: 'Sept 2026',
-    abstract:
-      'A deep dive into parsing Abstract Syntax Trees and building a custom rule engine for static analysis in JavaScript and Python.',
-    tags: ['Compilers', 'AST', 'Static Analysis'],
-    content: `
+    {
+        id: "art-1",
+        title: "Understanding AST for Custom Linters",
+        date: "Sept 2026",
+        abstract: "A deep dive into parsing Abstract Syntax Trees and building a custom rule engine for static analysis in JavaScript and Python.",
+        tags: ["Compilers", "AST", "Static Analysis"],
+        content: `
 # Understanding AST for Custom Linters
 
 Building a custom linter requires understanding how your code is represented by the compiler. The Abstract Syntax Tree (AST) is the foundational data structure used in this process.
@@ -23,16 +22,15 @@ An AST is a tree representation of the abstract syntactic structure of source co
 - Prevent anti-patterns unique to your team's codebase.
 
 In the upcoming parts of this series, we will build a parser from scratch...
-        `,
-  },
-  {
-    id: 'art-2',
-    title: 'Optimizing MongoDB Aggregations',
-    date: 'Aug 2026',
-    abstract:
-      'Practical tips and examples for speeding up complex MongoDB aggregation pipelines on large datasets.',
-    tags: ['MongoDB', 'Database', 'Performance'],
-    content: `
+        `
+    },
+    {
+        id: "art-2",
+        title: "Optimizing MongoDB Aggregations",
+        date: "Aug 2026",
+        abstract: "Practical tips and examples for speeding up complex MongoDB aggregation pipelines on large datasets.",
+        tags: ["MongoDB", "Database", "Performance"],
+        content: `
 # Optimizing MongoDB Aggregations
 
 When working with large collections, aggregation pipelines can become a bottleneck if not properly optimized. 
@@ -43,16 +41,15 @@ When working with large collections, aggregation pipelines can become a bottlene
 3. **Limit Data**: Use \`$project\` to remove unnecessary fields before passing documents to memory-intensive stages like \`$group\` or \`$lookup\`.
 
 By applying these three rules, I managed to cut down query times on a 10M+ document collection from 5s to under 100ms.
-        `,
-  },
-  {
-    id: 'art-3',
-    title: 'Event-Driven Microservices with RabbitMQ',
-    date: 'Jul 2026',
-    abstract:
-      'Architectural patterns for decoupling services using message brokers and event-driven design.',
-    tags: ['Architecture', 'RabbitMQ', 'Microservices'],
-    content: `
+        `
+    },
+    {
+        id: "art-3",
+        title: "Event-Driven Microservices with RabbitMQ",
+        date: "Jul 2026",
+        abstract: "Architectural patterns for decoupling services using message brokers and event-driven design.",
+        tags: ["Architecture", "RabbitMQ", "Microservices"],
+        content: `
 # Event-Driven Microservices
 
 Decoupling your backend services can dramatically increase system resilience and developer velocity. 
@@ -61,69 +58,47 @@ Decoupling your backend services can dramatically increase system resilience and
 Instead of synchronous HTTP calls (Service A calling Service B and waiting), Service A emits an event. Service B (and maybe Service C) listens for that event and reacts asynchronously.
 
 This means if Service B goes down, Service A is completely unaffected. The message broker (like RabbitMQ) will queue the event until Service B is back online.
-        `,
-  },
+        `
+    }
 ];
 
 export const documents = [
-  {
-    id: 'doc-1',
-    title: 'Resume (PDF)',
-    description: 'My latest resume detailing my work history, skills, and education.',
-    icon: 'resume',
-    link: resumePdf,
-  },
-  {
-    id: 'doc-2',
-    title: 'System Architecture Diagram',
-    description: 'A high-level view of the BuiltByBugs platform architecture.',
-    icon: 'diagram',
-    link: '#',
-  },
-  {
-    id: 'doc-3',
-    title: 'API Documentation',
-    description: 'OpenAPI specification for the custom backend services.',
-    icon: 'api',
-    link: '#',
-  },
+    {
+        id: "doc-1",
+        title: "Resume (PDF)",
+        description: "My latest resume detailing my work history, skills, and education.",
+        icon: "resume",
+        link: resumePdf
+    },
+    {
+        id: "doc-2",
+        title: "System Architecture Diagram",
+        description: "A high-level view of the BuiltByBugs platform architecture.",
+        icon: "diagram",
+        link: "#"
+    },
+    {
+        id: "doc-3",
+        title: "API Documentation",
+        description: "OpenAPI specification for the custom backend services.",
+        icon: "api",
+        link: "#"
+    }
 ];
 
 export const mockCodingSummary = {
-  totalText: '35 hrs 12 mins',
-  dailyAverageText: '5 hrs 2 mins',
-  languages: [
-    { name: 'JavaScript', percent: 65, text: '22 hrs 52 mins' },
-    { name: 'Python', percent: 20, text: '7 hrs 2 mins' },
-    { name: 'CSS', percent: 10, text: '3 hrs 31 mins' },
-    { name: 'HTML', percent: 5, text: '1 hr 45 mins' },
-  ],
-  projects: [
-    { name: 'BuiltByBugs-Platform', text: '15 hrs 20 mins' },
-    { name: 'AST-Linter-Core', text: '12 hrs 10 mins' },
-    { name: 'Personal-API', text: '7 hrs 42 mins' },
-  ],
-  cache: { hit: false },
-};
-
-export const mockLeetcodeData = {
-  username: 'PiyushMishra07',
-  submitStatsGlobal: {
-    acSubmissionNum: [
-      { difficulty: 'All', count: 31 },
-      { difficulty: 'Easy', count: 14 },
-      { difficulty: 'Medium', count: 10 },
-      { difficulty: 'Hard', count: 7 },
+    totalText: "35 hrs 12 mins",
+    dailyAverageText: "5 hrs 2 mins",
+    languages: [
+        { name: "JavaScript", percent: 65, text: "22 hrs 52 mins" },
+        { name: "Python", percent: 20, text: "7 hrs 2 mins" },
+        { name: "CSS", percent: 10, text: "3 hrs 31 mins" },
+        { name: "HTML", percent: 5, text: "1 hr 45 mins" }
     ],
-    totalSubmissionNum: [
-      { difficulty: 'All', count: 31, submissions: 36 },
-      { difficulty: 'Easy', count: 14, submissions: 15 },
-      { difficulty: 'Medium', count: 10, submissions: 11 },
-      { difficulty: 'Hard', count: 7, submissions: 10 },
+    projects: [
+        { name: "BuiltByBugs-Platform", text: "15 hrs 20 mins" },
+        { name: "AST-Linter-Core", text: "12 hrs 10 mins" },
+        { name: "Personal-API", text: "7 hrs 42 mins" }
     ],
-  },
-  profile: {
-    ranking: 3607985,
-    reputation: 0,
-  },
+    cache: { hit: false }
 };

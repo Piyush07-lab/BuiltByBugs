@@ -1,5 +1,5 @@
 import { isValidContactRequest } from "../utils/spamFilter.js";
-import { saveContactRequest } from "../services/inquiryService.js";
+import { sendContactNotification } from "../services/emailService.js";
 import { readJsonBody } from "../utils/request.js";
 
 async function handleContactRequest(req, res) {
@@ -32,7 +32,7 @@ async function handleContactRequest(req, res) {
             );
         }
 
-        await saveContactRequest(data);
+        await sendContactNotification(data);
 
         res.writeHead(200, {
             "Content-Type": "application/json",
