@@ -165,6 +165,68 @@ describe("Backend Routes & Status Confirmation Suite", () => {
             const body = await res.json();
             assert.ok(body.error);
         });
+
+        it("POST /api/contact with valid payload should return 200", async () => {
+            const res = await fetch(`${baseUrl}/api/contact`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    name: "Jane Doe",
+                    email: "jane@example.com",
+                    message: "Hello, I would like to get in touch.",
+                }),
+            });
+            assert.equal(res.status, 200);
+            const body = await res.json();
+            assert.equal(body.success, true);
+        });
+
+        it("POST /api/contact with spam content should return 400", async () => {
+            const res = await fetch(`${baseUrl}/api/contact`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    name: "Spam Bot",
+                    email: "spambot@example.com",
+                    message: "Check out our cheap SEO services!",
+                }),
+            });
+            assert.equal(res.status, 400);
+            const body = await res.json();
+            assert.equal(body.error, "Spam detected");
+        });
+
+        it("POST /api/hireRequest with valid payload should return 200", async () => {
+            const res = await fetch(`${baseUrl}/api/hireRequest`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    service: "Web Development",
+                    name: "Alice Smith",
+                    email: "alice@example.com",
+                    details: "I need a high-performance web app built.",
+                }),
+            });
+            assert.equal(res.status, 200);
+            const body = await res.json();
+            assert.equal(body.success, true);
+        });
+
+        it("POST /api/hireRequest with spam content should return 400", async () => {
+            const res = await fetch(`${baseUrl}/api/hireRequest`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    service: "General Inquiry",
+                    name: "Spam Bot",
+                    email: "spambot@example.com",
+                    details: "Want to buy followers for your account?",
+                }),
+            });
+            assert.equal(res.status, 400);
+            const body = await res.json();
+            assert.equal(body.error, "Spam detected");
+        });
     });
 
     describe("Coding, Chat & LeetCode Routes", () => {
