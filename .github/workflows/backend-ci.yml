@@ -40,8 +40,9 @@ jobs:
       LEETCODE_ENDPOINT_URL: ${{ secrets.LEETCODE_ENDPOINT_URL }}
       LEETCODE_PASS: ${{ secrets.LEETCODE_PASS }}
       LEETCODE_USER: ${{ secrets.LEETCODE_USER }}
-      MONGODB_DB_NAME: ${{ secrets.MONGODB_DB_NAME }}
-      MONGODB_URI: ${{ secrets.MONGODB_URI }}
+      EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
+      RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+      WORK_EMAIL: ${{ secrets.WORK_EMAIL }}
       TOKEN_GITHUB: ${{ secrets.TOKEN_GITHUB }}
       GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
       WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}

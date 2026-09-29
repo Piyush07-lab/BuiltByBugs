@@ -28,7 +28,7 @@ const cards = [
   {
     id: 'automation',
     title: 'Automation',
-    description: 'GitLab CI/CD',
+    description: 'Github Actions | GitLab CI/CD',
     className: 'md:col-span-1',
     icon: (
       <svg
@@ -131,8 +131,8 @@ const miniCards = [
   },
   {
     id: 'tailwind',
-    title: 'Tailwind',
-    description: 'Styling',
+    title: 'Styling',
+    description: 'TailwindCSS',
     icon: (
       <svg
         aria-hidden="true"
