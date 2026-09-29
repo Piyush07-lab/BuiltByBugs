@@ -1,0 +1,188 @@
+<svg width="1920" height="2800" viewBox="0 0 1920 2800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      @keyframes projWaveOscillate {
+        0%, 100% {
+          transform: translate3d(0, 0, 0) scaleY(1);
+        }
+        35% {
+          transform: translate3d(-35px, 14px, 0) scaleY(1.04);
+        }
+        70% {
+          transform: translate3d(28px, -10px, 0) scaleY(0.97);
+        }
+      }
+
+      @keyframes projPlexusDrift {
+        0%, 100% {
+          transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+        }
+        50% {
+          transform: translate3d(26px, -22px, 0) rotate(-2.5deg) scale(1.03);
+        }
+      }
+
+      @keyframes projPulsarTwinkle {
+        0%, 100% {
+          opacity: 0.55;
+          filter: drop-shadow(0 0 4px rgba(6, 182, 212, 0.4));
+        }
+        50% {
+          opacity: 1.0;
+          filter: drop-shadow(0 0 14px rgba(16, 185, 129, 0.9));
+        }
+      }
+
+      .anim-proj-strata {
+        transform-origin: 960px 2400px;
+        animation: projWaveOscillate 48s ease-in-out infinite;
+      }
+
+      .anim-proj-strata-secondary {
+        transform-origin: 960px 2300px;
+        animation: projWaveOscillate 38s ease-in-out infinite reverse;
+      }
+
+      .anim-proj-plexus {
+        transform-origin: 1550px 350px;
+        animation: projPlexusDrift 55s ease-in-out infinite;
+      }
+
+      .anim-proj-pulsar {
+        animation: projPulsarTwinkle 6s ease-in-out infinite;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .anim-proj-strata, .anim-proj-strata-secondary, .anim-proj-plexus, .anim-proj-pulsar {
+          animation: none !important;
+        }
+      }
+    </style>
+
+    <filter id="projStrataShadow" x="-10%" y="-10%" width="120%" height="150%">
+      <feDropShadow dx="0" dy="-8" stdDeviation="14" flood-color="#000000" flood-opacity="0.55" />
+    </filter>
+
+    <filter id="projPlexusGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="4" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <linearGradient id="projDeepTier" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#140D26" stop-opacity="0.85" />
+      <stop offset="100%" stop-color="#0A0614" stop-opacity="0.95" />
+    </linearGradient>
+
+    <linearGradient id="projMidTier" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#111B38" stop-opacity="0.75" />
+      <stop offset="100%" stop-color="#090E1F" stop-opacity="0.9" />
+    </linearGradient>
+
+    <linearGradient id="projMistTier" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8B5CF6" stop-opacity="0.16" />
+      <stop offset="50%" stop-color="#3B82F6" stop-opacity="0.1" />
+      <stop offset="100%" stop-color="#06B6D4" stop-opacity="0.06" />
+    </linearGradient>
+
+    <linearGradient id="projCrestLine" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8B5CF6" stop-opacity="0.25" />
+      <stop offset="50%" stop-color="#06B6D4" stop-opacity="0.55" />
+      <stop offset="80%" stop-color="#10B981" stop-opacity="0.45" />
+      <stop offset="100%" stop-color="#3B82F6" stop-opacity="0.15" />
+    </linearGradient>
+  </defs>
+
+  <!-- Ambient Backdrop Nebulae Glows -->
+  <g opacity="0.5">
+    <circle cx="1600" cy="250" r="320" fill="#082333" fill-opacity="0.4" filter="url(#projPlexusGlow)" />
+    <circle cx="400" cy="1200" r="280" fill="#1b1030" fill-opacity="0.3" filter="url(#projPlexusGlow)" />
+    <circle cx="1500" cy="2100" r="300" fill="#091829" fill-opacity="0.35" filter="url(#projPlexusGlow)" />
+  </g>
+
+  <!-- Continuous Topographical Contour Elevation Lines Across Scroll Height -->
+  <g fill="none" stroke-opacity="0.16" stroke-width="1.2">
+    <path d="M 0,560 C 410,660 750,460 1170,600 C 1510,710 1750,620 1920,580" stroke="#8B5CF6" />
+    <path d="M 0,490 C 360,580 800,400 1240,530 C 1580,630 1790,540 1920,500" stroke="#06B6D4" stroke-dasharray="8 6" />
+    <path d="M 0,1350 C 420,1450 820,1280 1240,1380 C 1600,1460 1820,1380 1920,1340" stroke="#3B82F6" />
+    <path d="M 0,1420 C 380,1520 780,1360 1180,1460 C 1540,1540 1780,1460 1920,1420" stroke="#10B981" stroke-dasharray="6 6" />
+  </g>
+
+  <!-- LAYER 1: Deep Ocean Topographical Wave Strata (Base of Canvas) -->
+  <g class="anim-proj-strata">
+    <g filter="url(#projStrataShadow)">
+      <path
+        d="M 0,2280 C 380,2380 720,2180 1140,2320 C 1480,2430 1720,2340 1920,2300 L 1920,2800 L 0,2800 Z"
+        fill="url(#projDeepTier)"
+      />
+    </g>
+  </g>
+
+  <!-- Mid Strata Tier 2 -->
+  <g class="anim-proj-strata-secondary">
+    <g filter="url(#projStrataShadow)">
+      <path
+        d="M 0,2380 C 320,2290 760,2480 1220,2410 C 1560,2350 1780,2460 1920,2430 L 1920,2800 L 0,2800 Z"
+        fill="url(#projMidTier)"
+      />
+      <path
+        d="M 0,2380 C 320,2290 760,2480 1220,2410 C 1560,2350 1780,2460 1920,2430"
+        stroke="url(#projCrestLine)"
+        stroke-width="2"
+        fill="none"
+      />
+    </g>
+    <path
+      d="M 0,2480 C 420,2550 880,2420 1340,2500 C 1640,2550 1820,2520 1920,2500 L 1920,2800 L 0,2800 Z"
+      fill="url(#projMistTier)"
+    />
+  </g>
+
+  <!-- LAYER 2: Celestial Constellation Plexus Network Across Hero & Mid -->
+  <g class="anim-proj-plexus">
+    <g stroke-width="1.2" opacity="0.6">
+      <line x1="1220" y1="120" x2="1360" y2="80" stroke="#06B6D4" stroke-opacity="0.4" />
+      <line x1="1360" y1="80" x2="1520" y2="140" stroke="#06B6D4" stroke-opacity="0.4" />
+      <line x1="1520" y1="140" x2="1680" y2="70" stroke="#3B82F6" stroke-opacity="0.35" />
+      <line x1="1360" y1="80" x2="1440" y2="240" stroke="#8B5CF6" stroke-opacity="0.35" />
+      <line x1="1520" y1="140" x2="1440" y2="240" stroke="#06B6D4" stroke-opacity="0.4" />
+      <line x1="1520" y1="140" x2="1620" y2="260" stroke="#3B82F6" stroke-opacity="0.4" />
+      <line x1="1680" y1="70" x2="1620" y2="260" stroke="#06B6D4" stroke-opacity="0.35" />
+      <line x1="1680" y1="70" x2="1820" y2="180" stroke="#3B82F6" stroke-opacity="0.3" />
+      <line x1="1620" y1="260" x2="1820" y2="180" stroke="#8B5CF6" stroke-opacity="0.3" />
+      <line x1="1440" y1="240" x2="1560" y2="380" stroke="#06B6D4" stroke-opacity="0.4" />
+      <line x1="1620" y1="260" x2="1560" y2="380" stroke="#8B5CF6" stroke-opacity="0.35" />
+      <line x1="1620" y1="260" x2="1740" y2="420" stroke="#10B981" stroke-opacity="0.35" />
+      <line x1="1820" y1="180" x2="1740" y2="420" stroke="#3B82F6" stroke-opacity="0.3" />
+      <line x1="1560" y1="380" x2="1740" y2="420" stroke="#06B6D4" stroke-opacity="0.35" />
+      <line x1="1560" y1="380" x2="1420" y2="480" stroke="#8B5CF6" stroke-opacity="0.3" />
+      <line x1="1740" y1="420" x2="1860" y2="520" stroke="#06B6D4" stroke-opacity="0.3" />
+      <line x1="1420" y1="480" x2="1600" y2="560" stroke="#3B82F6" stroke-opacity="0.3" />
+      <line x1="1740" y1="420" x2="1600" y2="560" stroke="#06B6D4" stroke-opacity="0.35" />
+      <line x1="1600" y1="560" x2="1860" y2="520" stroke="#8B5CF6" stroke-opacity="0.25" />
+      <line x1="1600" y1="560" x2="1500" y2="780" stroke="#06B6D4" stroke-opacity="0.3" />
+      <line x1="1500" y1="780" x2="1680" y2="920" stroke="#3B82F6" stroke-opacity="0.3" />
+      <line x1="1680" y1="920" x2="1540" y2="1080" stroke="#8B5CF6" stroke-opacity="0.25" />
+    </g>
+
+    <g class="anim-proj-pulsar" filter="url(#projPlexusGlow)">
+      <circle cx="1220" cy="120" r="3" fill="#06B6D4" />
+      <circle cx="1360" cy="80" r="4" fill="#3B82F6" />
+      <circle cx="1520" cy="140" r="4.5" fill="#06B6D4" />
+      <circle cx="1680" cy="70" r="3.5" fill="#8B5CF6" />
+      <circle cx="1440" cy="240" r="4" fill="#10B981" />
+      <circle cx="1620" cy="260" r="5" fill="#06B6D4" />
+      <circle cx="1820" cy="180" r="3.5" fill="#3B82F6" />
+      <circle cx="1560" cy="380" r="4.5" fill="#8B5CF6" />
+      <circle cx="1740" cy="420" r="4" fill="#10B981" />
+      <circle cx="1420" cy="480" r="3.5" fill="#06B6D4" />
+      <circle cx="1600" cy="560" r="4.5" fill="#06B6D4" />
+      <circle cx="1860" cy="520" r="3" fill="#3B82F6" />
+      <circle cx="1500" cy="780" r="3.5" fill="#10B981" />
+      <circle cx="1680" cy="920" r="4" fill="#06B6D4" />
+      <circle cx="1540" cy="1080" r="3.5" fill="#8B5CF6" />
+    </g>
+  </g>
+</svg>

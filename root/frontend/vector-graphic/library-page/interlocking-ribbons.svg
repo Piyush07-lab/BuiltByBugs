@@ -1,0 +1,109 @@
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="ribbonShadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="6" dy="12" stdDeviation="14" flood-color="#000000" flood-opacity="0.55" />
+    </filter>
+
+    <filter id="folioGlow" x="-25%" y="-25%" width="150%" height="150%">
+      <feGaussianBlur stdDeviation="5" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <linearGradient id="ribbonGradLight" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E2E8F0" stop-opacity="0.14" />
+      <stop offset="100%" stop-color="#94A3B8" stop-opacity="0.04" />
+    </linearGradient>
+
+    <linearGradient id="ribbonGradDark" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1E1638" stop-opacity="0.6" />
+      <stop offset="100%" stop-color="#100C22" stop-opacity="0.8" />
+    </linearGradient>
+
+    <linearGradient id="folioBorderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8B5CF6" stop-opacity="0.5" />
+      <stop offset="50%" stop-color="#06B6D4" stop-opacity="0.3" />
+      <stop offset="100%" stop-color="#D4AF37" stop-opacity="0.4" />
+    </linearGradient>
+  </defs>
+
+  <!-- Architectural Interlocking Ribbons & Frames -->
+  <g id="interlocking-ribbons" transform="translate(1240, 160)">
+    <!-- Back Interlocking Frame (Dark) -->
+    <g filter="url(#ribbonShadow)">
+      <path
+        d="M 120,40 L 440,360 L 360,440 L 40,120 Z"
+        fill="url(#ribbonGradDark)"
+        stroke="#8B5CF6"
+        stroke-opacity="0.25"
+        stroke-width="1.2"
+      />
+    </g>
+
+    <!-- Interlocking Front Folded Ribbon Band (Light Frame) -->
+    <g filter="url(#ribbonShadow)">
+      <path
+        d="M 280,100 L 600,420 L 520,500 L 200,180 Z"
+        fill="url(#ribbonGradLight)"
+        stroke="#E2E8F0"
+        stroke-opacity="0.25"
+        stroke-width="1.5"
+      />
+      <!-- Ribbon Inner Cutout -->
+      <path
+        d="M 330,170 L 530,370 L 470,430 L 270,230 Z"
+        fill="#090714"
+        fill-opacity="0.8"
+        stroke="#8B5CF6"
+        stroke-opacity="0.2"
+        stroke-width="1"
+      />
+    </g>
+
+    <!-- Transverse Crossing Band -->
+    <g filter="url(#ribbonShadow)">
+      <path
+        d="M 160,340 L 480,20 L 540,80 L 220,400 Z"
+        fill="url(#ribbonGradDark)"
+        stroke="#D4AF37"
+        stroke-opacity="0.3"
+        stroke-width="1.2"
+      />
+    </g>
+  </g>
+
+  <!-- Floating Isometric Knowledge Folios (Digital Books & Documents) -->
+  <g id="knowledge-folios">
+    <!-- Folio 1: Upper Right Isometric Code Plate -->
+    <g transform="translate(1420, 220) rotate(-15) skewX(20)" filter="url(#folioGlow)">
+      <rect x="0" y="0" width="180" height="240" rx="8" fill="#141026" fill-opacity="0.7" stroke="url(#folioBorderGrad)" stroke-width="1.5" />
+      <!-- Document Content Lines / Code Bars -->
+      <line x1="24" y1="36" x2="100" y2="36" stroke="#8B5CF6" stroke-width="3" stroke-linecap="round" opacity="0.7" />
+      <line x1="24" y1="56" x2="156" y2="56" stroke="#06B6D4" stroke-width="2" stroke-linecap="round" opacity="0.4" />
+      <line x1="24" y1="72" x2="136" y2="72" stroke="#99A4BE" stroke-width="2" stroke-linecap="round" opacity="0.3" />
+      <line x1="24" y1="88" x2="148" y2="88" stroke="#99A4BE" stroke-width="2" stroke-linecap="round" opacity="0.3" />
+      <line x1="24" y1="120" x2="80" y2="120" stroke="#10B981" stroke-width="2.5" stroke-linecap="round" opacity="0.6" />
+      <line x1="24" y1="138" x2="150" y2="138" stroke="#99A4BE" stroke-width="2" stroke-linecap="round" opacity="0.3" />
+      <line x1="24" y1="154" x2="120" y2="154" stroke="#99A4BE" stroke-width="2" stroke-linecap="round" opacity="0.3" />
+    </g>
+
+    <!-- Folio 2: Lower Right Offset Card -->
+    <g transform="translate(1560, 520) rotate(-8) skewX(15)" opacity="0.8">
+      <rect x="0" y="0" width="140" height="190" rx="6" fill="#100C22" fill-opacity="0.6" stroke="#8B5CF6" stroke-opacity="0.35" stroke-width="1.2" />
+      <line x1="18" y1="28" x2="70" y2="28" stroke="#D4AF37" stroke-width="2.5" stroke-linecap="round" opacity="0.6" />
+      <line x1="18" y1="44" x2="120" y2="44" stroke="#99A4BE" stroke-width="1.5" stroke-linecap="round" opacity="0.25" />
+      <line x1="18" y1="58" x2="105" y2="58" stroke="#99A4BE" stroke-width="1.5" stroke-linecap="round" opacity="0.25" />
+      <line x1="18" y1="72" x2="114" y2="72" stroke="#99A4BE" stroke-width="1.5" stroke-linecap="round" opacity="0.25" />
+    </g>
+
+    <!-- Folio 3: Left Ambient Knowledge Folio -->
+    <g transform="translate(220, 480) rotate(12) skewX(-15)" opacity="0.6">
+      <rect x="0" y="0" width="160" height="210" rx="8" fill="#160E2A" fill-opacity="0.5" stroke="#D4AF37" stroke-opacity="0.3" stroke-width="1.2" />
+      <line x1="20" y1="30" x2="80" y2="30" stroke="#06B6D4" stroke-width="2.5" stroke-linecap="round" opacity="0.5" />
+      <line x1="20" y1="48" x2="140" y2="48" stroke="#99A4BE" stroke-width="1.5" opacity="0.2" />
+      <line x1="20" y1="62" x2="110" y2="62" stroke="#99A4BE" stroke-width="1.5" opacity="0.2" />
+    </g>
+  </g>
+</svg>

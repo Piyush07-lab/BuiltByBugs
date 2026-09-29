@@ -1,0 +1,79 @@
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="homeHexGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="5" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <linearGradient id="hexFillGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06B6D4" stop-opacity="0.14" />
+      <stop offset="50%" stop-color="#3B82F6" stop-opacity="0.06" />
+      <stop offset="100%" stop-color="#8B5CF6" stop-opacity="0.02" />
+    </linearGradient>
+
+    <linearGradient id="hexFillGrad2" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#3B82F6" stop-opacity="0.16" />
+      <stop offset="100%" stop-color="#06B6D4" stop-opacity="0.03" />
+    </linearGradient>
+
+    <linearGradient id="hexBorderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06B6D4" stop-opacity="0.45" />
+      <stop offset="50%" stop-color="#3B82F6" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#8B5CF6" stop-opacity="0.1" />
+    </linearGradient>
+  </defs>
+
+  <!-- CLUSTER 1: Upper-Right Isometric Hexagonal Honeycomb Matrix -->
+  <g id="home-hex-cluster-upper" transform="translate(1180, 40)">
+    <!-- Deep Layered Base Hexagons -->
+    <polygon points="260,30 364,90 364,210 260,270 156,210 156,90" fill="url(#hexFillGrad1)" stroke="url(#hexBorderGrad)" stroke-width="1.5" />
+    <polygon points="468,150 572,210 572,330 468,390 364,330 364,210" fill="url(#hexFillGrad2)" stroke="url(#hexBorderGrad)" stroke-width="1.5" />
+    <polygon points="260,270 364,330 364,450 260,510 156,450 156,330" fill="url(#hexFillGrad1)" stroke="url(#hexBorderGrad)" stroke-width="1.2" stroke-dasharray="6 3" />
+    <polygon points="52,150 156,210 156,330 52,390 -52,330 -52,210" fill="url(#hexFillGrad2)" stroke="url(#hexBorderGrad)" stroke-width="1.2" />
+    <polygon points="468,390 572,450 572,570 468,630 364,570 364,450" fill="url(#hexFillGrad1)" stroke="url(#hexBorderGrad)" stroke-width="1.5" />
+
+    <!-- 3D Isometric Prism Inner Faces -->
+    <path d="M 260,30 L 260,150 L 364,210 M 260,150 L 156,210" stroke="#06B6D4" stroke-opacity="0.3" stroke-width="1.2" fill="none" />
+    <path d="M 468,150 L 468,270 L 572,330 M 468,270 L 364,330" stroke="#3B82F6" stroke-opacity="0.3" stroke-width="1.2" fill="none" />
+    <path d="M 468,390 L 468,510 L 572,570 M 468,510 L 364,570" stroke="#06B6D4" stroke-opacity="0.25" stroke-width="1" fill="none" />
+
+    <!-- Concentric Nested Floating Hexagons -->
+    <polygon points="260,65 333,107 333,193 260,235 187,193 187,107" fill="none" stroke="#06B6D4" stroke-opacity="0.4" stroke-width="1" />
+    <polygon points="468,185 541,227 541,313 468,355 395,313 395,227" fill="none" stroke="#10B981" stroke-opacity="0.35" stroke-width="1" stroke-dasharray="4 4" />
+
+    <!-- Luminous Cyber Junction Nodes -->
+    <g filter="url(#homeHexGlow)">
+      <circle cx="260" cy="30" r="3.5" fill="#06B6D4" opacity="0.9" />
+      <circle cx="364" cy="90" r="3" fill="#3B82F6" opacity="0.8" />
+      <circle cx="364" cy="210" r="4.5" fill="#10B981" opacity="0.95" />
+      <circle cx="260" cy="270" r="3.5" fill="#06B6D4" opacity="0.85" />
+      <circle cx="156" cy="210" r="3" fill="#8B5CF6" opacity="0.75" />
+      <circle cx="468" cy="150" r="3.5" fill="#06B6D4" opacity="0.85" />
+      <circle cx="572" cy="210" r="4" fill="#06B6D4" opacity="0.9" />
+      <circle cx="572" cy="330" r="3.5" fill="#10B981" opacity="0.8" />
+      <circle cx="468" cy="390" r="4" fill="#3B82F6" opacity="0.9" />
+      <circle cx="364" cy="450" r="3" fill="#06B6D4" opacity="0.75" />
+      <circle cx="260" cy="150" r="3.5" fill="#10B981" opacity="0.9" />
+      <circle cx="468" cy="270" r="3" fill="#06B6D4" opacity="0.8" />
+    </g>
+  </g>
+
+  <!-- CLUSTER 2: Lower-Left Ambient Isometric Hexagon Sub-Matrix -->
+  <g id="home-hex-cluster-lower" transform="translate(60, 620)">
+    <polygon points="180,20 252,62 252,145 180,187 108,145 108,62" fill="url(#hexFillGrad1)" stroke="url(#hexBorderGrad)" stroke-width="1.2" />
+    <polygon points="324,103 396,145 396,228 324,270 252,228 252,145" fill="url(#hexFillGrad2)" stroke="url(#hexBorderGrad)" stroke-width="1" />
+    <polygon points="180,187 252,228 252,311 180,353 108,311 108,228" fill="url(#hexFillGrad1)" stroke="url(#hexBorderGrad)" stroke-width="1" stroke-dasharray="4 4" />
+    <polygon points="36,103 108,145 108,228 36,270 -36,228 -36,145" fill="none" stroke="url(#hexBorderGrad)" stroke-width="0.8" />
+
+    <g filter="url(#homeHexGlow)">
+      <circle cx="180" cy="20" r="3" fill="#06B6D4" opacity="0.85" />
+      <circle cx="252" cy="62" r="2.5" fill="#3B82F6" opacity="0.75" />
+      <circle cx="252" cy="145" r="3.5" fill="#10B981" opacity="0.9" />
+      <circle cx="324" cy="103" r="3" fill="#06B6D4" opacity="0.8" />
+      <circle cx="180" cy="187" r="3" fill="#8B5CF6" opacity="0.7" />
+    </g>
+  </g>
+</svg>

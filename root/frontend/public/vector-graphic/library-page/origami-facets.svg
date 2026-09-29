@@ -1,0 +1,75 @@
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Facet Shadow -->
+    <filter id="libFacetShadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="-8" dy="16" stdDeviation="18" flood-color="#000000" flood-opacity="0.65" />
+    </filter>
+
+    <!-- Golden Metallic Edge Glow -->
+    <filter id="goldGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="4" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <!-- Metallic Gold Edge Gradients -->
+    <linearGradient id="goldEdge1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FDE68A" stop-opacity="0.9" />
+      <stop offset="45%" stop-color="#D4AF37" stop-opacity="1" />
+      <stop offset="70%" stop-color="#B45309" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#F59E0B" stop-opacity="0.95" />
+    </linearGradient>
+
+    <linearGradient id="goldEdge2" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#D4AF37" stop-opacity="0.85" />
+      <stop offset="50%" stop-color="#FCD34D" stop-opacity="0.95" />
+      <stop offset="100%" stop-color="#78350F" stop-opacity="0.6" />
+    </linearGradient>
+
+    <!-- Deep Luxury Facet Surfaces -->
+    <linearGradient id="facetDeepEmerald" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06282d" stop-opacity="0.35" />
+      <stop offset="100%" stop-color="#090714" stop-opacity="0.85" />
+    </linearGradient>
+
+    <linearGradient id="facetDarkViolet" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1f1138" stop-opacity="0.45" />
+      <stop offset="100%" stop-color="#0c0718" stop-opacity="0.9" />
+    </linearGradient>
+
+    <linearGradient id="facetIndigoSlate" x1="100%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#111c38" stop-opacity="0.4" />
+      <stop offset="100%" stop-color="#080e1e" stop-opacity="0.85" />
+    </linearGradient>
+  </defs>
+
+  <!-- Large Left Origami Primary Facet -->
+  <g id="facet-plane-primary" filter="url(#libFacetShadow)">
+    <polygon points="0,0 720,0 240,1080 0,1080" fill="url(#facetDarkViolet)" />
+    <!-- Beveled Radiant Gold Slicing Edge -->
+    <line x1="720" y1="0" x2="240" y2="1080" stroke="url(#goldEdge1)" stroke-width="2" filter="url(#goldGlow)" />
+  </g>
+
+  <!-- Secondary Overlapping Origami Wedge -->
+  <g id="facet-plane-secondary" filter="url(#libFacetShadow)">
+    <polygon points="180,0 960,0 480,840 240,1080" fill="url(#facetDeepEmerald)" />
+    <!-- Gold Acute Edge -->
+    <line x1="960" y1="0" x2="480" y2="840" stroke="url(#goldEdge2)" stroke-width="2.5" filter="url(#goldGlow)" />
+    <line x1="480" y1="840" x2="240" y2="1080" stroke="url(#goldEdge1)" stroke-width="1.8" />
+  </g>
+
+  <!-- Acute Diamond Corner Origami Blade -->
+  <g id="facet-plane-blade" filter="url(#libFacetShadow)">
+    <polygon points="480,840 820,540 640,1080 240,1080" fill="url(#facetIndigoSlate)" />
+    <line x1="820" y1="540" x2="640" y2="1080" stroke="url(#goldEdge1)" stroke-width="2" filter="url(#goldGlow)" />
+  </g>
+
+  <!-- Right Ambient Angular Facet Accent -->
+  <g id="facet-plane-right" filter="url(#libFacetShadow)" opacity="0.75">
+    <polygon points="1520,0 1920,0 1920,680 1340,320" fill="url(#facetDarkViolet)" />
+    <line x1="1520" y1="0" x2="1340" y2="320" stroke="url(#goldEdge2)" stroke-width="1.8" filter="url(#goldGlow)" />
+    <line x1="1340" y1="320" x2="1920" y2="680" stroke="url(#goldEdge1)" stroke-width="1.5" />
+  </g>
+</svg>
