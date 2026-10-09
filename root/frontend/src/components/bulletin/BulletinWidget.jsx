@@ -71,8 +71,8 @@ function BulletinWidget() {
   return (
     <WidgetShell
       number="W3"
-      eyebrow={item.tag}
       title="Activity bulletin"
+      eyebrow={item.tag}
       indicators={indicators}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
