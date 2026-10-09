@@ -7,13 +7,9 @@ export function MascotChassis({
   rightArmTransform,
 }) {
   const lTrans =
-    leftArmTransform ||
-    ARM_CONFIGS[armStates.left]?.left ||
-    ARM_CONFIGS[1].left;
+    leftArmTransform || ARM_CONFIGS[armStates.left]?.left || ARM_CONFIGS[1].left;
   const rTrans =
-    rightArmTransform ||
-    ARM_CONFIGS[armStates.right]?.right ||
-    ARM_CONFIGS[1].right;
+    rightArmTransform || ARM_CONFIGS[armStates.right]?.right || ARM_CONFIGS[1].right;
 
   return (
     <>

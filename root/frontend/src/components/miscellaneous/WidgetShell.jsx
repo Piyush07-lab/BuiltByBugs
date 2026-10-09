@@ -20,7 +20,15 @@ function WidgetShell({
       >
         <svg viewBox="0 0 96 96" fill="none" className="w-full h-full">
           <path d="M96 0 L48 0 L96 48 Z" fill="rgba(139, 92, 246, 0.08)" />
-          <line x1="96" y1="24" x2="72" y2="0" stroke="#06B6D4" strokeWidth="1" strokeOpacity="0.4" />
+          <line
+            x1="96"
+            y1="24"
+            x2="72"
+            y2="0"
+            stroke="#06B6D4"
+            strokeWidth="1"
+            strokeOpacity="0.4"
+          />
           <circle cx="72" cy="24" r="1.5" fill="#06B6D4" opacity="0.6" />
         </svg>
       </div>

@@ -115,7 +115,9 @@ function RepositoryGrid({ repos = [], limit }) {
               </div>
               <div className="flex items-center gap-2 shrink-0 text-[0.7rem] text-subtle">
                 <span className="text-brand-gold">★ {repo.stargazers_count || 0}</span>
-                <span aria-hidden="true" className="text-brand-turquoise">→</span>
+                <span aria-hidden="true" className="text-brand-turquoise">
+                  →
+                </span>
               </div>
             </a>
           );

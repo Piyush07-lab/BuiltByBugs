@@ -13,8 +13,7 @@ export const bulletinItems = [
     tag: 'Latest Milestone',
     title: 'No-Request AI chat bot',
     subtitle: 'AI & Chat bot',
-    description:
-      `Created a prototype chat bot to reduce the TPM & RPM to the API while keeping the genAI's intelligence for a seemless chat experience.`,
+    description: `Created a prototype chat bot to reduce the TPM & RPM to the API while keeping the genAI's intelligence for a seemless chat experience.`,
     date: 'Recently',
   },
   {

@@ -35,12 +35,7 @@ export default function MascotBot({ armAction = null } = {}) {
   } = useMascotMovement(botRef, handleMascotAction);
 
   // 3D Point-to-Point Arm Kinematics & Actions
-  const {
-    armStates,
-    leftTransform,
-    rightTransform,
-    triggerAction,
-  } = useMascotArms({
+  const { armStates, leftTransform, rightTransform, triggerAction } = useMascotArms({
     isCurious,
     isDraggingState,
     isEasterEgg,
@@ -102,7 +97,6 @@ export default function MascotBot({ armAction = null } = {}) {
                 isEasterEgg={isEasterEgg}
               />
             </svg>
-
           </button>
         </div>
       </div>

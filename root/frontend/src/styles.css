@@ -9,7 +9,7 @@
   /* Brand Palette Tokens */
   --color-brand-bg: #090714;
   --color-brand-card: rgba(20, 16, 38, 0.75);
-  --color-brand-border: rgba(139, 92, 246, 0.20);
+  --color-brand-border: rgba(139, 92, 246, 0.2);
   --color-brand-border-subtle: rgba(139, 92, 246, 0.12);
   --color-brand-violet: #8b5cf6;
   --color-brand-blue: #3b82f6;
@@ -22,16 +22,30 @@
   /* Backward Compatibility Aliases */
   --color-page-bg: #090714;
   --color-panel: rgba(20, 16, 38, 0.75);
-  --color-panel-border: rgba(139, 92, 246, 0.20);
+  --color-panel-border: rgba(139, 92, 246, 0.2);
   --color-muted: #99a4be;
   --color-subtle: #78849f;
   --color-accent: #06b6d4;
   --color-accent-strong: #10b981;
 
   /* Gradients */
-  --background-image-logo-gradient: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 50%, #06b6d4 100%);
-  --background-image-spectrum-gradient: linear-gradient(135deg, #8b5cf6 0%, #06b6d4 50%, #10b981 100%);
-  --background-image-wave-gradient: linear-gradient(180deg, rgba(139, 92, 246, 0.15) 0%, rgba(6, 182, 212, 0.05) 100%);
+  --background-image-logo-gradient: linear-gradient(
+    135deg,
+    #8b5cf6 0%,
+    #3b82f6 50%,
+    #06b6d4 100%
+  );
+  --background-image-spectrum-gradient: linear-gradient(
+    135deg,
+    #8b5cf6 0%,
+    #06b6d4 50%,
+    #10b981 100%
+  );
+  --background-image-wave-gradient: linear-gradient(
+    180deg,
+    rgba(139, 92, 246, 0.15) 0%,
+    rgba(6, 182, 212, 0.05) 100%
+  );
   --background-image-network-mesh: url('/vectors/network-mesh.svg');
   --background-image-hexagon-lattice: url('/vectors/hexagon-pattern.svg');
   --background-image-wave-strata: url('/vectors/wave-strata.svg');
@@ -39,8 +53,8 @@
   /* Custom Glows & Shadows */
   --shadow-glow-violet: 0 0 20px rgba(139, 92, 246, 0.35);
   --shadow-glow-turquoise: 0 0 20px rgba(6, 182, 212, 0.35);
-  --shadow-glow-green: 0 0 15px rgba(16, 185, 129, 0.30);
-  --shadow-paper-depth: 0 10px 25px -5px rgba(0, 0, 0, 0.50);
+  --shadow-glow-green: 0 0 15px rgba(16, 185, 129, 0.3);
+  --shadow-paper-depth: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
   --shadow-metallic-green: 0 0 0 1px #10b981, 0 0 12px rgba(16, 185, 129, 0.25);
   --shadow-metallic-gold: 0 0 0 1px #d4af37, 0 0 12px rgba(212, 175, 55, 0.25);
 
@@ -48,13 +62,14 @@
   --animate-pulse-glow: pulseGlow 3s ease-in-out infinite;
 
   @keyframes pulseGlow {
-    0%, 100% {
+    0%,
+    100% {
       opacity: 0.6;
-      filter: drop-shadow(0 0 8px rgba(6, 182, 212, 0.40));
+      filter: drop-shadow(0 0 8px rgba(6, 182, 212, 0.4));
     }
     50% {
-      opacity: 1.0;
-      filter: drop-shadow(0 0 16px rgba(16, 185, 129, 0.80));
+      opacity: 1;
+      filter: drop-shadow(0 0 16px rgba(16, 185, 129, 0.8));
     }
   }
 }
@@ -75,19 +90,19 @@
 
 @utility border-metallic-green {
   border: 1px solid #10b981;
-  box-shadow: 0 0 12px rgba(16, 185, 129, 0.30);
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.3);
 }
 
 @utility border-metallic-gold {
   border: 1px solid #d4af37;
-  box-shadow: 0 0 12px rgba(212, 175, 55, 0.30);
+  box-shadow: 0 0 12px rgba(212, 175, 55, 0.3);
 }
 
 @layer base {
   :root {
     --page-bg: #090714;
     --panel: rgba(20, 16, 38, 0.75);
-    --panel-border: rgba(139, 92, 246, 0.20);
+    --panel-border: rgba(139, 92, 246, 0.2);
     --muted: #99a4be;
     --accent: #06b6d4;
     --accent-strong: #10b981;

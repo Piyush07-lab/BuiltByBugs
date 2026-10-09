@@ -16,10 +16,16 @@ export default function Footer() {
             <a href="/" className="text-sm transition-colors hover:text-brand-turquoise">
               Home
             </a>
-            <a href="/project" className="text-sm transition-colors hover:text-brand-turquoise">
+            <a
+              href="/project"
+              className="text-sm transition-colors hover:text-brand-turquoise"
+            >
               Projects
             </a>
-            <a href="/library" className="text-sm transition-colors hover:text-brand-turquoise">
+            <a
+              href="/library"
+              className="text-sm transition-colors hover:text-brand-turquoise"
+            >
               Library
             </a>
           </div>

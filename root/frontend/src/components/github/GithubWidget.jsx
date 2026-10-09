@@ -152,7 +152,9 @@ function GitHubWidget() {
           aria-label={`Slide ${idx + 1}`}
           onClick={() => setSlide(idx)}
           className={`h-1.5 rounded-full transition-all duration-300 focus:outline-hidden cursor-pointer ${
-            slide === idx ? 'w-4 bg-brand-turquoise shadow-glow-turquoise' : 'w-1.5 bg-white/20 hover:bg-white/40'
+            slide === idx
+              ? 'w-4 bg-brand-turquoise shadow-glow-turquoise'
+              : 'w-1.5 bg-white/20 hover:bg-white/40'
           }`}
         />
       ))}

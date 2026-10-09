@@ -19,7 +19,7 @@ const routes = {
  * Set to `true` if you ever want to re-enable the original violet & turquoise circular ambient glow arcs.
  * Currently disabled to allow the dynamic vector graphics to provide the background atmosphere cleanly.
  */
-const SHOW_LEGACY_GLOWING_ARCS = false;
+const SHOW_LEGACY_GLOWING_ARCS = true;
 
 function App() {
   const pathname = usePathname();
