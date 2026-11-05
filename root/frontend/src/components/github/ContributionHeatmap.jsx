@@ -1,4 +1,4 @@
-function ContributionHeatmap({ heatmap = [], profileUrl }) {
+function ContributionHeatmap({ heatmap = [], profileUrl, id = 'activity' }) {
   const sortedDays = [...heatmap].sort((a, b) => new Date(a.date) - new Date(b.date));
   const total = sortedDays.reduce((sum, day) => sum + (day.count || 0), 0);
   const bestDay = sortedDays.reduce((best, day) => {
@@ -15,7 +15,10 @@ function ContributionHeatmap({ heatmap = [], profileUrl }) {
   };
 
   return (
-    <section className="rounded-2xl border border-brand-border bg-brand-card backdrop-blur-md p-4 sm:p-6 shadow-paper-depth">
+    <section
+      id={id}
+      className="rounded-2xl border border-brand-border bg-brand-card backdrop-blur-md p-4 sm:p-6 shadow-paper-depth"
+    >
       <div className="flex flex-col items-start justify-between gap-4 md:flex-row">
         <div>
           <p className="mb-5 text-xs font-extrabold uppercase tracking-[0.14em] text-brand-turquoise">

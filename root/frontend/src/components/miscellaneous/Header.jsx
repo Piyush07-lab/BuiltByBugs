@@ -2,7 +2,10 @@ import { navigation } from '../../data/navigation.js';
 
 function Header({ pathname }) {
   return (
-    <header className="mx-auto flex min-h-21 w-[min(100%-2rem,1120px)] sm:w-[min(100%-3rem,1120px)] flex-wrap items-center justify-between gap-6 border-b border-brand-border-subtle py-4 md:flex-nowrap md:py-0">
+    <header
+      id="site-header"
+      className="mx-auto flex min-h-21 w-[min(100%-2rem,1120px)] sm:w-[min(100%-3rem,1120px)] flex-wrap items-center justify-between gap-6 border-b border-brand-border-subtle py-4 md:flex-nowrap md:py-0"
+    >
       <a
         className="group flex items-center gap-2.5 text-base font-extrabold tracking-[0.02em] text-white no-underline select-none"
         href="/"

@@ -116,6 +116,17 @@
     text-rendering: optimizeLegibility;
     min-width: 320px;
     box-sizing: border-box;
+    scroll-behavior: smooth;
+  }
+
+  [id] {
+    scroll-margin-top: 5.5rem;
+  }
+
+  @media (max-width: 768px) {
+    [id] {
+      scroll-margin-top: 8rem;
+    }
   }
 
   *,

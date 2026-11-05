@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import Header from './components/miscellaneous/Header.jsx';
 import Footer from './components/miscellaneous/Footer.jsx';
 import { DrawerProvider, GlobalDrawerContainer } from './components/drawer';
@@ -24,6 +25,23 @@ const SHOW_LEGACY_GLOWING_ARCS = true;
 function App() {
   const pathname = usePathname();
   const Page = routes[pathname] ?? Home;
+
+  // Handle in-page deep linking smoothly when hash exists
+  useEffect(() => {
+    if (window.location.hash) {
+      const hash = window.location.hash.split('?')[0].replace('#', '');
+      if (hash && !['contact', 'hire', 'chat', 'ai-chat'].includes(hash)) {
+        // Small delay to ensure dynamic child components mount
+        const timer = setTimeout(() => {
+          const el = document.getElementById(hash);
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 100);
+        return () => clearTimeout(timer);
+      }
+    }
+  }, [pathname]);
 
   return (
     <DrawerProvider>
@@ -52,7 +70,10 @@ function App() {
 
         <Header pathname={pathname} />
 
-        <main className="mx-auto w-[min(100%-2rem,1120px)] sm:w-[min(100%-3rem,1120px)] flex-1 pt-20 pb-16 md:pt-28 md:pb-20">
+        <main
+          id="main-content"
+          className="mx-auto w-[min(100%-2rem,1120px)] sm:w-[min(100%-3rem,1120px)] flex-1 pt-20 pb-16 md:pt-28 md:pb-20"
+        >
           <Page />
         </main>
 

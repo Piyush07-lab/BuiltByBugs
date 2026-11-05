@@ -317,13 +317,23 @@ export default function GlobalDrawer() {
       title={titles[drawerState.type] || 'Menu'}
     >
       {drawerState.type === 'hire' && (
-        <HireForm service={drawerState.data?.service} onClose={closeDrawer} />
+        <div id="hire-drawer">
+          <HireForm service={drawerState.data?.service} onClose={closeDrawer} />
+        </div>
       )}
 
       {/* Added contact rendering condition */}
-      {drawerState.type === 'contact' && <ContactForm onClose={closeDrawer} />}
+      {drawerState.type === 'contact' && (
+        <div id="contact-drawer">
+          <ContactForm onClose={closeDrawer} />
+        </div>
+      )}
 
-      {drawerState.type === 'chat' && <ChatAssistant onClose={closeDrawer} />}
+      {drawerState.type === 'chat' && (
+        <div id="ai-assistant-drawer">
+          <ChatAssistant onClose={closeDrawer} />
+        </div>
+      )}
     </Drawer>
   );
 }

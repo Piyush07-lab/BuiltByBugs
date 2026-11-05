@@ -163,6 +163,7 @@ function GitHubWidget() {
 
   return (
     <WidgetShell
+      id="github-widget"
       number="W1"
       eyebrow="GitHub"
       title="Live repository signal"

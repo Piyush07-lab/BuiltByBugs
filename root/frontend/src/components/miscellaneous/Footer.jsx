@@ -4,12 +4,15 @@ export default function Footer() {
   const { openDrawer } = useDrawer();
 
   return (
-    <footer className="relative mt-auto w-full border-t border-brand-border-subtle bg-brand-bg/95 backdrop-blur-md text-zinc-400">
+    <footer
+      id="site-footer"
+      className="relative mt-auto w-full border-t border-brand-border-subtle bg-brand-bg/95 backdrop-blur-md text-zinc-400"
+    >
       <div className="mx-auto w-[min(100%-2rem,1120px)] sm:w-[min(100%-3rem,1120px)] py-14 md:py-20">
         {/* Quick Link Navigation Columns */}
         <div className="grid grid-cols-2 gap-10 sm:grid-cols-4 md:gap-12">
           {/* Column 1: Navigation Tabs */}
-          <div className="flex flex-col gap-3">
+          <div id="footer-navigation" className="flex flex-col gap-3">
             <span className="text-xs font-semibold uppercase tracking-[0.14em] text-white">
               Navigation
             </span>
@@ -31,7 +34,7 @@ export default function Footer() {
           </div>
 
           {/* Column 2: Interactive Services & Drawers */}
-          <div className="flex flex-col gap-3">
+          <div id="footer-actions" className="flex flex-col gap-3">
             <span className="text-xs font-semibold uppercase tracking-[0.14em] text-white">
               Actions
             </span>
@@ -52,7 +55,7 @@ export default function Footer() {
           </div>
 
           {/* Column 3: Work & Repositories */}
-          <div className="flex flex-col gap-3">
+          <div id="footer-repositories" className="flex flex-col gap-3">
             <span className="text-xs font-semibold uppercase tracking-[0.14em] text-white">
               Repositories
             </span>
@@ -75,7 +78,7 @@ export default function Footer() {
           </div>
 
           {/* Column 4: System Details */}
-          <div className="flex flex-col gap-3">
+          <div id="footer-platform" className="flex flex-col gap-3">
             <span className="text-xs font-semibold uppercase tracking-[0.14em] text-white">
               Platform
             </span>

@@ -3,6 +3,7 @@ import resumePdf from './assets/resume.pdf';
 export const articles = [
   {
     id: 'art-1',
+    slug: 'ast-linters',
     title: 'Understanding AST for Custom Linters',
     date: 'Sept 2026',
     abstract:
@@ -27,6 +28,7 @@ In the upcoming parts of this series, we will build a parser from scratch...
   },
   {
     id: 'art-2',
+    slug: 'mongodb-aggregations',
     title: 'Optimizing MongoDB Aggregations',
     date: 'Aug 2026',
     abstract:
@@ -47,6 +49,7 @@ By applying these three rules, I managed to cut down query times on a 10M+ docum
   },
   {
     id: 'art-3',
+    slug: 'rabbitmq-microservices',
     title: 'Event-Driven Microservices with RabbitMQ',
     date: 'Jul 2026',
     abstract:
@@ -68,6 +71,7 @@ This means if Service B goes down, Service A is completely unaffected. The messa
 export const documents = [
   {
     id: 'doc-1',
+    slug: 'resume',
     title: 'Resume (PDF)',
     description: 'My latest resume detailing my work history, skills, and education.',
     icon: 'resume',
@@ -75,6 +79,7 @@ export const documents = [
   },
   {
     id: 'doc-2',
+    slug: 'architecture',
     title: 'System Architecture Diagram',
     description: 'A high-level view of the BuiltByBugs platform architecture.',
     icon: 'diagram',
@@ -82,6 +87,7 @@ export const documents = [
   },
   {
     id: 'doc-3',
+    slug: 'api-specification',
     title: 'API Documentation',
     description: 'OpenAPI specification for the custom backend services.',
     icon: 'api',

@@ -169,6 +169,7 @@ function CodingTracker() {
 
   return (
     <WidgetShell
+      id="coding-tracker-widget"
       number="W2"
       eyebrow="Code Log"
       title="Coding tracker"

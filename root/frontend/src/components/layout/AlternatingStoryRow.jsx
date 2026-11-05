@@ -1,4 +1,5 @@
 export default function AlternatingStoryRow({
+  id,
   index,
   tag,
   title,
@@ -9,7 +10,7 @@ export default function AlternatingStoryRow({
   children,
 }) {
   return (
-    <section className="relative my-20 md:my-32">
+    <section id={id} className="relative my-20 md:my-32">
       <div className="grid grid-cols-1 items-center gap-10 md:grid-cols-2 md:gap-16">
         {/* Text Block: Always first on mobile; toggles order on desktop */}
         <div className={`relative ${reverse ? 'md:order-2' : 'md:order-1'}`}>

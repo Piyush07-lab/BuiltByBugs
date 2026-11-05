@@ -223,7 +223,7 @@ export default function TechStackBento() {
   };
 
   return (
-    <section className="mt-16 md:mt-28" aria-label="Tech Stack Showcase">
+    <section id="tech-stack" className="mt-16 md:mt-28" aria-label="Tech Stack Showcase">
       <div className="max-w-190">
         <p className="mb-4 text-xs font-extrabold uppercase tracking-[0.14em] text-brand-turquoise">
           Tech Stack
@@ -236,6 +236,7 @@ export default function TechStackBento() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:auto-rows-55">
         {/* Row 1, Col 1-2: Backend */}
         <div
+          id="tech-backend"
           tabIndex={0}
           role="region"
           aria-label={`${cards[0].title}: ${cards[0].description}`}
@@ -269,6 +270,7 @@ export default function TechStackBento() {
 
         {/* Row 1, Col 3: Automation */}
         <div
+          id="tech-automation"
           tabIndex={0}
           role="region"
           aria-label={`${cards[1].title}: ${cards[1].description}`}
@@ -301,10 +303,11 @@ export default function TechStackBento() {
         </div>
 
         {/* Row 2, Col 1: 2x2 Mini Cards (Placed first in Row 2 for natural DOM/Tab Order) */}
-        <div className="grid grid-cols-2 grid-rows-2 gap-2.5 h-full">
+        <div id="tech-tooling" className="grid grid-cols-2 grid-rows-2 gap-2.5 h-full">
           {miniCards.map((mini) => (
             <div
               key={mini.id}
+              id={`tech-${mini.id}`}
               tabIndex={0}
               role="region"
               aria-label={`${mini.title}: ${mini.description}`}
@@ -340,6 +343,7 @@ export default function TechStackBento() {
 
         {/* Row 2, Col 2: AI Integration */}
         <div
+          id="tech-ai"
           tabIndex={0}
           role="region"
           aria-label={`${cards[2].title}: ${cards[2].description}`}
@@ -373,6 +377,7 @@ export default function TechStackBento() {
 
         {/* Row 2, Col 3: Foundation */}
         <div
+          id="tech-foundation"
           tabIndex={0}
           role="region"
           aria-label={`${cards[3].title}: ${cards[3].description}`}

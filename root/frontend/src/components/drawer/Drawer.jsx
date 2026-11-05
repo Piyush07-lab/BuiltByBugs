@@ -2,7 +2,7 @@ import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/re
 
 export default function Drawer({ isOpen, onClose, title, children }) {
   return (
-    <Dialog open={isOpen} onClose={onClose} className="relative z-50">
+    <Dialog open={isOpen} onClose={onClose} id="global-drawer" className="relative z-50">
       <DialogBackdrop
         transition
         className="fixed inset-0 bg-black/70 backdrop-blur-sm transition-opacity duration-300 ease-out data-closed:opacity-0"

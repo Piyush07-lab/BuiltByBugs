@@ -2,9 +2,13 @@ import { useState } from 'react';
 
 function ArticleCard({ article }) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const elementId = article.slug ? `art-${article.slug}` : `art-${article.id}`;
 
   return (
-    <article className="flex flex-col rounded-2xl border border-brand-border bg-brand-card backdrop-blur-md p-6 shadow-paper-depth transition-all duration-300 hover:border-brand-violet/40">
+    <article
+      id={elementId}
+      className="flex flex-col rounded-2xl border border-brand-border bg-brand-card backdrop-blur-md p-6 shadow-paper-depth transition-all duration-300 hover:border-brand-violet/40"
+    >
       <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
         <span className="text-xs uppercase tracking-wider text-brand-turquoise font-semibold">
           {article.date}

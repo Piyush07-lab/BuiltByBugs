@@ -10,7 +10,7 @@ function Library() {
 
   return (
     <>
-      <section className="max-w-190">
+      <section id="library-overview" className="max-w-190">
         <p className="mb-5 text-md font-extrabold uppercase tracking-[0.14em] text-brand-turquoise">
           {page.eyebrow}
         </p>
@@ -23,17 +23,17 @@ function Library() {
       </section>
 
       {/* Top Section: Activity & Analytics */}
-      <section className="mt-16 grid grid-cols-1 gap-4 md:mt-28 lg:grid-cols-3 lg:gap-8">
-        <div className="lg:col-span-1">
+      <section id="live-telemetry" className="mt-16 grid grid-cols-1 gap-4 md:mt-28 lg:grid-cols-3 lg:gap-8">
+        <div id="library-bulletin" className="lg:col-span-1">
           <BulletinWidget />
         </div>
         <div className="lg:col-span-2">
-          <LeetcodeStats />
+          <LeetcodeStats id="leetcode-metrics" />
         </div>
       </section>
 
       {/* Middle Section: Technical Writing */}
-      <section className="mt-16 md:mt-24">
+      <section id="articles" className="mt-16 md:mt-24">
         <div className="mb-8 flex items-center justify-between">
           <h2 className="text-[1.3rem] font-bold text-white">Articles & Notes</h2>
           <span className="text-sm text-muted">{articles.length} posts</span>
@@ -46,7 +46,7 @@ function Library() {
       </section>
 
       {/* Bottom Section: Documents */}
-      <section className="mt-16 md:mt-24 mb-16">
+      <section id="documents" className="mt-16 md:mt-24 mb-16">
         <div className="mb-8 flex items-center justify-between">
           <h2 className="text-[1.3rem] font-bold text-white">Documents</h2>
           <span className="text-sm text-muted">{documents.length} files</span>

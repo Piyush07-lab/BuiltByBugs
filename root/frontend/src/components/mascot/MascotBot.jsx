@@ -44,6 +44,7 @@ export default function MascotBot({ armAction = null } = {}) {
 
   return (
     <div
+      id="mascot-assistant"
       className="fixed bottom-5 right-5 sm:bottom-6 sm:right-6 md:bottom-8 md:right-8 z-40 select-none origin-bottom-right will-change-transform"
       style={{
         transform: `translate3d(${displayPos.x}px, ${displayPos.y}px, 0)`,

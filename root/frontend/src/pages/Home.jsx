@@ -12,7 +12,7 @@ function Home() {
   return (
     <>
       {/* Hero Section */}
-      <section className="max-w-190 mt-12 sm:mt-16 md:mt-[14vh] lg:mt-[16vh]">
+      <section id="hero" className="max-w-190 mt-12 sm:mt-16 md:mt-[14vh] lg:mt-[16vh]">
         <p className="mb-5 text-md font-extrabold uppercase tracking-[0.14em] text-brand-turquoise">
           {page.eyebrow}
         </p>
@@ -22,7 +22,7 @@ function Home() {
         <p className="mb-8 max-w-162.5 text-[clamp(1rem,1.5vw,1.15rem)] leading-[1.75] text-muted">
           {page.description}
         </p>
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-[0.9rem] text-[#d7deed]">
+        <div id="services-tag" className="flex flex-wrap items-center gap-x-4 gap-y-2 text-[0.9rem] text-[#d7deed]">
           <AutoSwitchHireTag />
         </div>
       </section>
@@ -31,12 +31,13 @@ function Home() {
       <div className="mt-28 space-y-28 md:mt-44 md:space-y-44 lg:mt-56 lg:space-y-56">
         {/* 01: Dev Activity */}
         <AlternatingStoryRow
+          id="dev-cadence"
           index="01"
           tag="Discipline & Shipping"
           title="Continuous Code Cadence"
           description="Tracking daily programming sessions, weekly volume, and language allocations in real-time."
           linkText="View full activity log"
-          linkHref="/project"
+          linkHref="/project#code"
           reverse={false}
         >
           <CodingTracker />
@@ -44,6 +45,7 @@ function Home() {
 
         {/* 02: Real-time Notes & Broadcast */}
         <AlternatingStoryRow
+          id="live-signals"
           index="02"
           tag="Live Signals & Notes"
           title="Activity Bulletin"
@@ -55,6 +57,7 @@ function Home() {
 
         {/* 03: Source & Releases */}
         <AlternatingStoryRow
+          id="transparent-production"
           index="03"
           tag="Repositories & Signals"
           title="Transparent Production"

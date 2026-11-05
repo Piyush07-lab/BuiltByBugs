@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { fetchLeetcodeStats } from '../../api/fetchApi.js';
 import { mockLeetcodeData } from '../../data/libraryData.js';
 
-export function LeetcodeStats({ stats: initialStats }) {
+export function LeetcodeStats({ stats: initialStats, id = 'leetcode-metrics' }) {
   const [fetchedStats, setFetchedStats] = useState(null);
   const [loading, setLoading] = useState(!initialStats);
   const [isCached, setIsCached] = useState(false);
@@ -123,7 +123,10 @@ export function LeetcodeStats({ stats: initialStats }) {
   ];
 
   return (
-    <section className="rounded-2xl border border-brand-border bg-brand-card backdrop-blur-md p-6 shadow-paper-depth flex flex-col justify-between">
+    <section
+      id={id}
+      className="rounded-2xl border border-brand-border bg-brand-card backdrop-blur-md p-6 shadow-paper-depth flex flex-col justify-between"
+    >
       {/* Top row: Header & Profile badge */}
       <div className="flex flex-col items-start justify-between gap-4 md:flex-row">
         <div>

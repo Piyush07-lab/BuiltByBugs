@@ -1,9 +1,12 @@
-function GitHubShowcase({ summary }) {
+function GitHubShowcase({ summary, id = 'github' }) {
   const { user, repos = [] } = summary;
   const joinedYear = user.created_at ? new Date(user.created_at).getFullYear() : 'n/a';
 
   return (
-    <section className="rounded-2xl border border-brand-border bg-brand-card backdrop-blur-md p-6 shadow-paper-depth">
+    <section
+      id={id}
+      className="rounded-2xl border border-brand-border bg-brand-card backdrop-blur-md p-6 shadow-paper-depth"
+    >
       <div>
         <p className="mb-5 text-xs font-extrabold uppercase tracking-[0.14em] text-brand-turquoise">
           GitHub Showcase

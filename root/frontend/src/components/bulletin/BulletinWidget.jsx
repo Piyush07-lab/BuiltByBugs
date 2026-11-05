@@ -70,6 +70,7 @@ function BulletinWidget() {
 
   return (
     <WidgetShell
+      id="bulletin-widget"
       number="W3"
       title="Activity bulletin"
       eyebrow={item.tag}

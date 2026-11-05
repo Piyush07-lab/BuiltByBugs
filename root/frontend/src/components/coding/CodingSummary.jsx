@@ -1,9 +1,12 @@
-function CodingSummary({ summary }) {
+function CodingSummary({ summary, id = 'code' }) {
   const languages = summary.languages || [];
   const projects = summary.projects || [];
 
   return (
-    <section className="rounded-2xl border border-brand-border bg-brand-card backdrop-blur-md p-6 shadow-paper-depth">
+    <section
+      id={id}
+      className="rounded-2xl border border-brand-border bg-brand-card backdrop-blur-md p-6 shadow-paper-depth"
+    >
       <div className="flex flex-col items-start justify-between gap-4 md:flex-row">
         <div>
           <p className="mb-5 text-xs font-extrabold uppercase tracking-[0.14em] text-brand-turquoise">

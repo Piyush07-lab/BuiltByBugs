@@ -1,6 +1,11 @@
 function DocumentCard({ document }) {
+  const elementId = document.slug ? `doc-${document.slug}` : `doc-${document.id}`;
+
   return (
-    <article className="flex flex-col rounded-2xl border border-brand-border bg-brand-card backdrop-blur-md p-6 shadow-paper-depth transition-all duration-300 hover:-translate-y-1 hover:border-brand-violet/40">
+    <article
+      id={elementId}
+      className="flex flex-col rounded-2xl border border-brand-border bg-brand-card backdrop-blur-md p-6 shadow-paper-depth transition-all duration-300 hover:-translate-y-1 hover:border-brand-violet/40"
+    >
       <div className="flex items-start justify-between gap-4 mb-4">
         <div className="flex items-center justify-center w-10 h-10 rounded-full border border-brand-turquoise/20 bg-brand-turquoise/10 text-brand-turquoise shadow-glow-turquoise/20">
           <svg

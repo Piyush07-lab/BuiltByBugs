@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-function RepositoryGrid({ repos = [], limit }) {
+function RepositoryGrid({ repos = [], limit, id = 'repositories' }) {
   const sortedRepos = [...repos].sort(
     (a, b) => new Date(b.pushed_at || 0) - new Date(a.pushed_at || 0)
   );
@@ -10,7 +10,10 @@ function RepositoryGrid({ repos = [], limit }) {
   const visibleRepos = hasLimit && !expanded ? sortedRepos.slice(0, limit) : sortedRepos;
 
   return (
-    <section className="rounded-2xl border border-brand-border bg-brand-card backdrop-blur-md p-4 sm:p-6 shadow-paper-depth">
+    <section
+      id={id}
+      className="rounded-2xl border border-brand-border bg-brand-card backdrop-blur-md p-4 sm:p-6 shadow-paper-depth"
+    >
       <div className="flex flex-col items-start justify-between gap-4 md:flex-row">
         <div>
           <p className="mb-5 text-xs font-extrabold uppercase tracking-[0.14em] text-brand-turquoise">
@@ -34,6 +37,7 @@ function RepositoryGrid({ repos = [], limit }) {
 
           return (
             <a
+              id={`repo-${repo.name.toLowerCase()}`}
               className={`flex min-h-[230px] flex-col rounded-xl p-4 text-inherit no-underline transition duration-200 ease-in-out hover:-translate-y-1 hover:shadow-glow-turquoise/40 focus-visible:-translate-y-1 ${
                 isFeatured
                   ? 'border-metallic-green bg-brand-card-solid/90 shadow-paper-depth'

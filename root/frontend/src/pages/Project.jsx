@@ -19,7 +19,8 @@ const TABS = [
 ];
 
 function getInitialTab() {
-  const hash = window.location.hash.replace('#', '');
+  const hash = window.location.hash.split('?')[0].replace('#', '');
+  if (hash === 'repositories' || hash.startsWith('repo-')) return 'github';
   if (TABS.some((t) => t.id === hash)) return hash;
   return 'github';
 }
@@ -38,11 +39,15 @@ function Project() {
     window.history.replaceState(null, '', `#${tabId}`);
   }, []);
 
-  // Sync hash changes (e.g. browser back/forward)
+  // Sync hash changes (e.g. browser back/forward or deep-links)
   useEffect(() => {
     const onHashChange = () => {
-      const hash = window.location.hash.replace('#', '');
-      if (TABS.some((t) => t.id === hash)) setActiveTab(hash);
+      const hash = window.location.hash.split('?')[0].replace('#', '');
+      if (hash === 'repositories' || hash.startsWith('repo-')) {
+        setActiveTab('github');
+      } else if (TABS.some((t) => t.id === hash)) {
+        setActiveTab(hash);
+      }
     };
     window.addEventListener('hashchange', onHashChange);
     return () => window.removeEventListener('hashchange', onHashChange);
@@ -72,7 +77,7 @@ function Project() {
 
   return (
     <>
-      <section className="max-w-190">
+      <section id="project-overview" className="max-w-190">
         <p className="mb-5 text-md font-extrabold uppercase tracking-[0.14em] text-brand-turquoise">
           {page.eyebrow}
         </p>
@@ -93,6 +98,7 @@ function Project() {
           <>
             {/* ── Mobile Tab Bar ── */}
             <nav
+              id="project-tabs"
               className="md:hidden sticky z-20 -mx-4 px-4 py-3 border-b border-brand-border-subtle bg-brand-bg/90 backdrop-blur-md"
               style={{ top: '84px' }}
               aria-label="Project sections"
@@ -117,15 +123,16 @@ function Project() {
               </div>
             </nav>
 
-            {/* ── Desktop: Linear stack (unchanged) ── */}
+            {/* ── Desktop: Linear stack ── */}
             <div className="mt-20 hidden md:grid gap-5">
-              <GitHubShowcase summary={githubSummary} />
-              <RepositoryGrid repos={githubSummary.repos} />
+              <GitHubShowcase id="github" summary={githubSummary} />
+              <RepositoryGrid id="repositories" repos={githubSummary.repos} />
               <ContributionHeatmap
+                id="activity"
                 heatmap={heatmap}
                 profileUrl={githubSummary.user.html_url}
               />
-              <CodingSummary summary={codingSummary} />
+              <CodingSummary id="code" summary={codingSummary} />
             </div>
 
             {/* ── Mobile: Tab content ── */}
