@@ -21,7 +21,11 @@ export function DrawerProvider({ children }) {
         window.location.hash.startsWith(h)
       )
     ) {
-      window.history.replaceState(null, '', window.location.pathname + window.location.search);
+      window.history.replaceState(
+        null,
+        '',
+        window.location.pathname + window.location.search
+      );
     }
   }, []);
 

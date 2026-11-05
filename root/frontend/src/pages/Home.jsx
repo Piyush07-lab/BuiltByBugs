@@ -22,7 +22,10 @@ function Home() {
         <p className="mb-8 max-w-162.5 text-[clamp(1rem,1.5vw,1.15rem)] leading-[1.75] text-muted">
           {page.description}
         </p>
-        <div id="services-tag" className="flex flex-wrap items-center gap-x-4 gap-y-2 text-[0.9rem] text-[#d7deed]">
+        <div
+          id="services-tag"
+          className="flex flex-wrap items-center gap-x-4 gap-y-2 text-[0.9rem] text-[#d7deed]"
+        >
           <AutoSwitchHireTag />
         </div>
       </section>

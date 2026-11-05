@@ -23,7 +23,10 @@ function Library() {
       </section>
 
       {/* Top Section: Activity & Analytics */}
-      <section id="live-telemetry" className="mt-16 grid grid-cols-1 gap-4 md:mt-28 lg:grid-cols-3 lg:gap-8">
+      <section
+        id="live-telemetry"
+        className="mt-16 grid grid-cols-1 gap-4 md:mt-28 lg:grid-cols-3 lg:gap-8"
+      >
         <div id="library-bulletin" className="lg:col-span-1">
           <BulletinWidget />
         </div>
