@@ -245,26 +245,6 @@ export async function streamGeminiResponse({ messages, sendFrame, aiClient = nul
                                 }
                             }
                         }
-
-                        if (chunk.text) {
-                            attemptText += chunk.text;
-                            if (attemptText.trim().length > 0) {
-                                if (!emittedChunksForAttempt) {
-                                    emittedChunksForAttempt = true;
-                                    fullText += attemptText;
-                                    sendFrame({
-                                        type: "stream:chunk",
-                                        delta: attemptText,
-                                    });
-                                } else {
-                                    fullText += chunk.text;
-                                    sendFrame({
-                                        type: "stream:chunk",
-                                        delta: chunk.text,
-                                    });
-                                }
-                            }
-                        }
                     }
 
                     const validation = validateModelTurnOutput({
