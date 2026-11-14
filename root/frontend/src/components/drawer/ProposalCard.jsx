@@ -35,7 +35,8 @@ export default function ProposalCard({ proposal, onAccept }) {
         </div>
         <div className="text-right">
           <div className="text-base font-extrabold text-brand-turquoise">
-            {currencySymbol}{totalEstimatedCost?.toLocaleString()} {currency}
+            {currencySymbol}
+            {totalEstimatedCost?.toLocaleString()} {currency}
           </div>
           <span className="inline-block rounded bg-brand-turquoise/10 px-2 py-0.5 text-[10px] font-medium text-brand-turquoise border border-brand-turquoise/30">
             {billingType}
@@ -67,8 +68,14 @@ export default function ProposalCard({ proposal, onAccept }) {
         onClick={() => setIsExpanded((prev) => !prev)}
         className="w-full text-left py-1 text-[11px] font-semibold text-brand-turquoise hover:underline flex items-center justify-between"
       >
-        <span>{isExpanded ? 'Hide Deliverables & Milestones ▲' : 'View Deliverables & Milestones ▼'}</span>
-        <span className="text-zinc-500 text-[10px]">{deliverables.length} Deliverables</span>
+        <span>
+          {isExpanded
+            ? 'Hide Deliverables & Milestones ▲'
+            : 'View Deliverables & Milestones ▼'}
+        </span>
+        <span className="text-zinc-500 text-[10px]">
+          {deliverables.length} Deliverables
+        </span>
       </button>
 
       {/* Collapsible Details */}
@@ -87,7 +94,9 @@ export default function ProposalCard({ proposal, onAccept }) {
                 >
                   <div className="flex justify-between font-medium text-white">
                     <span>{item.title}</span>
-                    <span className="text-zinc-400 font-mono text-[10px]">~{item.estimatedDays} days</span>
+                    <span className="text-zinc-400 font-mono text-[10px]">
+                      ~{item.estimatedDays} days
+                    </span>
                   </div>
                   <p className="text-zinc-400 text-[10px] mt-0.5">{item.description}</p>
                 </div>
@@ -109,8 +118,13 @@ export default function ProposalCard({ proposal, onAccept }) {
                   >
                     <span className="text-zinc-300">{m.phase}</span>
                     <div className="font-mono text-zinc-200 font-semibold text-right">
-                      <span className="text-zinc-400 mr-2 text-[10px]">({m.percentage}%)</span>
-                      <span>{currencySymbol}{m.amount?.toLocaleString()}</span>
+                      <span className="text-zinc-400 mr-2 text-[10px]">
+                        ({m.percentage}%)
+                      </span>
+                      <span>
+                        {currencySymbol}
+                        {m.amount?.toLocaleString()}
+                      </span>
                     </div>
                   </div>
                 ))}

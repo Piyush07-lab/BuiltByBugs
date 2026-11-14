@@ -8,7 +8,10 @@ import { getUserAndRepos } from "../utils/github.js";
 import { getCachedWakaTimeData, buildCodingSummary } from "../api/coding.js";
 import { fetchLeetcodeData } from "../api/leetcode.js";
 import { isValidHireRequest, isValidContactRequest } from "../utils/spamFilter.js";
-import { sendHireNotification, sendContactNotification } from "../services/emailService.js";
+import {
+    sendHireNotification,
+    sendContactNotification,
+} from "../services/emailService.js";
 
 /**
  * Gemini Function Declarations Schema
@@ -23,15 +26,26 @@ export const toolDeclarations = [
             properties: {
                 category: {
                     type: "STRING",
-                    enum: ["bio", "skills", "articles", "projects", "pricing", "services", "creator", "documents", "all"],
-                    description: "Specific domain of knowledge to query."
+                    enum: [
+                        "bio",
+                        "skills",
+                        "articles",
+                        "projects",
+                        "pricing",
+                        "services",
+                        "creator",
+                        "documents",
+                        "all",
+                    ],
+                    description: "Specific domain of knowledge to query.",
                 },
                 query: {
                     type: "STRING",
-                    description: "Optional specific topic or keyword (e.g. 'AST', 'MongoDB', 'RabbitMQ', 'resume')."
-                }
-            }
-        }
+                    description:
+                        "Optional specific topic or keyword (e.g. 'AST', 'MongoDB', 'RabbitMQ', 'resume').",
+                },
+            },
+        },
     },
     {
         name: "getCodingStats",
@@ -39,8 +53,8 @@ export const toolDeclarations = [
             "Fetch live developer activity metrics including WakaTime hours, top programming languages, active projects, and LeetCode problem-solving stats.",
         parameters: {
             type: "OBJECT",
-            properties: {}
-        }
+            properties: {},
+        },
     },
     {
         name: "getGitHubProjects",
@@ -51,10 +65,10 @@ export const toolDeclarations = [
             properties: {
                 limit: {
                     type: "INTEGER",
-                    description: "Maximum number of repositories to return (default 6)."
-                }
-            }
-        }
+                    description: "Maximum number of repositories to return (default 6).",
+                },
+            },
+        },
     },
     {
         name: "evaluateNegotiation",
@@ -65,32 +79,36 @@ export const toolDeclarations = [
             properties: {
                 proposedBudget: {
                     type: "NUMBER",
-                    description: "The budget offered by the client in the selected currency (USD or INR)."
+                    description:
+                        "The budget offered by the client in the selected currency (USD or INR).",
                 },
                 currency: {
                     type: "STRING",
                     enum: ["USD", "INR"],
-                    description: "Currency chosen by the client ('USD' selects index [0], 'INR' selects index [1]). Defaults to 'USD'."
+                    description:
+                        "Currency chosen by the client ('USD' selects index [0], 'INR' selects index [1]). Defaults to 'USD'.",
                 },
                 proposedHours: {
                     type: "NUMBER",
-                    description: "Estimated hours if calculating hourly engagement."
+                    description: "Estimated hours if calculating hourly engagement.",
                 },
                 timelineDays: {
                     type: "NUMBER",
-                    description: "Requested completion timeframe in calendar days."
+                    description: "Requested completion timeframe in calendar days.",
                 },
                 scopeDescription: {
                     type: "STRING",
-                    description: "Brief summary of the requested features or project scope."
+                    description:
+                        "Brief summary of the requested features or project scope.",
                 },
                 isUpfrontPaymentAgreed: {
                     type: "BOOLEAN",
-                    description: "Whether the client agrees to 100% upfront payment (eligible for 5% incentive discount)."
-                }
+                    description:
+                        "Whether the client agrees to 100% upfront payment (eligible for 5% incentive discount).",
+                },
             },
-            required: ["proposedBudget", "scopeDescription"]
-        }
+            required: ["proposedBudget", "scopeDescription"],
+        },
     },
     {
         name: "draftProjectProposal",
@@ -101,20 +119,22 @@ export const toolDeclarations = [
             properties: {
                 clientName: {
                     type: "STRING",
-                    description: "Name of client or company."
+                    description: "Name of client or company.",
                 },
                 projectName: {
                     type: "STRING",
-                    description: "Title of proposed project."
+                    description: "Title of proposed project.",
                 },
                 summary: {
                     type: "STRING",
-                    description: "High-level summary of architecture, solution, and value delivered."
+                    description:
+                        "High-level summary of architecture, solution, and value delivered.",
                 },
                 recommendedStack: {
                     type: "ARRAY",
                     items: { type: "STRING" },
-                    description: "List of recommended technologies (e.g. ['Node.js', 'React', 'MongoDB'])."
+                    description:
+                        "List of recommended technologies (e.g. ['Node.js', 'React', 'MongoDB']).",
                 },
                 deliverables: {
                     type: "ARRAY",
@@ -123,30 +143,32 @@ export const toolDeclarations = [
                         properties: {
                             title: { type: "STRING" },
                             description: { type: "STRING" },
-                            estimatedDays: { type: "INTEGER" }
+                            estimatedDays: { type: "INTEGER" },
                         },
-                        required: ["title", "description", "estimatedDays"]
+                        required: ["title", "description", "estimatedDays"],
                     },
-                    description: "Itemized breakdown of milestones and deliverables."
+                    description: "Itemized breakdown of milestones and deliverables.",
                 },
                 timelineWeeks: {
                     type: "NUMBER",
-                    description: "Estimated turnaround time in weeks."
+                    description: "Estimated turnaround time in weeks.",
                 },
                 totalEstimatedCost: {
                     type: "NUMBER",
-                    description: "Total estimated project cost in the selected currency (USD or INR)."
+                    description:
+                        "Total estimated project cost in the selected currency (USD or INR).",
                 },
                 currency: {
                     type: "STRING",
                     enum: ["USD", "INR"],
-                    description: "Currency for the proposal ('USD' or 'INR'). Defaults to 'USD'."
+                    description:
+                        "Currency for the proposal ('USD' or 'INR'). Defaults to 'USD'.",
                 },
                 billingType: {
                     type: "STRING",
                     enum: ["Fixed-Price", "Milestone-Based", "Hourly"],
-                    description: "Structure of financial engagement."
-                }
+                    description: "Structure of financial engagement.",
+                },
             },
             required: [
                 "clientName",
@@ -156,9 +178,9 @@ export const toolDeclarations = [
                 "deliverables",
                 "timelineWeeks",
                 "totalEstimatedCost",
-                "billingType"
-            ]
-        }
+                "billingType",
+            ],
+        },
     },
     {
         name: "submitInquiry",
@@ -170,29 +192,36 @@ export const toolDeclarations = [
                 type: {
                     type: "STRING",
                     enum: ["hire", "contact"],
-                    description: "Inquiry type."
+                    description: "Inquiry type.",
                 },
                 service: {
                     type: "STRING",
-                    enum: ["Full-Time Job", "Contract", "Standalone Projects", "Web Services", "General Inquiry"],
-                    description: "Target service category."
+                    enum: [
+                        "Full-Time Job",
+                        "Contract",
+                        "Standalone Projects",
+                        "Web Services",
+                        "General Inquiry",
+                    ],
+                    description: "Target service category.",
                 },
                 name: {
                     type: "STRING",
-                    description: "Full name of the user/client."
+                    description: "Full name of the user/client.",
                 },
                 email: {
                     type: "STRING",
-                    description: "Valid email address for follow-up."
+                    description: "Valid email address for follow-up.",
                 },
                 details: {
                     type: "STRING",
-                    description: "Comprehensive scope, requirements, agreed budget, or inquiry notes."
-                }
+                    description:
+                        "Comprehensive scope, requirements, agreed budget, or inquiry notes.",
+                },
             },
-            required: ["type", "name", "email", "details"]
-        }
-    }
+            required: ["type", "name", "email", "details"],
+        },
+    },
 ];
 
 export function parseAmount(value, currency = "USD", fallback = 0) {
@@ -223,7 +252,7 @@ export async function executeTool(name, args = {}) {
             if (category === "all" || category === "skills") {
                 data.skills = {
                     coreSkills: CREATOR_PROFILE.coreSkills,
-                    ...SITE_KNOWLEDGE.skills
+                    ...SITE_KNOWLEDGE.skills,
                 };
             }
             if (category === "all" || category === "projects") {
@@ -232,7 +261,7 @@ export async function executeTool(name, args = {}) {
             if (category === "all" || category === "pricing") {
                 data.pricing = {
                     ...SITE_KNOWLEDGE.pricing,
-                    ...CREATOR_PROFILE.pricing
+                    ...CREATOR_PROFILE.pricing,
                 };
             }
             if (category === "all" || category === "articles") {
@@ -253,14 +282,14 @@ export async function executeTool(name, args = {}) {
 
             return {
                 status: "success",
-                result: data
+                result: data,
             };
         }
 
         case "getCodingStats": {
             const summary = {
                 wakatime: null,
-                leetcode: null
+                leetcode: null,
             };
 
             try {
@@ -270,17 +299,22 @@ export async function executeTool(name, args = {}) {
                     totalHours: (built.totalMinutes / 60).toFixed(1),
                     humanTotal: built.totalText,
                     dailyAverageText: built.dailyAverageText,
-                    topLanguages: built.languages.slice(0, 5).map((l) => `${l.name} (${l.percent}%)`),
+                    topLanguages: built.languages
+                        .slice(0, 5)
+                        .map((l) => `${l.name} (${l.percent}%)`),
                     topEditors: built.editors.slice(0, 3).map((e) => e.name),
-                    topProjects: built.projects.slice(0, 4).map((p) => p.name)
+                    topProjects: built.projects.slice(0, 4).map((p) => p.name),
                 };
             } catch (err) {
-                summary.wakatime = { note: "WakaTime data currently caching or offline: " + err.message };
+                summary.wakatime = {
+                    note: "WakaTime data currently caching or offline: " + err.message,
+                };
             }
 
             try {
                 const leetRaw = await fetchLeetcodeData();
-                const acStats = leetRaw?.matchedUser?.submitStatsGlobal?.acSubmissionNum || [];
+                const acStats =
+                    leetRaw?.matchedUser?.submitStatsGlobal?.acSubmissionNum || [];
                 const ranking = leetRaw?.matchedUser?.profile?.ranking || "N/A";
                 summary.leetcode = {
                     username: leetRaw?.matchedUser?.username || "PiyushMishra07",
@@ -288,15 +322,17 @@ export async function executeTool(name, args = {}) {
                     solvedBreakdown: acStats.reduce((acc, curr) => {
                         acc[curr.difficulty] = curr.count;
                         return acc;
-                    }, {})
+                    }, {}),
                 };
             } catch (err) {
-                summary.leetcode = { note: "LeetCode stats currently offline: " + err.message };
+                summary.leetcode = {
+                    note: "LeetCode stats currently offline: " + err.message,
+                };
             }
 
             return {
                 status: "success",
-                result: summary
+                result: summary,
             };
         }
 
@@ -313,7 +349,7 @@ export async function executeTool(name, args = {}) {
                         stars: r.stargazers_count,
                         language: r.language,
                         url: r.html_url,
-                        updatedAt: r.updated_at
+                        updatedAt: r.updated_at,
                     }));
 
                 return {
@@ -322,15 +358,15 @@ export async function executeTool(name, args = {}) {
                         user: {
                             login: ghData.user?.login,
                             publicRepos: ghData.user?.public_repos,
-                            bio: ghData.user?.bio
+                            bio: ghData.user?.bio,
                         },
-                        repos
-                    }
+                        repos,
+                    },
                 };
             } catch (err) {
                 return {
                     status: "error",
-                    message: "Failed to retrieve GitHub repos: " + err.message
+                    message: "Failed to retrieve GitHub repos: " + err.message,
                 };
             }
         }
@@ -355,7 +391,7 @@ export async function executeTool(name, args = {}) {
                 proposedHours,
                 timelineDays,
                 scopeDescription: _scopeDescription = "",
-                isUpfrontPaymentAgreed = false
+                isUpfrontPaymentAgreed = false,
             } = args;
 
             const assessment = {
@@ -367,7 +403,7 @@ export async function executeTool(name, args = {}) {
                 counterOffer: null,
                 tradeoffsRequired: [],
                 escalateToCreator: false,
-                reason: ""
+                reason: "",
             };
 
             // Check absolute floor
@@ -378,7 +414,7 @@ export async function executeTool(name, args = {}) {
                 assessment.counterOffer = {
                     acceptableMinimumBudget: fixedFloor,
                     suggestedAction:
-                        "Offer a consultation starter package or recommend descoping to core architecture MVP only."
+                        "Offer a consultation starter package or recommend descoping to core architecture MVP only.",
                 };
                 return { status: "success", result: assessment };
             }
@@ -392,7 +428,7 @@ export async function executeTool(name, args = {}) {
                     assessment.reason = `Calculated hourly rate of ${symbol}${calculatedHourly.toFixed(0)}/hr is below minimum floor of ${symbol}${hourlyFloor}/hr.`;
                     assessment.counterOffer = {
                         acceptableMinimumHourly: hourlyFloor,
-                        minimumAdjustedBudget: Math.round(hourlyFloor * proposedHours)
+                        minimumAdjustedBudget: Math.round(hourlyFloor * proposedHours),
                     };
                     return { status: "success", result: assessment };
                 }
@@ -400,7 +436,9 @@ export async function executeTool(name, args = {}) {
 
             // Check rush timeline (< 7 days)
             if (timelineDays && timelineDays < policy.minTurnaroundDays) {
-                const surgeCost = Math.round(proposedBudget * (policy.rushMultiplier - 1));
+                const surgeCost = Math.round(
+                    proposedBudget * (policy.rushMultiplier - 1)
+                );
                 assessment.tradeoffsRequired.push(
                     `Turnaround of ${timelineDays} days is below standard 7-day minimum. A 30% urgency fee (+${symbol}${surgeCost}) applies unless timeline is extended.`
                 );
@@ -420,7 +458,7 @@ export async function executeTool(name, args = {}) {
 
             return {
                 status: "success",
-                result: assessment
+                result: assessment,
             };
         }
 
@@ -433,7 +471,7 @@ export async function executeTool(name, args = {}) {
             const milestones = policy.milestoneStructure.map((m) => ({
                 phase: m.phase,
                 percentage: m.percentage,
-                amount: Math.round((m.percentage / 100) * total)
+                amount: Math.round((m.percentage / 100) * total),
             }));
 
             const proposal = {
@@ -446,33 +484,42 @@ export async function executeTool(name, args = {}) {
                 deliverables: args.deliverables || [],
                 timelineWeeks: args.timelineWeeks,
                 totalEstimatedCost: total,
-                currency: String(args.currency || "USD").toUpperCase() === "INR" ? "INR" : "USD",
+                currency:
+                    String(args.currency || "USD").toUpperCase() === "INR"
+                        ? "INR"
+                        : "USD",
                 billingType: args.billingType || "Milestone-Based",
                 milestones,
                 terms: [
                     "50% milestone payable upon architectural kickoff approval.",
                     "Source code delivered via private GitHub repo with comprehensive documentation.",
-                    "Includes 14 days of complimentary post-delivery bug-fix warranty."
-                ]
+                    "Includes 14 days of complimentary post-delivery bug-fix warranty.",
+                ],
             };
 
             return {
                 status: "success",
                 action: "RENDER_PROPOSAL",
                 proposal,
-                message: `Proposal #${proposalId} drafted successfully for ${args.clientName}.`
+                message: `Proposal #${proposalId} drafted successfully for ${args.clientName}.`,
             };
         }
 
         case "submitInquiry": {
-            const { type = "hire", service = "General Inquiry", name, email, details } = args;
+            const {
+                type = "hire",
+                service = "General Inquiry",
+                name,
+                email,
+                details,
+            } = args;
 
             if (type === "hire") {
                 const validation = isValidHireRequest({ service, name, email, details });
                 if (!validation.ok) {
                     return {
                         status: "validation_error",
-                        error: validation.reason
+                        error: validation.reason,
                     };
                 }
 
@@ -480,14 +527,19 @@ export async function executeTool(name, args = {}) {
                 return {
                     status: "success",
                     action: "FORM_SUBMITTED",
-                    message: `Hire request for ${service} successfully submitted. Piyush has been notified and will reply to ${email}.`
+                    message: `Hire request for ${service} successfully submitted. Piyush has been notified and will reply to ${email}.`,
                 };
             } else {
-                const validation = isValidContactRequest({ name, email, message: details, details });
+                const validation = isValidContactRequest({
+                    name,
+                    email,
+                    message: details,
+                    details,
+                });
                 if (!validation.ok) {
                     return {
                         status: "validation_error",
-                        error: validation.reason
+                        error: validation.reason,
                     };
                 }
 
@@ -495,7 +547,7 @@ export async function executeTool(name, args = {}) {
                 return {
                     status: "success",
                     action: "FORM_SUBMITTED",
-                    message: `Contact message successfully sent. Piyush has been notified and will reply to ${email}.`
+                    message: `Contact message successfully sent. Piyush has been notified and will reply to ${email}.`,
                 };
             }
         }
@@ -503,7 +555,7 @@ export async function executeTool(name, args = {}) {
         default:
             return {
                 status: "error",
-                message: `Unknown tool name: ${name}`
+                message: `Unknown tool name: ${name}`,
             };
     }
 }

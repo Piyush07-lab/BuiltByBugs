@@ -2,7 +2,7 @@ import { GoogleGenAI } from "@google/genai";
 import { toolDeclarations, executeTool } from "../ai/tools.js";
 import {
     buildContextualSystemInstruction,
-    trimConversationHistory
+    trimConversationHistory,
 } from "../ai/knowledgeBase.js";
 import { STREAM_CONFIG } from "../config/aiConfig.js";
 
@@ -31,7 +31,7 @@ const TOOL_STATUS_LABELS = {
     getGitHubProjects: "Inspecting GitHub repositories...",
     evaluateNegotiation: "Evaluating project bounds & trade-offs...",
     draftProjectProposal: "Generating structured project proposal...",
-    submitInquiry: "Validating & submitting inquiry..."
+    submitInquiry: "Validating & submitting inquiry...",
 };
 
 function getToolStatusLabel(toolName) {
@@ -42,7 +42,10 @@ function getToolStatusLabel(toolName) {
  * Streams a Gemini response with multi-turn tool calling and token-optimized context.
  */
 export async function streamGeminiResponse({ messages, sendFrame, aiClient = getAi() }) {
-    const trimmedMessages = trimConversationHistory(messages, STREAM_CONFIG.MAX_HISTORY_MESSAGES);
+    const trimmedMessages = trimConversationHistory(
+        messages,
+        STREAM_CONFIG.MAX_HISTORY_MESSAGES
+    );
     const systemInstruction = buildContextualSystemInstruction(
         SLIM_SYSTEM_INSTRUCTION,
         trimmedMessages
@@ -65,8 +68,8 @@ export async function streamGeminiResponse({ messages, sendFrame, aiClient = get
             contents: currentContents,
             config: {
                 systemInstruction,
-                tools: [{ functionDeclarations: toolDeclarations }]
-            }
+                tools: [{ functionDeclarations: toolDeclarations }],
+            },
         });
 
         const collectedCalls = [];
@@ -104,7 +107,7 @@ export async function streamGeminiResponse({ messages, sendFrame, aiClient = get
 
         currentContents.push({
             role: "model",
-            parts: collectedModelParts
+            parts: collectedModelParts,
         });
 
         const functionResponseParts = [];
@@ -112,7 +115,7 @@ export async function streamGeminiResponse({ messages, sendFrame, aiClient = get
             sendFrame({
                 type: "stream:status",
                 tool: call.name,
-                label: getToolStatusLabel(call.name)
+                label: getToolStatusLabel(call.name),
             });
 
             const toolResult = await executeTool(call.name, call.args);
@@ -128,14 +131,14 @@ export async function streamGeminiResponse({ messages, sendFrame, aiClient = get
             functionResponseParts.push({
                 functionResponse: {
                     name: call.name,
-                    response: toolResult
-                }
+                    response: toolResult,
+                },
             });
         }
 
         currentContents.push({
             role: "tool",
-            parts: functionResponseParts
+            parts: functionResponseParts,
         });
     }
 
@@ -143,13 +146,13 @@ export async function streamGeminiResponse({ messages, sendFrame, aiClient = get
         type: "stream:end",
         text: fullText,
         action: lastAction,
-        proposal: lastProposal
+        proposal: lastProposal,
     });
 
     return {
         text: fullText,
         action: lastAction,
-        proposal: lastProposal
+        proposal: lastProposal,
     };
 }
 
@@ -188,7 +191,7 @@ export function handleChatWebSocket(ws, _req) {
         } catch {
             sendFrame({
                 type: "stream:error",
-                error: "Invalid JSON payload"
+                error: "Invalid JSON payload",
             });
             return;
         }
@@ -201,7 +204,7 @@ export function handleChatWebSocket(ws, _req) {
         if (payload?.type !== "chat:message") {
             sendFrame({
                 type: "stream:error",
-                error: `Unsupported frame type: ${payload?.type || "unknown"}`
+                error: `Unsupported frame type: ${payload?.type || "unknown"}`,
             });
             return;
         }
@@ -209,7 +212,7 @@ export function handleChatWebSocket(ws, _req) {
         if (!Array.isArray(payload.messages)) {
             sendFrame({
                 type: "stream:error",
-                error: "Invalid messages format"
+                error: "Invalid messages format",
             });
             return;
         }
@@ -217,14 +220,14 @@ export function handleChatWebSocket(ws, _req) {
         try {
             await streamGeminiResponse({
                 messages: payload.messages,
-                sendFrame
+                sendFrame,
             });
         } catch (error) {
             console.error("[Gemini Stream Error]", error);
             sendFrame({
                 type: "stream:error",
                 error: "Failed to generate AI response",
-                message: error.message
+                message: error.message,
             });
         }
     });

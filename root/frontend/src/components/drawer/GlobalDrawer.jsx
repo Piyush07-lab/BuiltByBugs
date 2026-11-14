@@ -439,10 +439,7 @@ function ChatAssistant({ onClose: _onClose }) {
 
             {/* Render Interactive Proposal Card if present */}
             {msg.proposal && (
-              <ProposalCard
-                proposal={msg.proposal}
-                onAccept={handleAcceptProposal}
-              />
+              <ProposalCard proposal={msg.proposal} onAccept={handleAcceptProposal} />
             )}
 
             {/* Action Status Banner */}
@@ -455,7 +452,7 @@ function ChatAssistant({ onClose: _onClose }) {
           </div>
         ))}
 
-        {(isLoading && (!messages[messages.length - 1]?.isStreaming || streamStatus)) && (
+        {isLoading && (!messages[messages.length - 1]?.isStreaming || streamStatus) && (
           <div className="max-w-[85%] rounded p-2.5 bg-brand-surface border border-brand-border text-zinc-400 self-start italic flex items-center gap-2">
             <span className="inline-block w-2 h-2 rounded-full bg-brand-turquoise animate-ping" />
             {streamStatus || 'Connecting to AI Assistant...'}

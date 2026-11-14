@@ -4,5 +4,6 @@
     "useTabs": false,
     "singleQuote": false,
     "trailingComma": "es5",
-    "printWidth": 90
+    "printWidth": 90,
+    "endOfLine": "auto"
 }

@@ -46,7 +46,10 @@ export function createChatSocketClient() {
       socket.onmessage = null;
       socket.onerror = null;
       socket.onclose = null;
-      if (socket.readyState === WebSocket.OPEN || socket.readyState === WebSocket.CONNECTING) {
+      if (
+        socket.readyState === WebSocket.OPEN ||
+        socket.readyState === WebSocket.CONNECTING
+      ) {
         socket.close(1000, 'Drawer closed');
       }
       socket = null;

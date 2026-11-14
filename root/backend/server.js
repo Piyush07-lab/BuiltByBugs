@@ -160,7 +160,8 @@ server.on("upgrade", (req, socket, head) => {
     const origin = req.headers.origin;
     if (origin) {
         const allowedOrigins = getAllowedOrigins();
-        const isAllowed = allowedOrigins.includes(origin) || origin.endsWith(".vercel.app");
+        const isAllowed =
+            allowedOrigins.includes(origin) || origin.endsWith(".vercel.app");
         if (!isAllowed) {
             socket.write("HTTP/1.1 403 Forbidden\r\n\r\n");
             socket.destroy();
