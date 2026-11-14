@@ -252,10 +252,16 @@ export async function streamGeminiResponse({ messages, sendFrame, aiClient = nul
                                 if (!emittedChunksForAttempt) {
                                     emittedChunksForAttempt = true;
                                     fullText += attemptText;
-                                    sendFrame({ type: "stream:chunk", delta: attemptText });
+                                    sendFrame({
+                                        type: "stream:chunk",
+                                        delta: attemptText,
+                                    });
                                 } else {
                                     fullText += chunk.text;
-                                    sendFrame({ type: "stream:chunk", delta: chunk.text });
+                                    sendFrame({
+                                        type: "stream:chunk",
+                                        delta: chunk.text,
+                                    });
                                 }
                             }
                         }
