@@ -84,37 +84,49 @@ async function getContributionHeatmap() {
     return cachedHeatmap;
 }
 
+const GITHUB_REQUEST_TIMEOUT_MS = 5000;
+const SUMMARY_CACHE_TTL_MS = 5 * 60 * 1000;
+let summaryCache = { data: null, expiresAt: 0 };
+
 const fetchGitHub = (options) => {
     return new Promise((resolve, reject) => {
-        https
-            .get(options, (res) => {
-                let data = "";
-                res.on("data", (chunk) => (data += chunk));
-                res.on("end", () => {
-                    try {
-                        const parsed = JSON.parse(data);
+        const req = https.get(options, (res) => {
+            let data = "";
+            res.on("data", (chunk) => (data += chunk));
+            res.on("end", () => {
+                try {
+                    const parsed = JSON.parse(data);
 
-                        if (res.statusCode >= 400) {
-                            return reject(
-                                new Error(
-                                    parsed.message || `GitHub API error ${res.statusCode}`
-                                )
-                            );
-                        }
-
-                        resolve(parsed);
-                    } catch (error) {
-                        reject(error);
+                    if (res.statusCode >= 400) {
+                        return reject(
+                            new Error(
+                                parsed.message || `GitHub API error ${res.statusCode}`
+                            )
+                        );
                     }
-                });
-            })
-            .on("error", reject);
+
+                    resolve(parsed);
+                } catch (error) {
+                    reject(error);
+                }
+            });
+        });
+
+        req.setTimeout(GITHUB_REQUEST_TIMEOUT_MS, () => {
+            req.destroy(new Error("GitHub API request timed out"));
+        });
+        req.on("error", reject);
     });
 };
 
 const getUserAndRepos = async () => {
     if (!process.env.GITHUB_TOKEN) {
         throw new Error("GITHUB_TOKEN is missing from environment variables");
+    }
+
+    const now = Date.now();
+    if (summaryCache.data && now < summaryCache.expiresAt) {
+        return summaryCache.data;
     }
 
     const headers = {
@@ -142,7 +154,13 @@ const getUserAndRepos = async () => {
         fetchGitHub(repoOptions),
     ]);
 
-    return { user, repos };
+    const result = { user, repos };
+    summaryCache = {
+        data: result,
+        expiresAt: Date.now() + SUMMARY_CACHE_TTL_MS,
+    };
+
+    return result;
 };
 
 export { getUserAndRepos, getContributionHeatmap };

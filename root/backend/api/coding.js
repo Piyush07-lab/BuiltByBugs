@@ -46,6 +46,7 @@ async function fetchWakaTimeData() {
             Accept: "application/json",
             Authorization: getAuthHeader(apiKey),
         },
+        signal: AbortSignal.timeout(5000),
     });
 
     const body = await response.text();

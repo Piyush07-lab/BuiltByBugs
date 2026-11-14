@@ -8,6 +8,11 @@ import {
     trimConversationHistory,
 } from "../ai/knowledgeBase.js";
 import { executeTool, parseAmount } from "../ai/tools.js";
+import {
+    getCandidateModels,
+    resetModelPoolHealth,
+    validateModelTurnOutput,
+} from "../ai/modelPool.js";
 import { streamGeminiResponse } from "../api/geminiStream.js";
 
 describe("AI System Tools Suite", () => {
@@ -264,5 +269,78 @@ describe("AI System Tools Suite", () => {
         assert.deepEqual(chunks, ["Piyush wrote ", "about AST linters."]);
         assert.equal(frames[frames.length - 1].type, "stream:end");
         assert.equal(result.text, "Piyush wrote about AST linters.");
+    });
+
+    it("should automatically fail over across the model pool when models fail or return empty responses", async () => {
+        resetModelPoolHealth();
+        try {
+            const expectedOrder = getCandidateModels();
+            assert.ok(expectedOrder.length >= 3);
+
+            const attemptedModels = [];
+            const mockAiClient = {
+                models: {
+                    async generateContentStream({ model }) {
+                        attemptedModels.push(model);
+                        if (attemptedModels.length === 1) {
+                            const err = new Error("429 RESOURCE_EXHAUSTED: model is out");
+                            err.status = 429;
+                            throw err;
+                        }
+                        if (attemptedModels.length === 2) {
+                            return (async function* () {
+                                yield { text: "   " };
+                            })();
+                        }
+                        return (async function* () {
+                            yield { text: "Recovered from backup model." };
+                        })();
+                    },
+                },
+            };
+
+            const frames = [];
+            const result = await streamGeminiResponse({
+                messages: [{ role: "user", parts: [{ text: "Hello" }] }],
+                sendFrame: (frame) => frames.push(frame),
+                aiClient: mockAiClient,
+            });
+
+            assert.deepEqual(attemptedModels, expectedOrder.slice(0, 3));
+            assert.ok(
+                frames.some(
+                    (f) =>
+                        f.type === "stream:status" &&
+                        f.label.includes("switching to backup model")
+                )
+            );
+            assert.equal(result.text, "Recovered from backup model.");
+            assert.equal(result.model, expectedOrder[2]);
+            assert.equal(getCandidateModels()[0], expectedOrder[2]);
+        } finally {
+            resetModelPoolHealth();
+        }
+    });
+
+    it("should validate model turn outputs with validateModelTurnOutput", () => {
+        assert.equal(validateModelTurnOutput({ text: "Valid reply" }).valid, true);
+        assert.equal(
+            validateModelTurnOutput({
+                text: "",
+                functionCalls: [{ name: "getSiteKnowledge", args: {} }],
+            }).valid,
+            true
+        );
+
+        const emptyCheck = validateModelTurnOutput({ text: "   ", functionCalls: [] });
+        assert.equal(emptyCheck.valid, false);
+        assert.equal(emptyCheck.retryable, true);
+
+        const blockedCheck = validateModelTurnOutput({
+            text: "Blocked",
+            candidate: { finishReason: "SAFETY" },
+        });
+        assert.equal(blockedCheck.valid, false);
+        assert.equal(blockedCheck.retryable, true);
     });
 });

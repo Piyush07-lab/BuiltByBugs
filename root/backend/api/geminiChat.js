@@ -1,20 +1,18 @@
-import { GoogleGenAI } from "@google/genai";
 import { readJsonBody } from "../utils/request.js";
-import { toolDeclarations, executeTool } from "../ai/tools.js";
+import { toolDeclarations } from "../ai/tools.js";
 import {
     buildContextualSystemInstruction,
     trimConversationHistory,
 } from "../ai/knowledgeBase.js";
+import {
+    formatManagedError,
+    getCandidateModels,
+    markModelFailure,
+    markModelSuccess,
+    validateModelTurnOutput,
+} from "../ai/modelPool.js";
 import { STREAM_CONFIG } from "../config/aiConfig.js";
-import { SLIM_SYSTEM_INSTRUCTION } from "./geminiStream.js";
-
-let ai = null;
-function getAi() {
-    if (!ai) {
-        ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
-    }
-    return ai;
-}
+import { executeToolCalls, getAi, SLIM_SYSTEM_INSTRUCTION } from "./geminiStream.js";
 
 const MAX_TOOL_ITERATIONS = 5;
 
@@ -38,7 +36,6 @@ async function handleGeminiChat(req, res) {
             return res.end(JSON.stringify({ error: "Invalid messages format" }));
         }
 
-        const modelName = process.env.GEMINI_MODEL || "gemini-3.5-flash-lite";
         const trimmedMessages = trimConversationHistory(
             messages,
             STREAM_CONFIG.MAX_HISTORY_MESSAGES
@@ -53,51 +50,89 @@ async function handleGeminiChat(req, res) {
         let lastProposal = null;
         let lastAction = null;
         let finalResponseText = "";
+        let activeModel = null;
 
         while (iterations < MAX_TOOL_ITERATIONS) {
             iterations++;
 
-            const response = await getAi().models.generateContent({
-                model: modelName,
-                contents: currentContents,
-                config: {
-                    systemInstruction,
-                    tools: [{ functionDeclarations: toolDeclarations }],
-                },
-            });
+            const candidates = getCandidateModels();
+            let selectedResponse = null;
+            let lastPoolError = null;
 
-            const candidate = response.candidates?.[0];
-            const content = candidate?.content;
-            const functionCalls = response.functionCalls || [];
+            for (let i = 0; i < candidates.length; i++) {
+                const candidateModel = candidates[i];
+                try {
+                    const response = await getAi().models.generateContent({
+                        model: candidateModel,
+                        contents: currentContents,
+                        config: {
+                            systemInstruction,
+                            tools: [{ functionDeclarations: toolDeclarations }],
+                        },
+                    });
 
-            if (!functionCalls || functionCalls.length === 0) {
-                finalResponseText = response.text || "";
+                    const candidate = response.candidates?.[0];
+                    const functionCalls = response.functionCalls || [];
+                    const text = response.text || "";
+
+                    const validation = validateModelTurnOutput({
+                        text,
+                        functionCalls,
+                        candidate,
+                    });
+
+                    if (!validation.valid) {
+                        const validationErr = new Error(validation.reason);
+                        validationErr.code = validation.code;
+                        throw validationErr;
+                    }
+
+                    markModelSuccess(candidateModel);
+                    activeModel = candidateModel;
+                    selectedResponse = {
+                        content: candidate?.content,
+                        functionCalls,
+                        text,
+                    };
+                    break;
+                } catch (err) {
+                    const failure = markModelFailure(candidateModel, err);
+                    const hasMoreModels = i < candidates.length - 1;
+                    lastPoolError = Object.assign(new Error(failure.reason), {
+                        code:
+                            !hasMoreModels && failure.retryable
+                                ? "ALL_MODELS_EXHAUSTED"
+                                : failure.code,
+                        userMessage: failure.userMessage,
+                        retryable: failure.retryable,
+                        cause: err,
+                    });
+
+                    if (failure.retryable && hasMoreModels) {
+                        continue;
+                    }
+                    throw lastPoolError;
+                }
+            }
+
+            if (!selectedResponse) {
+                throw lastPoolError || new Error("No models available in pool");
+            }
+
+            if (selectedResponse.functionCalls.length === 0) {
+                finalResponseText = selectedResponse.text;
                 break;
             }
 
             // Append assistant model turn containing the function calls
-            currentContents.push(content);
+            currentContents.push(selectedResponse.content);
 
-            // Execute all requested tool calls
-            const functionResponseParts = [];
-            for (const call of functionCalls) {
-                const toolResult = await executeTool(call.name, call.args);
-
-                if (toolResult?.action === "RENDER_PROPOSAL" && toolResult?.proposal) {
-                    lastProposal = toolResult.proposal;
-                    lastAction = "PROPOSAL_CREATED";
-                }
-                if (toolResult?.action === "FORM_SUBMITTED") {
-                    lastAction = "FORM_SUBMITTED";
-                }
-
-                functionResponseParts.push({
-                    functionResponse: {
-                        name: call.name,
-                        response: toolResult,
-                    },
-                });
-            }
+            // Execute all requested tool calls concurrently while preserving response order
+            const { functionResponseParts, action, proposal } = await executeToolCalls(
+                selectedResponse.functionCalls
+            );
+            if (proposal) lastProposal = proposal;
+            if (action) lastAction = action;
 
             // Append tool execution responses
             currentContents.push({
@@ -112,16 +147,20 @@ async function handleGeminiChat(req, res) {
                 text: finalResponseText,
                 action: lastAction,
                 proposal: lastProposal,
+                model: activeModel,
             })
         );
     } catch (error) {
         console.error("[Gemini API Error]", error);
+        const managed = formatManagedError(error);
         if (!res.headersSent) {
             res.writeHead(502, { "Content-Type": "application/json" });
             res.end(
                 JSON.stringify({
-                    error: "Failed to generate AI response",
-                    message: error.message,
+                    error: managed.code,
+                    code: managed.code,
+                    message: managed.message,
+                    retryable: managed.retryable,
                 })
             );
         }

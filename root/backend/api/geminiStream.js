@@ -4,12 +4,28 @@ import {
     buildContextualSystemInstruction,
     trimConversationHistory,
 } from "../ai/knowledgeBase.js";
+import {
+    formatManagedError,
+    getCandidateModels,
+    markModelFailure,
+    markModelSuccess,
+    validateModelTurnOutput,
+} from "../ai/modelPool.js";
 import { STREAM_CONFIG } from "../config/aiConfig.js";
 
 let ai = null;
-function getAi() {
+/**
+ * Lazily initializes and caches the GoogleGenAI client, enabling Vertex AI Express
+ * mode automatically when GOOGLE_GENAI_USE_VERTEXAI=true or using an AQ. API key.
+ */
+export function getAi() {
     if (!ai) {
-        ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+        const apiKey = process.env.GEMINI_API_KEY;
+        const useVertexAi =
+            process.env.GOOGLE_GENAI_USE_VERTEXAI === "true" ||
+            String(apiKey || "").startsWith("AQ.");
+
+        ai = new GoogleGenAI(useVertexAi ? { apiKey, vertexai: true } : { apiKey });
     }
     return ai;
 }
@@ -39,7 +55,44 @@ function getToolStatusLabel(toolName) {
 }
 
 /**
- * Streams a Gemini response with multi-turn tool calling and token-optimized context.
+ * Executes a batch of Gemini function calls concurrently while preserving part order.
+ */
+export async function executeToolCalls(calls, onBeforeRun) {
+    const executions = await Promise.all(
+        calls.map(async (call) => {
+            onBeforeRun?.(call);
+            const toolResult = await executeTool(call.name, call.args);
+            return { call, toolResult };
+        })
+    );
+
+    const functionResponseParts = [];
+    let action = null;
+    let proposal = null;
+
+    for (const { call, toolResult } of executions) {
+        if (toolResult?.action === "RENDER_PROPOSAL" && toolResult?.proposal) {
+            proposal = toolResult.proposal;
+            action = "PROPOSAL_CREATED";
+        }
+        if (toolResult?.action === "FORM_SUBMITTED") {
+            action = "FORM_SUBMITTED";
+        }
+
+        functionResponseParts.push({
+            functionResponse: {
+                name: call.name,
+                response: toolResult,
+            },
+        });
+    }
+
+    return { functionResponseParts, action, proposal };
+}
+
+/**
+ * Streams a Gemini response with multi-model pool failover, response validation,
+ * and multi-turn tool calling.
  */
 export async function streamGeminiResponse({ messages, sendFrame, aiClient = getAi() }) {
     const trimmedMessages = trimConversationHistory(
@@ -50,7 +103,6 @@ export async function streamGeminiResponse({ messages, sendFrame, aiClient = get
         SLIM_SYSTEM_INSTRUCTION,
         trimmedMessages
     );
-    const modelName = process.env.GEMINI_MODEL || "gemini-3.8-flash";
     const currentContents = [...trimmedMessages];
 
     sendFrame({ type: "stream:start" });
@@ -59,82 +111,142 @@ export async function streamGeminiResponse({ messages, sendFrame, aiClient = get
     let fullText = "";
     let lastProposal = null;
     let lastAction = null;
+    let activeModel = null;
 
     while (iterations < MAX_TOOL_ITERATIONS) {
         iterations++;
 
-        const stream = await aiClient.models.generateContentStream({
-            model: modelName,
-            contents: currentContents,
-            config: {
-                systemInstruction,
-                tools: [{ functionDeclarations: toolDeclarations }],
-            },
-        });
+        const candidates = getCandidateModels();
+        let turnResult = null;
+        let lastPoolError = null;
 
-        const collectedCalls = [];
-        const collectedModelParts = [];
+        for (let i = 0; i < candidates.length; i++) {
+            const candidateModel = candidates[i];
+            let attemptText = "";
+            const attemptCalls = [];
+            const attemptModelParts = [];
+            let lastCandidate = null;
+            let emittedChunksForAttempt = false;
 
-        for await (const chunk of stream) {
-            const parts = chunk.candidates?.[0]?.content?.parts || [];
-            for (const part of parts) {
-                if (part?.functionCall) {
-                    collectedCalls.push(part.functionCall);
-                    collectedModelParts.push(part);
+            try {
+                const stream = await aiClient.models.generateContentStream({
+                    model: candidateModel,
+                    contents: currentContents,
+                    config: {
+                        systemInstruction,
+                        tools: [{ functionDeclarations: toolDeclarations }],
+                    },
+                });
+
+                for await (const chunk of stream) {
+                    const candidate = chunk.candidates?.[0];
+                    if (candidate) {
+                        lastCandidate = candidate;
+                    }
+
+                    const parts = candidate?.content?.parts || [];
+                    for (const part of parts) {
+                        if (part?.functionCall) {
+                            attemptCalls.push(part.functionCall);
+                            attemptModelParts.push(part);
+                        }
+                    }
+
+                    if (
+                        parts.length === 0 &&
+                        Array.isArray(chunk.functionCalls) &&
+                        chunk.functionCalls.length > 0
+                    ) {
+                        for (const call of chunk.functionCalls) {
+                            attemptCalls.push(call);
+                            attemptModelParts.push({ functionCall: call });
+                        }
+                    }
+
+                    if (chunk.text) {
+                        attemptText += chunk.text;
+                        if (attemptText.trim().length > 0) {
+                            if (!emittedChunksForAttempt) {
+                                emittedChunksForAttempt = true;
+                                fullText += attemptText;
+                                sendFrame({ type: "stream:chunk", delta: attemptText });
+                            } else {
+                                fullText += chunk.text;
+                                sendFrame({ type: "stream:chunk", delta: chunk.text });
+                            }
+                        }
+                    }
                 }
-            }
 
-            if (
-                parts.length === 0 &&
-                Array.isArray(chunk.functionCalls) &&
-                chunk.functionCalls.length > 0
-            ) {
-                for (const call of chunk.functionCalls) {
-                    collectedCalls.push(call);
-                    collectedModelParts.push({ functionCall: call });
+                const validation = validateModelTurnOutput({
+                    text: attemptText,
+                    functionCalls: attemptCalls,
+                    candidate: lastCandidate,
+                });
+
+                if (!validation.valid) {
+                    const validationErr = new Error(validation.reason);
+                    validationErr.code = validation.code;
+                    throw validationErr;
                 }
-            }
 
-            if (chunk.text) {
-                fullText += chunk.text;
-                sendFrame({ type: "stream:chunk", delta: chunk.text });
+                markModelSuccess(candidateModel);
+                activeModel = candidateModel;
+                turnResult = {
+                    collectedCalls: attemptCalls,
+                    collectedModelParts: attemptModelParts,
+                };
+                break;
+            } catch (err) {
+                const failure = markModelFailure(candidateModel, err);
+                const hasMoreModels = i < candidates.length - 1;
+                lastPoolError = Object.assign(new Error(failure.reason), {
+                    code:
+                        !hasMoreModels && failure.retryable
+                            ? "ALL_MODELS_EXHAUSTED"
+                            : failure.code,
+                    userMessage: failure.userMessage,
+                    retryable: failure.retryable,
+                    cause: err,
+                });
+
+                if (!emittedChunksForAttempt && failure.retryable && hasMoreModels) {
+                    sendFrame({
+                        type: "stream:status",
+                        label: "Primary model busy, switching to backup model...",
+                    });
+                    continue;
+                }
+
+                throw lastPoolError;
             }
         }
 
-        if (collectedCalls.length === 0) {
+        if (!turnResult) {
+            throw lastPoolError || new Error("No models available in pool");
+        }
+
+        if (turnResult.collectedCalls.length === 0) {
             break;
         }
 
         currentContents.push({
             role: "model",
-            parts: collectedModelParts,
+            parts: turnResult.collectedModelParts,
         });
 
-        const functionResponseParts = [];
-        for (const call of collectedCalls) {
-            sendFrame({
-                type: "stream:status",
-                tool: call.name,
-                label: getToolStatusLabel(call.name),
-            });
+        const { functionResponseParts, action, proposal } = await executeToolCalls(
+            turnResult.collectedCalls,
+            (call) =>
+                sendFrame({
+                    type: "stream:status",
+                    tool: call.name,
+                    label: getToolStatusLabel(call.name),
+                })
+        );
 
-            const toolResult = await executeTool(call.name, call.args);
-
-            if (toolResult?.action === "RENDER_PROPOSAL" && toolResult?.proposal) {
-                lastProposal = toolResult.proposal;
-                lastAction = "PROPOSAL_CREATED";
-            }
-            if (toolResult?.action === "FORM_SUBMITTED") {
-                lastAction = "FORM_SUBMITTED";
-            }
-
-            functionResponseParts.push({
-                functionResponse: {
-                    name: call.name,
-                    response: toolResult,
-                },
-            });
-        }
+        if (proposal) lastProposal = proposal;
+        if (action) lastAction = action;
 
         currentContents.push({
             role: "tool",
@@ -147,12 +259,14 @@ export async function streamGeminiResponse({ messages, sendFrame, aiClient = get
         text: fullText,
         action: lastAction,
         proposal: lastProposal,
+        model: activeModel,
     });
 
     return {
         text: fullText,
         action: lastAction,
         proposal: lastProposal,
+        model: activeModel,
     };
 }
 
@@ -181,6 +295,7 @@ export function handleChatWebSocket(ws, _req) {
     };
 
     resetIdleTimer();
+    sendFrame({ type: "stream:ready", models: getCandidateModels() });
 
     ws.on("message", async (rawData) => {
         resetIdleTimer();
@@ -191,7 +306,10 @@ export function handleChatWebSocket(ws, _req) {
         } catch {
             sendFrame({
                 type: "stream:error",
-                error: "Invalid JSON payload",
+                code: "INVALID_JSON",
+                error: "INVALID_JSON",
+                message: "Invalid JSON payload",
+                retryable: false,
             });
             return;
         }
@@ -201,10 +319,18 @@ export function handleChatWebSocket(ws, _req) {
             return;
         }
 
+        if (payload?.type === "chat:init") {
+            sendFrame({ type: "stream:ready", models: getCandidateModels() });
+            return;
+        }
+
         if (payload?.type !== "chat:message") {
             sendFrame({
                 type: "stream:error",
-                error: `Unsupported frame type: ${payload?.type || "unknown"}`,
+                code: "UNSUPPORTED_FRAME",
+                error: "UNSUPPORTED_FRAME",
+                message: `Unsupported frame type: ${payload?.type || "unknown"}`,
+                retryable: false,
             });
             return;
         }
@@ -212,7 +338,10 @@ export function handleChatWebSocket(ws, _req) {
         if (!Array.isArray(payload.messages)) {
             sendFrame({
                 type: "stream:error",
-                error: "Invalid messages format",
+                code: "INVALID_MESSAGES",
+                error: "INVALID_MESSAGES",
+                message: "Invalid messages format",
+                retryable: false,
             });
             return;
         }
@@ -224,10 +353,13 @@ export function handleChatWebSocket(ws, _req) {
             });
         } catch (error) {
             console.error("[Gemini Stream Error]", error);
+            const managed = formatManagedError(error);
             sendFrame({
                 type: "stream:error",
-                error: "Failed to generate AI response",
-                message: error.message,
+                code: managed.code,
+                error: managed.code,
+                message: managed.message,
+                retryable: managed.retryable,
             });
         }
     });

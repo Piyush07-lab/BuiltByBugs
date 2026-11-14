@@ -6,6 +6,14 @@ export const STREAM_CONFIG = {
     IDLE_TIMEOUT_MS: 300000, // 5 minutes
     MAX_HISTORY_MESSAGES: 10,
     HEARTBEAT_INTERVAL_MS: 30000, // 30 seconds
+    MODEL_POOL: [
+        "gemini-3.5-flash-lite",
+        "gemini-3.8-flash",
+        "gemini-2.5-flash",
+        "gemini-2.5-flash-lite",
+    ],
+    MODEL_COOLDOWN_MS: 60000,
+    MODEL_NOT_FOUND_COOLDOWN_MS: 300000,
 };
 
 export const CREATOR_PROFILE = {

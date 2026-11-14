@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import Drawer from './Drawer.jsx';
 import { useDrawer } from './DrawerContext.jsx';
 import { sendHireRequest, sendContact } from '../../api/fetchApi';
-import { createChatSocketClient } from '../../api/chatSocket.js';
+import { getSharedChatSocketClient } from '../../api/chatSocket.js';
 import ProposalCard from './ProposalCard.jsx';
 import { messageService, TOPICS } from '../../services/messageService.js';
 
@@ -220,6 +220,17 @@ function ContactForm({ onClose }) {
   );
 }
 
+const INITIAL_CHAT_MESSAGES = [
+  {
+    role: 'model',
+    parts: [
+      {
+        text: 'Hi! I am the AI Site & Creator Assistant for BuiltByBugs by Piyush Mishra. I can answer technical questions, explain architecture, generate project proposals, negotiate project scopes, and auto-submit inquiries for you. How can I assist you?',
+      },
+    ],
+  },
+];
+
 const PROMPT_SUGGESTIONS = [
   'Draft a proposal for my project',
   'What are your core backend skills?',
@@ -227,33 +238,28 @@ const PROMPT_SUGGESTIONS = [
   'Show me your latest GitHub projects',
 ];
 
-function ChatAssistant({ onClose: _onClose }) {
-  const [messages, setMessages] = useState([
-    {
-      role: 'model',
-      parts: [
-        {
-          text: 'Hi! I am the AI Site & Creator Assistant for BuiltByBugs by Piyush Mishra. I can answer technical questions, explain architecture, generate project proposals, negotiate project scopes, and auto-submit inquiries for you. How can I assist you?',
-        },
-      ],
-    },
-  ]);
+function ChatAssistant({ messages, setMessages, onClose: _onClose }) {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [streamStatus, setStreamStatus] = useState('');
-  const socketClientRef = useRef(null);
   const scrollContainerRef = useRef(null);
+  const pendingChunkRef = useRef('');
+  const chunkRafRef = useRef(null);
 
   useEffect(() => {
-    const client = createChatSocketClient();
-    socketClientRef.current = client;
-    client.connect().catch(() => {
-      // Fallback to HTTP POST /api/chat will handle turns automatically
-    });
+    // Ensure the shared session socket is connected without disconnecting on close
+    getSharedChatSocketClient()
+      .connect()
+      .catch(() => {
+        // Fallback to HTTP POST /api/chat will handle turns automatically
+      });
 
     return () => {
-      client.disconnect();
-      socketClientRef.current = null;
+      if (chunkRafRef.current !== null) {
+        cancelAnimationFrame(chunkRafRef.current);
+        chunkRafRef.current = null;
+      }
+      pendingChunkRef.current = '';
     };
   }, []);
 
@@ -264,21 +270,25 @@ function ChatAssistant({ onClose: _onClose }) {
     }
   }, [messages, streamStatus, isLoading]);
 
-  const sendMessageWithText = async (textToSend) => {
-    if (!textToSend.trim() || isLoading) return;
+  const sendMessageWithText = async (textToSend, retryMessages = null) => {
+    if (isLoading) return;
+    if (!retryMessages && !textToSend?.trim()) return;
 
-    const userMessage = { role: 'user', parts: [{ text: textToSend.trim() }] };
-    const updatedMessages = [...messages, userMessage];
+    const updatedMessages = retryMessages
+      ? retryMessages.filter((msg) => !msg.isError)
+      : [...messages, { role: 'user', parts: [{ text: textToSend.trim() }] }];
 
     setMessages(updatedMessages);
-    setInput('');
+    if (!retryMessages) {
+      setInput('');
+    }
     setIsLoading(true);
     setStreamStatus('');
 
     // Trigger curious mascot movement on message dispatch
     messageService.publish(TOPICS.MASCOT, { type: 'curious' });
 
-    const client = socketClientRef.current || createChatSocketClient();
+    const client = getSharedChatSocketClient();
     let streamBubbleCreated = false;
 
     const ensureStreamBubble = () => {
@@ -294,34 +304,68 @@ function ChatAssistant({ onClose: _onClose }) {
       ]);
     };
 
+    const applyChunkDelta = (delta) => {
+      if (!delta) return;
+      if (!streamBubbleCreated) {
+        streamBubbleCreated = true;
+        setMessages((prev) => [
+          ...prev,
+          {
+            role: 'model',
+            parts: [{ text: delta }],
+            isStreaming: true,
+          },
+        ]);
+        return;
+      }
+      setMessages((prev) => {
+        const next = [...prev];
+        const lastIdx = next.length - 1;
+        const lastMsg = next[lastIdx];
+        if (lastMsg && lastMsg.role === 'model') {
+          const prevText = lastMsg.parts?.[0]?.text || '';
+          next[lastIdx] = {
+            ...lastMsg,
+            parts: [{ text: prevText + delta }],
+            isStreaming: true,
+          };
+        }
+        return next;
+      });
+    };
+
+    const flushPendingChunks = () => {
+      if (chunkRafRef.current !== null) {
+        cancelAnimationFrame(chunkRafRef.current);
+        chunkRafRef.current = null;
+      }
+      const buffered = pendingChunkRef.current;
+      if (!buffered) return;
+      pendingChunkRef.current = '';
+      setStreamStatus('');
+      applyChunkDelta(buffered);
+    };
+
     try {
       await client.sendMessageStream(updatedMessages, {
         onStart: () => {
           ensureStreamBubble();
         },
         onStatus: (label) => {
+          flushPendingChunks();
           setStreamStatus(label);
         },
         onChunk: (delta) => {
           if (!delta) return;
-          ensureStreamBubble();
-          setStreamStatus('');
-          setMessages((prev) => {
-            const next = [...prev];
-            const lastIdx = next.length - 1;
-            const lastMsg = next[lastIdx];
-            if (lastMsg && lastMsg.role === 'model') {
-              const prevText = lastMsg.parts?.[0]?.text || '';
-              next[lastIdx] = {
-                ...lastMsg,
-                parts: [{ text: prevText + delta }],
-                isStreaming: true,
-              };
-            }
-            return next;
-          });
+          pendingChunkRef.current += delta;
+          if (chunkRafRef.current === null) {
+            chunkRafRef.current = requestAnimationFrame(() => {
+              flushPendingChunks();
+            });
+          }
         },
         onEnd: ({ text, action, proposal }) => {
+          flushPendingChunks();
           setStreamStatus('');
           setMessages((prev) => {
             const next = [...prev];
@@ -359,26 +403,40 @@ function ChatAssistant({ onClose: _onClose }) {
         },
       });
     } catch (error) {
+      flushPendingChunks();
       console.error('Chat error:', error);
       setStreamStatus('');
+      const errorText =
+        error?.message ||
+        'Sorry, I encountered an error connecting to the AI system. Please try again.';
       setMessages((prev) => {
-        const errorText =
-          'Sorry, I encountered an error connecting to the AI system. Please try again later.';
-        if (streamBubbleCreated) {
-          const next = [...prev];
-          const lastIdx = next.length - 1;
+        const next = [...prev];
+        const lastIdx = next.length - 1;
+        if (streamBubbleCreated && next[lastIdx]?.role === 'model') {
+          const partialText = next[lastIdx].parts?.[0]?.text || '';
+          if (!partialText.trim()) {
+            next[lastIdx] = {
+              role: 'model',
+              parts: [{ text: errorText }],
+              isError: true,
+              retryMessages: updatedMessages,
+              isStreaming: false,
+            };
+            return next;
+          }
           next[lastIdx] = {
-            role: 'model',
-            parts: [{ text: errorText }],
+            ...next[lastIdx],
             isStreaming: false,
           };
-          return next;
         }
         return [
-          ...prev,
+          ...next,
           {
             role: 'model',
             parts: [{ text: errorText }],
+            isError: true,
+            retryMessages: updatedMessages,
+            isStreaming: false,
           },
         ];
       });
@@ -426,7 +484,9 @@ function ChatAssistant({ onClose: _onClose }) {
             className={`max-w-[90%] rounded p-2.5 ${
               msg.role === 'user'
                 ? 'bg-gradient-to-r from-brand-violet/25 to-brand-turquoise/25 border border-brand-turquoise/40 text-brand-turquoise self-end'
-                : 'bg-brand-surface border border-brand-border text-zinc-200 self-start'
+                : msg.isError
+                  ? 'border border-red-500/40 bg-red-950/40 text-red-200 self-start'
+                  : 'bg-brand-surface border border-brand-border text-zinc-200 self-start'
             }`}
           >
             {/* Main message text */}
@@ -436,6 +496,17 @@ function ChatAssistant({ onClose: _onClose }) {
                 <span className="inline-block w-1.5 h-3.5 ml-1 align-middle bg-brand-turquoise animate-pulse" />
               )}
             </div>
+
+            {msg.isError && msg.retryMessages && (
+              <button
+                type="button"
+                disabled={isLoading}
+                onClick={() => sendMessageWithText(null, msg.retryMessages)}
+                className="mt-2 inline-flex items-center rounded border border-red-400/50 bg-red-500/15 px-2.5 py-1 text-[10px] font-semibold text-red-200 hover:bg-red-500/25 transition-colors cursor-pointer disabled:opacity-40"
+              >
+                Retry
+              </button>
+            )}
 
             {/* Render Interactive Proposal Card if present */}
             {msg.proposal && (
@@ -487,6 +558,18 @@ function ChatAssistant({ onClose: _onClose }) {
 
 export default function GlobalDrawer() {
   const { drawerState, closeDrawer } = useDrawer();
+  const [chatMessages, setChatMessages] = useState(INITIAL_CHAT_MESSAGES);
+
+  // Initiate and warm the WebSocket as soon as any drawer opens; keep active until refresh
+  useEffect(() => {
+    if (drawerState.isOpen) {
+      getSharedChatSocketClient()
+        .connect()
+        .catch(() => {
+          // HTTP fallback handles turns automatically if WebSocket is unavailable
+        });
+    }
+  }, [drawerState.isOpen]);
 
   const titles = {
     hire: `Hire For: ${drawerState.data?.service || 'General'}`,
@@ -516,7 +599,11 @@ export default function GlobalDrawer() {
 
       {drawerState.type === 'chat' && (
         <div id="ai-assistant-drawer">
-          <ChatAssistant onClose={closeDrawer} />
+          <ChatAssistant
+            messages={chatMessages}
+            setMessages={setChatMessages}
+            onClose={closeDrawer}
+          />
         </div>
       )}
     </Drawer>

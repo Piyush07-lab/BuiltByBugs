@@ -52,6 +52,7 @@ export async function fetchLeetcodeData() {
                 query,
                 variables: { username },
             }),
+            signal: AbortSignal.timeout(5000),
         });
 
         if (!response.ok) {

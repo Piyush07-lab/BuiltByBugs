@@ -292,9 +292,13 @@ export async function executeTool(name, args = {}) {
                 leetcode: null,
             };
 
-            try {
-                const wakaRaw = await getCachedWakaTimeData();
-                const built = buildCodingSummary(wakaRaw);
+            const [wakaOutcome, leetOutcome] = await Promise.allSettled([
+                getCachedWakaTimeData(),
+                fetchLeetcodeData(),
+            ]);
+
+            if (wakaOutcome.status === "fulfilled") {
+                const built = buildCodingSummary(wakaOutcome.value);
                 summary.wakatime = {
                     totalHours: (built.totalMinutes / 60).toFixed(1),
                     humanTotal: built.totalText,
@@ -305,28 +309,31 @@ export async function executeTool(name, args = {}) {
                     topEditors: built.editors.slice(0, 3).map((e) => e.name),
                     topProjects: built.projects.slice(0, 4).map((p) => p.name),
                 };
-            } catch (err) {
+            } else {
                 summary.wakatime = {
-                    note: "WakaTime data currently caching or offline: " + err.message,
+                    note:
+                        "WakaTime data currently caching or offline: " +
+                        wakaOutcome.reason.message,
                 };
             }
 
-            try {
-                const leetRaw = await fetchLeetcodeData();
-                const acStats =
-                    leetRaw?.matchedUser?.submitStatsGlobal?.acSubmissionNum || [];
-                const ranking = leetRaw?.matchedUser?.profile?.ranking || "N/A";
+            if (leetOutcome.status === "fulfilled") {
+                const leetRaw = leetOutcome.value;
+                const matchedUser = leetRaw?.matchedUser || leetRaw;
+                const acStats = matchedUser?.submitStatsGlobal?.acSubmissionNum || [];
+                const ranking = matchedUser?.profile?.ranking || "N/A";
                 summary.leetcode = {
-                    username: leetRaw?.matchedUser?.username || "PiyushMishra07",
+                    username: matchedUser?.username || "PiyushMishra07",
                     ranking,
                     solvedBreakdown: acStats.reduce((acc, curr) => {
                         acc[curr.difficulty] = curr.count;
                         return acc;
                     }, {}),
                 };
-            } catch (err) {
+            } else {
                 summary.leetcode = {
-                    note: "LeetCode stats currently offline: " + err.message,
+                    note:
+                        "LeetCode stats currently offline: " + leetOutcome.reason.message,
                 };
             }
 
