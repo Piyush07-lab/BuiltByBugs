@@ -6,6 +6,7 @@
     "type": "module",
     "scripts": {
         "start": "node server.js",
+        "dev": "node server.js --watch",
         "lint": "eslint .",
         "lint:fix": "eslint . --fix",
         "format": "prettier --write .",
@@ -21,7 +22,8 @@
     "license": "UNLICENSED",
     "dependencies": {
         "@google/genai": "^2.21.0",
-        "dotenv": "^17.0.1"
+        "dotenv": "^17.0.1",
+        "ws": "^8.18.3"
     },
     "devDependencies": {
         "@eslint/js": "^10.0.1",

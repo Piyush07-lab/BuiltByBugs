@@ -1,7 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Drawer from './Drawer.jsx';
 import { useDrawer } from './DrawerContext.jsx';
-import { sendHireRequest, sendContact, sendChatMessage } from '../../api/fetchApi';
+import { sendHireRequest, sendContact } from '../../api/fetchApi';
+import { createChatSocketClient } from '../../api/chatSocket.js';
+import ProposalCard from './ProposalCard.jsx';
+import { messageService, TOPICS } from '../../services/messageService.js';
 
 function HireForm({ service, onClose }) {
   const [formData, setFormData] = useState({
@@ -217,74 +220,259 @@ function ContactForm({ onClose }) {
   );
 }
 
+const PROMPT_SUGGESTIONS = [
+  'Draft a proposal for my project',
+  'What are your core backend skills?',
+  'What is your hourly rate and pricing policy?',
+  'Show me your latest GitHub projects',
+];
+
 function ChatAssistant({ onClose: _onClose }) {
   const [messages, setMessages] = useState([
     {
       role: 'model',
       parts: [
-        { text: 'Hi! I am the AI assistant for Piyush. How can I help you today?' },
+        {
+          text: 'Hi! I am the AI Site & Creator Assistant for BuiltByBugs by Piyush Mishra. I can answer technical questions, explain architecture, generate project proposals, negotiate project scopes, and auto-submit inquiries for you. How can I assist you?',
+        },
       ],
     },
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [streamStatus, setStreamStatus] = useState('');
+  const socketClientRef = useRef(null);
+  const scrollContainerRef = useRef(null);
 
-  const handleSend = async (e) => {
-    e.preventDefault();
-    if (!input.trim() || isLoading) return;
+  useEffect(() => {
+    const client = createChatSocketClient();
+    socketClientRef.current = client;
+    client.connect().catch(() => {
+      // Fallback to HTTP POST /api/chat will handle turns automatically
+    });
 
-    const userMessage = { role: 'user', parts: [{ text: input.trim() }] };
+    return () => {
+      client.disconnect();
+      socketClientRef.current = null;
+    };
+  }, []);
+
+  useEffect(() => {
+    const el = scrollContainerRef.current;
+    if (el) {
+      el.scrollTop = el.scrollHeight;
+    }
+  }, [messages, streamStatus, isLoading]);
+
+  const sendMessageWithText = async (textToSend) => {
+    if (!textToSend.trim() || isLoading) return;
+
+    const userMessage = { role: 'user', parts: [{ text: textToSend.trim() }] };
     const updatedMessages = [...messages, userMessage];
 
     setMessages(updatedMessages);
     setInput('');
     setIsLoading(true);
+    setStreamStatus('');
 
-    try {
-      const res = await sendChatMessage(updatedMessages);
-      const modelMessage = { role: 'model', parts: [{ text: res.text }] };
-      setMessages((prev) => [...prev, modelMessage]);
-    } catch (error) {
-      console.error('Chat error:', error);
+    // Trigger curious mascot movement on message dispatch
+    messageService.publish(TOPICS.MASCOT, { type: 'curious' });
+
+    const client = socketClientRef.current || createChatSocketClient();
+    let streamBubbleCreated = false;
+
+    const ensureStreamBubble = () => {
+      if (streamBubbleCreated) return;
+      streamBubbleCreated = true;
       setMessages((prev) => [
         ...prev,
         {
           role: 'model',
-          parts: [{ text: 'Sorry, I encountered an error. Please try again later.' }],
+          parts: [{ text: '' }],
+          isStreaming: true,
         },
       ]);
+    };
+
+    try {
+      await client.sendMessageStream(updatedMessages, {
+        onStart: () => {
+          ensureStreamBubble();
+        },
+        onStatus: (label) => {
+          setStreamStatus(label);
+        },
+        onChunk: (delta) => {
+          if (!delta) return;
+          ensureStreamBubble();
+          setStreamStatus('');
+          setMessages((prev) => {
+            const next = [...prev];
+            const lastIdx = next.length - 1;
+            const lastMsg = next[lastIdx];
+            if (lastMsg && lastMsg.role === 'model') {
+              const prevText = lastMsg.parts?.[0]?.text || '';
+              next[lastIdx] = {
+                ...lastMsg,
+                parts: [{ text: prevText + delta }],
+                isStreaming: true,
+              };
+            }
+            return next;
+          });
+        },
+        onEnd: ({ text, action, proposal }) => {
+          setStreamStatus('');
+          setMessages((prev) => {
+            const next = [...prev];
+            const lastIdx = next.length - 1;
+            const lastMsg = next[lastIdx];
+            if (streamBubbleCreated && lastMsg && lastMsg.role === 'model') {
+              next[lastIdx] = {
+                ...lastMsg,
+                parts: [{ text: text || lastMsg.parts?.[0]?.text || '' }],
+                proposal: proposal || null,
+                action: action || null,
+                isStreaming: false,
+              };
+              return next;
+            }
+            return [
+              ...prev,
+              {
+                role: 'model',
+                parts: [{ text: text || '' }],
+                proposal: proposal || null,
+                action: action || null,
+                isStreaming: false,
+              },
+            ];
+          });
+
+          if (action === 'PROPOSAL_CREATED') {
+            messageService.publish(TOPICS.MASCOT, { type: 'cheer' });
+          } else if (action === 'FORM_SUBMITTED') {
+            messageService.publish(TOPICS.MASCOT, { type: 'double-wave' });
+          } else {
+            messageService.publish(TOPICS.MASCOT, { type: 'wave' });
+          }
+        },
+      });
+    } catch (error) {
+      console.error('Chat error:', error);
+      setStreamStatus('');
+      setMessages((prev) => {
+        const errorText =
+          'Sorry, I encountered an error connecting to the AI system. Please try again later.';
+        if (streamBubbleCreated) {
+          const next = [...prev];
+          const lastIdx = next.length - 1;
+          next[lastIdx] = {
+            role: 'model',
+            parts: [{ text: errorText }],
+            isStreaming: false,
+          };
+          return next;
+        }
+        return [
+          ...prev,
+          {
+            role: 'model',
+            parts: [{ text: errorText }],
+          },
+        ];
+      });
     } finally {
       setIsLoading(false);
+      setStreamStatus('');
     }
+  };
+
+  const handleSend = (e) => {
+    e.preventDefault();
+    sendMessageWithText(input);
+  };
+
+  const handleAcceptProposal = (proposal) => {
+    const confirmText = `I approve the proposal for "${proposal.projectName}" (${proposal.proposalId}). Please proceed with formal submission and notify Piyush.`;
+    sendMessageWithText(confirmText);
   };
 
   return (
     <div className="flex flex-col h-full text-xs">
-      <div className="flex-1 overflow-y-auto pr-2 pb-4 space-y-4 flex flex-col min-h-[300px] max-h-[60vh]">
+      {/* Quick Prompts */}
+      <div className="mb-2 pb-2 border-b border-brand-border-subtle flex flex-wrap gap-1.5">
+        {PROMPT_SUGGESTIONS.map((suggestion, idx) => (
+          <button
+            key={idx}
+            type="button"
+            disabled={isLoading}
+            onClick={() => sendMessageWithText(suggestion)}
+            className="text-[10px] rounded-full border border-brand-turquoise/30 bg-brand-turquoise/5 px-2.5 py-1 text-brand-turquoise hover:bg-brand-turquoise/15 hover:border-brand-turquoise/60 transition-all cursor-pointer disabled:opacity-40"
+          >
+            {suggestion}
+          </button>
+        ))}
+      </div>
+
+      {/* Messages Scroll Area */}
+      <div
+        ref={scrollContainerRef}
+        className="flex-1 overflow-y-auto pr-2 pb-4 space-y-3.5 flex flex-col min-h-[300px] max-h-[60vh]"
+      >
         {messages.map((msg, i) => (
           <div
             key={i}
-            className={`max-w-[85%] rounded p-2.5 ${msg.role === 'user' ? 'bg-gradient-to-r from-brand-violet/25 to-brand-turquoise/25 border border-brand-turquoise/40 text-brand-turquoise self-end' : 'bg-brand-surface border border-brand-border text-zinc-200 self-start'}`}
+            className={`max-w-[90%] rounded p-2.5 ${
+              msg.role === 'user'
+                ? 'bg-gradient-to-r from-brand-violet/25 to-brand-turquoise/25 border border-brand-turquoise/40 text-brand-turquoise self-end'
+                : 'bg-brand-surface border border-brand-border text-zinc-200 self-start'
+            }`}
           >
-            {msg.parts[0].text}
+            {/* Main message text */}
+            <div className="whitespace-pre-wrap leading-relaxed">
+              {msg.parts?.[0]?.text}
+              {msg.isStreaming && (
+                <span className="inline-block w-1.5 h-3.5 ml-1 align-middle bg-brand-turquoise animate-pulse" />
+              )}
+            </div>
+
+            {/* Render Interactive Proposal Card if present */}
+            {msg.proposal && (
+              <ProposalCard
+                proposal={msg.proposal}
+                onAccept={handleAcceptProposal}
+              />
+            )}
+
+            {/* Action Status Banner */}
+            {msg.action === 'FORM_SUBMITTED' && (
+              <div className="mt-2 rounded bg-brand-green/15 border border-brand-green/40 p-2 text-brand-green text-[11px] font-semibold flex items-center gap-1.5">
+                <span>✓</span>
+                <span>Inquiry successfully delivered to Piyush!</span>
+              </div>
+            )}
           </div>
         ))}
-        {isLoading && (
-          <div className="max-w-[85%] rounded p-2.5 bg-brand-surface border border-brand-border text-zinc-400 self-start italic">
-            Typing...
+
+        {(isLoading && (!messages[messages.length - 1]?.isStreaming || streamStatus)) && (
+          <div className="max-w-[85%] rounded p-2.5 bg-brand-surface border border-brand-border text-zinc-400 self-start italic flex items-center gap-2">
+            <span className="inline-block w-2 h-2 rounded-full bg-brand-turquoise animate-ping" />
+            {streamStatus || 'Connecting to AI Assistant...'}
           </div>
         )}
       </div>
 
+      {/* Input Bar */}
       <form
         onSubmit={handleSend}
-        className="mt-4 pt-4 border-t border-brand-border-subtle flex gap-2"
+        className="mt-3 pt-3 border-t border-brand-border-subtle flex gap-2"
       >
         <input
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="Ask me anything..."
+          placeholder="Ask about projects, negotiate scope, draft proposal..."
           disabled={isLoading}
           className="flex-1 bg-brand-bg/80 border border-brand-border-subtle rounded p-2 text-white placeholder-zinc-500 outline-none focus:ring-1 focus:ring-brand-turquoise focus:border-brand-turquoise transition-all disabled:opacity-50"
         />

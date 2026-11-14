@@ -2,7 +2,10 @@ import "./env.js";
 
 import http from "node:http";
 import { URL } from "node:url";
+import { WebSocketServer } from "ws";
 import { routeRequest } from "./routes/router.js";
+import { handleChatWebSocket } from "./api/geminiStream.js";
+import { STREAM_CONFIG } from "./config/aiConfig.js";
 
 const PORT = process.env.PORT || 5500;
 
@@ -80,7 +83,7 @@ const server = http.createServer((req, res) => {
             "style-src 'self' https://fonts.googleapis.com",
             "img-src 'self' data:",
             "font-src 'self' https://fonts.gstatic.com",
-            "connect-src 'self'",
+            "connect-src 'self' ws: wss:",
             "manifest-src 'self'",
             "worker-src 'self'",
             "media-src 'self'",
@@ -122,10 +125,58 @@ const server = http.createServer((req, res) => {
     res.end(JSON.stringify({ error: "Endpoint not found" }));
 });
 
+const wss = new WebSocketServer({ noServer: true });
+
+wss.on("connection", (ws, req) => {
+    ws.isAlive = true;
+    ws.on("pong", () => {
+        ws.isAlive = true;
+    });
+    handleChatWebSocket(ws, req);
+});
+
+const heartbeatInterval = setInterval(() => {
+    wss.clients.forEach((ws) => {
+        if (ws.isAlive === false) {
+            return ws.terminate();
+        }
+        ws.isAlive = false;
+        ws.ping();
+    });
+}, STREAM_CONFIG.HEARTBEAT_INTERVAL_MS);
+
+if (typeof heartbeatInterval.unref === "function") {
+    heartbeatInterval.unref();
+}
+
+server.on("upgrade", (req, socket, head) => {
+    const parsedUrl = new URL(req.url, `http://${req.headers.host || "localhost"}`);
+    if (parsedUrl.pathname !== "/api/chat/ws") {
+        socket.write("HTTP/1.1 404 Not Found\r\n\r\n");
+        socket.destroy();
+        return;
+    }
+
+    const origin = req.headers.origin;
+    if (origin) {
+        const allowedOrigins = getAllowedOrigins();
+        const isAllowed = allowedOrigins.includes(origin) || origin.endsWith(".vercel.app");
+        if (!isAllowed) {
+            socket.write("HTTP/1.1 403 Forbidden\r\n\r\n");
+            socket.destroy();
+            return;
+        }
+    }
+
+    wss.handleUpgrade(req, socket, head, (ws) => {
+        wss.emit("connection", ws, req);
+    });
+});
+
 if (process.env.NODE_ENV !== "test") {
     server.listen(PORT, "0.0.0.0", () => {
         console.log(`Server running on port: ${PORT}`);
     });
 }
 
-export { server };
+export { server, wss };

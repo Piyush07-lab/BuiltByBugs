@@ -207,4 +207,4 @@ async function getCodingSummary(req, res) {
     }
 }
 
-export { getCodingActivity, getCodingSummary };
+export { getCodingActivity, getCodingSummary, getCachedWakaTimeData, buildCodingSummary };

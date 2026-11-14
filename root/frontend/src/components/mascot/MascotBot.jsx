@@ -1,10 +1,11 @@
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import { useDrawer } from '../drawer';
 import { useMascotEasterEgg } from './hooks/useMascotEasterEgg';
 import { useMascotMovement } from './hooks/useMascotMovement';
 import { useMascotArms } from './hooks/useMascotArms';
 import { MascotChassis } from './components/MascotChassis';
 import { MascotFace } from './components/MascotFace';
+import { messageService, TOPICS } from '../../services/messageService';
 
 export default function MascotBot({ armAction = null } = {}) {
   const { openDrawer } = useDrawer();
@@ -41,6 +42,16 @@ export default function MascotBot({ armAction = null } = {}) {
     isEasterEgg,
     externalAction: armAction,
   });
+
+  // Listen to pub/sub events from Chat Assistant & other components
+  useEffect(() => {
+    const unsubscribe = messageService.subscribe(TOPICS.MASCOT, (payload) => {
+      if (payload?.type && typeof triggerAction === 'function') {
+        triggerAction(payload.type);
+      }
+    });
+    return unsubscribe;
+  }, [triggerAction]);
 
   return (
     <div
