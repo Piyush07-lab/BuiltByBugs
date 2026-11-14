@@ -88,7 +88,9 @@ function classifyModelError(error) {
         msg.includes("not found") ||
         msg.includes("does not exist") ||
         msg.includes("unknown model") ||
-        msg.includes("publisher model");
+        msg.includes("publisher model") ||
+        msg.includes("does not have access") ||
+        msg.includes("model is not supported");
 
     const isQuotaOrCapacityError =
         status === 429 ||
@@ -130,18 +132,6 @@ function classifyModelError(error) {
         msg.includes("fetch failed") ||
         msg.includes("network");
 
-    if (isAuthError) {
-        return {
-            code: "AUTH_ERROR",
-            cooldownMs: 0,
-            retryable: false,
-            reason: error?.message || "Invalid or missing Gemini credentials",
-            userMessage:
-                "AI service authentication failed. Please check the backend API key configuration.",
-            lastStatus: "auth_error",
-        };
-    }
-
     if (isNotFoundError) {
         return {
             code: "MODEL_NOT_FOUND",
@@ -151,6 +141,18 @@ function classifyModelError(error) {
             userMessage:
                 "The primary AI model is unavailable right now and backup models could not complete the request.",
             lastStatus: "not_found",
+        };
+    }
+
+    if (isAuthError) {
+        return {
+            code: "AUTH_ERROR",
+            cooldownMs: 0,
+            retryable: false,
+            reason: error?.message || "Invalid or missing Gemini credentials",
+            userMessage:
+                "AI service authentication failed. Please check the backend API key configuration.",
+            lastStatus: "auth_error",
         };
     }
 
@@ -299,8 +301,12 @@ export function formatManagedError(error) {
 }
 
 /**
- * Clears all cached model health/cooldown state (intended for tests).
+ * Clears cached model health/cooldown state for a single model or all models.
  */
-export function resetModelPoolHealth() {
+export function resetModelPoolHealth(model = null) {
+    if (model) {
+        modelHealth.delete(model);
+        return;
+    }
     modelHealth.clear();
 }

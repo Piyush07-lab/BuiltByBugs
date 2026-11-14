@@ -10,10 +10,18 @@ import {
 import { executeTool, parseAmount } from "../ai/tools.js";
 import {
     getCandidateModels,
+    markModelFailure,
     resetModelPoolHealth,
     validateModelTurnOutput,
 } from "../ai/modelPool.js";
-import { streamGeminiResponse } from "../api/geminiStream.js";
+import {
+    enableVertexAiFallback,
+    getAi,
+    isVertexAiEnabled,
+    resetAiClientState,
+    streamGeminiResponse,
+    tryEnableVertexFallbackOnAuth,
+} from "../api/geminiStream.js";
 
 describe("AI System Tools Suite", () => {
     it("should retrieve site knowledge for articles and creator", async () => {
@@ -342,5 +350,106 @@ describe("AI System Tools Suite", () => {
         });
         assert.equal(blockedCheck.valid, false);
         assert.equal(blockedCheck.retryable, true);
+    });
+
+    it("should classify 403 publisher model access errors as MODEL_NOT_FOUND and fail over", async () => {
+        resetModelPoolHealth();
+        try {
+            const expectedOrder = getCandidateModels();
+            const publisherErr = Object.assign(
+                new Error(
+                    "Publisher Model 'publishers/google/models/gemini-3.5-flash-lite' was not found or your project does not have access to it."
+                ),
+                { status: 403 }
+            );
+
+            const classification = markModelFailure(expectedOrder[0], publisherErr);
+            assert.equal(classification.code, "MODEL_NOT_FOUND");
+            assert.equal(classification.retryable, true);
+
+            resetModelPoolHealth();
+            const attemptedModels = [];
+            const mockAiClient = {
+                models: {
+                    async generateContentStream({ model }) {
+                        attemptedModels.push(model);
+                        if (attemptedModels.length === 1) {
+                            throw publisherErr;
+                        }
+                        return (async function* () {
+                            yield { text: "Fallback succeeded after 403 model error." };
+                        })();
+                    },
+                },
+            };
+
+            const frames = [];
+            const result = await streamGeminiResponse({
+                messages: [{ role: "user", parts: [{ text: "Hi" }] }],
+                sendFrame: (frame) => frames.push(frame),
+                aiClient: mockAiClient,
+            });
+
+            assert.deepEqual(attemptedModels, expectedOrder.slice(0, 2));
+            assert.equal(result.model, expectedOrder[1]);
+            assert.equal(result.text, "Fallback succeeded after 403 model error.");
+        } finally {
+            resetModelPoolHealth();
+        }
+    });
+
+    it("should default vertexai to false and switch to true via enableVertexAiFallback on auth error", () => {
+        const prevUseVertex = process.env.GOOGLE_GENAI_USE_VERTEXAI;
+        const prevApiKey = process.env.GEMINI_API_KEY;
+        resetModelPoolHealth();
+
+        try {
+            process.env.GOOGLE_GENAI_USE_VERTEXAI = "false";
+            process.env.GEMINI_API_KEY = "AQ.test-key";
+            resetAiClientState();
+
+            assert.equal(isVertexAiEnabled(), false);
+            assert.equal(getAi().vertexai, false);
+
+            const primaryModel = getCandidateModels()[0];
+            const authErr = Object.assign(
+                new Error("401 UNAUTHENTICATED: API key not valid"),
+                { status: 401 }
+            );
+            const failure = markModelFailure(primaryModel, authErr);
+            assert.equal(failure.code, "AUTH_ERROR");
+
+            const switched = tryEnableVertexFallbackOnAuth({
+                candidateModel: primaryModel,
+                failure,
+                alreadyAttemptedForModel: false,
+            });
+
+            assert.equal(switched, true);
+            assert.equal(isVertexAiEnabled(), true);
+            assert.equal(getAi().vertexai, true);
+            assert.equal(enableVertexAiFallback().vertexai, true);
+            assert.equal(
+                tryEnableVertexFallbackOnAuth({
+                    candidateModel: primaryModel,
+                    failure,
+                    alreadyAttemptedForModel: false,
+                }),
+                false
+            );
+        } finally {
+            resetModelPoolHealth();
+            if (prevUseVertex === undefined) {
+                delete process.env.GOOGLE_GENAI_USE_VERTEXAI;
+            } else {
+                process.env.GOOGLE_GENAI_USE_VERTEXAI = prevUseVertex;
+            }
+            if (prevApiKey === undefined) {
+                delete process.env.GEMINI_API_KEY;
+            } else {
+                process.env.GEMINI_API_KEY = prevApiKey;
+            }
+            resetAiClientState();
+        }
     });
 });

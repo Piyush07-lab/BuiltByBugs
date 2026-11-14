@@ -9,25 +9,84 @@ import {
     getCandidateModels,
     markModelFailure,
     markModelSuccess,
+    resetModelPoolHealth,
     validateModelTurnOutput,
 } from "../ai/modelPool.js";
 import { STREAM_CONFIG } from "../config/aiConfig.js";
 
-let ai = null;
-/**
- * Lazily initializes and caches the GoogleGenAI client, enabling Vertex AI Express
- * mode automatically when GOOGLE_GENAI_USE_VERTEXAI=true or using an AQ. API key.
- */
-export function getAi() {
-    if (!ai) {
-        const apiKey = process.env.GEMINI_API_KEY;
-        const useVertexAi =
-            process.env.GOOGLE_GENAI_USE_VERTEXAI === "true" ||
-            String(apiKey || "").startsWith("AQ.");
+let useVertexAiMode = process.env.GOOGLE_GENAI_USE_VERTEXAI === "true";
+let studioClient = null;
+let vertexClient = null;
 
-        ai = new GoogleGenAI(useVertexAi ? { apiKey, vertexai: true } : { apiKey });
+/**
+ * Lazily initializes and caches mode-specific GoogleGenAI clients, defaulting to
+ * Google AI Studio (vertexai: false) unless Vertex AI mode is enabled.
+ */
+export function getAi(vertexOverride = useVertexAiMode) {
+    const apiKey = process.env.GEMINI_API_KEY;
+    const useVertex = Boolean(vertexOverride);
+
+    if (useVertex) {
+        if (!vertexClient) {
+            vertexClient = new GoogleGenAI({ apiKey, vertexai: true });
+        }
+        return vertexClient;
     }
-    return ai;
+
+    if (!studioClient) {
+        studioClient = new GoogleGenAI({ apiKey, vertexai: false });
+    }
+    return studioClient;
+}
+
+/**
+ * Returns whether Vertex AI fallback mode is currently active.
+ */
+export function isVertexAiEnabled() {
+    return useVertexAiMode;
+}
+
+/**
+ * Switches managed requests to Vertex AI mode (vertexai: true) and returns its client.
+ */
+export function enableVertexAiFallback() {
+    useVertexAiMode = true;
+    return getAi(true);
+}
+
+/**
+ * Resets cached GoogleGenAI clients and restores env-configured mode (for tests).
+ */
+export function resetAiClientState() {
+    useVertexAiMode = process.env.GOOGLE_GENAI_USE_VERTEXAI === "true";
+    studioClient = null;
+    vertexClient = null;
+}
+
+/**
+ * Switches the managed Gemini client to Vertex AI mode after an AI Studio auth error
+ * if fallback has not yet been attempted for the current candidate model.
+ */
+export function tryEnableVertexFallbackOnAuth({
+    candidateModel,
+    failure,
+    alreadyAttemptedForModel,
+    logPrefix = "[Gemini]",
+}) {
+    if (
+        failure?.code !== "AUTH_ERROR" ||
+        isVertexAiEnabled() ||
+        alreadyAttemptedForModel
+    ) {
+        return false;
+    }
+
+    console.warn(
+        `${logPrefix} Auth error on AI Studio endpoint for ${candidateModel}; switching to Vertex AI mode (vertexai: true).`
+    );
+    resetModelPoolHealth(candidateModel);
+    enableVertexAiFallback();
+    return true;
 }
 
 export const SLIM_SYSTEM_INSTRUCTION = `You are the BuiltByBugs AI Site & Creator Assistant representing Piyush Mishra.
@@ -94,7 +153,7 @@ export async function executeToolCalls(calls, onBeforeRun) {
  * Streams a Gemini response with multi-model pool failover, response validation,
  * and multi-turn tool calling.
  */
-export async function streamGeminiResponse({ messages, sendFrame, aiClient = getAi() }) {
+export async function streamGeminiResponse({ messages, sendFrame, aiClient = null }) {
     const trimmedMessages = trimConversationHistory(
         messages,
         STREAM_CONFIG.MAX_HISTORY_MESSAGES
@@ -122,103 +181,147 @@ export async function streamGeminiResponse({ messages, sendFrame, aiClient = get
 
         for (let i = 0; i < candidates.length; i++) {
             const candidateModel = candidates[i];
-            let attemptText = "";
-            const attemptCalls = [];
-            const attemptModelParts = [];
-            let lastCandidate = null;
-            let emittedChunksForAttempt = false;
+            let vertexFallbackUsedForCandidate = false;
 
-            try {
-                const stream = await aiClient.models.generateContentStream({
-                    model: candidateModel,
-                    contents: currentContents,
-                    config: {
-                        systemInstruction,
-                        tools: [{ functionDeclarations: toolDeclarations }],
-                    },
-                });
+            while (true) {
+                let attemptText = "";
+                const attemptCalls = [];
+                const attemptModelParts = [];
+                let lastCandidate = null;
+                let emittedChunksForAttempt = false;
+                const activeClient = aiClient || getAi();
 
-                for await (const chunk of stream) {
-                    const candidate = chunk.candidates?.[0];
-                    if (candidate) {
-                        lastCandidate = candidate;
-                    }
+                try {
+                    const stream = await activeClient.models.generateContentStream({
+                        model: candidateModel,
+                        contents: currentContents,
+                        config: {
+                            systemInstruction,
+                            tools: [{ functionDeclarations: toolDeclarations }],
+                        },
+                    });
 
-                    const parts = candidate?.content?.parts || [];
-                    for (const part of parts) {
-                        if (part?.functionCall) {
-                            attemptCalls.push(part.functionCall);
-                            attemptModelParts.push(part);
+                    for await (const chunk of stream) {
+                        const candidate = chunk.candidates?.[0];
+                        if (candidate) {
+                            lastCandidate = candidate;
                         }
-                    }
 
-                    if (
-                        parts.length === 0 &&
-                        Array.isArray(chunk.functionCalls) &&
-                        chunk.functionCalls.length > 0
-                    ) {
-                        for (const call of chunk.functionCalls) {
-                            attemptCalls.push(call);
-                            attemptModelParts.push({ functionCall: call });
+                        const parts = candidate?.content?.parts || [];
+                        for (const part of parts) {
+                            if (part?.functionCall) {
+                                attemptCalls.push(part.functionCall);
+                                attemptModelParts.push(part);
+                            }
                         }
-                    }
 
-                    if (chunk.text) {
-                        attemptText += chunk.text;
-                        if (attemptText.trim().length > 0) {
-                            if (!emittedChunksForAttempt) {
-                                emittedChunksForAttempt = true;
-                                fullText += attemptText;
-                                sendFrame({ type: "stream:chunk", delta: attemptText });
-                            } else {
-                                fullText += chunk.text;
-                                sendFrame({ type: "stream:chunk", delta: chunk.text });
+                        if (
+                            parts.length === 0 &&
+                            Array.isArray(chunk.functionCalls) &&
+                            chunk.functionCalls.length > 0
+                        ) {
+                            for (const call of chunk.functionCalls) {
+                                attemptCalls.push(call);
+                                attemptModelParts.push({ functionCall: call });
+                            }
+                        }
+
+                        if (chunk.text) {
+                            attemptText += chunk.text;
+                            if (attemptText.trim().length > 0) {
+                                if (!emittedChunksForAttempt) {
+                                    emittedChunksForAttempt = true;
+                                    fullText += attemptText;
+                                    sendFrame({
+                                        type: "stream:chunk",
+                                        delta: attemptText,
+                                    });
+                                } else {
+                                    fullText += chunk.text;
+                                    sendFrame({
+                                        type: "stream:chunk",
+                                        delta: chunk.text,
+                                    });
+                                }
+                            }
+                        }
+
+                        if (chunk.text) {
+                            attemptText += chunk.text;
+                            if (attemptText.trim().length > 0) {
+                                if (!emittedChunksForAttempt) {
+                                    emittedChunksForAttempt = true;
+                                    fullText += attemptText;
+                                    sendFrame({ type: "stream:chunk", delta: attemptText });
+                                } else {
+                                    fullText += chunk.text;
+                                    sendFrame({ type: "stream:chunk", delta: chunk.text });
+                                }
                             }
                         }
                     }
-                }
 
-                const validation = validateModelTurnOutput({
-                    text: attemptText,
-                    functionCalls: attemptCalls,
-                    candidate: lastCandidate,
-                });
-
-                if (!validation.valid) {
-                    const validationErr = new Error(validation.reason);
-                    validationErr.code = validation.code;
-                    throw validationErr;
-                }
-
-                markModelSuccess(candidateModel);
-                activeModel = candidateModel;
-                turnResult = {
-                    collectedCalls: attemptCalls,
-                    collectedModelParts: attemptModelParts,
-                };
-                break;
-            } catch (err) {
-                const failure = markModelFailure(candidateModel, err);
-                const hasMoreModels = i < candidates.length - 1;
-                lastPoolError = Object.assign(new Error(failure.reason), {
-                    code:
-                        !hasMoreModels && failure.retryable
-                            ? "ALL_MODELS_EXHAUSTED"
-                            : failure.code,
-                    userMessage: failure.userMessage,
-                    retryable: failure.retryable,
-                    cause: err,
-                });
-
-                if (!emittedChunksForAttempt && failure.retryable && hasMoreModels) {
-                    sendFrame({
-                        type: "stream:status",
-                        label: "Primary model busy, switching to backup model...",
+                    const validation = validateModelTurnOutput({
+                        text: attemptText,
+                        functionCalls: attemptCalls,
+                        candidate: lastCandidate,
                     });
-                    continue;
-                }
 
-                throw lastPoolError;
+                    if (!validation.valid) {
+                        const validationErr = new Error(validation.reason);
+                        validationErr.code = validation.code;
+                        throw validationErr;
+                    }
+
+                    markModelSuccess(candidateModel);
+                    activeModel = candidateModel;
+                    turnResult = {
+                        collectedCalls: attemptCalls,
+                        collectedModelParts: attemptModelParts,
+                    };
+                    break;
+                } catch (err) {
+                    const failure = markModelFailure(candidateModel, err);
+
+                    if (
+                        !aiClient &&
+                        !emittedChunksForAttempt &&
+                        tryEnableVertexFallbackOnAuth({
+                            candidateModel,
+                            failure,
+                            alreadyAttemptedForModel: vertexFallbackUsedForCandidate,
+                            logPrefix: "[Gemini Stream]",
+                        })
+                    ) {
+                        vertexFallbackUsedForCandidate = true;
+                        continue;
+                    }
+
+                    const hasMoreModels = i < candidates.length - 1;
+                    lastPoolError = Object.assign(new Error(failure.reason), {
+                        code:
+                            !hasMoreModels && failure.retryable
+                                ? "ALL_MODELS_EXHAUSTED"
+                                : failure.code,
+                        userMessage: failure.userMessage,
+                        retryable: failure.retryable,
+                        cause: err,
+                    });
+
+                    if (!emittedChunksForAttempt && failure.retryable && hasMoreModels) {
+                        sendFrame({
+                            type: "stream:status",
+                            label: "Primary model busy, switching to backup model...",
+                        });
+                        break;
+                    }
+
+                    throw lastPoolError;
+                }
+            }
+
+            if (turnResult) {
+                break;
             }
         }
 

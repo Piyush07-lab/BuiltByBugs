@@ -12,7 +12,12 @@ import {
     validateModelTurnOutput,
 } from "../ai/modelPool.js";
 import { STREAM_CONFIG } from "../config/aiConfig.js";
-import { executeToolCalls, getAi, SLIM_SYSTEM_INSTRUCTION } from "./geminiStream.js";
+import {
+    executeToolCalls,
+    getAi,
+    SLIM_SYSTEM_INSTRUCTION,
+    tryEnableVertexFallbackOnAuth,
+} from "./geminiStream.js";
 
 const MAX_TOOL_ITERATIONS = 5;
 
@@ -61,57 +66,78 @@ async function handleGeminiChat(req, res) {
 
             for (let i = 0; i < candidates.length; i++) {
                 const candidateModel = candidates[i];
-                try {
-                    const response = await getAi().models.generateContent({
-                        model: candidateModel,
-                        contents: currentContents,
-                        config: {
-                            systemInstruction,
-                            tools: [{ functionDeclarations: toolDeclarations }],
-                        },
-                    });
+                let vertexFallbackUsedForCandidate = false;
 
-                    const candidate = response.candidates?.[0];
-                    const functionCalls = response.functionCalls || [];
-                    const text = response.text || "";
+                while (true) {
+                    try {
+                        const response = await getAi().models.generateContent({
+                            model: candidateModel,
+                            contents: currentContents,
+                            config: {
+                                systemInstruction,
+                                tools: [{ functionDeclarations: toolDeclarations }],
+                            },
+                        });
 
-                    const validation = validateModelTurnOutput({
-                        text,
-                        functionCalls,
-                        candidate,
-                    });
+                        const candidate = response.candidates?.[0];
+                        const functionCalls = response.functionCalls || [];
+                        const text = response.text || "";
 
-                    if (!validation.valid) {
-                        const validationErr = new Error(validation.reason);
-                        validationErr.code = validation.code;
-                        throw validationErr;
+                        const validation = validateModelTurnOutput({
+                            text,
+                            functionCalls,
+                            candidate,
+                        });
+
+                        if (!validation.valid) {
+                            const validationErr = new Error(validation.reason);
+                            validationErr.code = validation.code;
+                            throw validationErr;
+                        }
+
+                        markModelSuccess(candidateModel);
+                        activeModel = candidateModel;
+                        selectedResponse = {
+                            content: candidate?.content,
+                            functionCalls,
+                            text,
+                        };
+                        break;
+                    } catch (err) {
+                        const failure = markModelFailure(candidateModel, err);
+
+                        if (
+                            tryEnableVertexFallbackOnAuth({
+                                candidateModel,
+                                failure,
+                                alreadyAttemptedForModel: vertexFallbackUsedForCandidate,
+                                logPrefix: "[Gemini Chat]",
+                            })
+                        ) {
+                            vertexFallbackUsedForCandidate = true;
+                            continue;
+                        }
+
+                        const hasMoreModels = i < candidates.length - 1;
+                        lastPoolError = Object.assign(new Error(failure.reason), {
+                            code:
+                                !hasMoreModels && failure.retryable
+                                    ? "ALL_MODELS_EXHAUSTED"
+                                    : failure.code,
+                            userMessage: failure.userMessage,
+                            retryable: failure.retryable,
+                            cause: err,
+                        });
+
+                        if (failure.retryable && hasMoreModels) {
+                            break;
+                        }
+                        throw lastPoolError;
                     }
+                }
 
-                    markModelSuccess(candidateModel);
-                    activeModel = candidateModel;
-                    selectedResponse = {
-                        content: candidate?.content,
-                        functionCalls,
-                        text,
-                    };
+                if (selectedResponse) {
                     break;
-                } catch (err) {
-                    const failure = markModelFailure(candidateModel, err);
-                    const hasMoreModels = i < candidates.length - 1;
-                    lastPoolError = Object.assign(new Error(failure.reason), {
-                        code:
-                            !hasMoreModels && failure.retryable
-                                ? "ALL_MODELS_EXHAUSTED"
-                                : failure.code,
-                        userMessage: failure.userMessage,
-                        retryable: failure.retryable,
-                        cause: err,
-                    });
-
-                    if (failure.retryable && hasMoreModels) {
-                        continue;
-                    }
-                    throw lastPoolError;
                 }
             }
 
